@@ -1,0 +1,34 @@
+.docsSection {
+  padding-bottom: 30px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #E3DDDD;
+  max-width: 970px;
+}
+
+.docsList {
+  & > li {
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+
+    h6 {
+      margin-bottom: 5px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+}
+
+button.docUploadBtn {
+  display: inline-block;
+  pointer-events: none;
+  font-weight: 400;
+  color: #91969A;
+
+  span {
+    font-weight: 600;
+    font-size: 14px;
+    color: #113770;
+    pointer-events: initial;
+  }
+}

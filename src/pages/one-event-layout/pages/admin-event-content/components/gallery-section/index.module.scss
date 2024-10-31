@@ -1,0 +1,29 @@
+.gallerySection {
+  padding-bottom: 25px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #E3DDDD;
+  max-width: 970px;
+  h6 {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+
+.galleryDropzone {
+  ul {
+    margin-bottom: 18px;
+    li {
+      img {
+        border-radius: 5px;
+        width: 200px;
+        height: 108px;
+      }
+    }
+  }
+}
+
+.galleryArea {
+  display: none;
+}

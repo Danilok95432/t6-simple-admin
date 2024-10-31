@@ -1,0 +1,40 @@
+.mainButton {
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  padding: 0 20px;
+  color: #ffffff;
+  background-color: #DE0008;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  border: none;
+  outline: none;
+  height: 40px;
+
+  svg {
+    margin-right: 6px;
+  }
+
+}
+
+.routeLink {
+  display: flex;
+  align-items: center;
+  padding: 0 9px;
+  color: #113770;
+  font-size: 14px;
+  background: none;
+  font-weight: 600;
+  width: max-content;
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1;
+  border: 1px solid #113770;
+  border-radius: 5px;
+  height: 35px;
+
+  svg {
+    margin-right: 6px;
+  }
+
+}

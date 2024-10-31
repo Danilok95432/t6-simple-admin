@@ -1,0 +1,132 @@
+@import "src/assets/styles/vars";
+
+.removeNewsBtn {
+  color: #FF0000;
+  font-size: 14px;
+  @include opensans-regular;
+  border: 1px solid #FF0000;
+  border-radius: 3px;
+  padding: 4px 6px;
+  display: none;
+}
+
+.newsTable {
+  grid-template-columns: minmax(40px, 0.2fr) minmax(260px, 3.9fr) minmax(120px, 0.6fr) minmax(200px, 1.1fr) minmax(75px, 0.4fr) minmax(75px, 0.4fr) minmax(80px, 0.4fr);
+  background: #ffffff;
+  border: 1px solid #C2CAC9;
+  border-radius: 5px 5px 0 0;
+
+  th {
+    padding-right: 5px;
+    border: none;
+    border-bottom: 1px solid #C2CAC9;
+    background-color: #EDF2F6;
+    @include opensans-medium;
+    font-size: 14px;
+  }
+
+  td {
+    @include opensans-regular;
+    font-size: 14px;
+    border: none;
+    border-bottom: 1px solid #C2CAC9;
+    padding: 0 5px 0 0;
+    transition: all .3s;
+    height: 47px;
+  }
+
+  tr {
+    &:hover {
+      td {
+        background-color: #EDF2F6;
+      }
+      .removeNewsBtn {
+        display: block;
+      }
+    }
+  }
+
+  tr:last-child {
+    td {
+      border: none;
+    }
+  }
+
+
+  td:nth-child(2), td:nth-child(3), td:nth-child(4) {
+    text-align: left;
+    justify-content: flex-start;
+  }
+
+  th:nth-child(2) {
+    padding-right: 40px;
+    @media (max-width: 1280px) {
+      padding-right: 5px;
+    }
+  }
+
+  td:nth-child(2) {
+    padding-right: 40px;
+    @media (max-width: 1280px) {
+      padding-right: 5px;
+    }
+
+    a {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      white-space: normal;
+      color: #113770;
+      @include opensans-semi;
+      font-size: 14px;
+      &._hidden {
+        color: #91969A;
+      }
+    }
+  }
+
+  th:nth-child(3) {
+    padding-right: 20px;
+    @media (max-width: 1280px) {
+      padding-right: 5px;
+    }
+  }
+
+  td:nth-child(3) {
+    padding-right: 20px;
+    @media (max-width: 1280px) {
+      padding-right: 5px;
+    }
+  }
+
+  td:nth-child(4) {
+    span {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+
+}
+
+.newsSearchWrapper {
+  padding: 0;
+
+  svg {
+    left: auto;
+    right: 10px;
+
+  }
+
+  input {
+    @include opensans-regular;
+    border-radius: 5px;
+    padding: 8.5px 20px 8.5px 10px;
+  }
+}
+
+
+
+

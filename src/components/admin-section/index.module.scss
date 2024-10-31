@@ -1,0 +1,26 @@
+@import "src/assets/styles/vars";
+
+.adminSection {
+  background: #FFFFFF;
+  margin-bottom: 20px;
+  padding: 20px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0 rgba(1, 61, 86, 0.15);
+}
+
+.switchedContentWrapper {
+  padding-left: 27px;
+}
+
+.sectionTitle {
+  @include opensans-bold;
+  font-size: 18px;
+  color: #000000;
+  border-bottom: 1px solid #E1E1E1;
+  padding-bottom: 12px;
+  margin-bottom: 15px;
+}
+
+._disable {
+  padding-bottom: 20px;
+}

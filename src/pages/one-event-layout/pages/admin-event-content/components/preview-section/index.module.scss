@@ -1,0 +1,8 @@
+.previewSectionList {
+  max-width: 970px;
+  & > li {
+    padding-bottom: 30px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #E3DDDD;
+  }
+}

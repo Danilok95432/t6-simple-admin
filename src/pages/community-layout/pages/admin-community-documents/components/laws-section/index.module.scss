@@ -1,0 +1,42 @@
+.lowLinks {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+}
+
+.lowLinksInput {
+  &:first-child {
+    width: 59%;
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
+  }
+  &:last-child {
+    width: 40%;
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
+  }
+
+  label p {
+    font-weight: 400;
+  }
+}
+
+.lowsList {
+  h5 {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    border-top: 1px solid #E3DDDD;
+  }
+}
+
+.lowLinksOr {
+  margin-bottom: 5px;
+}

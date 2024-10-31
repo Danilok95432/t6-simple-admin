@@ -1,0 +1,32 @@
+.mapControllers {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.loadedMap {
+  width: 100%;
+  height: 310px;
+  border-radius: 3px;
+  border: 1px solid #C2CAC9;
+  position: relative;
+  z-index: 0;
+  &::before {
+    content: 'Как выглядит загруженная карта';
+    font-size: 14px;
+    color: #91969A;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+
+  iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+}

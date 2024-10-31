@@ -1,0 +1,32 @@
+@import "src/assets/styles/vars";
+
+.warningMessage {
+  color: #F00000;
+  font-size: 14px;
+  line-height: 1;
+  padding-top: 5px;
+}
+
+.editorWrapper {
+  label {
+    display: block;
+    font-size: 14px;
+    @include opensans-semi;
+    margin-bottom: 5px;
+  }
+  :global {
+    .ql-snow {
+      border-color: #C2CAC9;
+      @include opensans-regular;
+      font-size: 14px;
+    }
+
+    .ql-toolbar {
+      border-radius: 3px 3px 0 0;
+    }
+
+    .ql-container {
+      border-radius: 0 0 3px 3px;
+    }
+  }
+}

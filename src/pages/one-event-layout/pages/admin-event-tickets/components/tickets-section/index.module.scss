@@ -1,0 +1,20 @@
+.ticketSmInput {
+  width: 150px;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.ticketEntries {
+  @media (max-width: 1024px) {
+    label {
+      max-width: 150px;
+    }
+  }
+}
+
+.entriesCountInput {
+  @media (max-width: 768px) {
+    margin: 0 !important;
+  }
+}

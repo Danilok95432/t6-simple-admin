@@ -1,20 +1,20 @@
 import { type FC } from 'react'
-import { type ContactsInputs } from 'src/pages/community-layout/pages/admin-community-contacts/schema'
+import { type LocationInputs } from 'src/pages/community-layout/pages/admin-community-location/schema'
 
 import { useFieldArray, useFormContext } from 'react-hook-form'
 
 import { AdminSection } from 'src/components/admin-section/admin-section'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
+import { ControlledMaskedInput } from 'src/components/controlled-masked-input/controlled-masked-input'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
-import { ControlledMaskedInput } from 'src/components/controlled-masked-input/controlled-masked-input'
 
 export const PhoneSection: FC = () => {
 	const {
 		control,
 		formState: { errors },
-	} = useFormContext<ContactsInputs>()
+	} = useFormContext<LocationInputs>()
 
 	const { fields, append, remove } = useFieldArray({
 		control,
@@ -22,11 +22,7 @@ export const PhoneSection: FC = () => {
 	})
 
 	return (
-		<AdminSection
-			titleText='Телефоны'
-			sectionName='phonesSection'
-			switcherText='Включить блок телефонов'
-		>
+		<AdminSection titleText='Телефоны' sectionName='phonesSection'>
 			<ul className={adminStyles.adminDynamicList}>
 				{fields?.map((field, idx) => (
 					<li key={field.id}>
@@ -65,7 +61,6 @@ export const PhoneSection: FC = () => {
 			<AdminButton
 				as='button'
 				type='button'
-				$common
 				$padding='10px 14px'
 				onClick={() =>
 					append(

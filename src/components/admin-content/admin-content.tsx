@@ -9,11 +9,12 @@ type AdminContentProps = {
 	link?: string
 	$padding?: string
 	$height?: string
+	$backgroundColor?: string
 }
 
 const StyledAdminContent = styled.div<AdminContentProps>`
-	background-color: #f5f7fa;
 	border-radius: 5px;
+	background-color: ${({ $backgroundColor }) => $backgroundColor ?? '#f5f7fa'};
 	padding: ${({ $padding }) => $padding ?? '33px 20px 60px 28px'};
 	min-height: ${({ $height }) => $height ?? '800px'};
 

@@ -12,6 +12,7 @@ type AdminSectionProps = {
 	sectionName?: string
 	className?: string
 	titleText?: string
+	isBlock?: boolean
 }
 
 export const AdminSection: FC<AdminSectionProps> = ({
@@ -19,17 +20,18 @@ export const AdminSection: FC<AdminSectionProps> = ({
 	sectionName,
 	className,
 	titleText,
+	isBlock = true,
 }) => {
 	const { watch } = useFormContext()
 
 	const isChecked = sectionName ? watch(sectionName) : true
 
 	return (
-		<section className={cn(styles.adminSection, { [styles._disable]: !isChecked }, className)}>
+		<section className={cn(styles.adminSection, { [styles._noBlock]: !isBlock }, className)}>
 			{sectionName ? (
 				<AdminSwitcher name={sectionName}>{titleText}</AdminSwitcher>
 			) : (
-				<h2 className={styles.sectionTitle}>{titleText}</h2>
+				titleText && <h2 className={styles.sectionTitle}>{titleText}</h2>
 			)}
 			{isChecked && (
 				<div className={cn({ [styles.switchedContentWrapper]: sectionName })}>{children}</div>

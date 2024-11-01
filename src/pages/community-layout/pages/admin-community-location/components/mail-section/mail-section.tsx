@@ -7,14 +7,7 @@ import adminStyles from 'src/routes/admin-layout/index.module.scss'
 
 export const MailSection: FC = () => {
 	return (
-		<AdminSection
-			titleText='Почтовый адрес'
-			sectionName='mailSection'
-			contentBg='none'
-			contentBorder='none'
-			contentPadding='7px 0 0'
-			switcherText='Включить почтовый адрес'
-		>
+		<AdminSection titleText='Почтовый адрес' sectionName='mailSection'>
 			<ControlledInput
 				className={adminStyles.adminMainInput}
 				name='mailAddress'

@@ -5,7 +5,8 @@ import { ErrorMessage } from '@hookform/error-message'
 import ReactQuill from 'react-quill'
 
 import 'react-quill/dist/quill.snow.css'
-import styles from './index.module.scss'
+import styled from 'styled-components'
+
 interface QuillEditorProps extends Omit<ControllerProps, 'render'> {
 	name: string
 	rules?: ControllerProps['rules']
@@ -13,11 +14,48 @@ interface QuillEditorProps extends Omit<ControllerProps, 'render'> {
 	label?: string
 }
 
-export const QuillEditor: FC<QuillEditorProps> = ({
+type StyledEditorWrapperProps = {
+	$heightEditor?: string
+}
+
+const StyledEditorWrapper = styled.div<StyledEditorWrapperProps>`
+	label {
+		display: block;
+		font-size: 14px;
+		font-family: 'Open Sans', sans-serif;
+		font-weight: 500;
+		margin-bottom: 5px;
+	}
+
+	.ql-snow {
+		border: 1px solid #afafaf;
+		font-family: 'Open Sans', sans-serif;
+		font-size: 14px;
+	}
+
+	.ql-toolbar {
+		border-radius: 3px 3px 0 0;
+	}
+
+	.ql-container {
+		border-radius: 0 0 3px 3px;
+		height: ${({ $heightEditor }) => $heightEditor ?? '750px'};
+	}
+
+	.warningMessage {
+		color: #f00000;
+		font-size: 14px;
+		line-height: 1;
+		padding-top: 5px;
+	}
+`
+
+export const QuillEditor: FC<QuillEditorProps & StyledEditorWrapperProps> = ({
 	name,
 	rules,
 	dynamicError,
 	label,
+	$heightEditor,
 	...rest
 }) => {
 	const {
@@ -25,7 +63,7 @@ export const QuillEditor: FC<QuillEditorProps> = ({
 		formState: { errors },
 	} = useFormContext()
 	return (
-		<div className={styles.editorWrapper}>
+		<StyledEditorWrapper $heightEditor={$heightEditor}>
 			{label && <label>{label}</label>}
 			<Controller
 				name={name}
@@ -39,12 +77,12 @@ export const QuillEditor: FC<QuillEditorProps> = ({
 					/>
 				)}
 			/>
-			{dynamicError && <p className={styles.warningMessage}>{dynamicError.message}</p>}
+			{dynamicError && <p className='warningMessage'>{dynamicError.message}</p>}
 			{errors[name] && (
-				<p className={styles.warningMessage}>
+				<p className='warningMessage'>
 					<ErrorMessage errors={errors} name={name} />
 				</p>
 			)}
-		</div>
+		</StyledEditorWrapper>
 	)
 }

@@ -56,9 +56,9 @@ import { AdminSettingsBlocks } from 'src/pages/admin-settings-blocks/admin-setti
 import { CommunityLayout } from 'src/pages/community-layout/community-layout'
 import { AdminCommunityAbout } from 'src/pages/community-layout/pages/admin-community-about/admin-community-about'
 import { AdminCommunityHistory } from 'src/pages/community-layout/pages/admin-community-history/admin-community-history'
-import { AdminCommunityContacts } from 'src/pages/community-layout/pages/admin-community-contacts/admin-community-contacts'
-import { AdminCommunityDocuments } from 'src/pages/community-layout/pages/admin-community-documents/admin-community-documents'
+import { AdminCommunityLocation } from 'src/pages/community-layout/pages/admin-community-location/admin-community-location'
 import { AdminCommunityCulture } from 'src/pages/community-layout/pages/admin-community-culture/admin-community-culture'
+import { AdminCommunityDocuments } from 'src/pages/community-layout/pages/admin-community-documents/admin-community-documents'
 
 export const AdminRoutes: FC = () => {
 	return (
@@ -73,7 +73,7 @@ export const AdminRoutes: FC = () => {
 				<Route path={AdminRoute.AdminAtmans} element={<CommunityLayout />}>
 					<Route index element={<AdminCommunityAbout />} />
 					<Route path={AdminRoute.AdminAtmansHistory} element={<AdminCommunityHistory />} />
-					<Route path={AdminRoute.AdminAtmansContacts} element={<AdminCommunityContacts />} />
+					<Route path={AdminRoute.AdminAtmansLocation} element={<AdminCommunityLocation />} />
 					<Route path={AdminRoute.AdminAtmansCulture} element={<AdminCommunityCulture />} />
 					<Route path={AdminRoute.AdminAtmansDocuments} element={<AdminCommunityDocuments />} />
 				</Route>

@@ -1,5 +1,5 @@
 import { type FC, useState } from 'react'
-import { type ContactsInputs } from 'src/pages/community-layout/pages/admin-community-contacts/schema'
+import { type LocationInputs } from 'src/pages/community-layout/pages/admin-community-location/schema'
 
 import { useFormContext } from 'react-hook-form'
 
@@ -12,7 +12,7 @@ import styles from './index.module.scss'
 
 export const MapSection: FC = () => {
 	const [mapScript, setMapScript] = useState<string | null>(null)
-	const { getValues } = useFormContext<ContactsInputs>()
+	const { getValues } = useFormContext<LocationInputs>()
 
 	const loadMap = () => {
 		if (getValues('mapScript')) {
@@ -28,16 +28,17 @@ export const MapSection: FC = () => {
 				label='Текст скрипта Яндекса'
 				margin='0 0 15px 0'
 				disabled={!!mapScript}
+				height='200px'
 				isTextarea
 			/>
 			<div className={styles.mapControllers}>
-				<AdminButton as='button' $padding='9.5px 43px' type='button' $common onClick={loadMap}>
+				<AdminButton $padding='0 20px' $height='35px' type='button' onClick={loadMap}>
 					Сохранить
 				</AdminButton>
 				{!!mapScript && (
 					<AdminButton
-						as='button'
-						$padding='9.5px 43px'
+						$padding='0 20px'
+						$height='35px'
 						type='button'
 						onClick={() => setMapScript(null)}
 					>

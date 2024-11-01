@@ -9,13 +9,14 @@
   width: 100%;
   height: 310px;
   border-radius: 3px;
-  border: 1px solid #C2CAC9;
+  border: 1px solid #AFAFAF;
   position: relative;
+  background: #F5F7FA;
   z-index: 0;
   &::before {
     content: 'Как выглядит загруженная карта';
     font-size: 14px;
-    color: #91969A;
+    color: #868686;
     position: absolute;
     left: 50%;
     top: 50%;

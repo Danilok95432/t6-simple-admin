@@ -1,5 +1,5 @@
 import { type FC } from 'react'
-import { type ContactsInputs } from 'src/pages/community-layout/pages/admin-community-contacts/schema'
+import { type LocationInputs } from 'src/pages/community-layout/pages/admin-community-location/schema'
 
 import { useFieldArray, useFormContext } from 'react-hook-form'
 
@@ -9,47 +9,43 @@ import { AdminSection } from 'src/components/admin-section/admin-section'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 
-export const EmailsSection: FC = () => {
+export const LinksSection: FC = () => {
 	const {
 		control,
 		formState: { errors },
-	} = useFormContext<ContactsInputs>()
+	} = useFormContext<LocationInputs>()
 
 	const { fields, append, remove } = useFieldArray({
 		control,
-		name: 'emails',
+		name: 'links',
 	})
 
 	return (
-		<AdminSection
-			titleText='Электронная почта (e-mail)'
-			sectionName='emailsSection'
-			switcherText='Включить блок e-mail'
-		>
+		<AdminSection titleText='Ссылки' sectionName='linksSection'>
 			<ul className={adminStyles.adminDynamicList}>
 				{fields?.map((field, idx) => (
 					<li key={field.id}>
-						<h4>{idx + 1} адрес</h4>
+						<h4>Ссылка {idx + 1}</h4>
 						<ControlledInput
 							className={adminStyles.adminMainInput}
-							name={`emails.${idx}.emailOwner`}
-							dynamicError={errors?.emails?.[idx]?.emailOwner}
-							label='Чей адрес'
-							placeholder='Например, ....'
+							name={`links.${idx}.linkText`}
+							dynamicError={errors?.links?.[idx]?.linkText}
+							label='Текст'
+							placeholder='Текст ссылки'
 							margin='0 0 10px 0'
 						/>
 						<ControlledInput
 							className={adminStyles.adminMainInput}
-							name={`emails.${idx}.emailAddress`}
-							dynamicError={errors?.emails?.[idx]?.emailAddress}
-							label='Адрес e-mail'
-							placeholder='Адрес e-mail'
+							name={`links.${idx}.linkAddress`}
+							dynamicError={errors?.links?.[idx]?.linkAddress}
+							label='Адрес URL'
+							placeholder='Например, www.site.ru/'
 							margin='0'
 						/>
 
 						{idx !== 0 && (
 							<button type='button' onClick={() => remove(idx)}>
-								Удалить e-mail
+								Удалить ссылку
 							</button>
 						)}
 					</li>
@@ -58,19 +54,18 @@ export const EmailsSection: FC = () => {
 			<AdminButton
 				as='button'
 				type='button'
-				$common
 				$padding='10px 14px'
 				onClick={() =>
 					append(
 						{
-							emailOwner: '',
-							emailAddress: '',
+							linkText: '',
+							linkAddress: '',
 						},
 						{ shouldFocus: false },
 					)
 				}
 			>
-				Добавить еще один адрес
+				Добавить еще одну ссылку
 			</AdminButton>
 		</AdminSection>
 	)

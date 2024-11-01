@@ -16,7 +16,7 @@ type LinkBlock = {
 	linkAddress: string
 }
 
-export type ContactsInputs = {
+export type LocationInputs = {
 	mapScript: string
 	mailSection?: boolean
 	mailAddress?: string
@@ -28,7 +28,7 @@ export type ContactsInputs = {
 	links?: LinkBlock[]
 }
 
-export const contactsSchema = yup.object().shape({
+export const locationSchema = yup.object().shape({
 	mapScript: yup.string().required('Введите текст скрипта'),
 	mailSection: yup.boolean(),
 	mailAddress: yup.string().when('mailSection', ([mailSection]) => {

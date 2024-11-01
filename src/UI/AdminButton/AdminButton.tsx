@@ -49,8 +49,12 @@ const sharedStyles = css<SharedStylesTypes>`
 
 	&:hover {
 		background-color: ${({ $variant }) => {
-			if ($variant === 'light') return '#f5f5f5'
-			return '#154765'
+			if ($variant === 'light') return '#ffffff'
+			return '#018EA3'
+		}};
+		color: ${({ $variant }) => {
+			if ($variant === 'light') return '#018EA3'
+			return '#ffffff'
 		}};
 	}
 `

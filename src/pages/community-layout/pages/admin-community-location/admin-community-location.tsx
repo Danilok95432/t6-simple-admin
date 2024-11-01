@@ -10,7 +10,7 @@ import { AdminControllers } from 'src/components/admin-controllers/admin-control
 import { MailSection } from 'src/pages/community-layout/pages/admin-community-location/components/mail-section/mail-section'
 import { PhoneSection } from 'src/pages/community-layout/pages/admin-community-location/components/phones-section/phone-section'
 import { EmailsSection } from 'src/pages/community-layout/pages/admin-community-location/components/emails-section/emails-section'
-import { LinksSection } from 'src/pages/community-layout/pages/admin-community-location/components/links-section/links-section'
+import { RoutesSection } from 'src/pages/community-layout/pages/admin-community-location/components/routes-section/routes-section'
 import { MapSection } from 'src/pages/community-layout/pages/admin-community-location/components/map-section/map-section'
 import {
 	type LocationInputs,
@@ -23,18 +23,10 @@ export const AdminCommunityLocation: FC = () => {
 		resolver: yupResolver(locationSchema),
 		defaultValues: {
 			mailSection: true,
-			phonesSection: true,
-			phoneNumbers: [
-				{
-					phoneOwner: '',
-					phoneAddress: '',
-					phoneNumber: '',
-				},
-			],
+			phoneSection: true,
 			emailsSection: true,
-			emails: [{ emailOwner: '', emailAddress: '' }],
-			linksSection: true,
-			links: [{ linkText: '', linkAddress: '' }],
+			routesSection: true,
+			routes: [{ routeTitle: '', routeDesc: '', routeScript: '' }],
 		},
 	})
 
@@ -53,7 +45,7 @@ export const AdminCommunityLocation: FC = () => {
 						<MailSection />
 						<PhoneSection />
 						<EmailsSection />
-						<LinksSection />
+						<RoutesSection />
 						<AdminControllers outLink={AdminRoute.AdminHome} />
 					</form>
 				</FormProvider>

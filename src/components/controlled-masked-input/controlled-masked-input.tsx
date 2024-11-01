@@ -42,7 +42,7 @@ const StyledIMask = styled.div<StyledIMaskProps>`
 
 	p:first-child {
 		font-size: 14px;
-		font-weight: 600;
+		font-weight: 500;
 	}
 `
 

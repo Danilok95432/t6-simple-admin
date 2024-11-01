@@ -4,6 +4,17 @@
   gap: 10px;
   cursor: pointer;
   line-height: 1;
+  &:hover {
+    span {
+      color: #018EA3;
+      border-color: #018EA3;
+    }
+    svg path {
+      fill: #018EA3;
+      stroke: #018EA3;
+    }
+  }
+
   input {
     position: absolute;
     z-index: -1;
@@ -20,6 +31,9 @@
   }
   svg {
     transition: all .3s;
+    path {
+      transition: all .3s;
+    }
   }
 }
 

@@ -1,53 +1,47 @@
 import { type FC } from 'react'
 
-import cn from 'classnames'
-
 import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { AdminSection } from 'src/components/admin-section/admin-section'
 
-import adminStyles from 'src/routes/admin-layout/index.module.scss'
-import communityDocStyles from '../../index.module.scss'
 import { ControlledMaskedInput } from 'src/components/controlled-masked-input/controlled-masked-input'
 
-export const CharterSection: FC = () => {
+export const MainDocSection: FC = () => {
 	return (
-		<AdminSection titleText='Устав организации'>
+		<AdminSection titleText='Основной документ'>
 			<ControlledInput
-				className={adminStyles.adminMainInput}
-				name='charterName'
+				name='mainDocName'
 				label='Название документа'
 				placeholder='Название'
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput
-				className={cn(adminStyles.adminMainInput, communityDocStyles.communityDocTextarea)}
-				name='charterDescription'
+				name='mainDocDescription'
 				label='Короткое описание'
-				placeholder='Поле ввода текста'
-				margin='0 0 15px 0'
+				margin='0 0 20px 0'
+				height='200px'
 				isTextarea
 			/>
 			<ControlledMaskedInput
-				name='charterVersion'
+				name='mainDocVersion'
 				label='Номер версии'
 				mask={Number}
+				$margin='0 0 30px 0'
+				$maxWidth='200px'
 				placeholder='Номер версии'
 			/>
 			<ReactDropzone
-				name='charterPdf'
+				name='mainDocPdf'
 				variant='text'
-				label='Загрузить PDF'
 				uploadBtnText='Загрузить документ в формате PDF'
-				margin='0 0 20px 0'
+				margin='0 0 15px 0'
 				accept={{
 					'application/pdf': ['.pdf'],
 				}}
 			/>
 			<ReactDropzone
-				name='charterDocx'
+				name='mainDocDocx'
 				variant='text'
-				label='Загрузить DOCX'
 				uploadBtnText='Загрузить документ в формате DOCX'
 				accept={{
 					'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],

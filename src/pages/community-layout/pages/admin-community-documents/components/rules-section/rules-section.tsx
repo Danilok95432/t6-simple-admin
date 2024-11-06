@@ -6,12 +6,10 @@ import { useFieldArray, useFormContext } from 'react-hook-form'
 import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { AdminSection } from 'src/components/admin-section/admin-section'
-import { AdminButton } from 'src/UI/AdminButton/AdminButton'
-import { RemoveBlockSvg } from 'src/UI/icons/removeBlockSVG'
 
-import adminStyles from 'src/routes/admin-layout/index.module.scss'
-import communityDocStyles from '../../index.module.scss'
 import { ControlledMaskedInput } from 'src/components/controlled-masked-input/controlled-masked-input'
+import { AddButton } from 'src/UI/AddButton/AddButton'
+import { RemoveTextFileSvg } from 'src/UI/icons/removeTextFileSVG'
 export const RulesSection: FC = () => {
 	const {
 		control,
@@ -24,31 +22,19 @@ export const RulesSection: FC = () => {
 	})
 
 	return (
-		<AdminSection
-			titleText='Регламенты и правила'
-			sectionName='rulesSection'
-			switcherText='Включить блок регламентов и правил'
-			contentBorder='none'
-			contentBg='none'
-			contentPadding='0'
-		>
+		<AdminSection titleText='Регламенты и правила' sectionName='rulesSection'>
 			<ul>
 				{fields?.map((field, idx) => (
-					<li className={communityDocStyles.docsBlockItem} key={field.id}>
+					<li key={field.id}>
 						{idx !== 0 && (
-							<button
-								className={communityDocStyles.docRemoveBtn}
-								type='button'
-								onClick={() => remove(idx)}
-							>
-								<RemoveBlockSvg />
+							<button type='button' onClick={() => remove(idx)}>
+								<RemoveTextFileSvg />
 							</button>
 						)}
 
 						<h4>Документ {idx + 1}</h4>
 
 						<ControlledInput
-							className={adminStyles.adminMainInput}
 							name={`rulesDocs.${idx}.ruleTitle`}
 							dynamicError={errors.rulesDocs?.[idx]?.ruleTitle}
 							label='Название документа'
@@ -86,11 +72,8 @@ export const RulesSection: FC = () => {
 					</li>
 				))}
 			</ul>
-			<AdminButton
-				as='button'
+			<AddButton
 				type='button'
-				$common
-				$padding='10px 14px'
 				onClick={() => {
 					append(
 						{
@@ -104,7 +87,7 @@ export const RulesSection: FC = () => {
 				}}
 			>
 				Добавить документ
-			</AdminButton>
+			</AddButton>
 		</AdminSection>
 	)
 }

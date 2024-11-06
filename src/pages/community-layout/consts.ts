@@ -12,7 +12,7 @@ export const communityTabs: TabNavigationItem[] = [
 	},
 	{
 		title: 'Карта и маршруты',
-		link: 'atm-contacts',
+		link: 'atm-location',
 	},
 	{
 		title: 'Материальная культура',

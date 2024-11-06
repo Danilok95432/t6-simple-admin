@@ -10,7 +10,7 @@ export enum AdminRoute {
 	AdminAboutContent = 'about-content',
 	AdminAtmans = 'atmans',
 	AdminAtmansHistory = 'atm-history',
-	AdminAtmansLocation = 'atm-contacts',
+	AdminAtmansLocation = 'atm-location',
 	AdminAtmansCulture = 'atm-culture',
 	AdminAtmansDocuments = 'atm-documents',
 	AdminAddDepartments = 'add-departments',

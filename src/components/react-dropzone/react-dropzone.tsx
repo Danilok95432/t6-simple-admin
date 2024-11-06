@@ -5,7 +5,6 @@ import { type FileWithPreview } from 'src/types/files'
 import { useFormContext } from 'react-hook-form'
 
 import { FilePreviews } from 'src/components/file-previews/file-previews'
-import { AdminButton } from 'src/UI/AdminButton/AdminButton'
 
 import cn from 'classnames'
 import { RemovePhotoSvg } from 'src/UI/icons/removePhotoSVG'
@@ -15,6 +14,7 @@ import { AttachIconSvg } from 'src/UI/icons/attachIconSVG'
 
 import styles from './index.module.scss'
 import { AddButton } from 'src/UI/AddButton/AddButton'
+import { UploadFileSvg } from 'src/UI/icons/uploadFileSVG'
 
 type ReactDropzoneProps = {
 	name: string
@@ -98,7 +98,7 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 				/>
 				{currentFiles.length < maxFiles && (
 					<div className={styles.textFileController} onClick={open}>
-						{customUploadBtn ?? <AddButton>{uploadBtnText}</AddButton>}
+						{customUploadBtn ?? <AddButton icon={<UploadFileSvg />}>{uploadBtnText}</AddButton>}
 					</div>
 				)}
 				{errors[name] && (

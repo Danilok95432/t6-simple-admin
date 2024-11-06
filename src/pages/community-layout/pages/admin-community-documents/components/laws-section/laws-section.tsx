@@ -1,20 +1,18 @@
 import { type FC } from 'react'
 
-import cn from 'classnames'
 import { type CommunityDocumentsInputs } from 'src/pages/community-layout/pages/admin-community-documents/schema'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 
 import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { AdminSection } from 'src/components/admin-section/admin-section'
-import { RemoveBlockSvg } from 'src/UI/icons/removeBlockSVG'
-import { AdminButton } from 'src/UI/AdminButton/AdminButton'
 
-import adminStyles from 'src/routes/admin-layout/index.module.scss'
-import communityDocStyles from '../../index.module.scss'
+import { ControlledMaskedInput } from 'src/components/controlled-masked-input/controlled-masked-input'
+import { AddButton } from 'src/UI/AddButton/AddButton'
+import { TrashIconSvg } from 'src/UI/icons/trashIconSVG'
 
 import styles from './index.module.scss'
-import { ControlledMaskedInput } from 'src/components/controlled-masked-input/controlled-masked-input'
+
 export const LawsSection: FC = () => {
 	const {
 		control,
@@ -27,31 +25,19 @@ export const LawsSection: FC = () => {
 	})
 
 	return (
-		<AdminSection
-			titleText='Законы и нормы'
-			sectionName='lawsSection'
-			switcherText='Включить блок законов и норм'
-			contentBorder='none'
-			contentBg='none'
-			contentPadding='0'
-		>
+		<AdminSection titleText='Законы и нормы' sectionName='lawsSection'>
 			<ul className={styles.lowsList}>
 				{fields?.map((field, idx) => (
-					<li className={communityDocStyles.docsBlockItem} key={field.id}>
+					<li key={field.id}>
 						{idx !== 0 && (
-							<button
-								className={communityDocStyles.docRemoveBtn}
-								type='button'
-								onClick={() => remove(idx)}
-							>
-								<RemoveBlockSvg />
+							<button type='button' onClick={() => remove(idx)}>
+								<TrashIconSvg />
 							</button>
 						)}
 
 						<h4>Документ {idx + 1}</h4>
 
 						<ControlledInput
-							className={adminStyles.adminMainInput}
 							name={`lawsDocs.${idx}.lawTitle`}
 							dynamicError={errors.lawsDocs?.[idx]?.lawTitle}
 							label='Название документа'
@@ -69,7 +55,6 @@ export const LawsSection: FC = () => {
 						<h5>Загрузить документ</h5>
 						<div className={styles.lowLinks}>
 							<ControlledInput
-								className={cn(adminStyles.adminMainInput, styles.lowLinksInput)}
 								name={`lawsDocs.${idx}.lawDocLink`}
 								dynamicError={errors.lawsDocs?.[idx]?.lawDocLink}
 								label='Ссылка на документ'
@@ -77,7 +62,6 @@ export const LawsSection: FC = () => {
 								margin='0'
 							/>
 							<ControlledInput
-								className={cn(adminStyles.adminMainInput, styles.lowLinksInput)}
 								name={`lawsDocs.${idx}.lawDocSource`}
 								dynamicError={errors.lawsDocs?.[idx]?.lawDocSource}
 								label='Источник'
@@ -101,11 +85,7 @@ export const LawsSection: FC = () => {
 					</li>
 				))}
 			</ul>
-			<AdminButton
-				as='button'
-				type='button'
-				$common
-				$padding='10px 14px'
+			<AddButton
 				onClick={() => {
 					append(
 						{
@@ -120,7 +100,7 @@ export const LawsSection: FC = () => {
 				}}
 			>
 				Добавить документ
-			</AdminButton>
+			</AddButton>
 		</AdminSection>
 	)
 }

@@ -18,7 +18,7 @@ const StyledGridRow = styled.div<StyledGridRowProps>`
 	padding: ${({ $padding }) => $padding ?? '0'};
 	border-bottom: ${({ $borderBottom }) => $borderBottom ?? 'none'};
 	display: grid;
-	gap: ${({ $gap }) => $gap ?? '0 10px'};
+	gap: ${({ $gap }) => $gap ?? '10px'};
 	max-width: ${({ $maxWidth }) => $maxWidth ?? '100%'};
 	align-items: ${({ $alignItems }) => $alignItems ?? 'start'};
 	grid-template: ${({ $template }) => $template ?? 'auto / 1fr 1fr'};

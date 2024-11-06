@@ -6,6 +6,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 
 type StyledAddButtonProps = {
 	children: ReactNode
+	icon?: ReactNode
 	$margin?: string
 }
 
@@ -29,11 +30,12 @@ const StyledAddButton = styled.button<StyledAddButtonProps>`
 export const AddButton: FC<StyledAddButtonProps & ButtonProps> = ({
 	children,
 	$margin,
+	icon,
 	...props
 }) => {
 	return (
 		<StyledAddButton type='button' $margin={$margin} {...props}>
-			<AddFIlePlusSvg />
+			{icon ?? <AddFIlePlusSvg />}
 			<span>{children}</span>
 		</StyledAddButton>
 	)

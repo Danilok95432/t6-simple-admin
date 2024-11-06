@@ -9,24 +9,22 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Helmet } from 'react-helmet-async'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
-import { AdminButton } from 'src/UI/AdminButton/AdminButton'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 
 import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
 
 import { TitleSection } from 'src/pages/community-layout/pages/admin-community-documents/components/title-section/title-section'
-import { CharterSection } from 'src/pages/community-layout/pages/admin-community-documents/components/charter-section/charter-section'
+import { MainDocSection } from 'src/pages/community-layout/pages/admin-community-documents/components/main-doc-section/main-doc-section'
 import { RulesSection } from 'src/pages/community-layout/pages/admin-community-documents/components/rules-section/rules-section'
 import { LawsSection } from 'src/pages/community-layout/pages/admin-community-documents/components/laws-section/laws-section'
-import adminStyles from 'src/routes/admin-layout/index.module.scss'
 
 export const AdminCommunityDocuments: FC = () => {
 	const methods = useForm<CommunityDocumentsInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(communityDocumentsSchema),
 		defaultValues: {
-			charterPdf: [],
-			charterDocx: [],
+			mainDocPdf: [],
+			mainDocDocx: [],
 			rulesSection: true,
 			rulesDocs: [{ ruleTitle: '', ruleVersion: '', rulePdf: [], ruleDocx: [] }],
 			lawsSection: true,
@@ -50,20 +48,11 @@ export const AdminCommunityDocuments: FC = () => {
 			<Helmet>
 				<title>Документы</title>
 			</Helmet>
-			<AdminContent $padding='30px 30px 35px'>
-				<AdminButton
-					className={adminStyles.adminViewPageLink}
-					as='link'
-					to={`/`}
-					$margin='0 0 29px 0'
-					$outlined
-				>
-					Посмотреть страницу на сайте
-				</AdminButton>
+			<AdminContent title='Документы' link='#'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<TitleSection />
-						<CharterSection />
+						<MainDocSection />
 						<RulesSection />
 						<LawsSection />
 						<AdminControllers outLink={AdminRoute.AdminHome} />

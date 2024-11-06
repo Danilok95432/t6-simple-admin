@@ -53,6 +53,7 @@ export const ControlledMaskedInput: FC<
 	$flexDirection,
 	$gap,
 	$validError,
+	$maxWidth,
 	label,
 	name,
 	placeholder,
@@ -84,6 +85,7 @@ export const ControlledMaskedInput: FC<
 	return (
 		<StyledIMask
 			$margin={$margin}
+			$maxWidth={$maxWidth}
 			$flexDirection={$flexDirection}
 			$gap={$gap}
 			$validError={!!errors[name]}

@@ -17,11 +17,11 @@ type LawsDoc = {
 
 export type CommunityDocumentsInputs = {
 	titleText: string
-	charterName: string
-	charterDescription: string
-	charterVersion: string
-	charterPdf?: FileWithPreview[]
-	charterDocx?: FileWithPreview[]
+	mainDocName: string
+	mainDocDescription: string
+	mainDocVersion: string
+	mainDocPdf?: FileWithPreview[]
+	mainDocDocx?: FileWithPreview[]
 	rulesSection?: boolean
 	rulesDocs?: RulesDoc[]
 	lawsSection?: boolean
@@ -30,9 +30,9 @@ export type CommunityDocumentsInputs = {
 
 export const communityDocumentsSchema = yup.object().shape({
 	titleText: yup.string().required('Введите заглавный текст'),
-	charterName: yup.string().required('Введите название устава'),
-	charterDescription: yup.string().required('Введите короткое описание устава'),
-	charterVersion: yup.string().required('Введите номер версии'),
+	mainDocName: yup.string().required('Введите название устава'),
+	mainDocDescription: yup.string().required('Введите короткое описание устава'),
+	mainDocVersion: yup.string().required('Введите номер версии'),
 	rulesSection: yup.boolean(),
 	rulesDocs: yup.array().when('rulesSection', ([rulesSection]) => {
 		return rulesSection

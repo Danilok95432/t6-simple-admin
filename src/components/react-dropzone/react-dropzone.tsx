@@ -2,19 +2,18 @@ import React, { type FC, type ReactNode, useEffect, useState } from 'react'
 import { type Accept, useDropzone } from 'react-dropzone'
 import { type FileWithPreview } from 'src/types/files'
 
+import cn from 'classnames'
 import { useFormContext } from 'react-hook-form'
 
 import { FilePreviews } from 'src/components/file-previews/file-previews'
-
-import cn from 'classnames'
 import { RemovePhotoSvg } from 'src/UI/icons/removePhotoSVG'
 import { RemoveTextFileSvg } from 'src/UI/icons/removeTextFileSVG'
 import { ErrorMessage } from '@hookform/error-message'
 import { AttachIconSvg } from 'src/UI/icons/attachIconSVG'
-
-import styles from './index.module.scss'
 import { AddButton } from 'src/UI/AddButton/AddButton'
 import { UploadFileSvg } from 'src/UI/icons/uploadFileSVG'
+
+import styles from './index.module.scss'
 
 type ReactDropzoneProps = {
 	name: string

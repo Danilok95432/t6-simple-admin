@@ -10,6 +10,8 @@ import { AdminSection } from 'src/components/admin-section/admin-section'
 import { ControlledMaskedInput } from 'src/components/controlled-masked-input/controlled-masked-input'
 import { AddButton } from 'src/UI/AddButton/AddButton'
 import { RemoveTextFileSvg } from 'src/UI/icons/removeTextFileSVG'
+import { GridRow } from 'src/components/grid-row/grid-row'
+import { FlexRow } from 'src/components/flex-row/flex-row'
 export const RulesSection: FC = () => {
 	const {
 		control,
@@ -26,49 +28,47 @@ export const RulesSection: FC = () => {
 			<ul>
 				{fields?.map((field, idx) => (
 					<li key={field.id}>
-						{idx !== 0 && (
-							<button type='button' onClick={() => remove(idx)}>
-								<RemoveTextFileSvg />
-							</button>
-						)}
-
 						<h4>Документ {idx + 1}</h4>
-
-						<ControlledInput
-							name={`rulesDocs.${idx}.ruleTitle`}
-							dynamicError={errors.rulesDocs?.[idx]?.ruleTitle}
-							label='Название документа'
-							placeholder='Название'
-							margin='0 0 20px 0'
-						/>
-						<ControlledMaskedInput
-							name={`rulesDocs.${idx}.ruleVersion`}
-							dynamicError={errors.rulesDocs?.[idx]?.ruleVersion}
-							label='Номер версии'
-							mask={Number}
-							placeholder='Номер версии'
-						/>
-						<ReactDropzone
-							name={`rulesDocs.${idx}.rulePdf`}
-							variant='text'
-							label='Загрузить PDF'
-							uploadBtnText='Загрузить документ в формате PDF'
-							margin='0 0 20px 0'
-							accept={{
-								'application/pdf': ['.pdf'],
-							}}
-						/>
-						<ReactDropzone
-							name={`rulesDocs.${idx}.ruleDocx`}
-							variant='text'
-							label='Загрузить DOCX'
-							uploadBtnText='Загрузить документ в формате DOCX'
-							accept={{
-								'application/vnd.openxmlformats-officedocument.wordprocessingml.document': [
-									'.docx',
-								],
-							}}
-						/>
+						<GridRow $alignItems='center'>
+							<GridRow $template='auto / 1fr 200px'>
+								<ControlledInput
+									name={`rulesDocs.${idx}.ruleTitle`}
+									dynamicError={errors.rulesDocs?.[idx]?.ruleTitle}
+									placeholder='Название'
+								/>
+								<ControlledMaskedInput
+									name={`rulesDocs.${idx}.ruleVersion`}
+									dynamicError={errors.rulesDocs?.[idx]?.ruleVersion}
+									mask={Number}
+									placeholder='Номер версии'
+								/>
+							</GridRow>
+							<FlexRow>
+								<ReactDropzone
+									name={`rulesDocs.${idx}.rulePdf`}
+									variant='text'
+									uploadBtnText='Загрузить PDF'
+									accept={{
+										'application/pdf': ['.pdf'],
+									}}
+								/>
+								<ReactDropzone
+									name={`rulesDocs.${idx}.ruleDocx`}
+									variant='text'
+									uploadBtnText='Загрузить DOCX'
+									accept={{
+										'application/vnd.openxmlformats-officedocument.wordprocessingml.document': [
+											'.docx',
+										],
+									}}
+								/>
+								{idx !== 0 && (
+									<button type='button' onClick={() => remove(idx)}>
+										<RemoveTextFileSvg />
+									</button>
+								)}
+							</FlexRow>
+						</GridRow>
 					</li>
 				))}
 			</ul>

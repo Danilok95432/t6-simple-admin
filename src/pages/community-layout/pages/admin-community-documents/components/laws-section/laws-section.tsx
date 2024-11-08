@@ -12,6 +12,7 @@ import { AddButton } from 'src/UI/AddButton/AddButton'
 import { TrashIconSvg } from 'src/UI/icons/trashIconSVG'
 
 import styles from './index.module.scss'
+import { GridRow } from 'src/components/grid-row/grid-row'
 
 export const LawsSection: FC = () => {
 	const {
@@ -26,66 +27,63 @@ export const LawsSection: FC = () => {
 
 	return (
 		<AdminSection titleText='Законы и нормы' sectionName='lawsSection'>
-			<ul className={styles.lowsList}>
+			<ul>
 				{fields?.map((field, idx) => (
-					<li key={field.id}>
-						{idx !== 0 && (
-							<button type='button' onClick={() => remove(idx)}>
-								<TrashIconSvg />
-							</button>
-						)}
-
+					<li className={styles.lowsListItem} key={field.id}>
 						<h4>Документ {idx + 1}</h4>
 
-						<ControlledInput
-							name={`lawsDocs.${idx}.lawTitle`}
-							dynamicError={errors.lawsDocs?.[idx]?.lawTitle}
-							label='Название документа'
-							placeholder='Название'
-							margin='0 0 20px 0'
-						/>
-						<ControlledMaskedInput
-							name={`lawsDocs.${idx}.lawVersion`}
-							dynamicError={errors.lawsDocs?.[idx]?.lawVersion}
-							label='Номер версии'
-							mask={Number}
-							placeholder='Номер версии'
-						/>
+						<GridRow $template='auto / 1fr 200px' $maxWidth='984px' $margin='0 0 20px 0'>
+							<ControlledInput
+								name={`lawsDocs.${idx}.lawTitle`}
+								dynamicError={errors.lawsDocs?.[idx]?.lawTitle}
+								placeholder='Название документа'
+							/>
+							<ControlledMaskedInput
+								name={`lawsDocs.${idx}.lawVersion`}
+								dynamicError={errors.lawsDocs?.[idx]?.lawVersion}
+								mask={Number}
+								placeholder='Номер версии'
+							/>
+						</GridRow>
 
-						<h5>Загрузить документ</h5>
-						<div className={styles.lowLinks}>
+						<GridRow
+							className={styles.lawsLinkRow}
+							$template='auto / 1fr 345px 26px 200px 89px'
+							$alignItems='center'
+						>
 							<ControlledInput
 								name={`lawsDocs.${idx}.lawDocLink`}
 								dynamicError={errors.lawsDocs?.[idx]?.lawDocLink}
-								label='Ссылка на документ'
-								placeholder='https://'
-								margin='0'
+								placeholder='Ссылка на документ'
 							/>
 							<ControlledInput
 								name={`lawsDocs.${idx}.lawDocSource`}
 								dynamicError={errors.lawsDocs?.[idx]?.lawDocSource}
-								label='Источник'
 								placeholder='Источник'
-								margin='0'
 							/>
-						</div>
-						<p className={styles.lowLinksOr}>или</p>
-						<ReactDropzone
-							name={`lawsDocs.${idx}.lawDocFile`}
-							variant='text'
-							uploadBtnText='Загрузить документ в PDF или DOCX'
-							margin='0'
-							accept={{
-								'application/pdf': ['.pdf'],
-								'application/vnd.openxmlformats-officedocument.wordprocessingml.document': [
-									'.docx',
-								],
-							}}
-						/>
+							<p>или</p>
+							<ReactDropzone
+								name={`lawsDocs.${idx}.lawDocFile`}
+								variant='text'
+								uploadBtnText='Загрузить PDF или DOCX'
+								accept={{
+									'application/pdf': ['.pdf'],
+									'application/vnd.openxmlformats-officedocument.wordprocessingml.document': [
+										'.docx',
+									],
+								}}
+							/>
+							{idx !== 0 && (
+								<button type='button' onClick={() => remove(idx)}>
+									<TrashIconSvg />
+								</button>
+							)}
+						</GridRow>
 					</li>
 				))}
 			</ul>
 			<AddButton
+				$margin='30px 0 0 0'
 				onClick={() => {
 					append(
 						{

@@ -1,0 +1,27 @@
+.rulesList {
+  margin-bottom: 32px;
+
+  li:not(:last-child) {
+    margin-bottom: 25px;
+  }
+}
+
+.rulesRow {
+  display: grid;
+  grid-template: auto / 1fr 440px;
+  align-items: center;
+  gap: 50px;
+  @media (max-width: 1440px) {
+    grid-template: 1fr / 1fr;
+    gap: 15px;
+  }
+}
+
+.rulesControllers {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  @media (max-width: 1024px) {
+    gap: 20px;
+  }
+}

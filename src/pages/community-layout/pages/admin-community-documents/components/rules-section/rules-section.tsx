@@ -9,9 +9,11 @@ import { AdminSection } from 'src/components/admin-section/admin-section'
 
 import { ControlledMaskedInput } from 'src/components/controlled-masked-input/controlled-masked-input'
 import { AddButton } from 'src/UI/AddButton/AddButton'
-import { RemoveTextFileSvg } from 'src/UI/icons/removeTextFileSVG'
 import { GridRow } from 'src/components/grid-row/grid-row'
-import { FlexRow } from 'src/components/flex-row/flex-row'
+import { TrashIconSvg } from 'src/UI/icons/trashIconSVG'
+
+import styles from './index.module.scss'
+
 export const RulesSection: FC = () => {
 	const {
 		control,
@@ -25,11 +27,11 @@ export const RulesSection: FC = () => {
 
 	return (
 		<AdminSection titleText='Регламенты и правила' sectionName='rulesSection'>
-			<ul>
+			<ul className={styles.rulesList}>
 				{fields?.map((field, idx) => (
 					<li key={field.id}>
 						<h4>Документ {idx + 1}</h4>
-						<GridRow $alignItems='center'>
+						<div className={styles.rulesRow}>
 							<GridRow $template='auto / 1fr 200px'>
 								<ControlledInput
 									name={`rulesDocs.${idx}.ruleTitle`}
@@ -43,7 +45,7 @@ export const RulesSection: FC = () => {
 									placeholder='Номер версии'
 								/>
 							</GridRow>
-							<FlexRow>
+							<div className={styles.rulesControllers}>
 								<ReactDropzone
 									name={`rulesDocs.${idx}.rulePdf`}
 									variant='text'
@@ -64,11 +66,11 @@ export const RulesSection: FC = () => {
 								/>
 								{idx !== 0 && (
 									<button type='button' onClick={() => remove(idx)}>
-										<RemoveTextFileSvg />
+										<TrashIconSvg />
 									</button>
 								)}
-							</FlexRow>
-						</GridRow>
+							</div>
+						</div>
 					</li>
 				))}
 			</ul>

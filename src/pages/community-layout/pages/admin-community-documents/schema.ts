@@ -30,8 +30,8 @@ export type CommunityDocumentsInputs = {
 
 export const communityDocumentsSchema = yup.object().shape({
 	titleText: yup.string().required('Введите заглавный текст'),
-	mainDocName: yup.string().required('Введите название устава'),
-	mainDocDescription: yup.string().required('Введите короткое описание устава'),
+	mainDocName: yup.string().required('Введите название документа'),
+	mainDocDescription: yup.string().required('Введите короткое описание документа'),
 	mainDocVersion: yup.string().required('Введите номер версии'),
 	rulesSection: yup.boolean(),
 	rulesDocs: yup.array().when('rulesSection', ([rulesSection]) => {

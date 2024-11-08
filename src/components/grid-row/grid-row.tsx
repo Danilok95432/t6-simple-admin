@@ -11,6 +11,7 @@ type StyledGridRowProps = {
 	$padding?: string
 	$borderBottom?: string
 	children: ReactNode
+	className?: string
 } & React.CSSProperties
 
 const StyledGridRow = styled.div<StyledGridRowProps>`

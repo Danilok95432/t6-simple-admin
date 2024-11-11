@@ -41,29 +41,7 @@ export const adminMenuItems: NavigationItem[] = [
 	},
 	{
 		title: 'Настройка Системы',
-		icon: <AdminSettingsIconSvg />,
 		link: 'admin-settings',
-		childItems: [
-			{
-				title: 'Главная страница',
-				link: 'settings-home',
-			},
-			{
-				title: 'Обратная связь',
-				link: 'settings-feedback',
-			},
-			{
-				title: 'Пользователи',
-				link: 'settings-users',
-			},
-			{
-				title: 'Структура страниц',
-				link: 'settings-structure',
-			},
-			{
-				title: 'Встраиваемые блоки',
-				link: 'settings-blocks',
-			},
-		],
+		icon: <AdminSettingsIconSvg />,
 	},
 ]

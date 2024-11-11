@@ -47,18 +47,14 @@ import { AdminEventsCanceled } from 'src/pages/events-list-layout/pages/admin-ev
 
 import { AdminSupport } from 'src/pages/admin-support/admin-support'
 
-import { AdminSettingsHome } from 'src/pages/admin-settings-home/admin-settings-home'
-import { AdminSettingsFeedback } from 'src/pages/admin-settings-feedback/admin-settings-feedback'
-import { AdminSettingsUsers } from 'src/pages/admin-settings-users/admin-settings-users'
-import { AdminSettingsStructure } from 'src/pages/admin-settings-structure/admin-settings-structure'
-import { AdminSettingsBlocks } from 'src/pages/admin-settings-blocks/admin-settings-blocks'
-
 import { CommunityLayout } from 'src/pages/community-layout/community-layout'
 import { AdminCommunityAbout } from 'src/pages/community-layout/pages/admin-community-about/admin-community-about'
 import { AdminCommunityHistory } from 'src/pages/community-layout/pages/admin-community-history/admin-community-history'
 import { AdminCommunityLocation } from 'src/pages/community-layout/pages/admin-community-location/admin-community-location'
 import { AdminCommunityCulture } from 'src/pages/community-layout/pages/admin-community-culture/admin-community-culture'
 import { AdminCommunityDocuments } from 'src/pages/community-layout/pages/admin-community-documents/admin-community-documents'
+
+import { AdminSettings } from 'src/pages/admin-settings/admin-settings'
 
 export const AdminRoutes: FC = () => {
 	return (
@@ -123,11 +119,7 @@ export const AdminRoutes: FC = () => {
 
 				<Route path={AdminRoute.AdminSupport} element={<AdminSupport />} />
 
-				<Route path={AdminRoute.AdminSettingsHome} element={<AdminSettingsHome />} />
-				<Route path={AdminRoute.AdminSettingsFeedback} element={<AdminSettingsFeedback />} />
-				<Route path={AdminRoute.AdminSettingsUsers} element={<AdminSettingsUsers />} />
-				<Route path={AdminRoute.AdminSettingsStructure} element={<AdminSettingsStructure />} />
-				<Route path={AdminRoute.AdminSettingsBlocks} element={<AdminSettingsBlocks />} />
+				<Route path={AdminRoute.AdminSettings} element={<AdminSettings />} />
 			</Route>
 		</Routes>
 	)

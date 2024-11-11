@@ -37,9 +37,5 @@ export enum AdminRoute {
 	AdminEventsCanceled = 'events-canceled',
 	AdminEventNew = 'event-new',
 	AdminSupport = 'support',
-	AdminSettingsHome = 'settings-home',
-	AdminSettingsFeedback = 'settings-feedback',
-	AdminSettingsUsers = 'settings-users',
-	AdminSettingsStructure = 'settings-structure',
-	AdminSettingsBlocks = 'settings-blocks',
+	AdminSettings = 'admin-settings',
 }

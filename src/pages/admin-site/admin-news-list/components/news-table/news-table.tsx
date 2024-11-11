@@ -8,9 +8,6 @@ import { Loader } from 'src/components/loader/loader'
 import { CustomTable } from 'src/components/custom-table/custom-table'
 import { useDeleteNewsByIdMutation, useGetAllNewsQuery } from 'src/store/news/news.api'
 
-import { AdminSearchIconSvg } from 'src/UI/icons/adminSearchIconSVG'
-import { AdminDateIconSvg } from 'src/UI/icons/adminDateIconSVG'
-
 import cnBind from 'classnames/bind'
 
 import { Pagination } from 'src/components/pagination/pagination'

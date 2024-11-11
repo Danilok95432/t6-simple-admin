@@ -10,40 +10,57 @@ import { Helmet } from 'react-helmet-async'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
-import { AdminRoute } from 'src/routes/admin-routes/consts'
 
-import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
-
-import adminStyles from 'src/routes/admin-layout/index.module.scss'
+import { FlexRow } from 'src/components/flex-row/flex-row'
+import { QuillEditor } from 'src/components/quill-editor/quill-editor'
+import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
+import { AddButton } from 'src/UI/AddButton/AddButton'
 
 export const AdminCommunityCulture: FC = () => {
 	const methods = useForm<CommunityCultureInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(communityCultureSchema),
-		defaultValues: {},
+		defaultValues: {
+			galleryImages: [],
+		},
 	})
 
 	const onSubmit: SubmitHandler<CommunityCultureInputs> = (data) => {
 		console.log(data)
+		console.log(methods.getValues('galleryImages'))
 	}
+
 	return (
 		<>
 			<Helmet>
 				<title>Материальная культура</title>
 			</Helmet>
-			<AdminContent $padding='30px 30px 35px'>
-				<AdminButton
-					className={adminStyles.adminViewPageLink}
-					as='link'
-					to={`/`}
-					$margin='0 0 29px 0'
-					$outlined
-				>
-					Посмотреть страницу на сайте
-				</AdminButton>
+			<AdminContent title='Материальная культура' $backgroundColor='#ffffff'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
-						<AdminControllers outLink={AdminRoute.AdminHome} />
+						<QuillEditor
+							$heightEditor='310px'
+							name='cultureText'
+							label='Текст о материальной культуре'
+						/>
+						<ReactDropzone
+							margin='30px 0 0 0'
+							label={`Галерея изображений (${methods?.watch('galleryImages')?.length} из 8)`}
+							previewVariant='list'
+							name='galleryImages'
+							accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
+							maxFiles={8}
+							multiple
+							customUploadBtn={<AddButton>Добавить фото</AddButton>}
+						/>
+						<FlexRow $margin='25px 0 50px 0' $gap='15px'>
+							<AdminButton as='button' type='submit'>
+								Сохранить
+							</AdminButton>
+							<AdminButton as='link' to='/' $variant='light'>
+								Отменить
+							</AdminButton>
+						</FlexRow>
 					</form>
 				</FormProvider>
 			</AdminContent>

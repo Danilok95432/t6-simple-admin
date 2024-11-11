@@ -1,163 +1,11 @@
-import { regions } from '../mockData/regions.mjs'
-import { users } from '../mockData/users.mjs'
 import { objects } from '../mockData/objects.mjs'
 import { projects } from '../mockData/projects.mjs'
 import { news } from '../mockData/news.mjs'
 import { events } from '../mockData/events.mjs'
 import { newsVideos } from '../mockData/newsVideos.mjs'
 import { eventRequests } from '../mockData/eventRequests.mjs'
+import { cultureElements } from '../mockData/cultureElements.mjs'
 
-export const getRegions = (req, res) => {
-	const { q } = req.query
-
-	const filteredRegions = regions.filter((el) => el.title.toLowerCase().includes(q))
-
-	res.status(200).json(filteredRegions)
-}
-export const getRegionParticipants = (req, res) => {
-	const { q } = req.query
-	const regionCode = req.params.code
-
-	const foundRegion = regions.find((region) => region.regionCode === regionCode)
-	const filteredRegionParticipants = foundRegion.participants.filter((item) =>
-		item.fullname.toLowerCase().includes(q),
-	)
-	res.status(200).json(filteredRegionParticipants)
-}
-
-export const getRegionEvents = (req, res) => {
-	const { q } = req.query
-	const regionCode = req.params.code
-
-	const foundRegion = regions.find((region) => region.regionCode === regionCode)
-	const filteredRegionEvents = foundRegion.events.filter((item) =>
-		item.title.toLowerCase().includes(q),
-	)
-
-	res.status(200).json(filteredRegionEvents)
-}
-
-export const getRegionObjects = (req, res) => {
-	const { q } = req.query
-	const regionCode = req.params.code
-
-	const foundRegion = regions.find((region) => region.regionCode === regionCode)
-	const filteredRegionObjects = foundRegion.objects.filter((item) =>
-		item.title.toLowerCase().includes(q),
-	)
-	res.status(200).json(filteredRegionObjects)
-}
-
-export const getRegionProjects = (req, res) => {
-	const { q } = req.query
-	const regionCode = req.params.code
-
-	const foundRegion = regions.find((region) => region.regionCode === regionCode)
-	const filteredRegionProjects = foundRegion.projects.filter((item) =>
-		item.title.toLowerCase().includes(q),
-	)
-	res.status(200).json(filteredRegionProjects)
-}
-
-export const getRegionPhotos = (req, res) => {
-	const regionCode = req.params.code
-	const foundRegion = regions.find((region) => region.regionCode === regionCode)
-	const regionPhotos = foundRegion.photos
-	res.status(200).json(regionPhotos)
-}
-
-export const getRegionVideos = (req, res) => {
-	const regionCode = req.params.code
-	const foundRegion = regions.find((region) => region.regionCode === regionCode)
-	res.status(200).json(foundRegion.videos)
-}
-
-export const getRegionByCode = (req, res) => {
-	const regionCode = req.params.code
-	const foundRegion = regions.find((region) => region.regionCode === regionCode)
-
-	res.status(200).json(foundRegion)
-}
-
-export const getUsers = (req, res) => {
-	const { q } = req.query
-
-	const filteredUsers = users.filter((el) => el.fullname.toLowerCase().includes(q))
-
-	res.status(200).json(filteredUsers)
-}
-export const getUserById = (req, res) => {
-	const userId = req.params.id
-	const foundUser = users.find((user) => user.id === userId)
-
-	res.status(200).json(foundUser)
-}
-export const getUsersGroup = (req, res) => {
-	const { q } = req.query
-	const userId = req.params.id
-
-	const searchedUser = users.find((user) => user.id === userId)
-	const filteredGroups = searchedUser.groups.filter((group) =>
-		group.title.toLowerCase().includes(q),
-	)
-
-	res.status(200).json(filteredGroups)
-}
-export const getUsersEvent = (req, res) => {
-	const { q } = req.query
-	const userId = req.params.id
-
-	const searchedUser = users.find((user) => user.id === userId)
-	const filteredEvents = searchedUser.events.filter((event) =>
-		event.title.toLowerCase().includes(q),
-	)
-
-	res.status(200).json(filteredEvents)
-}
-export const getUsersProject = (req, res) => {
-	const { q } = req.query
-	const userId = req.params.id
-
-	const searchedUser = users.find((user) => user.id === userId)
-	const filteredProjects = searchedUser.projects.filter((project) =>
-		project.title.toLowerCase().includes(q),
-	)
-
-	res.status(200).json(filteredProjects)
-}
-export const getUsersObject = (req, res) => {
-	const { q } = req.query
-	const userId = req.params.id
-
-	const searchedUser = users.find((user) => user.id === userId)
-	const filteredObjects = searchedUser.objects.filter((object) =>
-		object.title.toLowerCase().includes(q),
-	)
-
-	res.status(200).json(filteredObjects)
-}
-export const getUsersPhotos = (req, res) => {
-	const { q } = req.query
-	const userId = req.params.id
-
-	const searchedUser = users.find((user) => user.id === userId)
-	const filteredPhotos = searchedUser.photos.filter((photo) =>
-		photo.title.toLowerCase().includes(q),
-	)
-
-	res.status(200).json(filteredPhotos)
-}
-export const getUsersVideos = (req, res) => {
-	const { q } = req.query
-	const userId = req.params.id
-
-	const searchedUser = users.find((user) => user.id === userId)
-	const filteredVideos = searchedUser.videos.filter((video) =>
-		video.title.toLowerCase().includes(q),
-	)
-
-	res.status(200).json(filteredVideos)
-}
 export const getObjects = (req, res) => {
 	const { q } = req.query
 
@@ -216,6 +64,33 @@ export const deleteNews = (req, res) => {
 		}
 	})
 	news.splice(deleteIdx, 1)
+
+	res.status(200).json(deleteIdx)
+}
+
+export const getCultures = (req, res) => {
+	const { q } = req.query
+
+	const filteredCultures = cultureElements.filter((el) => el.title.toLowerCase().includes(q))
+	res.status(200).json(filteredCultures)
+}
+
+export const getCultureById = (req, res) => {
+	const cultureId = req.params.id
+	const foundCulture = cultureElements.find((cultureItem) => cultureItem.id === cultureId)
+
+	res.status(200).json(foundCulture)
+}
+
+export const deleteCulture = (req, res) => {
+	const cultureId = req.params.id
+	let deleteIdx
+	cultureElements.forEach((el, idx) => {
+		if (el.id === cultureId) {
+			deleteIdx = idx
+		}
+	})
+	cultureElements.splice(deleteIdx, 1)
 
 	res.status(200).json(deleteIdx)
 }

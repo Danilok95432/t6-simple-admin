@@ -1,6 +1,5 @@
 import { type ReactNode } from 'react'
 import { type SelOption } from 'src/types/select'
-import { type DateTimeFormatOptions } from 'src/types/date'
 
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
@@ -8,31 +7,6 @@ import { ru } from 'date-fns/locale'
 // утилитарная функция для кастомного селекта
 export const getValue = (value: string, options: SelOption[]) => {
 	return value ? options.find((option) => option.value === value) : ''
-}
-
-// форматирует дату к формату - 24.03.1999
-
-export const customFormatDate = (
-	date?: string | Date,
-	options: DateTimeFormatOptions = {
-		day: 'numeric',
-		month: 'numeric',
-		year: 'numeric',
-		formatMatcher: 'best fit',
-	},
-	delimiter: '.' | '-' = '.',
-) => {
-	if (!date) return
-
-	let formatDate: string | Date
-
-	if (typeof date === 'string') {
-		formatDate = new Date(date)
-	} else {
-		formatDate = date
-	}
-
-	return new Intl.DateTimeFormat('ru-RU', options).format(formatDate).replace(/\./g, delimiter)
 }
 
 export const isNullOrEmpty = (value: ReactNode | ReactNode[]): boolean => {

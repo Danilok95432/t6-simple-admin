@@ -15,6 +15,7 @@ import { FlexRow } from 'src/components/flex-row/flex-row'
 import { QuillEditor } from 'src/components/quill-editor/quill-editor'
 import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 import { AddButton } from 'src/UI/AddButton/AddButton'
+import { CultureElements } from 'src/pages/community-layout/pages/admin-community-culture/components/culture-elements/culture-elements'
 
 export const AdminCommunityCulture: FC = () => {
 	const methods = useForm<CommunityCultureInputs>({
@@ -63,6 +64,7 @@ export const AdminCommunityCulture: FC = () => {
 						</FlexRow>
 					</form>
 				</FormProvider>
+				<CultureElements />
 			</AdminContent>
 		</>
 	)

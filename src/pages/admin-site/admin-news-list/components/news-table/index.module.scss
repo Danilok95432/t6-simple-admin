@@ -1,15 +1,5 @@
 @import "src/assets/styles/vars";
 
-.removeNewsBtn {
-  color: #FF0000;
-  font-size: 14px;
-  @include opensans-regular;
-  border: 1px solid #FF0000;
-  border-radius: 3px;
-  padding: 4px 6px;
-  display: none;
-}
-
 .newsTable {
   grid-template-columns: minmax(40px, 0.2fr) minmax(260px, 3.9fr) minmax(120px, 0.6fr) minmax(200px, 1.1fr) minmax(75px, 0.4fr) minmax(75px, 0.4fr) minmax(80px, 0.4fr);
   background: #ffffff;

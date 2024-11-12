@@ -9,9 +9,9 @@ export enum ReducerPath {
 }
 
 export const ImagesFormat = ['png', 'jpeg', 'jpg', 'webp', 'gif']
-// export enum NameSpace {
-// 	AdminTitle = 'ADMIN_TITLE',
-// }
+export enum NameSpace {
+	Modal = 'MODAL',
+}
 
 export enum DisplayBreakpoints {
 	Sm = 576,

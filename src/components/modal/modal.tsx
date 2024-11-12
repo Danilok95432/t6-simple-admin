@@ -11,16 +11,10 @@ type ModalProps = PropsWithChildren<{
 	active: boolean
 	className?: string
 	setActive?: (arg: boolean) => void
-	customClose?: () => void
 }>
 
-export const Modal: FC<ModalProps> = ({ active, setActive, children, className, customClose }) => {
+export const Modal: FC<ModalProps> = ({ active, setActive, children, className }) => {
 	const handleCloseModal = () => {
-		if (customClose) {
-			customClose()
-			return
-		}
-
 		if (setActive) {
 			setActive(false)
 		}
@@ -40,6 +34,6 @@ export const Modal: FC<ModalProps> = ({ active, setActive, children, className, 
 				{children}
 			</div>
 		</div>,
-		document.getElementById('modal') as HTMLElement,
+		document.getElementById('modal-root') as HTMLElement,
 	)
 }

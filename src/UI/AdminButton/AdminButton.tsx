@@ -8,6 +8,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 type ButtonComponentProps = {
 	as?: 'button' | 'link' | 'route'
 	children?: ReactNode
+	$margin?: string
 	$padding?: string
 	$height?: string
 	$radius?: string
@@ -16,6 +17,7 @@ type ButtonComponentProps = {
 
 type SharedStylesTypes = {
 	$padding?: string
+	$margin?: string
 	$height?: string
 	$radius?: string
 	$variant?: 'primary' | 'light'
@@ -23,6 +25,7 @@ type SharedStylesTypes = {
 
 const sharedStyles = css<SharedStylesTypes>`
 	padding: ${({ $padding }) => $padding ?? '0 24px'};
+	margin: ${({ $margin }) => $margin ?? '0'};
 	height: ${({ $height }) => $height ?? '45px'};
 	border-radius: ${({ $radius }) => $radius ?? '3px'};
 

@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
 import { NameSpace } from 'src/helpers/consts'
-import { modalReducer } from 'src/store/modal/modal-slice'
+import { modalReducer } from 'src/modules/modal/store/modal.slice'
 import { objectsApi } from 'src/store/objects/objects.api'
 import { projectsApi } from 'src/store/projects/projects.api'
 import { newsApi } from 'src/store/news/news.api'

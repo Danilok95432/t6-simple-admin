@@ -18,7 +18,17 @@
   }
 }
 
-
+.loginBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #ffffff;
+  font-size: 16px;
+  margin-left: auto;
+  height: 25px;
+  border: none;
+  outline: none;
+}
 
 ._unread {
   position: relative;

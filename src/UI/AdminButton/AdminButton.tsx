@@ -10,6 +10,7 @@ type ButtonComponentProps = {
 	children?: ReactNode
 	$margin?: string
 	$padding?: string
+	$fontSize?: string
 	$height?: string
 	$radius?: string
 	$variant?: 'primary' | 'light'
@@ -17,6 +18,7 @@ type ButtonComponentProps = {
 
 type SharedStylesTypes = {
 	$padding?: string
+	$fontSize?: string
 	$margin?: string
 	$height?: string
 	$radius?: string
@@ -27,6 +29,7 @@ const sharedStyles = css<SharedStylesTypes>`
 	padding: ${({ $padding }) => $padding ?? '0 24px'};
 	margin: ${({ $margin }) => $margin ?? '0'};
 	height: ${({ $height }) => $height ?? '45px'};
+	font-size: ${({ $fontSize }) => $fontSize ?? '14px'};
 	border-radius: ${({ $radius }) => $radius ?? '3px'};
 
 	background-color: ${({ $variant }) => {
@@ -44,7 +47,6 @@ const sharedStyles = css<SharedStylesTypes>`
 	border: none;
 	text-decoration: none;
 	font-weight: 600;
-	font-size: 14px;
 	cursor: pointer;
 	display: inline-flex;
 	align-items: center;

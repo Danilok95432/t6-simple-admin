@@ -44,7 +44,6 @@ export const AdminEventTimetableEdit: FC = () => {
 				as='link'
 				to={`/`}
 				$margin='0 0 29px 0'
-				$outlined
 			>
 				Посмотреть страницу на сайте
 			</AdminButton>

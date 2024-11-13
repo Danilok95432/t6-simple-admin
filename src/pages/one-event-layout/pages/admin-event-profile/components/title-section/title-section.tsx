@@ -10,7 +10,7 @@ import adminStyles from 'src/routes/admin-layout/index.module.scss'
 
 export const TitleSection = () => {
 	return (
-		<AdminSection contentBg='none' contentPadding='0' contentBorder='none'>
+		<AdminSection>
 			<PromptInput promptContent='Не указывайте в названии события дату проведения или описание: для этого есть отдельные поля'>
 				<ControlledInput
 					className={adminStyles.adminMainInput}

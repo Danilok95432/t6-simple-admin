@@ -3,7 +3,6 @@ import cnBind from 'classnames/bind'
 import { AdminSection } from 'src/components/admin-section/admin-section'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { PromptInput } from 'src/components/prompt-input/prompt-input'
-import { TriangularArrowSvg } from 'src/UI/icons/triangularArrowSVG'
 import { ControlledSelect } from 'src/components/controlled-select/controlled-select'
 import { ControlledCheckbox } from 'src/components/controlled-checkbox/controlled-checkbox'
 
@@ -12,19 +11,7 @@ import styles from './index.module.scss'
 export const NewAreaSection = () => {
 	const cx = cnBind.bind(adminStyles)
 	return (
-		<AdminSection
-			className={styles.newAreaSection}
-			sectionName='newAreaSection'
-			switcherText={
-				<span className={styles.newAreaSwitcherText}>
-					Если площадки нет в списке, Вы можете{' '}
-					<b>
-						создать и сохранить новую площадку <TriangularArrowSvg />
-					</b>
-				</span>
-			}
-			switcherClassName={styles.newAreaSwitcher}
-		>
+		<AdminSection className={styles.newAreaSection} sectionName='newAreaSection'>
 			<h4>Новая площадка</h4>
 			<PromptInput promptContent='Например, Дворец Спорта Трудящихся. Город или полный адрес в этом поле указывать не нужно.'>
 				<ControlledInput

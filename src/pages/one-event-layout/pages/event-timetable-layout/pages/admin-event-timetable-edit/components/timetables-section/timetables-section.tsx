@@ -27,7 +27,7 @@ export const TimetablesSection = () => {
 		name: 'timetables',
 	})
 	return (
-		<AdminSection contentBorder='none' contentBg='none' contentPadding='0'>
+		<AdminSection>
 			<ul>
 				{fields?.map((field, idx) => (
 					<li className={adminStyles.adminBlockItem} key={field.id}>
@@ -139,7 +139,7 @@ export const TimetablesSection = () => {
 								margin='0'
 							/>
 						</GridRow>
-						<AdminButton as='button' type='button' $common $padding='9.5px 14px'>
+						<AdminButton as='button' type='button' $padding='9.5px 14px'>
 							Сохранить пункт
 						</AdminButton>
 					</li>
@@ -148,7 +148,6 @@ export const TimetablesSection = () => {
 			<AdminButton
 				as='button'
 				type='button'
-				$common
 				$padding='10px 14px'
 				onClick={() => {
 					append(

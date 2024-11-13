@@ -1,4 +1,4 @@
-import { type AuthInputs, authSchema } from 'src/modals/auth-modal/schema'
+import { type PassRecoveryInputs, passRecoverySchema } from 'src/modals/pass-recovery-modal/schema'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -7,30 +7,29 @@ import { useActions } from 'src/hooks/actions/actions'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
 import { ControlledMaskedInput } from 'src/components/controlled-masked-input/controlled-masked-input'
-import { PassRecoveryModal } from 'src/modals/pass-recovery-modal/pass-recovery-modal'
+import { AuthModal } from 'src/modals/auth-modal/auth-modal'
 
 import styles from './index.module.scss'
 
-export const AuthModal = () => {
+export const PassRecoveryModal = () => {
 	const { closeModal, openModal } = useActions()
 
-	const methods = useForm<AuthInputs>({
+	const methods = useForm<PassRecoveryInputs>({
 		mode: 'onBlur',
-		resolver: yupResolver(authSchema),
+		resolver: yupResolver(passRecoverySchema),
 	})
 
-	const onSubmit: SubmitHandler<AuthInputs> = (data) => {
+	const onSubmit: SubmitHandler<PassRecoveryInputs> = (data) => {
 		console.log(data)
 	}
 
 	const handleCodeSubmit = async () => {
 		const isValidLogin = await methods.trigger('login')
-
 		if (isValidLogin) console.log(methods.getValues('login'))
 	}
 
 	return (
-		<>
+		<div>
 			<div className='modal-header'>
 				<h3>Т-6 Атманов Угол</h3>
 				<button onClick={() => closeModal()} type='button'>
@@ -38,7 +37,7 @@ export const AuthModal = () => {
 				</button>
 			</div>
 			<div className='modal-content'>
-				<h4>Вход в систему</h4>
+				<h4>Восстановление пароля</h4>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<div className={styles.loginInputWrapper}>
@@ -62,13 +61,6 @@ export const AuthModal = () => {
 						</div>
 
 						<ControlledInput
-							name='password'
-							label='Пароль *'
-							placeholder='**********'
-							type='password'
-							margin='0 0 20px 0'
-						/>
-						<ControlledInput
 							name='verificationCode'
 							label='Проверочный код *'
 							placeholder='****'
@@ -76,18 +68,18 @@ export const AuthModal = () => {
 							margin='0 0 25px 0'
 						/>
 						<AdminButton as='button' $height='40px' $margin='0 0 20px 0' type='submit'>
-							Войти
+							Восстановить
 						</AdminButton>
 						<button
 							className='modal-link-btn'
-							onClick={() => openModal(<PassRecoveryModal />)}
+							onClick={() => openModal(<AuthModal />)}
 							type='button'
 						>
-							Восстановить пароль
+							Войти с паролем
 						</button>
 					</form>
 				</FormProvider>
 			</div>
-		</>
+		</div>
 	)
 }

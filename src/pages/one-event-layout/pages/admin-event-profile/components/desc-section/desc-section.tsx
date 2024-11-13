@@ -15,7 +15,7 @@ export const DescSection = () => {
 	const cx = cnBind.bind(adminStyles)
 
 	return (
-		<AdminSection contentBg='none' contentPadding='0' contentBorder='none'>
+		<AdminSection>
 			<PromptInput promptContent='Краткое описание или слоган события.'>
 				<ControlledInput
 					className={adminStyles.adminMainInput}

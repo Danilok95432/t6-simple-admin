@@ -4,12 +4,10 @@ import { createSlice } from '@reduxjs/toolkit'
 import { NameSpace } from 'src/helpers/consts'
 
 type ModalState = {
-	isOpen: boolean
 	content: null | ReactNode
 }
 
 const initialState: ModalState = {
-	isOpen: false,
 	content: null,
 }
 
@@ -18,11 +16,9 @@ const modalSlice = createSlice({
 	initialState,
 	reducers: {
 		openModal: (state, action) => {
-			state.isOpen = true
 			state.content = action.payload
 		},
 		closeModal: (state) => {
-			state.isOpen = false
 			state.content = null
 		},
 	},

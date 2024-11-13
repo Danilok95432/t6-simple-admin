@@ -32,14 +32,7 @@ export const LocationsSection: FC = () => {
 		name: 'locations',
 	})
 	return (
-		<AdminSection
-			titleText='Набор локаций'
-			sectionName='locationsSection'
-			switcherText='Включить набор локаций'
-			contentBorder='none'
-			contentBg='none'
-			contentPadding='0'
-		>
+		<AdminSection titleText='Набор локаций' sectionName='locationsSection'>
 			<ul className={styles.locAlertsList}>
 				{locAlerts?.map((alertEl, idx) => (
 					<li key={alertEl}>
@@ -143,7 +136,7 @@ export const LocationsSection: FC = () => {
 								dynamicError={errors?.locations?.[idx]?.locType}
 							/>
 						</PromptInput>
-						<AdminButton as='button' type='button' $common $padding='9.5px 14px'>
+						<AdminButton as='button' type='button' $padding='9.5px 14px'>
 							Сохранить локацию
 						</AdminButton>
 					</li>
@@ -152,7 +145,6 @@ export const LocationsSection: FC = () => {
 			<AdminButton
 				as='button'
 				type='button'
-				$common
 				$padding='10px 14px'
 				onClick={() => {
 					append(

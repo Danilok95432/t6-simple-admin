@@ -9,12 +9,7 @@ import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
 export const AreaSection = () => {
 	return (
-		<AdminSection
-			className={styles.areaSection}
-			contentBg='none'
-			contentPadding='0'
-			contentBorder='none'
-		>
+		<AdminSection className={styles.areaSection}>
 			<PromptInput
 				promptContent='Дворец спорта, концертный зал, открытая площадка — место, на или в котором будет проводиться событие.'
 				$margin='0'

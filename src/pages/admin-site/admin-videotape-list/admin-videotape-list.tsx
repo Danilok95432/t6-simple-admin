@@ -22,7 +22,6 @@ export const AdminVideotapeList: FC = () => {
 				<AdminButton
 					as='link'
 					to={`/${AdminRoute.AdminAddVideo}`}
-					$icon
 					$padding='8px'
 					$margin='0 0 20px 0'
 				>
@@ -33,7 +32,6 @@ export const AdminVideotapeList: FC = () => {
 				<AdminButton
 					as='link'
 					to={`/${AdminRoute.AdminAddVideo}`}
-					$icon
 					$padding='8px'
 					$margin='20px 0 0 0'
 				>

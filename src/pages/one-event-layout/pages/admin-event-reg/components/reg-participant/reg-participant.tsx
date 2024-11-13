@@ -36,11 +36,7 @@ export const RegParticipant = () => {
 	}, [watch('isParticipantSides')])
 
 	return (
-		<AdminSection
-			titleText='Регистрация участников'
-			sectionName='regParticipantSection'
-			switcherText='Открыть регистрацию участников'
-		>
+		<AdminSection titleText='Регистрация участников' sectionName='regParticipantSection'>
 			<GridRow $template='auto/repeat(auto-fit, minmax(420px, 1fr))' $margin='0 0 24px 0'>
 				<div>
 					<div>
@@ -172,7 +168,6 @@ export const RegParticipant = () => {
 						<AdminButton
 							as='button'
 							type='button'
-							$common
 							$padding='10px 14px'
 							onClick={() =>
 								append(

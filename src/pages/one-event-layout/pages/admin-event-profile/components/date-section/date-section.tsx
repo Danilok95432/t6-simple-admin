@@ -11,7 +11,7 @@ import adminStyles from 'src/routes/admin-layout/index.module.scss'
 
 export const DateSection = () => {
 	return (
-		<AdminSection contentBg='none' contentPadding='0' contentBorder='none'>
+		<AdminSection>
 			<PromptInput
 				promptContent={
 					<span>

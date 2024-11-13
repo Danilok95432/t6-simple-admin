@@ -33,14 +33,7 @@ export const TicketsSection: FC = () => {
 		name: 'tickets',
 	})
 	return (
-		<AdminSection
-			titleText='Билетная и пропускная система'
-			sectionName='ticketsSection'
-			switcherText='Включить'
-			contentBorder='none'
-			contentBg='none'
-			contentPadding='0'
-		>
+		<AdminSection titleText='Билетная и пропускная система' sectionName='ticketsSection'>
 			<ul>
 				{fields?.map((field, idx) => (
 					<li className={adminStyles.adminBlockItem} key={field.id}>
@@ -380,7 +373,7 @@ export const TicketsSection: FC = () => {
 								</>
 							)}
 						</div>
-						<AdminButton as='button' type='button' $common $padding='9.5px 14px'>
+						<AdminButton as='button' type='button' $padding='9.5px 14px'>
 							Сохранить билет
 						</AdminButton>
 					</li>
@@ -389,7 +382,6 @@ export const TicketsSection: FC = () => {
 			<AdminButton
 				as='button'
 				type='button'
-				$common
 				$padding='10px 14px'
 				onClick={() => {
 					append(defaultTicketValues, { shouldFocus: false })

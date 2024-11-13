@@ -18,7 +18,7 @@ export const GallerySection: FC = () => {
 				maxFiles={10}
 				multiple
 				customUploadBtn={
-					<AdminButton as='button' type='button' $padding='9.5px 14px' $common>
+					<AdminButton as='button' type='button' $padding='9.5px 14px'>
 						Добавить фото
 					</AdminButton>
 				}

@@ -2,13 +2,12 @@ import { type FC } from 'react'
 
 import { Link } from 'react-router-dom'
 
-import { customFormatDate } from 'src/helpers/utils'
-
 import styles from './index.module.scss'
+import { mainFormatDate } from 'src/helpers/utils'
 
 type DatedItemProps = {
 	id: string
-	date: string | [string, string]
+	date: Date | [Date, Date]
 	prevDate: string
 	previewImage: string
 	title: string
@@ -32,20 +31,19 @@ export const DatedItem: FC<DatedItemProps> = ({
 		if (Array.isArray(date)) {
 			return (
 				<>
-					{customFormatDate(date[0], { day: 'numeric', month: 'long' })} - <br />
-					{customFormatDate(date[1], { day: 'numeric', month: 'long' })}{' '}
-					{new Date(date[1]).getFullYear()}
+					{mainFormatDate(date[0])} - <br />
+					{mainFormatDate(date[1])} {new Date(date[1]).getFullYear()}
 				</>
 			)
 		}
-		return <>{customFormatDate(date, { day: 'numeric', month: 'long' })}</>
+		return <>{mainFormatDate(date)}</>
 	}
 
 	return (
 		<>
 			{currentMonth !== prevMonth && (
 				<li className={styles.titleMonth}>
-					<span>{customFormatDate(currentDate, { month: 'long' })},</span> {currentYear}
+					<span>{mainFormatDate(currentDate)},</span> {currentYear}
 				</li>
 			)}
 			<li className={styles.datedItem} key={id}>

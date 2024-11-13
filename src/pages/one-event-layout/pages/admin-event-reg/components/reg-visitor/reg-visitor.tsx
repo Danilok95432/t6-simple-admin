@@ -13,11 +13,7 @@ export const RegVisitor = () => {
 	const { watch } = useFormContext()
 
 	return (
-		<AdminSection
-			titleText='Регистрация посетителей'
-			sectionName='regVisitorSection'
-			switcherText='Открыть регистрацию посетителей'
-		>
+		<AdminSection titleText='Регистрация посетителей' sectionName='regVisitorSection'>
 			<GridRow $template='auto/repeat(auto-fit, minmax(420px, 1fr))' $margin='0 0 24px 0'>
 				<div>
 					<div>

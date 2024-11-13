@@ -24,7 +24,6 @@ export const AdminEventTimetableList: FC = () => {
 					as='link'
 					to={AdminRoute.AdminEventTimetableEdit}
 					$margin='0'
-					$outlined
 				>
 					Перейти к редактированию расписания
 				</AdminButton>

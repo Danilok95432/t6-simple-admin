@@ -1,19 +1,23 @@
 
 .rowControllers {
   position: absolute;
-  left: 40%;
-  bottom: 0;
+  right: 0;
+  top: calc(100%);
   display: none;
   background: #ffffff;
   box-shadow: 0 0 10px 0 rgba(1, 61, 86, 0.25);
   border-radius: 5px;
   min-width: 200px;
+  z-index: 20;
 
   button {
     padding: 15px 20px 15px 35px;
     background-position: 13px center;
     background-repeat: no-repeat;
     font-size: 14px;
+    width: 100%;
+    text-align: left;
+
     color: #000000;
 
     &:not(:last-child) {
@@ -45,7 +49,9 @@
   width: 30px;
   height: 30px;
   border-radius: 5px;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &:hover {
     background: #E4E9F0;
 

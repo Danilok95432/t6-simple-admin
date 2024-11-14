@@ -1,9 +1,14 @@
 import { AdminSection } from 'src/components/admin-section/admin-section'
 import { ControlledCheckbox } from 'src/components/controlled-checkbox/controlled-checkbox'
 
+import styles from './index.module.scss'
+
 export const MainBlocksSection = () => {
 	return (
-		<AdminSection titleText='Основные блоки на главной странице'>
+		<AdminSection
+			className={styles.mainBlocksSection}
+			titleText='Основные блоки на главной странице'
+		>
 			<ControlledCheckbox
 				name='isShowObjects'
 				label='Показать блок «Объекты»'

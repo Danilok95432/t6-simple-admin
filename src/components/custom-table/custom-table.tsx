@@ -4,17 +4,22 @@ import cn from 'classnames'
 
 import styles from './index.module.scss'
 
-export type TableCells = Array<string | ReactNode>
+export type RowData = {
+	rowId: string
+	cells: Array<string | ReactNode>
+}
 
 type CustomTableProps = {
 	colTitles?: ReactNode[]
-	cellsData: TableCells[]
+	rowData: RowData[]
+	rowClickHandler?: (id: string) => void
 }
 
 export const CustomTable: FC<CustomTableProps & React.HTMLAttributes<HTMLTableElement>> = ({
 	colTitles,
-	cellsData,
+	rowData,
 	className,
+	rowClickHandler,
 	...props
 }) => {
 	return (
@@ -30,9 +35,13 @@ export const CustomTable: FC<CustomTableProps & React.HTMLAttributes<HTMLTableEl
 			)}
 
 			<tbody>
-				{cellsData?.map((row, rowIdx) => (
-					<tr key={rowIdx} data-idx={rowIdx + 1}>
-						{row.map((cell, cellIdx) => (
+				{rowData?.map((rowEl, rowIdx) => (
+					<tr
+						key={rowEl.rowId}
+						data-idx={rowIdx + 1}
+						onClick={() => rowClickHandler?.(rowEl.rowId)}
+					>
+						{rowEl.cells.map((cell, cellIdx) => (
 							<td key={cellIdx}>{cell}</td>
 						))}
 					</tr>

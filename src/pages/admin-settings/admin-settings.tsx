@@ -11,6 +11,8 @@ import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { MainBlocksSection } from 'src/pages/admin-settings/components/main-blocks-section/main-blocks-section'
 import { PromoTable } from 'src/pages/admin-settings/components/promo-table/promo-table'
 
+import styles from './index.module.scss'
+
 export const AdminSettings: FC = () => {
 	const methods = useForm<SettingsInputs>({
 		mode: 'onBlur',
@@ -26,10 +28,19 @@ export const AdminSettings: FC = () => {
 				<title>Настройки сайта</title>
 			</Helmet>
 			<h1>Настройки сайта</h1>
-			<AdminContent link='#' $padding='25px 20px 60px 28px'>
+			<AdminContent
+				className={styles.settingsContent}
+				$backgroundColor='#ffffff'
+				link='#'
+				$padding='25px 0 60px 0'
+			>
 				<PromoTable />
 				<FormProvider {...methods}>
-					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
+					<form
+						className={styles.mainBlocksForm}
+						onSubmit={methods.handleSubmit(onSubmit)}
+						noValidate
+					>
 						<MainBlocksSection />
 						<AdminControllers outLink={AdminRoute.AdminHome} />
 					</form>

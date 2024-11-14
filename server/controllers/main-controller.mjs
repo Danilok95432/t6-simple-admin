@@ -5,6 +5,7 @@ import { events } from '../mockData/events.mjs'
 import { newsVideos } from '../mockData/newsVideos.mjs'
 import { eventRequests } from '../mockData/eventRequests.mjs'
 import { cultureElements } from '../mockData/cultureElements.mjs'
+import { promoBlocks } from '../mockData/promo-blocks.mjs'
 
 export const getObjects = (req, res) => {
 	const { q } = req.query
@@ -150,4 +151,7 @@ export const deleteNewsVideo = (req, res) => {
 
 export const getEventRequests = (req, res) => {
 	res.status(200).json(eventRequests)
+}
+export const getPromoBlocks = (req, res) => {
+	res.status(200).json(promoBlocks)
 }

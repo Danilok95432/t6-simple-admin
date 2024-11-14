@@ -68,7 +68,7 @@ export const AdminContent: FC<AdminContentProps> = ({
 		<StyledAdminContent className={className} {...props}>
 			{(title ?? link) && (
 				<div className='content-title'>
-					<h3>{title}</h3>
+					{title && <h3>{title}</h3>}
 					{link && <a href={link}>Посмотреть страницу на сайте</a>}
 				</div>
 			)}

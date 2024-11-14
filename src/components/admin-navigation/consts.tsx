@@ -40,7 +40,7 @@ export const adminMenuItems: NavigationItem[] = [
 		icon: <AdminSupportIconSvg />,
 	},
 	{
-		title: 'Настройка Системы',
+		title: 'Настройки сайта',
 		link: 'admin-settings',
 		icon: <AdminSettingsIconSvg />,
 	},

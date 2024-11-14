@@ -15,6 +15,7 @@ import {
 	getCultures,
 	getCultureById,
 	deleteCulture,
+	getPromoBlocks,
 } from '../controllers/main-controller.mjs'
 import { Router } from 'express'
 
@@ -28,6 +29,7 @@ router.get('/news', getNews)
 router.get('/news/:id', getNewsById)
 router.delete('/newsDelete/:id', deleteNews)
 router.get('/cultures', getCultures)
+router.get('/promo-blocks', getPromoBlocks)
 router.get('/cultures/:id', getCultureById)
 router.delete('/cultureDelete/:id', deleteCulture)
 router.get('/events', getEvents)

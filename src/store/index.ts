@@ -8,6 +8,7 @@ import { projectsApi } from 'src/store/projects/projects.api'
 import { newsApi } from 'src/store/news/news.api'
 import { eventsApi } from 'src/store/events/events.api'
 import { culturesApi } from 'src/store/cultures/cultures.api'
+import { siteSettingsApi } from 'src/store/site-settings/site-settings.api'
 
 export const store = configureStore({
 	reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
 		[newsApi.reducerPath]: newsApi.reducer,
 		[eventsApi.reducerPath]: eventsApi.reducer,
 		[culturesApi.reducerPath]: culturesApi.reducer,
+		[siteSettingsApi.reducerPath]: siteSettingsApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({ serializableCheck: false }).concat(
@@ -25,6 +27,7 @@ export const store = configureStore({
 			newsApi.middleware,
 			eventsApi.middleware,
 			culturesApi.middleware,
+			siteSettingsApi.middleware,
 		),
 })
 

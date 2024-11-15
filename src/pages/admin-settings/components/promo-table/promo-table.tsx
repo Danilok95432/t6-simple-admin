@@ -8,9 +8,10 @@ import { mainFormatDate } from 'src/helpers/utils'
 import { RowController } from 'src/components/row-controller/row-controller'
 import { Loader } from 'src/components/loader/loader'
 import { useActions } from 'src/hooks/actions/actions'
+import { PromoModal } from 'src/modals/promo-modal/promo-modal'
 
 import styles from './index.module.scss'
-import { PromoModal } from 'src/modals/promo-modal/promo-modal'
+import { TableFooter } from 'src/components/table-footer/table-footer'
 
 export const PromoTable = () => {
 	const { data: promoItems, isLoading } = useGetPromosQuery(null)
@@ -72,6 +73,7 @@ export const PromoTable = () => {
 				colTitles={tableTitles}
 				rowClickHandler={handlePromoRowClick}
 			/>
+			<TableFooter />
 		</div>
 	)
 }

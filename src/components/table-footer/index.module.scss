@@ -1,6 +1,41 @@
 .tableFooter {
   display: flex;
   padding: 6px;
+  justify-content: space-between;
+  gap: 20px;
   background: #EBEFF4;
   border-radius: 5px;
+}
+
+.pagination {
+  display: flex;
+  gap: 5px;
+  .paginationInfo {
+    padding: 3px 10px;
+    border-radius: 5px;
+    background: #ffffff;
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+
+    span {
+      color: #868686;
+    }
+    select {
+      border: none;
+    }
+  }
+
+}
+
+
+.paginationControllers {
+  padding: 5px 10px;
+  border-radius: 5px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

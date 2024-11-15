@@ -1,16 +1,20 @@
 import { type PromoBlock } from 'src/types/site-settings'
+import cn from 'classnames'
+
 import { useGetPromosQuery } from 'src/store/site-settings/site-settings.api'
 import { CustomTable } from 'src/components/custom-table/custom-table'
 
 import { mainFormatDate } from 'src/helpers/utils'
 import { RowController } from 'src/components/row-controller/row-controller'
 import { Loader } from 'src/components/loader/loader'
+import { useActions } from 'src/hooks/actions/actions'
 
 import styles from './index.module.scss'
-import cn from 'classnames'
+import { PromoModal } from 'src/modals/promo-modal/promo-modal'
 
 export const PromoTable = () => {
 	const { data: promoItems, isLoading } = useGetPromosQuery(null)
+	const { openModal } = useActions()
 
 	const rowDeleteHandler = async (id: string) => {
 		// await deleteCulturesById(id)
@@ -19,7 +23,9 @@ export const PromoTable = () => {
 	const rowHideHandler = async (id: string) => {
 		console.log(id + 'спрятан')
 	}
-
+	const handlePromoRowClick = (id: string) => {
+		openModal(<PromoModal />)
+	}
 	const tableTitles = [
 		'Название промо-блока',
 		'Тип контента',
@@ -48,15 +54,12 @@ export const PromoTable = () => {
 						id={promoEl.id}
 						hideHandler={rowHideHandler}
 						removeHandler={rowDeleteHandler}
+						textOfHidden='Скрыть промо-блок'
 						key='4'
 					/>,
 				],
 			}
 		})
-	}
-
-	const handlePromoRowClick = (id: string) => {
-		console.log(id)
 	}
 
 	if (isLoading || !promoItems) return <Loader />

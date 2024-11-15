@@ -19,6 +19,10 @@
     text-align: left;
 
     color: #000000;
+    transition: all .3s;
+    &:hover {
+      background-color: #e8e8e8;
+    }
 
     &:not(:last-child) {
       border-bottom: 1px solid #E1E1E1;

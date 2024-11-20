@@ -30,7 +30,7 @@ export const AuthModal = () => {
 	}
 
 	return (
-		<>
+		<div className={styles.authModal}>
 			<div className='modal-header'>
 				<h3>Т-6 Атманов Угол</h3>
 				<button onClick={() => closeModal()} type='button'>
@@ -88,6 +88,6 @@ export const AuthModal = () => {
 					</form>
 				</FormProvider>
 			</div>
-		</>
+		</div>
 	)
 }

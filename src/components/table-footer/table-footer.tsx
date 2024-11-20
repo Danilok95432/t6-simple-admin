@@ -5,6 +5,7 @@ import { AddButton } from 'src/UI/AddButton/AddButton'
 import { MainSelect } from 'src/UI/MainSelect/MainSelect'
 import { PrevPaginationArrowSvg } from 'src/UI/icons/prevPaginationArrowSVG'
 import { NextPaginationArrowSvg } from 'src/UI/icons/NextPaginationArrowSvg'
+import { FlexRow } from 'src/components/flex-row/flex-row'
 
 type TableFooterProps = {
 	addText?: string
@@ -22,31 +23,38 @@ export const TableFooter: FC<TableFooterProps> = ({
 	totalPages = 1,
 }) => {
 	return (
-		<div className={styles.tableFooter}>
-			<div className={styles.pagination}>
-				<div className={styles.paginationInfo}>
-					<span>Всего элементов: {totalElements}</span>
-					Выводить по:
-					<MainSelect
-						items={[
-							{ label: '10', value: '10' },
-							{ label: '50', value: '50' },
-						]}
-					/>
+		<div className={styles.tableFooterWrapper}>
+			<div className={styles.tableFooter}>
+				<div className={styles.pagination}>
+					<div className={styles.paginationInfo}>
+						<span>Всего элементов: {totalElements}</span>
+						<FlexRow $alignItems='center' $gap='0'>
+							Выводить по:
+							<MainSelect
+								className={styles.limitSelect}
+								items={[
+									{ label: '10', value: '10' },
+									{ label: '50', value: '50' },
+								]}
+							/>
+						</FlexRow>
+					</div>
+					<div className={styles.paginationControllers}>
+						<button type='button'>
+							<PrevPaginationArrowSvg />
+						</button>
+						<span>
+							{currentPage} из {totalPages}
+						</span>
+						<button type='button'>
+							<NextPaginationArrowSvg />
+						</button>
+					</div>
 				</div>
-				<div className={styles.paginationControllers}>
-					<button type='button'>
-						<PrevPaginationArrowSvg />
-					</button>
-					<span>
-						{currentPage} из {totalPages}
-					</span>
-					<button type='button'>
-						<NextPaginationArrowSvg />
-					</button>
-				</div>
+				<AddButton className={styles.tableFooterAddBtn} onClick={addClickHandler}>
+					{addText}
+				</AddButton>
 			</div>
-			<AddButton onClick={addClickHandler}>{addText}</AddButton>
 		</div>
 	)
 }

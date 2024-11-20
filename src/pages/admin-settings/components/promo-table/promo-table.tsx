@@ -25,6 +25,7 @@ export const PromoTable = () => {
 		console.log(id + 'спрятан')
 	}
 	const handlePromoRowClick = (id: string) => {
+		console.log(`запрос на id: ${id}`)
 		openModal(<PromoModal />)
 	}
 	const tableTitles = [
@@ -73,7 +74,11 @@ export const PromoTable = () => {
 				colTitles={tableTitles}
 				rowClickHandler={handlePromoRowClick}
 			/>
-			<TableFooter />
+			<TableFooter
+				totalElements={promoItems.length}
+				addClickHandler={() => openModal(<PromoModal />)}
+				addText='Добавить промо-блок'
+			/>
 		</div>
 	)
 }

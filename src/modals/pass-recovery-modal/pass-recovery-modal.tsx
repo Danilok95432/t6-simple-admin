@@ -29,7 +29,7 @@ export const PassRecoveryModal = () => {
 	}
 
 	return (
-		<div>
+		<div className={styles.passRecoveryModal}>
 			<div className='modal-header'>
 				<h3>Т-6 Атманов Угол</h3>
 				<button onClick={() => closeModal()} type='button'>

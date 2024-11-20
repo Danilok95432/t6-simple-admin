@@ -1,7 +1,9 @@
-import { type FC } from 'react'
+import React, { type FC } from 'react'
+import cn from 'classnames'
+
+import { RowControllerIconSvg } from 'src/UI/icons/rowControllerIconSVG'
 
 import styles from './index.module.scss'
-import { RowControllerIconSvg } from 'src/UI/icons/rowControllerIconSVG'
 
 type RowControllerProps = {
 	textOfHidden?: string
@@ -16,16 +18,29 @@ export const RowController: FC<RowControllerProps> = ({
 	removeHandler,
 	id,
 }) => {
+	const handleClickHide = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: string) => {
+		e.stopPropagation()
+		hideHandler(id)
+	}
+	const handleClickRemove = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, id: string) => {
+		e.stopPropagation()
+		removeHandler(id)
+	}
+
 	return (
 		<div className={styles.rowControllerWrapper}>
 			<button className={styles.rowControllerBtn} type='button'>
 				<RowControllerIconSvg />
 			</button>
-			<div className={styles.rowControllers}>
-				<button className={styles.hideBtn} onClick={() => hideHandler(id)} type='button'>
+			<div className={cn(styles.rowControllers, 'row-controllers')}>
+				<button className={styles.hideBtn} onClick={(e) => handleClickHide(e, id)} type='button'>
 					{textOfHidden ?? 'Скрыть'}
 				</button>
-				<button className={styles.removeBtn} onClick={() => removeHandler(id)} type='button'>
+				<button
+					className={styles.removeBtn}
+					onClick={(e) => handleClickRemove(e, id)}
+					type='button'
+				>
 					Удалить
 				</button>
 			</div>

@@ -30,10 +30,18 @@
 
     &:hover {
       td {
-
         background: #F5F7FA;
       }
     }
+    &:nth-last-child(1), &:nth-last-child(2) {
+      :global {
+        .row-controllers {
+          top: auto;
+          bottom: 100%;
+        }
+      }
+    }
+
   }
 
 

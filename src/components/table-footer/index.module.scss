@@ -1,3 +1,7 @@
+.tableFooterWrapper {
+  padding: 0 28px;
+}
+
 .tableFooter {
   display: flex;
   padding: 6px;
@@ -5,17 +9,28 @@
   gap: 20px;
   background: #EBEFF4;
   border-radius: 5px;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    gap: 10px;
+  }
 }
 
 .pagination {
   display: flex;
   gap: 5px;
+  @media (max-width: 1024px) {
+    justify-content: space-between;
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
   .paginationInfo {
     padding: 3px 10px;
     border-radius: 5px;
     background: #ffffff;
     display: flex;
-    gap: 5px;
+    gap: 20px;
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
@@ -23,6 +38,7 @@
     span {
       color: #868686;
     }
+
     select {
       border: none;
     }
@@ -32,10 +48,47 @@
 
 
 .paginationControllers {
+  color: #868686;
   padding: 5px 10px;
   border-radius: 5px;
   background: #ffffff;
   display: flex;
+  gap: 10px;
   align-items: center;
   justify-content: center;
+}
+
+.limitSelect {
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+}
+
+button.tableFooterAddBtn {
+  background: #184F71;
+  border-radius: 3px;
+  width: 41%;
+  padding: 0 15px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+
+  span {
+    color: #ffffff;
+    border: none;
+  }
+
+  svg {
+    rect, path {
+      fill: #ffffff;
+      stroke: #ffffff;
+    }
+  }
+
+  @media (max-width: 1280px) {
+    width: auto;
+  }
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 }

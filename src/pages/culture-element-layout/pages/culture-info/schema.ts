@@ -2,29 +2,21 @@ import * as yup from 'yup'
 import { type FileWithPreview } from 'src/types/files'
 
 export type CultureInfoInputs = {
-	aboutTitleImage?: FileWithPreview[]
-	authorText: string
-	authorSign: string
-	gallerySection?: boolean
+	directionTitle: string
+	levelDirection?: string
+	regionDirection?: string
+	site: string
+	directionLogo: FileWithPreview[]
+	firstText?: string
 	galleryImages?: FileWithPreview[]
-	articleSection?: boolean
-	articleName?: string
-	articleText?: string
+	secondText?: string
+	isEventsByDisciplines?: boolean
+	isParticipantsByDisciplines?: boolean
+	isParticipantsByEvents?: boolean
 }
 
 export const cultureInfoSchema = yup.object().shape({
-	authorText: yup.string().required('Введите текст'),
-	authorSign: yup.string().required('Введите подпись'),
-	gallerySection: yup.boolean(),
-	articleSection: yup.boolean(),
-	articleName: yup.string().when('articleSection', ([articleSection]) => {
-		return articleSection
-			? yup.string().required('Введите название статьи')
-			: yup.string().notRequired()
-	}),
-	articleText: yup.string().when('articleSection', ([articleSection]) => {
-		return articleSection
-			? yup.string().required('Введите текст статьи')
-			: yup.string().notRequired()
-	}),
+	directionTitle: yup.string().required('Введите наименование'),
+	site: yup.string().required('Введите адрес сайта'),
+	directionLogo: yup.array().min(1, 'Загрузите логотип').required('Загрузите логотип'),
 })

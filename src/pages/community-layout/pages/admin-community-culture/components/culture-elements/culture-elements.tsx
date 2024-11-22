@@ -22,9 +22,10 @@ export const CultureElements: FC = () => {
 
 	const [deleteCulturesById] = useDeleteCultureByIdMutation()
 
+	const navigate = useNavigate()
+
 	const { handleSearch } = useSearchCultureHandlers()
 
-	const navigate = useNavigate()
 	const tableTitles = [
 		'Наименование элемента',
 		'Размещено',
@@ -76,6 +77,10 @@ export const CultureElements: FC = () => {
 		console.log(id + 'спрятан')
 	}
 
+	const rowClickHandler = (id: string) => {
+		navigate(`/culture/culture-info/${id}`)
+	}
+
 	if (isLoading || !cultures) return <Loader />
 
 	return (
@@ -111,11 +116,11 @@ export const CultureElements: FC = () => {
 				className={styles.cultureTable}
 				rowData={formatCulturesTableData(cultures)}
 				colTitles={tableTitles}
-				rowClickHandler={() => navigate('new-culture')}
+				rowClickHandler={rowClickHandler}
 			/>
 			<TableFooter
 				totalElements={cultures.length}
-				addClickHandler={() => navigate('new-culture')}
+				addClickHandler={() => navigate('/culture/culture-info/new')}
 				addText='Добавить элемент'
 			/>
 		</div>

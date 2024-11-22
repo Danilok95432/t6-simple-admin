@@ -55,6 +55,9 @@ import { AdminCommunityCulture } from 'src/pages/community-layout/pages/admin-co
 import { AdminCommunityDocuments } from 'src/pages/community-layout/pages/admin-community-documents/admin-community-documents'
 
 import { AdminSettings } from 'src/pages/admin-settings/admin-settings'
+import { CultureElementLayout } from 'src/pages/culture-element-layout/culture-element-layout'
+import { CultureInfo } from 'src/pages/culture-element-layout/pages/culture-info/culture-info'
+import { CultureHistory } from 'src/pages/culture-element-layout/pages/culture-history/culture-history'
 
 export const AdminRoutes: FC = () => {
 	return (
@@ -73,6 +76,13 @@ export const AdminRoutes: FC = () => {
 					<Route path={AdminRoute.AdminAtmansCulture} element={<AdminCommunityCulture />} />
 					<Route path={AdminRoute.AdminAtmansDocuments} element={<AdminCommunityDocuments />} />
 				</Route>
+				<Route path={AdminRoute.AdminCultureElement} element={<CultureElementLayout />}>
+					<Route path={`${AdminRoute.AdminCultureInfo}/new`} element={<CultureInfo />} />
+					<Route path={`${AdminRoute.AdminCultureHistory}/new}`} element={<CultureHistory />} />
+					<Route path={`${AdminRoute.AdminCultureInfo}/:id`} element={<CultureInfo />} />
+					<Route path={`${AdminRoute.AdminCultureHistory}/:id`} element={<CultureHistory />} />
+				</Route>
+
 				<Route path={AdminRoute.AdminAddDepartments} element={<AdminAddDepartments />} />
 
 				<Route path={AdminRoute.AdminEventNew} element={<OneEventLayout />}>

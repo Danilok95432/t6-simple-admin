@@ -48,7 +48,12 @@ export const CultureInfo = () => {
 				<h3>Информация</h3>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
-						<ControlledInput name='directionTitle' label='Наименование направления *' />
+						<ControlledInput
+							name='directionTitle'
+							label='Наименование направления *'
+							maxWidth='1140px'
+							margin='0 0 20px 0'
+						/>
 						<ControlledSelect
 							className={styles.cultureSelect}
 							selectOptions={[
@@ -58,6 +63,7 @@ export const CultureInfo = () => {
 							]}
 							name='levelDirection'
 							label='Уровень направления *'
+							margin='0 0 20px 0'
 						/>
 						<ControlledSelect
 							className={styles.cultureSelect}
@@ -68,8 +74,14 @@ export const CultureInfo = () => {
 							]}
 							name='regionDirection'
 							label='Регион направления *'
+							margin='0 0 20px 0'
 						/>
-						<ControlledInput name='site' label='Адрес интернет-сайта *' />
+						<ControlledInput
+							name='site'
+							label='Адрес интернет-сайта *'
+							maxWidth='1140px'
+							margin='0 0 20px 0'
+						/>
 						<ReactDropzone
 							label='Логотип направления *'
 							name='directionLogo'
@@ -77,8 +89,15 @@ export const CultureInfo = () => {
 							accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
 							margin='0 0 20px 0'
 						/>
-						<QuillEditor name='firstText' label='Первый текстовый блок' />
+						<QuillEditor
+							name='firstText'
+							label='Первый текстовый блок'
+							$maxWidth='1140px'
+							$heightEditor='105px'
+						/>
 						<ReactDropzone
+							margin='20px 0'
+							label='Галерея изображений'
 							previewVariant='list'
 							name='galleryImages'
 							accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
@@ -86,25 +105,38 @@ export const CultureInfo = () => {
 							multiple
 							customUploadBtn={<AddButton>Добавить фото</AddButton>}
 						/>
-						<QuillEditor name='secondText' label='Второй текстовый блок' />
+						<QuillEditor
+							name='secondText'
+							label='Второй текстовый блок'
+							$heightEditor='105px'
+							$maxWidth='1140px'
+						/>
 						<ControlledCheckbox
 							name='isEventsByDisciplines'
 							label='Транслировать события по дисциплинам'
 							type='checkbox'
+							$margin='30px 0 25px 0'
 						/>
 						<ControlledCheckbox
 							name='isParticipantsByDisciplines'
 							label='Транслировать участников по дисциплинам'
 							type='checkbox'
+							$margin='0 0 25px 0'
 						/>
 						<ControlledCheckbox
 							name='isParticipantsByEvents'
 							label='Транслировать участников по событиям'
 							type='checkbox'
 						/>
-						<AdminControllers outLink={AdminRoute.AdminHome} />
+						<AdminControllers outLink={AdminRoute.AdminHome} variant='2' />
 					</form>
 				</FormProvider>
+				<Link
+					to={`/${AdminRoute.AdminAtmans}/${AdminRoute.AdminAtmansCulture}`}
+					className={adminStyles.adminReturnLink}
+				>
+					Возврат к списку элементов
+				</Link>
 			</AdminContent>
 		</>
 	)

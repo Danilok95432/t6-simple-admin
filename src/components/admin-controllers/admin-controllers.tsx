@@ -31,7 +31,7 @@ export const AdminControllers: FC<AdminControllersProps> = ({ outLink, variant =
 			<AdminButton as='button' type='submit' $variant='light'>
 				Сохранить и выйти
 			</AdminButton>
-			<AdminButton className={styles.cancelBtn} as='link' to={outLink}>
+			<AdminButton className={styles.cancelBtn} as='link' $variant='light' to={outLink}>
 				Отменить изменения
 			</AdminButton>
 		</section>

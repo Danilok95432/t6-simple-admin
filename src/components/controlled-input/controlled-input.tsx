@@ -14,6 +14,7 @@ type ControlledInputProps = {
 	name: string
 	margin?: string
 	width?: string
+	maxWidth?: string
 	height?: string
 	type?: string
 } & React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>
@@ -26,6 +27,7 @@ export const ControlledInput: FC<ControlledInputProps> = ({
 	isTextarea,
 	margin,
 	width,
+	maxWidth,
 	height,
 	type,
 	...props
@@ -39,7 +41,10 @@ export const ControlledInput: FC<ControlledInputProps> = ({
 
 	if (isTextarea) {
 		return (
-			<div className={cn(styles.inputEl, styles.textareaEl, className)} style={{ margin, width }}>
+			<div
+				className={cn(styles.inputEl, styles.textareaEl, className)}
+				style={{ margin, width, maxWidth }}
+			>
 				<label className={cn(styles.inputWrapper, styles.textareaWrapper)}>
 					{label && <p>{label}</p>}
 					<textarea
@@ -63,7 +68,7 @@ export const ControlledInput: FC<ControlledInputProps> = ({
 
 	if (type === 'password')
 		return (
-			<div className={cn(styles.inputEl, className)} style={{ margin, width }}>
+			<div className={cn(styles.inputEl, className)} style={{ margin, width, maxWidth }}>
 				<label className={styles.inputWrapper}>
 					{label && <p>{label}</p>}
 					<div className={styles.passwordInputWrapper}>
@@ -95,7 +100,7 @@ export const ControlledInput: FC<ControlledInputProps> = ({
 		)
 
 	return (
-		<div className={cn(styles.inputEl, className)} style={{ margin, width }}>
+		<div className={cn(styles.inputEl, className)} style={{ margin, width, maxWidth }}>
 			<label className={styles.inputWrapper}>
 				{label && <p>{label}</p>}
 				<input

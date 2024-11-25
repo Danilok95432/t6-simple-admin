@@ -16,6 +16,7 @@ interface QuillEditorProps extends Omit<ControllerProps, 'render'> {
 
 type StyledEditorWrapperProps = {
 	$heightEditor?: string
+	$maxWidth?: string
 }
 
 const StyledEditorWrapper = styled.div<StyledEditorWrapperProps>`
@@ -23,7 +24,7 @@ const StyledEditorWrapper = styled.div<StyledEditorWrapperProps>`
 		display: block;
 		font-size: 14px;
 		font-family: 'Open Sans', sans-serif;
-		font-weight: 500;
+		font-weight: 600;
 		margin-bottom: 5px;
 	}
 
@@ -35,11 +36,13 @@ const StyledEditorWrapper = styled.div<StyledEditorWrapperProps>`
 
 	.ql-toolbar {
 		border-radius: 3px 3px 0 0;
+		max-width: ${({ $maxWidth }) => $maxWidth ?? 'auto'};
 	}
 
 	.ql-container {
 		border-radius: 0 0 3px 3px;
 		height: ${({ $heightEditor }) => $heightEditor ?? '750px'};
+		max-width: ${({ $maxWidth }) => $maxWidth ?? 'auto'};
 	}
 
 	.warningMessage {
@@ -56,6 +59,7 @@ export const QuillEditor: FC<QuillEditorProps & StyledEditorWrapperProps> = ({
 	dynamicError,
 	label,
 	$heightEditor,
+	$maxWidth,
 	...rest
 }) => {
 	const {
@@ -63,7 +67,7 @@ export const QuillEditor: FC<QuillEditorProps & StyledEditorWrapperProps> = ({
 		formState: { errors },
 	} = useFormContext()
 	return (
-		<StyledEditorWrapper $heightEditor={$heightEditor}>
+		<StyledEditorWrapper $heightEditor={$heightEditor} $maxWidth={$maxWidth}>
 			{label && <label>{label}</label>}
 			<Controller
 				name={name}

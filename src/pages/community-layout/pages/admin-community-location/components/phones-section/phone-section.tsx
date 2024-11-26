@@ -8,9 +8,8 @@ import { GridRow } from 'src/components/grid-row/grid-row'
 export const PhoneSection: FC = () => {
 	return (
 		<AdminSection titleText='Телефон' sectionName='phoneSection'>
-			<GridRow $template='auto / 1fr 1fr 1fr'>
+			<GridRow $template='auto / 1.3fr 0.7fr'>
 				<ControlledInput name='phoneOwner' placeholder='Чей номер' />
-				<ControlledInput name='phoneAddress' placeholder='Адрес' />
 				<ControlledMaskedInput
 					name='phoneNumber'
 					mask='{+7} (000) 000-00-00'

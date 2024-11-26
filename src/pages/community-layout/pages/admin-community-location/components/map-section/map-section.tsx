@@ -4,50 +4,52 @@ import { type LocationInputs } from 'src/pages/community-layout/pages/admin-comm
 import { useFormContext } from 'react-hook-form'
 
 import { AdminSection } from 'src/components/admin-section/admin-section'
-import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
+import { AdminMap } from 'src/components/admin-map/admin-map'
+import { ControlledMaskedInput } from 'src/components/controlled-masked-input/controlled-masked-input'
 
-import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
 
 export const MapSection: FC = () => {
-	const [mapScript, setMapScript] = useState<string | null>(null)
+	const [mapCoordinates, setMapCoordinates] = useState<[number, number] | null>(null)
 	const { getValues } = useFormContext<LocationInputs>()
 
 	const loadMap = () => {
-		if (getValues('mapScript')) {
-			setMapScript(getValues('mapScript'))
+		const coordValues = getValues('mapCoord')
+		if (coordValues) {
+			const coordArr = coordValues.split(',')
+			if (coordArr.length !== 2) return
+			setMapCoordinates([+coordArr[0], +coordArr[1]])
 		}
 	}
 
 	return (
 		<AdminSection titleText='Карта'>
-			<ControlledInput
-				className={adminStyles.adminMainInput}
-				name='mapScript'
-				label='Текст скрипта Яндекса'
-				margin='0 0 15px 0'
-				disabled={!!mapScript}
-				height='200px'
-				isTextarea
+			<ControlledMaskedInput
+				label='Координаты (широта, долгота в градусах, минутах и секундах)*'
+				mask={/^[^a-zA-Zа-яА-Я]*$/}
+				name='mapCoord'
+				$margin='0 0 15px 0'
+				placeholder='Координаты'
+				disabled={!!mapCoordinates}
 			/>
 			<div className={styles.mapControllers}>
 				<AdminButton $padding='0 20px' $height='35px' type='button' onClick={loadMap}>
 					Сохранить
 				</AdminButton>
-				{!!mapScript && (
+				{!!mapCoordinates && (
 					<AdminButton
 						$padding='0 20px'
 						$height='35px'
 						type='button'
-						onClick={() => setMapScript(null)}
+						onClick={() => setMapCoordinates(null)}
 					>
 						Отменить
 					</AdminButton>
 				)}
 			</div>
 			<div className={styles.loadedMap}>
-				<iframe src={mapScript ?? ''}></iframe>
+				<AdminMap points={mapCoordinates} zoom={17} />
 			</div>
 		</AdminSection>
 	)

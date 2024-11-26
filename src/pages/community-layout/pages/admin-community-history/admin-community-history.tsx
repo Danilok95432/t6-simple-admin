@@ -12,15 +12,19 @@ import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 
-import { AdminSection } from 'src/components/admin-section/admin-section'
-import { ControlledInput } from 'src/components/controlled-input/controlled-input'
-
-import { QuillEditor } from 'src/components/quill-editor/quill-editor'
+import { TitleSection } from './components/title-section/title-section'
+import { GallerySection } from './components/gallery-section/gallery-section'
+import { ArticleSection } from './components/article-section/article-section'
 
 export const AdminCommunityHistory: FC = () => {
 	const methods = useForm<ArticleInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(articleSchema),
+		defaultValues: {
+			galleryImages: [],
+			gallerySection: false,
+			articleBottomSection: false,
+		},
 	})
 
 	const onSubmit: SubmitHandler<ArticleInputs> = (data) => {
@@ -31,18 +35,12 @@ export const AdminCommunityHistory: FC = () => {
 			<Helmet>
 				<title>История</title>
 			</Helmet>
-			<AdminContent title='История' link='#' $backgroundColor='#ffffff'>
+			<AdminContent title='История' link='#' $backgroundColor='#F5F7FA'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
-						<AdminSection isBlock={false}>
-							<ControlledInput
-								name='articleName'
-								label='Название основной статьи'
-								placeholder='Название статьи'
-								margin='0 0 20px 0'
-							/>
-							<QuillEditor name='articleText' label='Текст статьи' />
-						</AdminSection>
+						<TitleSection />
+						<GallerySection />
+						<ArticleSection />
 						<AdminControllers outLink={AdminRoute.AdminHome} />
 					</form>
 				</FormProvider>

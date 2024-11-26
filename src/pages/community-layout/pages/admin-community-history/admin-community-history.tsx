@@ -35,7 +35,7 @@ export const AdminCommunityHistory: FC = () => {
 			<Helmet>
 				<title>История</title>
 			</Helmet>
-			<AdminContent title='История' link='#' $backgroundColor='#F5F7FA'>
+			<AdminContent title='История' link='#'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<TitleSection />

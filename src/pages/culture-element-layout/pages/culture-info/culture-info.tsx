@@ -8,7 +8,6 @@ import { Helmet } from 'react-helmet-async'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
-import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { ControlledSelect } from 'src/components/controlled-select/controlled-select'
@@ -16,6 +15,8 @@ import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 import { QuillEditor } from 'src/components/quill-editor/quill-editor'
 import { AddButton } from 'src/UI/AddButton/AddButton'
 import { ControlledCheckbox } from 'src/components/controlled-checkbox/controlled-checkbox'
+import { FlexRow } from 'src/components/flex-row/flex-row'
+import { AdminButton } from 'src/UI/AdminButton/AdminButton'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
@@ -111,24 +112,32 @@ export const CultureInfo = () => {
 							$heightEditor='105px'
 							$maxWidth='1140px'
 						/>
-						<ControlledCheckbox
-							name='isEventsByDisciplines'
-							label='Транслировать события по дисциплинам'
-							type='checkbox'
-							$margin='30px 0 25px 0'
-						/>
-						<ControlledCheckbox
-							name='isParticipantsByDisciplines'
-							label='Транслировать участников по дисциплинам'
-							type='checkbox'
-							$margin='0 0 25px 0'
-						/>
-						<ControlledCheckbox
-							name='isParticipantsByEvents'
-							label='Транслировать участников по событиям'
-							type='checkbox'
-						/>
-						<AdminControllers outLink={AdminRoute.AdminHome} variant='2' />
+						<FlexRow $margin='30px 0 20px' $direction='column' $gap='25px'>
+							<ControlledCheckbox
+								name='isEventsByDisciplines'
+								label='Транслировать события по дисциплинам'
+								type='checkbox'
+							/>
+							<ControlledCheckbox
+								name='isParticipantsByDisciplines'
+								label='Транслировать участников по дисциплинам'
+								type='checkbox'
+							/>
+							<ControlledCheckbox
+								name='isParticipantsByEvents'
+								label='Транслировать участников по событиям'
+								type='checkbox'
+							/>
+						</FlexRow>
+
+						<FlexRow $margin='40px 0 45px 0' $gap='15px'>
+							<AdminButton as='button' type='submit'>
+								Сохранить
+							</AdminButton>
+							<AdminButton as='link' to='/' $variant='light'>
+								Отменить
+							</AdminButton>
+						</FlexRow>
 					</form>
 				</FormProvider>
 				<Link

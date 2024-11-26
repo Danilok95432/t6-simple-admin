@@ -59,6 +59,15 @@ import { CultureElementLayout } from 'src/pages/culture-element-layout/culture-e
 import { CultureInfo } from 'src/pages/culture-element-layout/pages/culture-info/culture-info'
 import { CultureHistory } from 'src/pages/culture-element-layout/pages/culture-history/culture-history'
 
+import { AdminObjects } from 'src/pages/admin-objects/admin-objects'
+import { ObjectElementLayout } from 'src/pages/object-element-layout/object-element-layout'
+import { ObjectInfo } from 'src/pages/object-element-layout/pages/object-info/object-info'
+import { ObjectNews } from 'src/pages/object-element-layout/pages/object-news/object-news'
+import { ObjectHistory } from 'src/pages/object-element-layout/pages/object-history/object-history'
+import { ObjectEvents } from 'src/pages/object-element-layout/pages/object-events/object-events'
+import { ObjectGallery } from 'src/pages/object-element-layout/pages/object-gallery/object-gallery'
+import { ObjectLocation } from 'src/pages/object-element-layout/pages/object-location/object-location'
+
 export const AdminRoutes: FC = () => {
 	return (
 		<Routes>
@@ -77,12 +86,18 @@ export const AdminRoutes: FC = () => {
 					<Route path={AdminRoute.AdminAtmansDocuments} element={<AdminCommunityDocuments />} />
 				</Route>
 				<Route path={AdminRoute.AdminCultureElement} element={<CultureElementLayout />}>
-					<Route path={`${AdminRoute.AdminCultureInfo}/new`} element={<CultureInfo />} />
-					<Route path={`${AdminRoute.AdminCultureHistory}/new}`} element={<CultureHistory />} />
 					<Route path={`${AdminRoute.AdminCultureInfo}/:id`} element={<CultureInfo />} />
 					<Route path={`${AdminRoute.AdminCultureHistory}/:id`} element={<CultureHistory />} />
 				</Route>
-
+				<Route path={AdminRoute.AdminObject} element={<ObjectElementLayout />}>
+					<Route path={`${AdminRoute.AdminObjInfo}/:id`} element={<ObjectInfo />} />
+					<Route path={`${AdminRoute.AdminObjNews}/:id`} element={<ObjectNews />} />
+					<Route path={`${AdminRoute.AdminObjHistory}/:id`} element={<ObjectHistory />} />
+					<Route path={`${AdminRoute.AdminObjEvents}/:id`} element={<ObjectEvents />} />
+					<Route path={`${AdminRoute.AdminObjGallery}/:id`} element={<ObjectGallery />} />
+					<Route path={`${AdminRoute.AdminObjLocation}/:id`} element={<ObjectLocation />} />
+				</Route>
+				<Route path={AdminRoute.AdminObjects} element={<AdminObjects />} />
 				<Route path={AdminRoute.AdminAddDepartments} element={<AdminAddDepartments />} />
 
 				<Route path={AdminRoute.AdminEventNew} element={<OneEventLayout />}>

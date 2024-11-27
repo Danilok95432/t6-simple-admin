@@ -1,0 +1,77 @@
+import { type FC } from 'react'
+
+import { ControlledInput } from 'src/components/controlled-input/controlled-input'
+import { AdminSection } from 'src/components/admin-section/admin-section'
+import { ControlledSelect } from 'src/components/controlled-select/controlled-select'
+import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
+
+import styles from './index.module.scss'
+
+export const MainSection: FC = () => {
+	return (
+		<AdminSection titleText='Основные данные'>
+			<ControlledInput
+				name='objectName'
+				label='Название объекта *'
+				placeholder='например, Мастерская керамики...'
+				width='78%'
+				margin='0 0 20px 0'
+			/>
+			<ControlledSelect
+				selectOptions={[
+					{ label: 'Ремесленный центр', value: '1' },
+					{ label: 'Центральный', value: '2' },
+					{ label: 'Здание', value: '3' },
+					{ label: 'Площадка', value: '4' },
+					{ label: 'Выставка', value: '5' },
+					{ label: 'Культурный центр', value: '6' },
+					{ label: 'Северо-Западный', value: '7' },
+					{ label: 'Приволжский', value: '8' },
+				]}
+				className={styles.objectSelect}
+				name='objectType'
+				label='Тип объекта *'
+				margin='0 0 20px 0'
+			/>
+			<ControlledSelect
+				selectOptions={[
+					{ label: 'Совместная', value: '1' },
+					{ label: 'Частная', value: '2' },
+					{ label: 'Государственная', value: '3' },
+					{ label: 'Муниципальная', value: '4' },
+					{ label: 'АНО Татарский Этноспорт', value: '5' },
+					{ label: 'Без образования юрлица', value: '6' },
+				]}
+				className={styles.objectSelect}
+				name='objectRelation'
+				label='Принадлежность объекта *'
+				margin='0 0 20px 0'
+			/>
+			<ReactDropzone
+				label='Основное изображение'
+				name='objectMainImg'
+				prompt='JPEG, PNG, 500х500px, не более 2.5 Мб'
+				accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
+				margin='0 0 20px 0'
+			/>
+			<ControlledInput
+				name='objectDesc'
+				label='Краткое описание объекта *'
+				placeholder='Поле ввода текста описания'
+				margin='0 0 20px 0'
+				width='78%'
+				height='105px'
+				isTextarea
+			/>
+			<ControlledInput
+				name='objectDescFull'
+				label='Полное описание объекта *'
+				placeholder='Поле ввода текста статьи'
+				margin='0 0 10px 0'
+				width='78%'
+				height='250px'
+				isTextarea
+			/>
+		</AdminSection>
+	)
+}

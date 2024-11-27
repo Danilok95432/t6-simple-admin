@@ -1,0 +1,8 @@
+.objectContactsSection {
+  .objectContantsRow {
+    @media (max-width: 1048px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}

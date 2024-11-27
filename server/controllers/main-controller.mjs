@@ -15,6 +15,19 @@ export const getObjects = (req, res) => {
 	res.status(200).json(filteredObjects)
 }
 
+export const deleteObject = (req, res) => {
+	const objectId = req.params.id
+	let deleteIdx
+	objects.forEach((el, idx) => {
+		if (el.id === objectId) {
+			deleteIdx = idx
+		}
+	})
+	objects.splice(deleteIdx, 1)
+
+	res.status(200).json(deleteIdx)
+}
+
 export const getObjectById = (req, res) => {
 	const objectId = req.params.id
 	const foundObject = objects.find((object) => object.id === objectId)

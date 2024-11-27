@@ -5,10 +5,21 @@ import { AdminSection } from 'src/components/admin-section/admin-section'
 import { FlexRow } from 'src/components/flex-row/flex-row'
 import { ControlledMaskedInput } from 'src/components/controlled-masked-input/controlled-masked-input'
 
+import styles from './index.module.scss'
+
 export const ContactsSection: FC = () => {
 	return (
-		<AdminSection titleText='Контакты, социальные сети, карта'>
-			<FlexRow $margin='20px 0' $direction='row' $gap='10px' $maxWidth='78%'>
+		<AdminSection
+			className={styles.objectContactsSection}
+			titleText='Контакты, социальные сети, карта'
+		>
+			<FlexRow
+				className={styles.objectContantsRow}
+				$margin='20px 0'
+				$direction='row'
+				$gap='10px'
+				$maxWidth='78%'
+			>
 				<ControlledMaskedInput
 					name='phoneNumber'
 					label='Номер телефона'
@@ -29,7 +40,14 @@ export const ContactsSection: FC = () => {
 				width='78%'
 				placeholder='example@example.com'
 			/>
-			<FlexRow $margin='20px 0' $direction='row' $gap='10px' $maxWidth='78%' $alignItems='flex-end'>
+			<FlexRow
+				className={styles.objectContantsRow}
+				$margin='20px 0'
+				$direction='row'
+				$gap='10px'
+				$maxWidth='78%'
+				$alignItems='flex-end'
+			>
 				<ControlledInput
 					name='tgText'
 					label='Телеграм'
@@ -39,6 +57,7 @@ export const ContactsSection: FC = () => {
 				<ControlledInput name='tgAddress' width='calc(50% - 5px)' placeholder='Адрес URL' />
 			</FlexRow>
 			<FlexRow
+				className={styles.objectContantsRow}
 				$margin='0 0 20px 0'
 				$direction='row'
 				$gap='10px'

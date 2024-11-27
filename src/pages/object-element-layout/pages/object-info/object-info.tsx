@@ -17,7 +17,10 @@ export const ObjectInfo = () => {
 	const methods = useForm<ObjectInfoInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(objectInfoSchema),
-		defaultValues: {},
+		defaultValues: {
+			objectMainImg: [],
+			phoneNumber: '',
+		},
 	})
 
 	const onSubmit: SubmitHandler<ObjectInfoInputs> = (data) => {

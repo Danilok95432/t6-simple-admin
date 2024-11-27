@@ -2,6 +2,8 @@ import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
 import { NameSpace } from 'src/helpers/consts'
+import { authApi } from 'src/store/auth/auth.api'
+import { authReducer } from 'src/store/auth/auth.slice'
 import { modalReducer } from 'src/modules/modal/store/modal.slice'
 import { objectsApi } from 'src/store/objects/objects.api'
 import { projectsApi } from 'src/store/projects/projects.api'
@@ -12,6 +14,8 @@ import { siteSettingsApi } from 'src/store/site-settings/site-settings.api'
 
 export const store = configureStore({
 	reducer: {
+		[authApi.reducerPath]: authApi.reducer,
+		[NameSpace.Auth]: authReducer,
 		[NameSpace.Modal]: modalReducer,
 		[objectsApi.reducerPath]: objectsApi.reducer,
 		[projectsApi.reducerPath]: projectsApi.reducer,
@@ -28,6 +32,7 @@ export const store = configureStore({
 			eventsApi.middleware,
 			culturesApi.middleware,
 			siteSettingsApi.middleware,
+			authApi.middleware,
 		),
 })
 

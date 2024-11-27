@@ -23,7 +23,6 @@ export const culturesApi = createApi({
 			query: (cultureId) => ({
 				url: `cultures/${cultureId}`,
 			}),
-			providesTags: ['Culture'],
 		}),
 		deleteCultureById: build.mutation<null, string>({
 			query: (cultureId) => ({

@@ -1,14 +1,14 @@
 import { Helmet } from 'react-helmet-async'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { type ObjectInputs, objectSchema } from './schema'
+import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { ObjectElements } from './components/object-elements/object-elements'
-
-import adminStyles from 'src/routes/admin-layout/index.module.scss'
-import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { type ObjectInputs, objectSchema } from './schema'
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
+
+import adminStyles from 'src/routes/admin-layout/index.module.scss'
 
 export const AdminObjects = () => {
 	const methods = useForm<ObjectInputs>({

@@ -6,12 +6,12 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
-
-import adminStyles from 'src/routes/admin-layout/index.module.scss'
-import styles from './index.module.scss'
 import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
 import { MainSection } from './components/main-section/main-section'
 import { ContactsSection } from './components/contacts-section/contacts-section'
+
+import adminStyles from 'src/routes/admin-layout/index.module.scss'
+import styles from './index.module.scss'
 
 export const ObjectInfo = () => {
 	const methods = useForm<ObjectInfoInputs>({

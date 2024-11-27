@@ -2,6 +2,10 @@ import { type ObjectItem } from 'src/types/objects'
 import { useNavigate } from 'react-router-dom'
 import { type FC } from 'react'
 import cn from 'classnames'
+
+import { useDeleteObjectByIdMutation, useGetAllObjectsQuery } from 'src/store/objects/objects.api'
+import { useSearchObjectHandlers } from './useSearchObjectHandlers'
+
 import { CustomTable } from 'src/components/custom-table/custom-table'
 import { Loader } from 'src/components/loader/loader'
 import { RowController } from 'src/components/row-controller/row-controller'
@@ -10,8 +14,6 @@ import { GridRow } from 'src/components/grid-row/grid-row'
 import { TableSearchInput } from 'src/modules/table-search-input/table-search'
 
 import styles from './index.module.scss'
-import { useDeleteObjectByIdMutation, useGetAllObjectsQuery } from 'src/store/objects/objects.api'
-import { useSearchObjectHandlers } from './useSearchObjectHandlers'
 
 export const ObjectElements: FC = () => {
 	const { data: objects, isLoading } = useGetAllObjectsQuery({ search: '' })

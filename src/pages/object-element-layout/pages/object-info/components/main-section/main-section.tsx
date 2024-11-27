@@ -9,12 +9,11 @@ import styles from './index.module.scss'
 
 export const MainSection: FC = () => {
 	return (
-		<AdminSection titleText='Основные данные'>
+		<AdminSection innerClassName={styles.mainSectionInner} titleText='Основные данные'>
 			<ControlledInput
 				name='objectName'
 				label='Название объекта *'
 				placeholder='например, Мастерская керамики...'
-				width='78%'
 				margin='0 0 20px 0'
 			/>
 			<ControlledSelect
@@ -28,7 +27,6 @@ export const MainSection: FC = () => {
 					{ label: 'Северо-Западный', value: '7' },
 					{ label: 'Приволжский', value: '8' },
 				]}
-				className={styles.objectSelect}
 				name='objectType'
 				label='Тип объекта *'
 				margin='0 0 20px 0'
@@ -42,7 +40,6 @@ export const MainSection: FC = () => {
 					{ label: 'АНО Татарский Этноспорт', value: '5' },
 					{ label: 'Без образования юрлица', value: '6' },
 				]}
-				className={styles.objectSelect}
 				name='objectRelation'
 				label='Принадлежность объекта *'
 				margin='0 0 20px 0'
@@ -59,7 +56,6 @@ export const MainSection: FC = () => {
 				label='Краткое описание объекта *'
 				placeholder='Поле ввода текста описания'
 				margin='0 0 20px 0'
-				width='78%'
 				height='105px'
 				isTextarea
 			/>
@@ -68,7 +64,6 @@ export const MainSection: FC = () => {
 				label='Полное описание объекта *'
 				placeholder='Поле ввода текста статьи'
 				margin='0 0 10px 0'
-				width='78%'
 				height='250px'
 				isTextarea
 			/>

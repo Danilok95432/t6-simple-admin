@@ -1,3 +1,6 @@
-.objectSelect {
-  width: 78%;
+.mainSectionInner {
+  max-width: 78%;
+  @media (max-width: 1024px) {
+    max-width: 100%;
+  }
 }

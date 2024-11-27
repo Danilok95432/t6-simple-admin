@@ -11,6 +11,7 @@ type AdminSectionProps = {
 	children: ReactNode
 	sectionName?: string
 	className?: string
+	innerClassName?: string
 	titleText?: string
 	isBlock?: boolean
 }
@@ -19,6 +20,7 @@ export const AdminSection: FC<AdminSectionProps> = ({
 	children,
 	sectionName,
 	className,
+	innerClassName,
 	titleText,
 	isBlock = true,
 }) => {
@@ -34,7 +36,9 @@ export const AdminSection: FC<AdminSectionProps> = ({
 				titleText && <h2 className={styles.sectionTitle}>{titleText}</h2>
 			)}
 			{isChecked && (
-				<div className={cn({ [styles.switchedContentWrapper]: sectionName })}>{children}</div>
+				<div className={cn(innerClassName, { [styles.switchedContentWrapper]: sectionName })}>
+					{children}
+				</div>
 			)}
 		</section>
 	)

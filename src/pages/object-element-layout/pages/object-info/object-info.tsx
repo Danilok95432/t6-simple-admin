@@ -11,7 +11,6 @@ import { MainSection } from './components/main-section/main-section'
 import { ContactsSection } from './components/contacts-section/contacts-section'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
-import styles from './index.module.scss'
 
 export const ObjectInfo = () => {
 	const methods = useForm<ObjectInfoInputs>({
@@ -31,7 +30,7 @@ export const ObjectInfo = () => {
 			<Helmet>
 				<title>Об объекте</title>
 			</Helmet>
-			<AdminContent className={styles.objectInfoPage}>
+			<AdminContent>
 				<Link to={`/${AdminRoute.AdminObjects}`} className={adminStyles.adminReturnLink}>
 					Возврат к списку объектов
 				</Link>

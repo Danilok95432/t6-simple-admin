@@ -6,7 +6,6 @@ import { CloseModalSvg } from 'src/UI/icons/closeModalSVG'
 import { useActions } from 'src/hooks/actions/actions'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
-import { ControlledMaskedInput } from 'src/components/controlled-masked-input/controlled-masked-input'
 import { PassRecoveryModal } from 'src/modals/pass-recovery-modal/pass-recovery-modal'
 
 import styles from './index.module.scss'
@@ -23,11 +22,11 @@ export const AuthModal = () => {
 		console.log(data)
 	}
 
-	const handleCodeSubmit = async () => {
-		const isValidLogin = await methods.trigger('login')
-
-		if (isValidLogin) console.log(methods.getValues('login'))
-	}
+	// const handleCodeSubmit = async () => {
+	// 	const isValidLogin = await methods.trigger('login')
+	//
+	// 	if (isValidLogin) console.log(methods.getValues('login'))
+	// }
 
 	return (
 		<div className={styles.authModal}>
@@ -42,23 +41,17 @@ export const AuthModal = () => {
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<div className={styles.loginInputWrapper}>
-							<ControlledMaskedInput
-								name='login'
-								label='Логин *'
-								placeholder='+7 (999) 999-00-00'
-								mask='{+7} (000) 000-00-00'
-								$margin='0 0 20px 0'
-							/>
-							<AdminButton
-								as='button'
-								$height='26px'
-								$padding='0 10px'
-								$fontSize='13px'
-								type='button'
-								onClick={handleCodeSubmit}
-							>
-								Отправить код
-							</AdminButton>
+							<ControlledInput name='login' label='Логин *' margin='0 0 20px 0' />
+							{/* <AdminButton */}
+							{/* 	as='button' */}
+							{/* 	$height='26px' */}
+							{/* 	$padding='0 10px' */}
+							{/* 	$fontSize='13px' */}
+							{/* 	type='button' */}
+							{/* 	onClick={handleCodeSubmit} */}
+							{/* > */}
+							{/* 	Отправить код */}
+							{/* </AdminButton> */}
 						</div>
 
 						<ControlledInput
@@ -68,13 +61,13 @@ export const AuthModal = () => {
 							type='password'
 							margin='0 0 20px 0'
 						/>
-						<ControlledInput
-							name='verificationCode'
-							label='Проверочный код *'
-							placeholder='****'
-							type='password'
-							margin='0 0 25px 0'
-						/>
+						{/* <ControlledInput */}
+						{/* 	name='verificationCode' */}
+						{/* 	label='Проверочный код *' */}
+						{/* 	placeholder='****' */}
+						{/* 	type='password' */}
+						{/* 	margin='0 0 25px 0' */}
+						{/* /> */}
 						<AdminButton as='button' $height='40px' $margin='0 0 20px 0' type='submit'>
 							Войти
 						</AdminButton>

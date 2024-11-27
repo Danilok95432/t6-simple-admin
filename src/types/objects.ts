@@ -12,6 +12,7 @@ export type ObjLink = {
 
 export type ObjectItem = {
 	id: string
+	isHidden: boolean
 	title: string
 	type: string
 	registryNumber: string
@@ -20,6 +21,7 @@ export type ObjectItem = {
 	kind: string
 	category: string
 	address: string
+	relation: string
 	relatedObjects: RelatedLink[]
 	relatedProjects: RelatedLink[]
 	descs: string[]

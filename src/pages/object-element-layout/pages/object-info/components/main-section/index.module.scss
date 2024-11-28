@@ -1,12 +1,6 @@
 .mainSectionInner {
-  max-width: 80%;
+  max-width: 78%;
   @media (max-width: 1024px) {
     max-width: 100%;
-  }
-  .mainSectionSelect {
-    width: 100%;
-  }
-  svg {
-    margin-top: 30px;
   }
 }

@@ -4,7 +4,7 @@ import { type FC } from 'react'
 import cn from 'classnames'
 
 import { useDeleteObjectByIdMutation, useGetAllObjectsQuery } from 'src/store/objects/objects.api'
-import { useSearchObjectHandlers } from './useSearchObjectHandlers'
+import { useTableSearch } from 'src/hooks/table-search/table-search'
 
 import { CustomTable } from 'src/components/custom-table/custom-table'
 import { Loader } from 'src/components/loader/loader'
@@ -16,13 +16,11 @@ import { TableSearchInput } from 'src/modules/table-search-input/table-search'
 import styles from './index.module.scss'
 
 export const ObjectElements: FC = () => {
-	const { data: objects, isLoading } = useGetAllObjectsQuery({ search: '' })
+	const { handleSearch, searchParams } = useTableSearch(['title', 'type', 'relation'])
 
+	const { data: objects, isLoading } = useGetAllObjectsQuery({ search: searchParams.title })
 	const [deleteObjectById] = useDeleteObjectByIdMutation()
-
 	const navigate = useNavigate()
-
-	const { handleSearch } = useSearchObjectHandlers()
 
 	const tableTitles = ['Наименование', 'Тип объекта', 'Принадлежность', '']
 	const formatObjectsTableData = (objectsData: ObjectItem[]) => {

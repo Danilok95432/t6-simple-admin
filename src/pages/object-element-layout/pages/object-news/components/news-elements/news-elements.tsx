@@ -8,7 +8,7 @@ import {
 	useDeleteObjectNewsByIdMutation,
 	useGetNewsByObjectIdQuery,
 } from 'src/store/objects/objects.api'
-import { useSearchObjectNewsHandlers } from './useSearchObjectNewsHandlers'
+import { useTableSearch } from 'src/hooks/table-search/table-search'
 
 import { CustomTable } from 'src/components/custom-table/custom-table'
 import { Loader } from 'src/components/loader/loader'
@@ -23,13 +23,13 @@ import styles from './index.module.scss'
 
 export const NewsElements: FC = () => {
 	const { id } = useParams()
-	const { data: news, isLoading } = useGetNewsByObjectIdQuery(id ?? '')
+
+	const { handleSearch, searchParams } = useTableSearch(['title', 'tags', 'date'])
+	const { data: news, isLoading } = useGetNewsByObjectIdQuery({ id, search: searchParams.title })
 
 	const [deleteNewsById] = useDeleteObjectNewsByIdMutation()
 
 	const navigate = useNavigate()
-
-	const { handleSearch } = useSearchObjectNewsHandlers()
 
 	const tableTitles = ['Наименование', 'Дата', 'Теги', 'Ключевая', '']
 	const formatObjectsTableData = (newsData: ObjectNews[]) => {
@@ -75,11 +75,11 @@ export const NewsElements: FC = () => {
 				$margin='0 0 15px 0'
 				$padding='0 29px'
 				$template='auto /   minmax(300px, 1.5fr)
-  minmax(150px, 1.0fr)
-  minmax(80px, 0.5fr)
-  minmax(0, 1fr)
-  minmax(0, 1fr)
-  minmax(0, 1fr)'
+				minmax(150px, 1.0fr)
+				minmax(80px, 0.5fr)
+				minmax(0, 1fr)
+				minmax(0, 1fr)
+				minmax(0, 1fr)'
 			>
 				<TableSearchInput
 					handleSearch={(val) => handleSearch('title', val)}

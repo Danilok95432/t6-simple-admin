@@ -6,6 +6,9 @@ import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { NewsElements } from './components/news-elements/news-elements'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
+import { Container } from 'src/UI/Container/Container'
+
+import styles from './index.module.scss'
 
 export const ObjectNews = () => {
 	return (
@@ -14,27 +17,18 @@ export const ObjectNews = () => {
 				<title>Новости</title>
 			</Helmet>
 			<AdminContent $padding='0' $backgroundColor='#ffffff'>
-				<AdminContent $padding='35px' $backgroundColor='#ffffff' $height='0'>
+				<Container $padding='35px'>
 					<Link to={`/${AdminRoute.AdminObjects}`} className={adminStyles.adminReturnLink}>
 						Возврат к списку объектов
 					</Link>
-				</AdminContent>
-				<AdminContent
-					title='Новости'
-					$backgroundColor='#ffffff'
-					$height='0'
-					$padding='0 30px 20px 30px'
-				>
-					<></>
-				</AdminContent>
-				<AdminContent $backgroundColor='#ffffff' $padding='0'>
-					<NewsElements />
-				</AdminContent>
-				<AdminContent $padding='50px 35px' $backgroundColor='#ffffff' $height='0'>
+					<h3 className={styles.title}>Новости</h3>
+				</Container>
+				<NewsElements />
+				<Container $padding='50px 35px'>
 					<Link to={`/${AdminRoute.AdminObjects}`} className={adminStyles.adminReturnLink}>
 						Возврат к списку объектов
 					</Link>
-				</AdminContent>
+				</Container>
 			</AdminContent>
 		</>
 	)

@@ -26,9 +26,12 @@ export const objectsApi = createApi({
 			}),
 			providesTags: ['Object'],
 		}),
-		getNewsByObjectId: build.query<ObjectNews[], string>({
-			query: (objId) => ({
+		getNewsByObjectId: build.query<ObjectNews[], { id: string | undefined; search?: string }>({
+			query: ({ id: objId, search }) => ({
 				url: `objects/${objId}/news`,
+				params: {
+					q: search,
+				},
 			}),
 			providesTags: ['Object', 'ObjectNews'],
 		}),

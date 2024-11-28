@@ -26,7 +26,7 @@ export const adminMenuItems: NavigationItem[] = [
 	{
 		title: 'События',
 		icon: <AdminEventsIconSvg />,
-		link: 'admin-events',
+		link: 'events-list',
 	},
 	{
 		title: 'Библиотека',

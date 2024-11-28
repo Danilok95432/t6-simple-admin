@@ -38,13 +38,6 @@ import { EventReportsLayout } from 'src/pages/one-event-layout/pages/event-repor
 import { AdminPassReports } from 'src/pages/one-event-layout/pages/event-reports-layout/pages/admin-pass-reports/admin-pass-reports'
 import { AdminFoodReports } from 'src/pages/one-event-layout/pages/event-reports-layout/pages/admin-food-reports/admin-food-reports'
 
-import { EventsListLayout } from 'src/pages/events-list-layout/events-list-layout'
-import { AdminEventsList } from 'src/pages/events-list-layout/pages/admin-events-list/admin-events-list'
-import { AdminEventsPast } from 'src/pages/events-list-layout/pages/admin-events-past/admin-events-past'
-import { AdminEventsUpcoming } from 'src/pages/events-list-layout/pages/admin-events-upcoming/admin-events-upcoming'
-import { AdminEventsMain } from 'src/pages/events-list-layout/pages/admin-events-main/admin-events-main'
-import { AdminEventsCanceled } from 'src/pages/events-list-layout/pages/admin-events-canceled/admin-events-canceled'
-
 import { AdminSupport } from 'src/pages/admin-support/admin-support'
 
 import { CommunityLayout } from 'src/pages/community-layout/community-layout'
@@ -67,6 +60,7 @@ import { ObjectHistory } from 'src/pages/object-element-layout/pages/object-hist
 import { ObjectEvents } from 'src/pages/object-element-layout/pages/object-events/object-events'
 import { ObjectGallery } from 'src/pages/object-element-layout/pages/object-gallery/object-gallery'
 import { ObjectLocation } from 'src/pages/object-element-layout/pages/object-location/object-location'
+import { EventsList } from 'src/pages/events-list/events-list'
 
 export const AdminRoutes: FC = () => {
 	return (
@@ -100,6 +94,7 @@ export const AdminRoutes: FC = () => {
 				<Route path={AdminRoute.AdminObjects} element={<AdminObjects />} />
 				<Route path={AdminRoute.AdminAddDepartments} element={<AdminAddDepartments />} />
 
+				<Route path={AdminRoute.AdminEventsList} element={<EventsList />} />
 				<Route path={AdminRoute.AdminEventNew} element={<OneEventLayout />}>
 					<Route index element={<AdminEventProfile />} />
 					<Route path={AdminRoute.AdminEventReg} element={<AdminEventReg />} />
@@ -133,13 +128,6 @@ export const AdminRoutes: FC = () => {
 						<Route index element={<AdminPassReports />} />
 						<Route path={AdminRoute.AdminEventReportsFood} element={<AdminFoodReports />} />
 					</Route>
-				</Route>
-				<Route path={AdminRoute.AdminEventsList} element={<EventsListLayout />}>
-					<Route index element={<AdminEventsList />} />
-					<Route path={AdminRoute.AdminEventsPast} element={<AdminEventsPast />} />
-					<Route path={AdminRoute.AdminEventsUpcoming} element={<AdminEventsUpcoming />} />
-					<Route path={AdminRoute.AdminEventsMain} element={<AdminEventsMain />} />
-					<Route path={AdminRoute.AdminEventsCanceled} element={<AdminEventsCanceled />} />
 				</Route>
 
 				<Route path={AdminRoute.AdminSupport} element={<AdminSupport />} />

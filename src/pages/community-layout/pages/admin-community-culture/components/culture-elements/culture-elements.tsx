@@ -13,9 +13,9 @@ import { RowController } from 'src/components/row-controller/row-controller'
 import { TableFooter } from 'src/components/table-footer/table-footer'
 import { GridRow } from 'src/components/grid-row/grid-row'
 import { TableSearchInput } from 'src/modules/table-search-input/table-search'
+import { useTableSearch } from 'src/hooks/table-search/table-search'
 
 import styles from './index.module.scss'
-import { useSearchCultureHandlers } from 'src/pages/community-layout/pages/admin-community-culture/components/culture-elements/useSearchCultureHandlers'
 
 export const CultureElements: FC = () => {
 	const { data: cultures, isLoading } = useGetAllCulturesQuery({ search: '' })
@@ -24,7 +24,7 @@ export const CultureElements: FC = () => {
 
 	const navigate = useNavigate()
 
-	const { handleSearch } = useSearchCultureHandlers()
+	const { handleSearch } = useTableSearch(['title', 'date', 'level', 'region'])
 
 	const tableTitles = [
 		'Наименование элемента',

@@ -1,0 +1,12 @@
+.eventsTable {
+  grid-template-columns:
+  minmax(300px, 2.8fr)
+  minmax(130px, 0.5fr)
+  minmax(130px, 0.5fr)
+  minmax(200px, 1fr)
+  minmax(50px, 0.2fr);
+
+  th:first-child, td:first-child {
+  padding-left: 40px;
+}
+}

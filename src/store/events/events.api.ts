@@ -1,4 +1,4 @@
-import { type EventRequest, type EventsItem } from 'src/types/events'
+import { type EventItem } from 'src/types/events'
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
@@ -11,26 +11,23 @@ export const eventsApi = createApi({
 		baseUrl: BASE_URL,
 	}),
 	endpoints: (build) => ({
-		getAllEvents: build.query<EventsItem[], { search?: string; year?: string }>({
-			query: ({ search = '', year = '' }) => ({
+		getAllEvents: build.query<EventItem[], { search?: string }>({
+			query: ({ search = '' }) => ({
 				url: `events`,
 				params: {
 					q: search,
-					y: year,
 				},
 			}),
+			providesTags: ['Events'],
 		}),
-		getEventById: build.query<EventsItem, string>({
-			query: (eventsId) => ({
-				url: `events/${eventsId}`,
+		deleteEventById: build.mutation<null, string>({
+			query: (eventId) => ({
+				url: `eventDelete/${eventId}`,
+				method: 'DELETE',
 			}),
-		}),
-		getEventRequests: build.query<EventRequest[], null>({
-			query: () => ({
-				url: 'event-requests',
-			}),
+			invalidatesTags: ['Events'],
 		}),
 	}),
 })
 
-export const { useGetAllEventsQuery, useGetEventByIdQuery, useGetEventRequestsQuery } = eventsApi
+export const { useGetAllEventsQuery, useDeleteEventByIdMutation } = eventsApi

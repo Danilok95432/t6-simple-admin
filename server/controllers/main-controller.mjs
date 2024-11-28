@@ -1,11 +1,8 @@
 import { objects } from '../mockData/objects.mjs'
-import { projects } from '../mockData/projects.mjs'
 import { news } from '../mockData/news.mjs'
 import { events } from '../mockData/events.mjs'
 import { newsVideos } from '../mockData/newsVideos.mjs'
-import { eventRequests } from '../mockData/eventRequests.mjs'
 import { cultureElements } from '../mockData/cultureElements.mjs'
-import { promoBlocks } from '../mockData/promo-blocks.mjs'
 
 export const getObjects = (req, res) => {
 	const { q } = req.query
@@ -33,20 +30,6 @@ export const getObjectById = (req, res) => {
 	const foundObject = objects.find((object) => object.id === objectId)
 
 	res.status(200).json(foundObject)
-}
-export const getProjects = (req, res) => {
-	const { q } = req.query
-
-	const filteredProjects = projects.filter((el) => el.title.toLowerCase().includes(q))
-
-	res.status(200).json(filteredProjects)
-}
-
-export const getProjectById = (req, res) => {
-	const projectId = req.params.id
-	const foundProject = projects.find((project) => project.id === projectId)
-
-	res.status(200).json(foundProject)
 }
 
 export const getNews = (req, res) => {
@@ -110,23 +93,24 @@ export const deleteCulture = (req, res) => {
 }
 
 export const getEvents = (req, res) => {
-	const { q, y } = req.query
+	const { q } = req.query
 
-	const filteredEvents = events.filter((el) => {
-		if (y) {
-			return String(new Date(el.dates[0]).getFullYear()) === y && el.title.toLowerCase().includes(q)
-		}
-		return el.title.toLowerCase().includes(q)
-	})
+	const filteredEvents = events.filter((el) => el.title.toLowerCase().includes(q))
 
 	res.status(200).json(filteredEvents)
 }
 
-export const getEventById = (req, res) => {
+export const deleteEvent = (req, res) => {
 	const eventId = req.params.id
-	const foundEvent = events.find((eventItem) => eventItem.id === eventId)
+	let deleteIdx
+	events.forEach((el, idx) => {
+		if (el.id === eventId) {
+			deleteIdx = idx
+		}
+	})
+	events.splice(deleteIdx, 1)
 
-	res.status(200).json(foundEvent)
+	res.status(200).json(deleteIdx)
 }
 
 export const getNewsVideos = (req, res) => {
@@ -160,11 +144,4 @@ export const deleteNewsVideo = (req, res) => {
 	newsVideos.splice(deleteIdx, 1)
 
 	res.status(200).json(deleteIdx)
-}
-
-export const getEventRequests = (req, res) => {
-	res.status(200).json(eventRequests)
-}
-export const getPromoBlocks = (req, res) => {
-	res.status(200).json(promoBlocks)
 }

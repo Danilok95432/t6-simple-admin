@@ -13,30 +13,11 @@ import { AdminAboutContent } from 'src/pages/admin-site/admin-about-content/admi
 
 import { AdminAddDepartments } from 'src/pages/admin-add-departments/admin-add-departments'
 
+import { EventsList } from 'src/pages/events-list/events-list'
 import { OneEventLayout } from 'src/pages/one-event-layout/one-event-layout'
 import { AdminEventProfile } from 'src/pages/one-event-layout/pages/admin-event-profile/admin-event-profile'
-import { AdminEventReg } from 'src/pages/one-event-layout/pages/admin-event-reg/admin-event-reg'
-import { AdminEventTickets } from 'src/pages/one-event-layout/pages/admin-event-tickets/admin-event-tickets'
 import { AdminEventContent } from 'src/pages/one-event-layout/pages/admin-event-content/admin-event-content'
-import { AdminEventLocations } from 'src/pages/one-event-layout/pages/admin-event-locations/admin-event-locations'
-
-import { EventTimetableLayout } from 'src/pages/one-event-layout/pages/event-timetable-layout/event-timetable-layout'
-import { AdminEventTimetableList } from 'src/pages/one-event-layout/pages/event-timetable-layout/pages/admin-event-timetable-list/admin-event-timetable-list'
-import { AdminEventTimetableEdit } from 'src/pages/one-event-layout/pages/event-timetable-layout/pages/admin-event-timetable-edit/admin-event-timetable-edit'
 import { AdminEventPartners } from 'src/pages/one-event-layout/pages/admin-event-partners/admin-event-partners'
-import { AdminEventPublication } from 'src/pages/one-event-layout/pages/admin-event-publication/admin-event-publication'
-import { EventRostersLayout } from 'src/pages/one-event-layout/pages/event-rosters-layout/event-rosters-layout'
-
-import { AdminVisitorsRosters } from 'src/pages/one-event-layout/pages/event-rosters-layout/pages/admin-visitors-rosters/admin-visitors-rosters'
-import { AdminGroupsRosters } from 'src/pages/one-event-layout/pages/event-rosters-layout/pages/admin-groups-rosters/admin-groups-rosters'
-import { AdminTransportRosters } from 'src/pages/one-event-layout/pages/event-rosters-layout/pages/admin-transport-rosters/admin-transport-rosters'
-import { AdminEmployeesRosters } from 'src/pages/one-event-layout/pages/event-rosters-layout/pages/admin-employees-rosters/admin-employees-rosters'
-import { AdminFoodRosters } from 'src/pages/one-event-layout/pages/event-rosters-layout/pages/admin-food-rosters/admin-food-rosters'
-import { AdminListsRosters } from 'src/pages/one-event-layout/pages/event-rosters-layout/pages/admin-lists-rosters/admin-lists-rosters'
-
-import { EventReportsLayout } from 'src/pages/one-event-layout/pages/event-reports-layout/event-reports-layout'
-import { AdminPassReports } from 'src/pages/one-event-layout/pages/event-reports-layout/pages/admin-pass-reports/admin-pass-reports'
-import { AdminFoodReports } from 'src/pages/one-event-layout/pages/event-reports-layout/pages/admin-food-reports/admin-food-reports'
 
 import { AdminSupport } from 'src/pages/admin-support/admin-support'
 
@@ -60,7 +41,6 @@ import { ObjectHistory } from 'src/pages/object-element-layout/pages/object-hist
 import { ObjectEvents } from 'src/pages/object-element-layout/pages/object-events/object-events'
 import { ObjectGallery } from 'src/pages/object-element-layout/pages/object-gallery/object-gallery'
 import { ObjectLocation } from 'src/pages/object-element-layout/pages/object-location/object-location'
-import { EventsList } from 'src/pages/events-list/events-list'
 
 export const AdminRoutes: FC = () => {
 	return (
@@ -95,39 +75,10 @@ export const AdminRoutes: FC = () => {
 				<Route path={AdminRoute.AdminAddDepartments} element={<AdminAddDepartments />} />
 
 				<Route path={AdminRoute.AdminEventsList} element={<EventsList />} />
-				<Route path={AdminRoute.AdminEventNew} element={<OneEventLayout />}>
-					<Route index element={<AdminEventProfile />} />
-					<Route path={AdminRoute.AdminEventReg} element={<AdminEventReg />} />
-					<Route path={AdminRoute.AdminEventTickets} element={<AdminEventTickets />} />
-					<Route path={AdminRoute.AdminEventContent} element={<AdminEventContent />} />
-					<Route path={AdminRoute.AdminEventLocations} element={<AdminEventLocations />} />
-					<Route path={AdminRoute.AdminEventTimetable} element={<EventTimetableLayout />}>
-						<Route index element={<AdminEventTimetableList />} />
-						<Route
-							path={AdminRoute.AdminEventTimetableEdit}
-							element={<AdminEventTimetableEdit />}
-						/>
-					</Route>
-					<Route path={AdminRoute.AdminEventPartners} element={<AdminEventPartners />} />
-					<Route path={AdminRoute.AdminEventPublication} element={<AdminEventPublication />} />
-					<Route path={AdminRoute.AdminEventRosters} element={<EventRostersLayout />}>
-						<Route index element={<AdminVisitorsRosters />} />
-						<Route path={AdminRoute.AdminEventRostersGroups} element={<AdminGroupsRosters />} />
-						<Route
-							path={AdminRoute.AdminEventRostersTransport}
-							element={<AdminTransportRosters />}
-						/>
-						<Route
-							path={AdminRoute.AdminEventRostersEmployees}
-							element={<AdminEmployeesRosters />}
-						/>
-						<Route path={AdminRoute.AdminEventRostersFood} element={<AdminFoodRosters />} />
-						<Route path={AdminRoute.AdminEventRostersLists} element={<AdminListsRosters />} />
-					</Route>
-					<Route path={AdminRoute.AdminEventReports} element={<EventReportsLayout />}>
-						<Route index element={<AdminPassReports />} />
-						<Route path={AdminRoute.AdminEventReportsFood} element={<AdminFoodReports />} />
-					</Route>
+				<Route path={AdminRoute.AdminEvent} element={<OneEventLayout />}>
+					<Route path={`${AdminRoute.AdminEventProfile}/:id`} element={<AdminEventProfile />} />
+					<Route path={`${AdminRoute.AdminEventContent}/:id`} element={<AdminEventContent />} />
+					<Route path={`${AdminRoute.AdminEventPartners}/:id`} element={<AdminEventPartners />} />
 				</Route>
 
 				<Route path={AdminRoute.AdminSupport} element={<AdminSupport />} />

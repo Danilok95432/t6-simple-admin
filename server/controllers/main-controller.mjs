@@ -34,6 +34,29 @@ export const getObjectById = (req, res) => {
 
 	res.status(200).json(foundObject)
 }
+
+export const getNewsByObjectId = (req, res) => {
+	const objectId = req.params.id
+	const foundObject = objects.find((object) => object.id === objectId)
+
+	res.status(200).json(foundObject.news)
+}
+
+export const deleteObjectNews = (req, res) => {
+	const objectId = req.params.objectId
+	const newsId = req.params.newsId
+	const foundObject = objects.find((object) => object.id === objectId)
+	let deleteIdx
+	foundObject.news.forEach((el, idx) => {
+		if (el.id === newsId) {
+			deleteIdx = idx
+		}
+	})
+	foundObject.news.splice(deleteIdx, 1)
+
+	res.status(200).json(deleteIdx)
+}
+
 export const getProjects = (req, res) => {
 	const { q } = req.query
 

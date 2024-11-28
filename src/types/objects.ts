@@ -1,6 +1,4 @@
-import { type RelatedLink } from 'src/types/global'
-import { type PhotoItem } from 'src/types/photos'
-import { type ShortDocument } from 'src/types/document'
+import { type FileWithPreview } from './files'
 
 export type ObjLink = {
 	id: string
@@ -10,23 +8,31 @@ export type ObjLink = {
 	source: string
 }
 
+export type ObjectNews = {
+	id: string
+	isHidden: boolean
+	title: string
+	tags: string[]
+	isKey: boolean
+	date: Date
+}
+
 export type ObjectItem = {
 	id: string
 	isHidden: boolean
 	title: string
 	type: string
-	registryNumber: string
-	status: string
-	region: string
-	kind: string
-	category: string
-	address: string
 	relation: string
-	relatedObjects: RelatedLink[]
-	relatedProjects: RelatedLink[]
-	descs: string[]
-	coords: [number, number]
-	photos: PhotoItem[]
-	relatedLinks: ObjLink[]
-	documents: ShortDocument[]
+	objectMainImg?: FileWithPreview[]
+	objectDesc: string
+	objectDescFull: string
+	phoneNumber?: string
+	emailAddress?: string
+	emailAddressFull: string
+	tgText?: string
+	tgAddress?: string
+	vkText?: string
+	vkAddress?: string
+	coords: string
+	news: ObjectNews[]
 }

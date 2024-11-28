@@ -1,0 +1,26 @@
+.checkBoxWrapper {
+  margin: auto 30%;
+  label {
+    cursor: pointer;
+    border: 1px solid #868686;
+    border-radius: 3px;
+    background: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 15px;
+    width: 15px;
+    height: 15px;
+    margin-right: 8px;
+    &._active {
+      border: 1px solid #184F71;
+      background: #184F71;
+    }
+  }
+  input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+  }
+}

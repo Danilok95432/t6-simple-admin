@@ -52,7 +52,7 @@ export const NewsElements: FC = () => {
 						hideHandler={rowHideHandler}
 						removeHandler={rowDeleteHandler}
 						textOfHidden='Скрыть направление'
-						key='3'
+						key='4'
 					/>,
 				],
 			}

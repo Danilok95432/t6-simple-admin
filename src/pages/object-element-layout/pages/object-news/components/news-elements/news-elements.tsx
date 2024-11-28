@@ -24,7 +24,7 @@ import styles from './index.module.scss'
 export const NewsElements: FC = () => {
 	const { id } = useParams()
 	const { data: news, isLoading } = useGetNewsByObjectIdQuery(id ?? '')
-	console.log(news)
+
 	const [deleteNewsById] = useDeleteObjectNewsByIdMutation()
 
 	const navigate = useNavigate()

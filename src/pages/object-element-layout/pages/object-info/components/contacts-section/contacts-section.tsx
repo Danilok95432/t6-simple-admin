@@ -40,7 +40,7 @@ export const ContactsSection: FC = () => {
 				<ControlledInput name='vkAddress' placeholder='Адрес URL' />
 			</GridRow>
 			<ControlledInput
-				name='coordination'
+				name='coords'
 				label='Координаты объекта (широта и долгота в градусах, минутах, секундах)*'
 				placeholder='53.129867, 41.400010'
 				margin='0 0 10px 0'

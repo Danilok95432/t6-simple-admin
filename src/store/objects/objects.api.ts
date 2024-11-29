@@ -1,4 +1,4 @@
-import { type ObjectItem } from 'src/types/objects'
+import { type ObjectNews, type ObjectItem } from 'src/types/objects'
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
@@ -6,7 +6,7 @@ import { BASE_URL, ReducerPath } from 'src/helpers/consts'
 
 export const objectsApi = createApi({
 	reducerPath: ReducerPath.Objects,
-	tagTypes: ['Object'],
+	tagTypes: ['Object', 'ObjectNews'],
 	baseQuery: fetchBaseQuery({
 		baseUrl: BASE_URL,
 	}),
@@ -26,6 +26,15 @@ export const objectsApi = createApi({
 			}),
 			providesTags: ['Object'],
 		}),
+		getNewsByObjectId: build.query<ObjectNews[], { id: string | undefined; search?: string }>({
+			query: ({ id: objId, search }) => ({
+				url: `objects/${objId}/news`,
+				params: {
+					q: search,
+				},
+			}),
+			providesTags: ['Object', 'ObjectNews'],
+		}),
 		deleteObjectById: build.mutation<null, string>({
 			query: (objectId) => ({
 				url: `objectDelete/${objectId}`,
@@ -33,8 +42,20 @@ export const objectsApi = createApi({
 			}),
 			invalidatesTags: ['Object'],
 		}),
+		deleteObjectNewsById: build.mutation<null, { objectId: string; newsId: string }>({
+			query: ({ objectId, newsId }) => ({
+				url: `/object/${objectId}/newsDelete/${newsId}`,
+				method: 'DELETE',
+			}),
+			invalidatesTags: ['Object', 'ObjectNews'],
+		}),
 	}),
 })
 
-export const { useGetAllObjectsQuery, useGetObjectByIdQuery, useDeleteObjectByIdMutation } =
-	objectsApi
+export const {
+	useGetAllObjectsQuery,
+	useGetObjectByIdQuery,
+	useDeleteObjectByIdMutation,
+	useGetNewsByObjectIdQuery,
+	useDeleteObjectNewsByIdMutation,
+} = objectsApi

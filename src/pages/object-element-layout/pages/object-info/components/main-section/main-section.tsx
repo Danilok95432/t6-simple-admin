@@ -11,7 +11,7 @@ export const MainSection: FC = () => {
 	return (
 		<AdminSection innerClassName={styles.mainSectionInner} titleText='Основные данные'>
 			<ControlledInput
-				name='objectName'
+				name='title'
 				label='Название объекта *'
 				placeholder='например, Мастерская керамики...'
 				margin='0 0 20px 0'
@@ -27,7 +27,7 @@ export const MainSection: FC = () => {
 					{ label: 'Северо-Западный', value: '7' },
 					{ label: 'Приволжский', value: '8' },
 				]}
-				name='objectType'
+				name='type'
 				label='Тип объекта *'
 				margin='0 0 20px 0'
 			/>
@@ -40,7 +40,7 @@ export const MainSection: FC = () => {
 					{ label: 'АНО Татарский Этноспорт', value: '5' },
 					{ label: 'Без образования юрлица', value: '6' },
 				]}
-				name='objectRelation'
+				name='relation'
 				label='Принадлежность объекта *'
 				margin='0 0 20px 0'
 			/>

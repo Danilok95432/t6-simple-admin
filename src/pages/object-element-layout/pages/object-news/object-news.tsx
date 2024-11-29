@@ -17,14 +17,14 @@ export const ObjectNews = () => {
 				<title>Новости</title>
 			</Helmet>
 			<AdminContent $padding='0' $backgroundColor='#ffffff'>
-				<Container $padding='35px'>
+				<Container $padding='35px' $paddingMobile='35px'>
 					<Link to={`/${AdminRoute.AdminObjects}`} className={adminStyles.adminReturnLink}>
 						Возврат к списку объектов
 					</Link>
 					<h3 className={styles.title}>Новости</h3>
 				</Container>
 				<NewsElements />
-				<Container $padding='50px 35px'>
+				<Container $padding='50px 35px' $paddingMobile='50px 35px'>
 					<Link to={`/${AdminRoute.AdminObjects}`} className={adminStyles.adminReturnLink}>
 						Возврат к списку объектов
 					</Link>

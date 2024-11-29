@@ -1,3 +1,4 @@
+import { type ObjectGalleryLink } from 'src/pages/object-element-layout/pages/object-gallery/schema'
 import { type FileWithPreview } from './files'
 
 export type ObjLink = {
@@ -15,6 +16,11 @@ export type ObjectNews = {
 	tags: string[]
 	isKey: boolean
 	date: Date
+}
+
+export type ObjectGallery = {
+	objectImages?: FileWithPreview[]
+	links?: ObjectGalleryLink[]
 }
 
 export type ObjectItem = {
@@ -35,4 +41,5 @@ export type ObjectItem = {
 	vkAddress?: string
 	coords: string
 	news: ObjectNews[]
+	gallery: ObjectGallery
 }

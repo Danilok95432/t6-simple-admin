@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react'
 import { type SelOption } from 'src/types/select'
+import { type FieldValues } from 'react-hook-form'
 
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
@@ -71,4 +72,19 @@ export const mainFormatDate = (
 ): string | null => {
 	if (!date) return null
 	return format(date, dateFormat, { locale: ru })
+}
+
+// форматирование данных с формы в виде объекта в формат FormData
+export const transformToFormData = (data: FieldValues) => {
+	const formData = new FormData()
+
+	Object.keys(data).forEach((key) => {
+		const value = data[key]
+		if (value instanceof File || value instanceof Blob) {
+			formData.append(key, value)
+		} else {
+			formData.append(key, String(value))
+		}
+	})
+	return formData
 }

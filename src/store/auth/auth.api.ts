@@ -17,7 +17,7 @@ export const authApi = createApi({
 		}),
 		loginUser: build.mutation<AuthResponse, FieldValues>({
 			query: (formData) => ({
-				url: '/login',
+				url: '/auth',
 				method: 'POST',
 				body: formData,
 			}),

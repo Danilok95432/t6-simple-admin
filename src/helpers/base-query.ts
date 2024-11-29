@@ -7,12 +7,12 @@ import {
 import { Mutex } from 'async-mutex'
 import type { AuthResponse } from 'src/types/response'
 
-import { BASE_URL } from 'src/helpers/consts'
+import { MAIN_PROD_URL } from 'src/helpers/consts'
 import { authActions } from 'src/store/auth/auth.slice'
 
 const mutex = new Mutex()
 const baseQuery = fetchBaseQuery({
-	baseUrl: BASE_URL,
+	baseUrl: MAIN_PROD_URL,
 	credentials: 'include',
 	prepareHeaders: (headers) => {
 		const token = localStorage.getItem('token')

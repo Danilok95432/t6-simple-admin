@@ -1,13 +1,12 @@
 import * as yup from 'yup'
 
 export type AuthInputs = {
-	login: string
+	user_name: string
 	password: string
-	// verificationCode: string
 }
 
 export const authSchema = yup.object().shape({
-	login: yup.string().required('Введите логин'),
+	user_name: yup.string().required('Введите логин'),
 	password: yup.string().required('Введите пароль'),
 	// verificationCode: yup.string().required('Введите проверочный код'),
 })

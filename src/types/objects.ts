@@ -9,6 +9,16 @@ export type ObjectNews = {
 	date: Date
 }
 
+export type ObjectEvents = {
+	id: string
+	isHidden: boolean
+	title: string
+	typeEvent: string
+	typePart: string
+	startDate: Date
+	endDate: Date
+}
+
 export type ObjectItem = {
 	id: string
 	isHidden: boolean
@@ -27,5 +37,6 @@ export type ObjectItem = {
 	vkAddress?: string
 	coords: string
 	news: ObjectNews[]
+	events: ObjectEvents[]
 	objectImages: FileWithPreview[]
 }

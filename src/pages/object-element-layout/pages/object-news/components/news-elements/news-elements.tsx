@@ -51,7 +51,7 @@ export const NewsElements: FC = () => {
 						id={newsEl.id}
 						hideHandler={rowHideHandler}
 						removeHandler={rowDeleteHandler}
-						textOfHidden='Скрыть направление'
+						textOfHidden='Скрыть новость'
 						key='4'
 					/>,
 				],

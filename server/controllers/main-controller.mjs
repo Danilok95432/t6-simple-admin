@@ -39,6 +39,13 @@ export const getNewsByObjectId = (req, res) => {
 	res.status(200).json(foundObject.news)
 }
 
+export const getEventsByObjectId = (req, res) => {
+	const objectId = req.params.id
+	const foundObject = objects.find((object) => object.id === objectId)
+
+	res.status(200).json(foundObject.events)
+}
+
 export const deleteObjectNews = (req, res) => {
 	const objectId = req.params.objectId
 	const newsId = req.params.newsId
@@ -50,6 +57,21 @@ export const deleteObjectNews = (req, res) => {
 		}
 	})
 	foundObject.news.splice(deleteIdx, 1)
+
+	res.status(200).json(deleteIdx)
+}
+
+export const deleteObjectEvents = (req, res) => {
+	const objectId = req.params.objectId
+	const eventId = req.params.newsId
+	const foundObject = objects.find((object) => object.id === objectId)
+	let deleteIdx
+	foundObject.events.forEach((el, idx) => {
+		if (el.id === eventId) {
+			deleteIdx = idx
+		}
+	})
+	foundObject.events.splice(deleteIdx, 1)
 
 	res.status(200).json(deleteIdx)
 }

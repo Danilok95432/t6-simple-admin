@@ -10,7 +10,7 @@ export const ObjectEvents = () => {
 	return (
 		<>
 			<Helmet>
-				<title>Новости</title>
+				<title>События</title>
 			</Helmet>
 			<AdminContent $padding='0' $backgroundColor='#ffffff'>
 				<Container $padding='33px 20px 20px 28px' $paddingMobile='33px 20px 20px 28px'>

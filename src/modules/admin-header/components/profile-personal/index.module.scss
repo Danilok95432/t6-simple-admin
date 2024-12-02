@@ -3,7 +3,6 @@
   align-items: center;
   gap: 30px;
   margin-left: auto;
-  cursor: pointer;
 
   a {
     svg {
@@ -44,4 +43,8 @@
     border-radius: 50%;
     z-index: 10;
   }
+}
+.userName {
+  color: #ffffff;
+  font-size: 18px;
 }

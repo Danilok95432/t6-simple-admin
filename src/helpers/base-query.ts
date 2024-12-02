@@ -36,7 +36,7 @@ export const baseQueryWithReauth: BaseQueryFn<
 				const refreshResult = await baseQuery('/refresh', api, extraOptions)
 				if (refreshResult.data) {
 					const authResponse = refreshResult.data as AuthResponse
-					localStorage.setItem('token', authResponse.accessToken)
+					localStorage.setItem('token', authResponse.token)
 					result = await baseQuery(args, api, extraOptions)
 				} else {
 					api.dispatch(authActions.setAuth(false))

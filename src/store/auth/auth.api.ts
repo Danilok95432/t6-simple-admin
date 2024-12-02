@@ -28,15 +28,21 @@ export const authApi = createApi({
 				method: 'POST',
 			}),
 		}),
-		checkAuth: build.query({
+		checkAuth: build.query<AuthResponse, null>({
 			query: () => ({
 				url: '/refresh',
+			}),
+		}),
+		testLogin: build.query<unknown, null>({
+			query: () => ({
+				url: 'objects/list',
 			}),
 		}),
 	}),
 })
 export const {
 	useLoginUserMutation,
+	useLazyTestLoginQuery,
 	useRegistrationUserMutation,
 	useLogoutUserMutation,
 	useLazyCheckAuthQuery,

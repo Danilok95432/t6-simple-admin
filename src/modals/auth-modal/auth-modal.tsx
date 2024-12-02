@@ -13,7 +13,7 @@ import styles from './index.module.scss'
 import { transformToFormData } from 'src/helpers/utils'
 
 export const AuthModal = () => {
-	const { closeModal, openModal } = useActions()
+	const { closeModal, openModal, setAuth, setUser } = useActions()
 	const [loginUser] = useLoginUserMutation()
 
 	const methods = useForm<AuthInputs>({
@@ -23,7 +23,18 @@ export const AuthModal = () => {
 
 	const onSubmit: SubmitHandler<AuthInputs> = async (data) => {
 		const formData = transformToFormData(data)
-		await loginUser(formData)
+		try {
+			const { data: resData } = await loginUser(formData)
+			if (resData && 'token' in resData && 'user' in resData) {
+				localStorage.setItem('token', resData.token)
+				setAuth(true)
+				setUser(resData.user)
+				closeModal()
+			}
+		} catch (err) {
+			console.error(err)
+			closeModal()
+		}
 	}
 
 	// const handleCodeSubmit = async () => {

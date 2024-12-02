@@ -41,7 +41,7 @@ export const ObjectElements: FC = () => {
 						id={objectEl.id}
 						hideHandler={rowHideHandler}
 						removeHandler={rowDeleteHandler}
-						textOfHidden='Скрыть направление'
+						textOfHidden='Скрыть событие'
 						key='3'
 					/>,
 				],

@@ -60,7 +60,7 @@ export const EventElements: FC = () => {
 						id={eventsEl.id}
 						hideHandler={rowHideHandler}
 						removeHandler={rowDeleteHandler}
-						textOfHidden='Скрыть направление'
+						textOfHidden='Спрятать событие'
 						key='5'
 					/>,
 				],

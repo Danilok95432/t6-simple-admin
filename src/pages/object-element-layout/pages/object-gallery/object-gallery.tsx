@@ -14,7 +14,6 @@ export const ObjectGallery = () => {
 		mode: 'onBlur',
 		resolver: yupResolver(objectGallerySchema),
 		defaultValues: {
-			objectImages: [],
 			link: '',
 		},
 	})
@@ -34,9 +33,9 @@ export const ObjectGallery = () => {
 				$height='0'
 				$padding='33px 20px 100px 28px'
 			>
+				<GallerySection />
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
-						<GallerySection />
 						<LinkSection />
 						<AdminButton type='submit' $height='35px'>
 							Сохранить ссылку

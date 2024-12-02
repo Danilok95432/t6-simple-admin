@@ -1,8 +1,6 @@
 import * as yup from 'yup'
-import { type FileWithPreview } from 'src/types/files'
 
 export type ObjectGalleryInputs = {
-	objectImages?: FileWithPreview[]
 	link: string
 }
 

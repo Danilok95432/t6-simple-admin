@@ -33,7 +33,7 @@ export const EventElements: FC = () => {
 		search: searchParams.title,
 	})
 
-	const [deleteNewsById] = useDeleteObjectEventsByIdMutation()
+	const [deleteEventById] = useDeleteObjectEventsByIdMutation()
 
 	const tableTitles = ['Наименование', 'Тип события', 'Тип участия', 'Начало', 'Окончание', '']
 	const formatObjectsTableData = (eventsData: ObjectEvents[]) => {
@@ -69,7 +69,7 @@ export const EventElements: FC = () => {
 	}
 
 	const rowDeleteHandler = async (eventId: string) => {
-		await deleteNewsById({ objectId: id ?? '', eventId })
+		await deleteEventById({ objectId: id ?? '', eventId })
 	}
 
 	const rowHideHandler = async (id: string) => {

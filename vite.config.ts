@@ -9,4 +9,20 @@ export default defineConfig({
 			src: '/src',
 		},
 	},
+	server: {
+		// host: '192.168.31.171',
+		open: true,
+		cors: {
+			origin: '*',
+			methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+			allowedHeaders: ['Content-Type', 'Authorization'],
+		},
+		proxy: {
+			'/api': {
+				target: 'https://auapi.npotau.ru/admin',
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/api/, ''),
+			},
+		},
+	},
 })

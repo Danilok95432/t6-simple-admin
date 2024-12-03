@@ -74,15 +74,7 @@ export const EventsTable: FC = () => {
 
 	return (
 		<div>
-			<GridRow
-				$margin='0 0 15px 0'
-				$padding='0 29px'
-				$template='auto / minmax(300px, 2.8fr)
-          minmax(130px, 0.5fr)
-          minmax(130px, 0.5fr)
-          minmax(200px, 1fr)
-          minmax(50px, 0.2fr)'
-			>
+			<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
 				<TableSearchInput
 					handleSearch={(val) => handleSearch('title', val)}
 					placeholder='искать по наименованию'

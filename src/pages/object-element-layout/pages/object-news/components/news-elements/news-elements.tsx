@@ -71,16 +71,7 @@ export const NewsElements: FC = () => {
 
 	return (
 		<div>
-			<GridRow
-				$margin='0 0 15px 0'
-				$padding='0 29px'
-				$template='auto /   minmax(300px, 1.5fr)
-				minmax(150px, 1.0fr)
-				minmax(80px, 0.5fr)
-				minmax(0, 1fr)
-				minmax(0, 1fr)
-				minmax(0, 1fr)'
-			>
+			<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
 				<TableSearchInput
 					handleSearch={(val) => handleSearch('title', val)}
 					placeholder='искать по наименованию'

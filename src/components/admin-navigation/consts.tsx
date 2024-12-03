@@ -11,7 +11,7 @@ export const adminMenuItems: NavigationItem[] = [
 	{
 		title: 'Новости',
 		icon: <AdminNewsIconSvg />,
-		link: 'news-list',
+		link: 'news/news-list',
 	},
 	{
 		title: 'Атманов Угол',

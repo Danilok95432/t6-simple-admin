@@ -4,22 +4,22 @@ import { Route, Routes } from 'react-router-dom'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { AdminLayout } from 'src/routes/admin-layout/admin-layout'
 
-import { AdminNewsList } from 'src/pages/admin-site/admin-news-list/admin-news-list'
-import { AdminAddNews } from 'src/pages/admin-site/admin-add-news/admin-add-news'
-import { AdminVideotapeList } from 'src/pages/admin-site/admin-videotape-list/admin-videotape-list'
-import { AdminAddVideo } from 'src/pages/admin-site/admin-add-video/admin-add-video'
-import { AdminRequests } from 'src/pages/admin-site/admin-requests/admin-requests'
-import { AdminAboutContent } from 'src/pages/admin-site/admin-about-content/admin-about-content'
-
-import { AdminAddDepartments } from 'src/pages/admin-add-departments/admin-add-departments'
+import { AdminNewsLayout } from 'src/pages/admin-news/admin-news-layout'
+import { NewsList } from 'src/pages/admin-news/components/news/components/news-list/news-list'
+import { OneNews } from 'src/pages/admin-news/components/news/components/one-news/one-news'
+import { NewsLayout } from 'src/pages/admin-news/components/news/news-layout'
+import { VideosLayout } from 'src/pages/admin-news/components/videos/videos-layout'
+import { VideosList } from 'src/pages/admin-news/components/videos/components/videos-list/videos-list'
+import { OneVideo } from 'src/pages/admin-news/components/videos/components/one-video/one-video'
+import { RequestsLayout } from 'src/pages/admin-news/components/requests/requests-layout'
+import { RequestsList } from 'src/pages/admin-news/components/requests/components/requests-list/requests-list'
+import { OneRequest } from 'src/pages/admin-news/components/requests/components/one-request/one-request'
 
 import { EventsList } from 'src/pages/events-list/events-list'
 import { OneEventLayout } from 'src/pages/one-event-layout/one-event-layout'
 import { AdminEventProfile } from 'src/pages/one-event-layout/pages/admin-event-profile/admin-event-profile'
 import { AdminEventContent } from 'src/pages/one-event-layout/pages/admin-event-content/admin-event-content'
 import { AdminEventPartners } from 'src/pages/one-event-layout/pages/admin-event-partners/admin-event-partners'
-
-import { AdminSupport } from 'src/pages/admin-support/admin-support'
 
 import { CommunityLayout } from 'src/pages/community-layout/community-layout'
 import { AdminCommunityAbout } from 'src/pages/community-layout/pages/admin-community-about/admin-community-about'
@@ -28,7 +28,6 @@ import { AdminCommunityLocation } from 'src/pages/community-layout/pages/admin-c
 import { AdminCommunityCulture } from 'src/pages/community-layout/pages/admin-community-culture/admin-community-culture'
 import { AdminCommunityDocuments } from 'src/pages/community-layout/pages/admin-community-documents/admin-community-documents'
 
-import { AdminSettings } from 'src/pages/admin-settings/admin-settings'
 import { CultureElementLayout } from 'src/pages/culture-element-layout/culture-element-layout'
 import { CultureInfo } from 'src/pages/culture-element-layout/pages/culture-info/culture-info'
 import { CultureHistory } from 'src/pages/culture-element-layout/pages/culture-history/culture-history'
@@ -42,16 +41,27 @@ import { ObjectEvents } from 'src/pages/object-element-layout/pages/object-event
 import { ObjectGallery } from 'src/pages/object-element-layout/pages/object-gallery/object-gallery'
 import { ObjectLocation } from 'src/pages/object-element-layout/pages/object-location/object-location'
 
+import { AdminSupport } from 'src/pages/admin-support/admin-support'
+import { AdminSettings } from 'src/pages/admin-settings/admin-settings'
+
 export const AdminRoutes: FC = () => {
 	return (
 		<Routes>
 			<Route path='/' element={<AdminLayout />}>
-				<Route path={AdminRoute.AdminNewsList} element={<AdminNewsList />} />
-				<Route path={AdminRoute.AdminAddNews} element={<AdminAddNews />} />
-				<Route path={AdminRoute.AdminVideotapeList} element={<AdminVideotapeList />} />
-				<Route path={AdminRoute.AdminAddVideo} element={<AdminAddVideo />} />
-				<Route path={AdminRoute.AdminRequestList} element={<AdminRequests />} />
-				<Route path={AdminRoute.AdminAboutContent} element={<AdminAboutContent />} />
+				<Route path={AdminRoute.AdminNews} element={<AdminNewsLayout />}>
+					<Route path={AdminRoute.AdminNewsList} element={<NewsLayout />}>
+						<Route index element={<NewsList />} />
+						<Route path=':id' element={<OneNews />} />
+					</Route>
+					<Route path={AdminRoute.AdminVideosList} element={<VideosLayout />}>
+						<Route index element={<VideosList />} />
+						<Route path=':id' element={<OneVideo />} />
+					</Route>
+					<Route path={AdminRoute.AdminRequestList} element={<RequestsLayout />}>
+						<Route index element={<RequestsList />} />
+						<Route path=':id' element={<OneRequest />} />
+					</Route>
+				</Route>
 				<Route path={AdminRoute.AdminAtmans} element={<CommunityLayout />}>
 					<Route index element={<AdminCommunityAbout />} />
 					<Route path={AdminRoute.AdminAtmansHistory} element={<AdminCommunityHistory />} />
@@ -72,7 +82,6 @@ export const AdminRoutes: FC = () => {
 					<Route path={`${AdminRoute.AdminObjLocation}/:id`} element={<ObjectLocation />} />
 				</Route>
 				<Route path={AdminRoute.AdminObjects} element={<AdminObjects />} />
-				<Route path={AdminRoute.AdminAddDepartments} element={<AdminAddDepartments />} />
 
 				<Route path={AdminRoute.AdminEventsList} element={<EventsList />} />
 				<Route path={AdminRoute.AdminEvent} element={<OneEventLayout />}>

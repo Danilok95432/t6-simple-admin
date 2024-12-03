@@ -20,7 +20,6 @@ import styles from './index.module.scss'
 export const NewsList = () => {
 	const { handleSearch, searchParams } = useTableSearch(['title', 'tags', 'date'])
 	const { data: news, isLoading } = useGetAllNewsQuery({ search: searchParams.title })
-	console.log(news)
 	const [deleteNewsById] = useDeleteNewsByIdMutation()
 
 	const navigate = useNavigate()
@@ -40,7 +39,12 @@ export const NewsList = () => {
 					<p className={cn({ 'hidden-cell': newsEl.isHidden })} key='2'>
 						{newsEl.tags.join(', ')}
 					</p>,
-					<MainCheckBox key='3' checked={newsEl.isKey} svgNode={<CheckMarkSvg />} />,
+					<MainCheckBox
+						key='3'
+						checked={newsEl.isKey}
+						svgNode={<CheckMarkSvg />}
+						className={styles.checkBoxWrapperNews}
+					/>,
 					<RowController
 						id={newsEl.id}
 						hideHandler={rowHideHandler}

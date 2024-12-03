@@ -46,7 +46,12 @@ export const NewsElements: FC = () => {
 					<p className={cn({ 'hidden-cell': newsEl.isHidden })} key='2'>
 						{newsEl.tags.join(', ')}
 					</p>,
-					<MainCheckBox key='3' checked={newsEl.isKey} svgNode={<CheckMarkSvg />} />,
+					<MainCheckBox
+						key='3'
+						checked={newsEl.isKey}
+						svgNode={<CheckMarkSvg />}
+						className={styles.checkBoxWrapperObjectNews}
+					/>,
 					<RowController
 						id={newsEl.id}
 						hideHandler={rowHideHandler}

@@ -1,11 +1,10 @@
 .searchRow {
   grid-template-columns: 
-  minmax(300px, 1.5fr)
-  minmax(150px, 1.0fr)
+  minmax(400px, 2.7fr)
   minmax(80px, 0.5fr)
-  minmax(0, 1fr)
-  minmax(0, 1fr)
-  minmax(0, 1fr);
+  minmax(140px, 1.2fr)
+  minmax(80px, 0.4fr)
+  minmax(50px, 0.2fr);
 }
 
 .newsTable {
@@ -15,7 +14,7 @@
   minmax(140px, 1.2fr)
   minmax(80px, 0.4fr)
   minmax(50px, 0.2fr);
-  .checkBoxWrapperObjectNews {
+  .checkBoxWrapperNews {
     margin: 14px auto auto 25px;
   }
 }

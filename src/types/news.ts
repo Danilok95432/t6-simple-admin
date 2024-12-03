@@ -1,17 +1,10 @@
 export type NewsItem = {
 	id: string
+	isHidden: boolean
 	title: string
-	shortTitle: string
-	shortDesc: string
-	date: Date
 	tags: string[]
-	gallery: string
-	hidden: boolean
-	main: boolean
-	preview: string
-	imgGallery: string[]
-	textNews: string[]
-	desc: string
+	isKey: boolean
+	date: Date
 }
 
 export type NewsVideoItem = {

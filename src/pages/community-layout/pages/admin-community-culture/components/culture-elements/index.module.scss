@@ -1,3 +1,15 @@
+.searchRow {
+  grid-template-columns: 
+  minmax(300px, 2.1fr)
+  minmax(130px, 0.6fr)
+  minmax(160px, 0.8fr)
+  minmax(170px, 1.1fr)
+  minmax(180px, 1.4fr);
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
 .cultureTable {
   grid-template-columns:
   minmax(300px, 2.1fr)

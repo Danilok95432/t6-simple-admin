@@ -22,7 +22,8 @@ const StyledGridRow = styled.div<StyledGridRowProps>`
 	gap: ${({ $gap }) => $gap ?? '10px'};
 	max-width: ${({ $maxWidth }) => $maxWidth ?? '100%'};
 	align-items: ${({ $alignItems }) => $alignItems ?? 'start'};
-	grid-template: ${({ $template }) => $template ?? 'auto / 1fr 1fr'};
+	grid-template: ${({ $template, className }) =>
+		className ? '' : ($template ?? 'auto / 1fr 1fr')};
 	@media (max-width: 1024px) {
 		grid-template: ${({ $mdTemplate }) => $mdTemplate ?? '1fr 1fr / 1fr'};
 		align-items: center;

@@ -85,14 +85,7 @@ export const CultureElements: FC = () => {
 
 	return (
 		<div>
-			<GridRow
-				$margin='0 0 15px 0'
-				$template='auto /   minmax(300px, 2.1fr)
-  minmax(130px, 0.6fr)
-  minmax(160px, 0.8fr)
-  minmax(170px, 1.1fr)
-  minmax(180px, 1.4fr)'
-			>
+			<GridRow $margin='0 0 15px 0' className={styles.searchRow}>
 				<TableSearchInput
 					handleSearch={(val) => handleSearch('title', val)}
 					placeholder='искать по наименованию'

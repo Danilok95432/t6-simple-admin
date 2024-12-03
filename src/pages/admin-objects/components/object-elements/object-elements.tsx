@@ -64,14 +64,7 @@ export const ObjectElements: FC = () => {
 
 	return (
 		<div>
-			<GridRow
-				$margin='0 0 15px 0'
-				$padding='0 29px'
-				$template='auto /   minmax(350px, 1.7fr)
-  minmax(300px, 1.5fr)
-  minmax(139px, 0.7fr)
-  minmax(50px, 0.2fr)'
-			>
+			<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
 				<TableSearchInput
 					handleSearch={(val) => handleSearch('title', val)}
 					placeholder='искать по наименованию'

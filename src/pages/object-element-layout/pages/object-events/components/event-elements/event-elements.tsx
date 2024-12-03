@@ -80,16 +80,7 @@ export const EventElements: FC = () => {
 
 	return (
 		<div>
-			<GridRow
-				$margin='0 0 15px 0'
-				$padding='0 29px'
-				$template='auto /   minmax(300px, 2.2fr)
-        minmax(130px, 1.1fr)
-        minmax(130px, 1.3fr)
-        minmax(100px, 0.6fr)
-        minmax(120px, 0.6fr)
-        minmax(50px, 0.2fr)'
-			>
+			<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
 				<TableSearchInput
 					handleSearch={(val) => handleSearch('title', val)}
 					placeholder='искать по наименованию события'

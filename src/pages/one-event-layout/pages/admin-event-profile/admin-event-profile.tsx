@@ -1,12 +1,13 @@
 import { type FC } from 'react'
-
-import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-
 import {
 	type EventProfileInputs,
 	eventProfileSchema,
 } from 'src/pages/one-event-layout/pages/admin-event-profile/schema'
+
+import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Link } from 'react-router-dom'
+
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
@@ -17,6 +18,8 @@ import { AreaSection } from 'src/pages/one-event-layout/pages/admin-event-profil
 import { NewAreaSection } from 'src/pages/one-event-layout/pages/admin-event-profile/components/new-area-section/new-area-section'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
+import styles from './index.module.scss'
+
 export const AdminEventProfile: FC = () => {
 	const methods = useForm<EventProfileInputs>({
 		mode: 'onBlur',
@@ -32,20 +35,35 @@ export const AdminEventProfile: FC = () => {
 	}
 
 	return (
-		<AdminContent $padding='25px 30px 35px'>
-			<p className={adminStyles.adminPrompt}>
-				поля, отмеченные символом *, обязательны для заполнения
-			</p>
+		<AdminContent $backgroundColor='#ffffff'>
+			<Link
+				to={`/${AdminRoute.AdminAtmans}/${AdminRoute.AdminEventsList}`}
+				className={adminStyles.adminReturnLink}
+			>
+				Возврат к списку событий
+			</Link>
+			<h3>Профиль события</h3>
 			<FormProvider {...methods}>
-				<form onSubmit={methods.handleSubmit(onSubmit)} noValidate autoComplete='off'>
+				<form
+					className={styles.eventProfileForm}
+					onSubmit={methods.handleSubmit(onSubmit)}
+					noValidate
+					autoComplete='off'
+				>
 					<TitleSection />
 					<DateSection />
 					<DescSection />
 					<AreaSection />
 					<NewAreaSection />
-					<AdminControllers outLink={AdminRoute.AdminHome} variant='2' />
+					<AdminControllers outLink={AdminRoute.AdminHome} variant='1' />
 				</form>
 			</FormProvider>
+			<Link
+				to={`/${AdminRoute.AdminAtmans}/${AdminRoute.AdminEventsList}`}
+				className={adminStyles.adminReturnLink}
+			>
+				Возврат к списку событий
+			</Link>
 		</AdminContent>
 	)
 }

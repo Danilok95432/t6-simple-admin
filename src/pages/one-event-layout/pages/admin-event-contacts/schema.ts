@@ -15,8 +15,8 @@ export type EventContactsInputs = {
 }
 
 export const eventContactsSchema = yup.object().shape({
-	site: yup.string().url('Неверный формат сайта').notRequired(),
-	email: yup.string().email('Неверный формат e-mail').notRequired(),
+	site: yup.string().url('Неверный формат сайта'),
+	email: yup.string().email('Неверный формат e-mail'),
 	routesSection: yup.boolean(),
 	routes: yup.array().when('routesSection', ([routesSection]) => {
 		return routesSection

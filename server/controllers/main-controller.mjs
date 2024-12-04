@@ -3,6 +3,7 @@ import { news } from '../mockData/news.mjs'
 import { events } from '../mockData/events.mjs'
 import { newsVideos } from '../mockData/newsVideos.mjs'
 import { cultureElements } from '../mockData/cultureElements.mjs'
+import { promoBlocks } from '../mockData/promo-blocks.mjs'
 
 export const getObjects = (req, res) => {
 	const { q } = req.query
@@ -203,4 +204,8 @@ export const deleteNewsVideo = (req, res) => {
 	newsVideos.splice(deleteIdx, 1)
 
 	res.status(200).json(deleteIdx)
+}
+
+export const getPromoBlocks = (req, res) => {
+	res.status(200).json(promoBlocks)
 }

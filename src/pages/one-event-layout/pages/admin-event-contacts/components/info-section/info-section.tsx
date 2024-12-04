@@ -3,6 +3,8 @@ import { ControlledInput } from 'src/components/controlled-input/controlled-inpu
 
 import { ControlledMaskedInput } from 'src/components/controlled-masked-input/controlled-masked-input'
 import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-radio-btns'
+import { GridRow } from 'src/components/grid-row/grid-row'
+import { CustomText } from 'src/components/custom-text/custom-text'
 
 export const InfoSection = () => {
 	return (
@@ -13,29 +15,43 @@ export const InfoSection = () => {
 				placeholder='Полное название события'
 				margin='0 0 20px 0'
 			/>
-			<ControlledMaskedInput
-				label='Контактный телефон'
-				name='phone'
-				placeholder='+7 (999) 999-00-00'
-				mask='{+7} (000) 000-00-00'
-			/>
-			<SwitchedRadioBtns
-				name='isShowPhone'
-				contentRadio1='Показать всем'
-				contentRadio2='Скрыть'
-				valueRadio1='true'
-				valueRadio2='false'
-			/>
-			<ControlledInput
-				name='tgChannel'
-				label='Телеграм-канал'
-				placeholder='Полное название события'
-			/>
-			<ControlledInput
-				name='email'
-				label='Контактный e-mail'
-				placeholder='адрес электронной почты'
-			/>
+			<CustomText $margin='0 0 5px 0' $fontWeight='600'>
+				Контактный телефон
+			</CustomText>
+			<GridRow $alignItems='center' $gap='30px' $mdGap='5px' $margin='0 0 20px 0'>
+				<ControlledMaskedInput
+					name='phone'
+					placeholder='+7 (999) 999-00-00'
+					mask='{+7} (000) 000-00-00'
+				/>
+				<SwitchedRadioBtns
+					name='isShowPhone'
+					contentRadio1='Показать всем'
+					contentRadio2='Скрыть'
+				/>
+			</GridRow>
+			<CustomText $margin='0 0 5px 0' $fontWeight='600'>
+				Телеграм-канал
+			</CustomText>
+			<GridRow $alignItems='center' $gap='30px' $mdGap='5px' $margin='0 0 20px 0'>
+				<ControlledInput name='tgChannel' placeholder='Полное название события' />
+				<SwitchedRadioBtns
+					name='isShowTgChannel'
+					contentRadio1='Показать всем'
+					contentRadio2='Скрыть'
+				/>
+			</GridRow>
+			<CustomText $margin='0 0 5px 0' $fontWeight='600'>
+				Контактный e-mail
+			</CustomText>
+			<GridRow $alignItems='center' $gap='30px' $mdGap='5px'>
+				<ControlledInput name='email' placeholder='адрес электронной почты' />
+				<SwitchedRadioBtns
+					name='isShowEmail'
+					contentRadio1='Показать всем'
+					contentRadio2='Скрыть'
+				/>
+			</GridRow>
 		</AdminSection>
 	)
 }

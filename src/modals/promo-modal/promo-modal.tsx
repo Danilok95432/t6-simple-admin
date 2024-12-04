@@ -21,7 +21,7 @@ export const PromoModal = () => {
 		mode: 'onBlur',
 		resolver: yupResolver(promoModalSchema),
 		defaultValues: {
-			isHiddenPromo: 'hidden',
+			isHiddenPromo: true,
 			promoDesktopImage: [],
 			promoMobileImage: [],
 		},
@@ -87,8 +87,7 @@ export const PromoModal = () => {
 								<SwitchedRadioBtns
 									name='isHiddenPromo'
 									label='Спрятать'
-									valueRadio1='hidden'
-									valueRadio2='show'
+									$variant='switcher'
 									contentRadio1={
 										<>
 											<SwitchedHiddenSvg />

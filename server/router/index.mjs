@@ -17,6 +17,7 @@ import {
 	deleteEvent,
 	getEventsByObjectId,
 	deleteObjectEvents,
+	getPromoBlocks,
 } from '../controllers/main-controller.mjs'
 import { Router } from 'express'
 
@@ -40,3 +41,4 @@ router.delete('/eventDelete/:id', deleteEvent)
 router.get('/news-videos', getNewsVideos)
 router.get('/news-videos/:id', getNewsVideoById)
 router.delete('/newsVideoDelete/:id', deleteNewsVideo)
+router.get('/promo-blocks', getPromoBlocks)

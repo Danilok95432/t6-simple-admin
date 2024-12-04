@@ -9,11 +9,12 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Link } from 'react-router-dom'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
-import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { TitleSection } from 'src/pages/one-event-layout/pages/admin-event-profile/components/title-section/title-section'
 import { DateSection } from 'src/pages/one-event-layout/pages/admin-event-profile/components/date-section/date-section'
 import { DescSection } from 'src/pages/one-event-layout/pages/admin-event-profile/components/desc-section/desc-section'
+import { AdminButton } from 'src/UI/AdminButton/AdminButton'
+import { FlexRow } from 'src/components/flex-row/flex-row'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
@@ -44,7 +45,14 @@ export const AdminEventProfile: FC = () => {
 					<TitleSection />
 					<DateSection />
 					<DescSection />
-					<AdminControllers outLink={AdminRoute.AdminHome} variant='1' />
+					<FlexRow $margin='0 0 40px 0'>
+						<AdminButton as='button' type='submit'>
+							Создать новое событие
+						</AdminButton>
+						<AdminButton as='route' to='/' $variant='cancel'>
+							Отменить
+						</AdminButton>
+					</FlexRow>
 				</form>
 			</FormProvider>
 			<Link

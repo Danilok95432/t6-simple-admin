@@ -4,6 +4,8 @@ import { ControlledInput } from 'src/components/controlled-input/controlled-inpu
 import { ControlledSelect } from 'src/components/controlled-select/controlled-select'
 import { GridRow } from 'src/components/grid-row/grid-row'
 
+import styles from './index.module.scss'
+
 export const DescSection = () => {
 	return (
 		<AdminSection isBlock={false}>
@@ -35,7 +37,7 @@ export const DescSection = () => {
 				height='180px'
 				margin='0 0 20px 0'
 			/>
-			<GridRow $template='auto/ 0.5fr' $margin='0 0 20px 0'>
+			<GridRow $template='auto/ 0.5fr' $mdTemplate='1fr / 1fr' $margin='0 0 20px 0'>
 				<ControlledSelect
 					label='Возрастной рейтинг *'
 					name='visitingAge'
@@ -49,12 +51,16 @@ export const DescSection = () => {
 			<ControlledSelect
 				label='Площадка *'
 				name='areaList'
+				margin='0 0 25px 0'
 				selectOptions={[
 					{ label: 'выбрать из списка', value: '0' },
 					{ label: 'площадка 1', value: '1' },
 					{ label: 'площадка 2', value: '2' },
 				]}
 			/>
+			<p className={styles.placeRequest}>
+				Если площадки нет в списке, Вы можете <a href='#'>запросить добавление новой площадки</a>
+			</p>
 		</AdminSection>
 	)
 }

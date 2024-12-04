@@ -1,7 +1,8 @@
 import { objects } from '../mockData/objects.mjs'
 import { news } from '../mockData/news.mjs'
 import { events } from '../mockData/events.mjs'
-import { newsVideos } from '../mockData/newsVideos.mjs'
+import { videos } from '../mockData/videos.mjs'
+import { eventRequests } from '../mockData/eventRequests.mjs'
 import { cultureElements } from '../mockData/cultureElements.mjs'
 
 export const getObjects = (req, res) => {
@@ -172,10 +173,10 @@ export const deleteEvent = (req, res) => {
 	res.status(200).json(deleteIdx)
 }
 
-export const getNewsVideos = (req, res) => {
+export const getVideos = (req, res) => {
 	const { q, y } = req.query
 
-	const filteredVideos = newsVideos.filter((el) => {
+	const filteredVideos = videos.filter((el) => {
 		if (y) {
 			return String(new Date(el.date).getFullYear()) === y && el.title.toLowerCase().includes(q)
 		}
@@ -185,22 +186,54 @@ export const getNewsVideos = (req, res) => {
 	res.status(200).json(filteredVideos)
 }
 
-export const getNewsVideoById = (req, res) => {
-	const newsVideoId = req.params.id
-	const foundVideoNews = newsVideos.find((newsVideoItem) => newsVideoItem.id === newsVideoId)
+export const getVideoById = (req, res) => {
+	const videoId = req.params.id
+	const foundVideo = videos.find((videoItem) => videoItem.id === videoId)
 
-	res.status(200).json(foundVideoNews)
+	res.status(200).json(foundVideo)
 }
 
-export const deleteNewsVideo = (req, res) => {
+export const deleteVideo = (req, res) => {
 	const videoId = req.params.id
 	let deleteIdx
-	newsVideos.forEach((el, idx) => {
+	videos.forEach((el, idx) => {
 		if (el.id === videoId) {
 			deleteIdx = idx
 		}
 	})
-	newsVideos.splice(deleteIdx, 1)
+	videos.splice(deleteIdx, 1)
+
+	res.status(200).json(deleteIdx)
+}
+
+export const getRequests = (req, res) => {
+	const { q, y } = req.query
+	const filteredRequests = eventRequests.filter((el) => {
+		if (y) {
+			return !y.includes(el.status) && el.title.toLowerCase().includes(q)
+		}
+		return el.title.toLowerCase().includes(q)
+	})
+
+	res.status(200).json(filteredRequests)
+}
+
+export const getRequestById = (req, res) => {
+	const requestId = req.params.id
+	const foundRequest = eventRequests.find((requestItem) => requestItem.id === requestId)
+
+	res.status(200).json(foundRequest)
+}
+
+export const deleteRequest = (req, res) => {
+	const requestId = req.params.id
+	let deleteIdx
+	eventRequests.forEach((el, idx) => {
+		if (el.id === requestId) {
+			deleteIdx = idx
+		}
+	})
+	eventRequests.splice(deleteIdx, 1)
 
 	res.status(200).json(deleteIdx)
 }

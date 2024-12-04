@@ -6,12 +6,3 @@ export type NewsItem = {
 	isKey: boolean
 	date: Date
 }
-
-export type NewsVideoItem = {
-	id: string
-	title: string
-	date: Date
-	tags: string[]
-	hidden: boolean
-	main: boolean
-}

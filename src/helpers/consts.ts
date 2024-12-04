@@ -7,6 +7,8 @@ export enum ReducerPath {
 	Events = 'events/api',
 	Culture = 'culture/api',
 	SiteSettings = 'site-settings/api',
+	Videos = 'Videos',
+	Requests = 'Requests',
 }
 
 export const ImagesFormat = ['png', 'jpeg', 'jpg', 'webp', 'gif']

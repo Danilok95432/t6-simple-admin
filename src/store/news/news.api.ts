@@ -1,4 +1,4 @@
-import { type NewsItem, type NewsVideoItem } from 'src/types/news'
+import { type NewsItem } from 'src/types/news'
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
@@ -6,7 +6,7 @@ import { BASE_URL, ReducerPath } from 'src/helpers/consts'
 
 export const newsApi = createApi({
 	reducerPath: ReducerPath.News,
-	tagTypes: ['News', 'NewsVideos'],
+	tagTypes: ['News'],
 	baseQuery: fetchBaseQuery({
 		baseUrl: BASE_URL,
 	}),
@@ -34,35 +34,7 @@ export const newsApi = createApi({
 			}),
 			invalidatesTags: ['News'],
 		}),
-		getAllNewsVideos: build.query<NewsVideoItem[], { search?: string; year?: string }>({
-			query: ({ search = '', year = '' }) => ({
-				url: `news-videos`,
-				params: {
-					q: search,
-					y: year,
-				},
-			}),
-			providesTags: ['NewsVideos'],
-		}),
-		deleteNewsVideoById: build.mutation<null, string>({
-			query: (videoId) => ({
-				url: `newsVideoDelete/${videoId}`,
-				method: 'DELETE',
-			}),
-			invalidatesTags: ['NewsVideos'],
-		}),
-		getNewsVideoById: build.query<NewsVideoItem, string>({
-			query: (videoId) => ({
-				url: `news-videos/${videoId}`,
-			}),
-		}),
 	}),
 })
 
-export const {
-	useGetAllNewsQuery,
-	useGetNewsByIdQuery,
-	useDeleteNewsByIdMutation,
-	useGetAllNewsVideosQuery,
-	useDeleteNewsVideoByIdMutation,
-} = newsApi
+export const { useGetAllNewsQuery, useGetNewsByIdQuery, useDeleteNewsByIdMutation } = newsApi

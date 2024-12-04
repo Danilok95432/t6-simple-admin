@@ -1,6 +1,8 @@
 export type VideoItem = {
 	id: string
 	title: string
-	date: string
-	url: string
+	date: Date
+	tags: string[]
+	isHidden: boolean
+	isKey: boolean
 }

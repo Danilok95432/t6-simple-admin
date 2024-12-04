@@ -5,9 +5,9 @@ import {
 	deleteNews,
 	getNewsById,
 	getEvents,
-	getNewsVideos,
-	getNewsVideoById,
-	deleteNewsVideo,
+	getVideos,
+	getVideoById,
+	deleteVideo,
 	getCultures,
 	getCultureById,
 	deleteCulture,
@@ -17,6 +17,9 @@ import {
 	deleteEvent,
 	getEventsByObjectId,
 	deleteObjectEvents,
+	getRequests,
+	getRequestById,
+	deleteRequest,
 } from '../controllers/main-controller.mjs'
 import { Router } from 'express'
 
@@ -37,6 +40,9 @@ router.get('/cultures/:id', getCultureById)
 router.delete('/cultureDelete/:id', deleteCulture)
 router.get('/events', getEvents)
 router.delete('/eventDelete/:id', deleteEvent)
-router.get('/news-videos', getNewsVideos)
-router.get('/news-videos/:id', getNewsVideoById)
-router.delete('/newsVideoDelete/:id', deleteNewsVideo)
+router.get('/videos', getVideos)
+router.get('/videos/:id', getVideoById)
+router.delete('/videoDelete/:id', deleteVideo)
+router.get('/requests', getRequests)
+router.get('/requests/:id', getRequestById)
+router.delete('/requestDelete/:id', deleteRequest)

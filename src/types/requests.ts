@@ -3,7 +3,7 @@ export type RequestItem = {
 	isHidden: string
 	title: string
 	type: string
-	status: string
+	status: number
 	date: Date
 	source: string
 }

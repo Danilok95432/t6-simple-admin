@@ -97,7 +97,7 @@ export const VideosList = () => {
 				/>
 				<TableFooter
 					totalElements={videos.length}
-					addClickHandler={() => navigate('/news/news-list')}
+					addClickHandler={() => navigate('/news/videos-list/new')}
 					addText='Добавить видео'
 				/>
 			</div>

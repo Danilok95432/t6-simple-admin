@@ -7,7 +7,7 @@ export let eventRequests = [
 		date: '2024-02-14T21:00:00.000Z',
 		source: 'события',
 		type: 'видеозапись',
-		status: 'размещена'
+		status: 200
 	},
 	{
 		id: '2',
@@ -16,7 +16,7 @@ export let eventRequests = [
 		date: '2024-02-02T21:00:00.000Z',
 		source: 'Тамбовская область',
 		type: 'новость',
-		status: 'размещена'
+		status: 200
 	},
 	{
 		id: '3',
@@ -26,7 +26,7 @@ export let eventRequests = [
 		date: '2024-01-17T21:00:00.000Z',
 		source: 'Татарстан, республика',
 		type: 'видеозапись',
-		status: 'размещена'
+		status: 200
 	},
 	{
 		id: '4',
@@ -35,7 +35,7 @@ export let eventRequests = [
 		date: '2023-12-25T21:00:00.000Z',
 		source: 'Тамбовская область',
 		type: 'видеозапись',
-		status: 'отложена'
+		status: 300
 	},
 	{
 		id: '5',
@@ -45,7 +45,7 @@ export let eventRequests = [
 		date: '2023-12-25T21:00:00.000Z',
 		source: 'Тамбовская область',
 		type: 'новость',
-		status: 'отклонена'
+		status: 400
 	},
 	{
 		id: '6',
@@ -54,7 +54,7 @@ export let eventRequests = [
 		date: '2024-02-14T21:00:00.000Z',
 		source: 'Тамбовская область',
 		type: 'видеозапись',
-		status: 'размещена'
+		status: 200
 	},
 	{
 		id: '7',
@@ -64,7 +64,7 @@ export let eventRequests = [
 		date: '2024-02-02T21:00:00.000Z',
 		source: 'Ханты-Мансийский, АО',
 		type: 'видеозапись',
-		status: 'размещена'
+		status: 200
 	},
 	{
 		id: '8',
@@ -74,7 +74,7 @@ export let eventRequests = [
 		date: '2024-01-17T21:00:00.000Z',
 		source: 'Башкортостан, республика',
 		type: 'видеозапись',
-		status: 'отложена'
+		status: 300
 	},
 	{
 		id: '9',
@@ -84,7 +84,7 @@ export let eventRequests = [
 		date: '2023-12-25T21:00:00.000Z',
 		source: 'Московская область',
 		type: 'новость',
-		status: 'размещена'
+		status: 200
 	},
 	{
 		id: '10',
@@ -93,7 +93,7 @@ export let eventRequests = [
 		date: '2023-12-25T21:00:00.000Z',
 		source: 'моя заявка',
 		type: 'видеозапись',
-		status: 'отклонена'
+		status: 400
 	},
 	{
 		id: '11',
@@ -103,7 +103,7 @@ export let eventRequests = [
 		date: '2024-02-14T21:00:00.000Z',
 		source: 'Тамбовская область',
 		type: 'новость',
-		status: 'размещена'
+		status: 200
 	},
 	{
 		id: '12',
@@ -112,7 +112,7 @@ export let eventRequests = [
 		date: '2024-02-02T21:00:00.000Z',
 		source: 'Татарстан, республика',
 		type: 'видеозапись',
-		status: 'размещена'
+		status: 200
 	},
 	{
 		id: '13',
@@ -122,7 +122,7 @@ export let eventRequests = [
 		date: '2024-01-17T21:00:00.000Z',
 		source: 'Тамбовская область',
 		type: 'видеозапись',
-		status: 'отложена'
+		status: 300
 	},
 	{
 		id: '14',
@@ -131,7 +131,7 @@ export let eventRequests = [
 		date: '2023-12-25T21:00:00.000Z',
 		source: 'Тамбовская область',
 		type: 'новость',
-		status: 'отклонена'
+		status: 400
 	},
 	{
 		id: '15',
@@ -141,7 +141,7 @@ export let eventRequests = [
 		date: '2023-12-25T21:00:00.000Z',
 		source: 'Тамбовская область',
 		type: 'видеозапись',
-		status: 'размещена'
+		status: 200
 	},
 	{
 		id: '16',
@@ -150,7 +150,7 @@ export let eventRequests = [
 		date: '2024-02-14T21:00:00.000Z',
 		source: 'Ханты-Мансийский, АО',
 		type: 'видеозапись',
-		status: 'размещена'
+		status: 200
 	},
 	{
 		id: '17',
@@ -160,7 +160,7 @@ export let eventRequests = [
 		date: '2024-02-02T21:00:00.000Z',
 		source: 'Башкортостан, республика',
 		type: 'видеозапись',
-		status: 'отложена'
+		status: 300
 	},
 	{
 		id: '18',
@@ -170,7 +170,7 @@ export let eventRequests = [
 		date: '2024-01-17T21:00:00.000Z',
 		source: 'Московская область',
 		type: 'новость',
-		status: 'размещена'
+		status: 200
 	},
 	{
 		id: '19',
@@ -180,7 +180,7 @@ export let eventRequests = [
 		date: '2023-12-25T21:00:00.000Z',
 		source: 'моя заявка',
 		type: 'видеозапись',
-		status: 'отклонена'
+		status: 400
 	},
 	{
 		id: '20',
@@ -189,6 +189,6 @@ export let eventRequests = [
 		date: '2023-12-25T21:00:00.000Z',
 		source: 'моя заявка',
 		type: 'видеозапись',
-		status: 'отклонена'
+		status: 400
 	},
 ]

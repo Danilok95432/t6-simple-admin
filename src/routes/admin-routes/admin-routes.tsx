@@ -18,6 +18,7 @@ import { OneRequest } from 'src/pages/admin-news/components/requests/components/
 import { EventsList } from 'src/pages/events-list/events-list'
 import { OneEventLayout } from 'src/pages/one-event-layout/one-event-layout'
 import { AdminEventProfile } from 'src/pages/one-event-layout/pages/admin-event-profile/admin-event-profile'
+import { AdminEventContacts } from 'src/pages/one-event-layout/pages/admin-event-contacts/admin-event-contacts'
 import { AdminEventContent } from 'src/pages/one-event-layout/pages/admin-event-content/admin-event-content'
 import { AdminEventPartners } from 'src/pages/one-event-layout/pages/admin-event-partners/admin-event-partners'
 
@@ -86,6 +87,7 @@ export const AdminRoutes: FC = () => {
 				<Route path={AdminRoute.AdminEventsList} element={<EventsList />} />
 				<Route path={AdminRoute.AdminEvent} element={<OneEventLayout />}>
 					<Route path={`${AdminRoute.AdminEventProfile}/:id`} element={<AdminEventProfile />} />
+					<Route path={`${AdminRoute.AdminEventContacts}/:id`} element={<AdminEventContacts />} />
 					<Route path={`${AdminRoute.AdminEventContent}/:id`} element={<AdminEventContent />} />
 					<Route path={`${AdminRoute.AdminEventPartners}/:id`} element={<AdminEventPartners />} />
 				</Route>

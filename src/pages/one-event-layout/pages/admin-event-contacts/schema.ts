@@ -1,15 +1,22 @@
 import * as yup from 'yup'
-import { type RouteBlock } from 'src/types/global'
+import type { RouteBlock } from 'src/types/global'
 
-export type ObjLocationInputs = {
-	mapScript: string
+export type EventContactsInputs = {
+	site?: string
+	phone?: string
+	tgChannel?: string
+	email?: string
+	isShowPhone?: boolean
+	isShowTgChannel?: boolean
+	isShowEmail?: boolean
+	isShowRoutesSection?: boolean
 	routesSection?: boolean
 	routes?: RouteBlock[]
 }
 
-export const ObjLocationSchema = yup.object().shape({
-	mapScript: yup.string().required('Введите текст скрипта'),
-
+export const eventContactsSchema = yup.object().shape({
+	site: yup.string().url('Неверный формат сайта').notRequired(),
+	email: yup.string().email('Неверный формат e-mail').notRequired(),
 	routesSection: yup.boolean(),
 	routes: yup.array().when('routesSection', ([routesSection]) => {
 		return routesSection

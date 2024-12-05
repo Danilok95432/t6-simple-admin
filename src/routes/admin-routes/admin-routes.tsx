@@ -21,6 +21,7 @@ import { AdminEventProfile } from 'src/pages/one-event-layout/pages/admin-event-
 import { AdminEventContacts } from 'src/pages/one-event-layout/pages/admin-event-contacts/admin-event-contacts'
 import { AdminEventContent } from 'src/pages/one-event-layout/pages/admin-event-content/admin-event-content'
 import { AdminEventPartners } from 'src/pages/one-event-layout/pages/admin-event-partners/admin-event-partners'
+import { AdminEventHistory } from 'src/pages/one-event-layout/pages/admin-event-history/admin-event-history'
 
 import { CommunityLayout } from 'src/pages/community-layout/community-layout'
 import { AdminCommunityAbout } from 'src/pages/community-layout/pages/admin-community-about/admin-community-about'
@@ -90,6 +91,7 @@ export const AdminRoutes: FC = () => {
 					<Route path={`${AdminRoute.AdminEventContacts}/:id`} element={<AdminEventContacts />} />
 					<Route path={`${AdminRoute.AdminEventContent}/:id`} element={<AdminEventContent />} />
 					<Route path={`${AdminRoute.AdminEventPartners}/:id`} element={<AdminEventPartners />} />
+					<Route path={`${AdminRoute.AdminEventHistory}/:id`} element={<AdminEventHistory />} />
 				</Route>
 
 				<Route path={AdminRoute.AdminSupport} element={<AdminSupport />} />

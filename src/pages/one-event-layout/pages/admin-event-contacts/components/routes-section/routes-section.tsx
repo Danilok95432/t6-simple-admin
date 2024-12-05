@@ -10,6 +10,7 @@ import { FlexRow } from 'src/components/flex-row/flex-row'
 import { TrashIconSvg } from 'src/UI/icons/trashIconSVG'
 
 import styles from './index.module.scss'
+import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-radio-btns'
 
 export const RoutesSection: FC = () => {
 	const {
@@ -23,7 +24,17 @@ export const RoutesSection: FC = () => {
 	})
 
 	return (
-		<AdminSection titleText={`Маршруты (${fields?.length} из 3)`} sectionName='routesSection'>
+		<AdminSection
+			titleText={`Маршруты (${fields?.length} из 3)`}
+			sectionName='routesSection'
+			additionalNodeForHead={
+				<SwitchedRadioBtns
+					name='isShowRoutesSection'
+					contentRadio1='Показать всем'
+					contentRadio2='Скрыть'
+				/>
+			}
+		>
 			<ul>
 				{fields?.map((field, idx) => (
 					<li className={styles.routeItem} key={field.id}>

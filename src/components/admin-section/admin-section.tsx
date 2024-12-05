@@ -9,9 +9,11 @@ import styles from './index.module.scss'
 
 type AdminSectionProps = {
 	children: ReactNode
+	additionalNodeForHead?: ReactNode
 	sectionName?: string
 	className?: string
 	innerClassName?: string
+	headSectionClassName?: string
 	titleText?: string
 	isBlock?: boolean
 }
@@ -22,7 +24,9 @@ export const AdminSection: FC<AdminSectionProps> = ({
 	className,
 	innerClassName,
 	titleText,
+	headSectionClassName,
 	isBlock = true,
+	additionalNodeForHead,
 }) => {
 	const { watch } = useFormContext()
 
@@ -30,11 +34,19 @@ export const AdminSection: FC<AdminSectionProps> = ({
 
 	return (
 		<section className={cn(styles.adminSection, { [styles._noBlock]: !isBlock }, className)}>
-			{sectionName ? (
-				<AdminSwitcher name={sectionName}>{titleText}</AdminSwitcher>
-			) : (
-				titleText && <h2 className={styles.sectionTitle}>{titleText}</h2>
-			)}
+			<div
+				className={cn(styles.sectionHead, headSectionClassName, {
+					[styles._activeSection]: sectionName ? !!watch(sectionName) : false,
+				})}
+			>
+				{sectionName ? (
+					<AdminSwitcher name={sectionName}>{titleText}</AdminSwitcher>
+				) : (
+					titleText && <h2 className={styles.singleTitle}>{titleText}</h2>
+				)}
+				{additionalNodeForHead}
+			</div>
+
 			{isChecked && (
 				<div className={cn(innerClassName, { [styles.switchedContentWrapper]: sectionName })}>
 					{children}

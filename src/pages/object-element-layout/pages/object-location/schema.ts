@@ -3,6 +3,7 @@ import { type RouteBlock } from 'src/types/global'
 
 export type ObjLocationInputs = {
 	mapScript: string
+	isShowRoutesSection?: boolean
 	routesSection?: boolean
 	routes?: RouteBlock[]
 }

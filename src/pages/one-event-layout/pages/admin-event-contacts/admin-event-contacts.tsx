@@ -26,6 +26,7 @@ export const AdminEventContacts: FC = () => {
 			isShowPhone: false,
 			isShowTgChannel: false,
 			isShowEmail: false,
+			isShowRoutesSection: false,
 			routesSection: true,
 			routes: [{ routeTitle: '', routeDesc: '', routeScript: '' }],
 		},
@@ -45,7 +46,7 @@ export const AdminEventContacts: FC = () => {
 				<form onSubmit={methods.handleSubmit(onSubmit)} noValidate autoComplete='off'>
 					<InfoSection />
 					<RoutesSection />
-					<AdminControllers outLink='/' />
+					<AdminControllers outLink='/' variant='2' />
 				</form>
 			</FormProvider>
 			<Link

@@ -6,6 +6,7 @@
   padding: 20px 20px;
   border-radius: 5px;
   box-shadow: 0 0 5px 0 rgba(1, 61, 86, 0.15);
+
   h4 {
     font-size: 14px;
     font-weight: 700;
@@ -19,16 +20,37 @@
     padding-left: 0;
   }
 }
+
 ._noBlock {
   padding: 0;
   border-radius: 0;
   box-shadow: none;
 }
-.sectionTitle {
-  @include opensans-bold;
-  font-size: 18px;
-  color: #000000;
+
+.sectionHead {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+
+  h2 {
+    @include opensans-bold;
+    font-size: 18px;
+    color: #000000;
+  }
+
+  .singleTitle {
+    border-bottom: 1px solid #E1E1E1;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+}
+
+._activeSection {
   border-bottom: 1px solid #E1E1E1;
-  padding-bottom: 12px;
-  margin-bottom: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 27px;
 }

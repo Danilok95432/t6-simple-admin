@@ -18,6 +18,7 @@ export const ObjectLocation = () => {
 		mode: 'onBlur',
 		resolver: yupResolver(ObjLocationSchema),
 		defaultValues: {
+			isShowRoutesSection: false,
 			routesSection: true,
 			routes: [{ routeTitle: '', routeDesc: '', routeScript: '' }],
 		},

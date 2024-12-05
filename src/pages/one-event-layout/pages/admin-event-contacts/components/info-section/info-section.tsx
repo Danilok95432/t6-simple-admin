@@ -18,7 +18,13 @@ export const InfoSection = () => {
 			<CustomText $margin='0 0 5px 0' $fontWeight='600'>
 				Контактный телефон
 			</CustomText>
-			<GridRow $alignItems='center' $gap='30px' $mdGap='5px' $margin='0 0 20px 0'>
+			<GridRow
+				$alignItems='center'
+				$gap='30px'
+				$mdGap='5px'
+				$margin='0 0 20px 0'
+				$template='auto / 0.35fr 0.65fr'
+			>
 				<ControlledMaskedInput
 					name='phone'
 					placeholder='+7 (999) 999-00-00'
@@ -33,7 +39,13 @@ export const InfoSection = () => {
 			<CustomText $margin='0 0 5px 0' $fontWeight='600'>
 				Телеграм-канал
 			</CustomText>
-			<GridRow $alignItems='center' $gap='30px' $mdGap='5px' $margin='0 0 20px 0'>
+			<GridRow
+				$alignItems='center'
+				$gap='30px'
+				$mdGap='5px'
+				$margin='0 0 20px 0'
+				$template='auto / 0.35fr 0.65fr'
+			>
 				<ControlledInput name='tgChannel' placeholder='Полное название события' />
 				<SwitchedRadioBtns
 					name='isShowTgChannel'
@@ -44,7 +56,7 @@ export const InfoSection = () => {
 			<CustomText $margin='0 0 5px 0' $fontWeight='600'>
 				Контактный e-mail
 			</CustomText>
-			<GridRow $alignItems='center' $gap='30px' $mdGap='5px'>
+			<GridRow $alignItems='center' $gap='30px' $mdGap='5px' $template='auto / 0.35fr 0.65fr'>
 				<ControlledInput name='email' placeholder='адрес электронной почты' />
 				<SwitchedRadioBtns
 					name='isShowEmail'

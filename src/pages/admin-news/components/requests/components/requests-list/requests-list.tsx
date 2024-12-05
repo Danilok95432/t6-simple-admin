@@ -16,7 +16,7 @@ import { TableFooter } from 'src/components/table-footer/table-footer'
 import { GridRow } from 'src/components/grid-row/grid-row'
 import { TableSearchInput } from 'src/modules/table-search-input/table-search'
 import { MainCheckBox } from 'src/UI/MainCheckBox/MainCheckBox'
-import { StatusRequests } from '../../../../../../components/status-requests/status-requests'
+import { StatusRequests } from 'src/components/status-requests/status-requests'
 
 import styles from './index.module.scss'
 
@@ -43,9 +43,9 @@ export const RequestsList = () => {
 					<p className={cn({ 'hidden-cell': requestEl.isHidden })} key='1'>
 						{requestEl.type}
 					</p>,
-					<p className={cn({ 'hidden-cell': requestEl.isHidden })} key='2'>
+					<div className={cn({ 'hidden-cell': requestEl.isHidden })} key='2'>
 						<StatusRequests statusCode={requestEl.status} />
-					</p>,
+					</div>,
 					<p className={cn({ 'hidden-cell': requestEl.isHidden })} key='3'>
 						{mainFormatDate(requestEl.date)}
 					</p>,

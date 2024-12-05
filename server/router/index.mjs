@@ -20,6 +20,7 @@ import {
 	getRequests,
 	getRequestById,
 	deleteRequest,
+	getPromoBlocks,
 } from '../controllers/main-controller.mjs'
 import { Router } from 'express'
 
@@ -46,3 +47,4 @@ router.delete('/videoDelete/:id', deleteVideo)
 router.get('/requests', getRequests)
 router.get('/requests/:id', getRequestById)
 router.delete('/requestDelete/:id', deleteRequest)
+router.get('/promo-blocks', getPromoBlocks)

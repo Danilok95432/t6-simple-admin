@@ -2,9 +2,9 @@ import { AdminSection } from 'src/components/admin-section/admin-section'
 import { ControlledDateInput } from 'src/components/controlled-date-input/controlled-date-input'
 import { CustomText } from 'src/components/custom-text/custom-text'
 import { FlexRow } from 'src/components/flex-row/flex-row'
+import { MainCheckBox } from 'src/UI/MainCheckBox/MainCheckBox'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
-import { MainCheckBox } from 'src/UI/MainCheckBox/MainCheckBox'
 
 export const DateSection = () => {
 	return (

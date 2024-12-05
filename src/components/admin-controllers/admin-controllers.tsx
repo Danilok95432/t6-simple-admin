@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 type AdminControllersProps = {
 	outLink: string
-	variant?: '1' | '2'
+	variant?: '1' | '2' | '3'
 }
 
 type AdminStyledBtns = {
@@ -53,6 +53,17 @@ export const AdminControllers: FC<AdminControllersProps> = ({
 						</AdminButton>
 						<AdminButton className='_extreme' as='link' to={outLink} $variant='cancel'>
 							Отменить изменения
+						</AdminButton>
+					</>
+				)
+			case '3':
+				return (
+					<>
+						<AdminButton as='button' type='submit'>
+							Подать заявку
+						</AdminButton>
+						<AdminButton as='link' to={outLink} $variant='light'>
+							Отменить
 						</AdminButton>
 					</>
 				)

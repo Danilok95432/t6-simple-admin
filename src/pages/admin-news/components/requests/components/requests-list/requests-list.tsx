@@ -72,6 +72,10 @@ export const RequestsList = () => {
 		console.log(id + 'спрятан')
 	}
 
+	const rowClickHandler = (id: string) => {
+		navigate(`/news/requests-list/${id}`)
+	}
+
 	if (isLoading || !requests) return <Loader />
 
 	return (
@@ -110,6 +114,7 @@ export const RequestsList = () => {
 					className={styles.requestsTable}
 					rowData={formatObjectsTableData(requests)}
 					colTitles={tableTitles}
+					rowClickHandler={rowClickHandler}
 				/>
 				<TableFooter
 					totalElements={requests.length}

@@ -1,5 +1,7 @@
 import React, { type FC, type ReactNode } from 'react'
 import { Link, type LinkProps } from 'react-router-dom'
+import { CancelVariantBtnSvg } from 'src/UI/icons/cancelVariantBtnSVG'
+
 import styled, { css } from 'styled-components'
 
 type AnchorProps = React.AnchorHTMLAttributes<HTMLAnchorElement>
@@ -26,20 +28,15 @@ type SharedStylesTypes = {
 }
 
 const sharedStyles = css<SharedStylesTypes>`
-	padding: ${({ $padding, $variant }) => {
-		if ($variant === 'cancel') return '0 24px 0 32px'
-		return $padding ?? '0 24px'
-	}};
+	padding: ${({ $padding }) => $padding ?? '0 24px'};
 	margin: ${({ $margin }) => $margin ?? '0'};
 	height: ${({ $height }) => $height ?? '45px'};
 	font-size: ${({ $fontSize }) => $fontSize ?? '14px'};
 	border-radius: ${({ $radius }) => $radius ?? '3px'};
 
 	background: ${({ $variant }) => {
-		if ($variant === 'cancel')
-			return '#FFFFFF url(\'data:image/svg+xml,<svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="6.22656" r="6" fill="%23D9001B"/><rect width="8.12592" height="0.325037" transform="matrix(0.706782 -0.707431 0.706782 0.707431 3.02344 8.99414)" fill="white" stroke="white" stroke-linejoin="round"/><rect width="8.12592" height="0.325037" transform="matrix(-0.706782 -0.707431 0.706782 -0.707431 8.74219 9.20508)" fill="white" stroke="white" stroke-linejoin="round"/></svg>\') no-repeat 8% center'
-		if ($variant === 'light') return '#FFFFFF'
-		return '#184F71'
+		if ($variant === 'primary') return '#184F71'
+		return '#ffffff'
 	}};
 	color: ${({ $variant }) => {
 		if ($variant === 'cancel') return '#D9001B'
@@ -56,6 +53,9 @@ const sharedStyles = css<SharedStylesTypes>`
 	cursor: pointer;
 	display: inline-flex;
 	align-items: center;
+	gap: 5px;
+	justify-content: center;
+
 	transition: all 0.3s;
 
 	&:hover {
@@ -91,6 +91,7 @@ export const AdminButton: FC<ButtonComponentProps & (ButtonProps | AnchorProps |
 	if (as === 'button') {
 		return (
 			<StyledButton $variant={$variant} {...(props as ButtonProps)}>
+				{$variant === 'cancel' && <CancelVariantBtnSvg />}
 				{children}
 			</StyledButton>
 		)
@@ -98,6 +99,7 @@ export const AdminButton: FC<ButtonComponentProps & (ButtonProps | AnchorProps |
 	if (as === 'link') {
 		return (
 			<StyledLink $variant={$variant} {...(props as AnchorProps)}>
+				{$variant === 'cancel' && <CancelVariantBtnSvg />}
 				{children}
 			</StyledLink>
 		)
@@ -105,6 +107,7 @@ export const AdminButton: FC<ButtonComponentProps & (ButtonProps | AnchorProps |
 	if (as === 'route') {
 		return (
 			<StyledRouteLink $variant={$variant} {...(props as LinkProps)}>
+				{$variant === 'cancel' && <CancelVariantBtnSvg />}
 				{children}
 			</StyledRouteLink>
 		)

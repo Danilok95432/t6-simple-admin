@@ -7,7 +7,7 @@ export type PromoInputs = {
 	contentChoice?: string
 	promoDesktopImage?: FileWithPreview[]
 	promoMobileImage?: FileWithPreview[]
-	isHiddenPromo?: 'hidden' | 'show'
+	isHiddenPromo?: boolean
 }
 export const promoModalSchema = yup.object().shape({
 	promoTitle: yup.string().required('Введите название'),

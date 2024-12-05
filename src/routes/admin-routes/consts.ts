@@ -22,7 +22,6 @@ export enum AdminRoute {
 	AdminObjEvents = 'object-events',
 	AdminObjGallery = 'object-gallery',
 	AdminObjLocation = 'object-location',
-	AdminAddDepartments = 'add-departments',
 	AdminEvent = 'event',
 	AdminEventProfile = 'event-profile',
 	AdminEventContacts = 'event-contacts',

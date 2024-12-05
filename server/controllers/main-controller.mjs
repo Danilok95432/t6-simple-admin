@@ -4,6 +4,7 @@ import { events } from '../mockData/events.mjs'
 import { videos } from '../mockData/videos.mjs'
 import { eventRequests } from '../mockData/eventRequests.mjs'
 import { cultureElements } from '../mockData/cultureElements.mjs'
+import { promoBlocks } from '../mockData/promo-blocks.mjs'
 
 export const getObjects = (req, res) => {
 	const { q } = req.query
@@ -236,4 +237,8 @@ export const deleteRequest = (req, res) => {
 	eventRequests.splice(deleteIdx, 1)
 
 	res.status(200).json(deleteIdx)
+}
+
+export const getPromoBlocks = (req, res) => {
+	res.status(200).json(promoBlocks)
 }

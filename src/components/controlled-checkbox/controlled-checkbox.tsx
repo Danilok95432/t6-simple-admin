@@ -34,7 +34,7 @@ type CheckboxInputProps = {
 const StyledCheckboxWrapper = styled.div<CheckboxInputProps>`
 	margin: ${({ $margin }) => $margin ?? '0'};
 	@media (max-width: 1024px) {
-		margin: ${({ $marginMobile }) => $marginMobile ?? '0'};
+		margin: ${({ $marginMobile, $margin }) => $marginMobile ?? $margin ?? '0'};
 	}
 `
 

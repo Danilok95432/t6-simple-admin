@@ -25,7 +25,6 @@ export const DateSection = () => {
 					label='Как в оригинальной новости / видеозаписи'
 					type='checkbox'
 					$margin='8px 0 0 0'
-					$marginMobile='8px 0 0 0'
 				/>
 			</FlexRow>
 		</AdminSection>

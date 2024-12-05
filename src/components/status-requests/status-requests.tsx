@@ -3,30 +3,31 @@ import { RequestStatusPendingSVG } from 'src/UI/icons/requestStatusPendingSVG'
 import { RequestStatusPlacedSVG } from 'src/UI/icons/requestStatusPlacedSVG'
 import { RequestStatusRejectedSVG } from 'src/UI/icons/requestStatusRejectedSVG'
 
+import styles from './index.module.scss'
+
 type StatusRequestsProps = {
-	statusCode?: number
-	className?: string
+	statusCode?: string
 }
 
-export const StatusRequests: FC<StatusRequestsProps> = ({ statusCode = 0, className }) => {
+export const StatusRequests: FC<StatusRequestsProps> = ({ statusCode }) => {
 	switch (statusCode) {
-		case 200:
+		case 'placed':
 			return (
-				<div className={className}>
+				<div className={styles.statusRequest}>
 					<RequestStatusPlacedSVG />
 					<p>размещена</p>
 				</div>
 			)
-		case 300:
+		case 'pending':
 			return (
-				<div className={className}>
+				<div className={styles.statusRequest}>
 					<RequestStatusPendingSVG />
 					<p>отложена</p>
 				</div>
 			)
-		case 400:
+		case 'rejected':
 			return (
-				<div className={className}>
+				<div className={styles.statusRequest}>
 					<RequestStatusRejectedSVG />
 					<p>отклонена</p>
 				</div>

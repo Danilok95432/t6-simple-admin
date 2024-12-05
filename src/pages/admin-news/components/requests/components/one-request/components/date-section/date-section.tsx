@@ -1,8 +1,8 @@
 import { AdminSection } from 'src/components/admin-section/admin-section'
+import { ControlledCheckbox } from 'src/components/controlled-checkbox/controlled-checkbox'
 import { ControlledDateInput } from 'src/components/controlled-date-input/controlled-date-input'
 import { CustomText } from 'src/components/custom-text/custom-text'
 import { FlexRow } from 'src/components/flex-row/flex-row'
-import { MainCheckBox } from 'src/UI/MainCheckBox/MainCheckBox'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 
@@ -12,7 +12,7 @@ export const DateSection = () => {
 			<CustomText $margin='0 0 5px 0' $fontWeight='600'>
 				Желаемая дата публикации
 			</CustomText>
-			<FlexRow $alignItems='center'>
+			<FlexRow $gap='25px'>
 				<ControlledDateInput
 					className={adminStyles.adminDateInput}
 					name='datePublish'
@@ -20,7 +20,13 @@ export const DateSection = () => {
 					placeholder='дд.мм.гггг'
 					margin='0'
 				/>
-				<MainCheckBox checked={false} label='Как в оригинальной новости / видеозаписи' />
+				<ControlledCheckbox
+					name='asOriginalContent'
+					label='Как в оригинальной новости / видеозаписи'
+					type='checkbox'
+					$margin='8px 0 0 0'
+					$marginMobile='8px 0 0 0'
+				/>
 			</FlexRow>
 		</AdminSection>
 	)

@@ -4,14 +4,14 @@ import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Container } from 'src/UI/Container/Container'
-import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
-import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { Disclaimer } from './components/disclaimer/disclaimer'
 import { DateSection } from './components/date-section/date-section'
 import { DescSection } from './components/desc-section/desc-section'
 import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-radio-btns'
 import { SwitchedHiddenSvg } from 'src/UI/icons/switchedHiddenSVG'
 import { SwitchedShowSvg } from 'src/UI/icons/switchedShowSVG'
+import { AdminButton } from 'src/UI/AdminButton/AdminButton'
+import { FlexRow } from 'src/components/flex-row/flex-row'
 
 import styles from './index.module.scss'
 
@@ -20,7 +20,8 @@ export const OneRequest = () => {
 		mode: 'onBlur',
 		resolver: yupResolver(oneRequestSchema),
 		defaultValues: {
-			desc: '',
+			isHiddenRequest: true,
+			asOriginalContent: false,
 		},
 	})
 
@@ -60,7 +61,14 @@ export const OneRequest = () => {
 								/>
 							</div>
 						</div>
-						<AdminControllers variant='3' outLink={AdminRoute.AdminHome} />
+						<FlexRow $margin='40px 0 0 0'>
+							<AdminButton as='button' type='submit'>
+								Подать заявку
+							</AdminButton>
+							<AdminButton as='route' to='/news/requests-list' $variant='light'>
+								Отменить
+							</AdminButton>
+						</FlexRow>
 					</form>
 				</FormProvider>
 			</Container>

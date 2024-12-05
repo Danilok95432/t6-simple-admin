@@ -4,6 +4,8 @@ export type OneRequestInputs = {
 	datePublish: Date
 	desc?: string
 	titleContentRequest: string
+	isHiddenRequest?: boolean
+	asOriginalContent?: boolean
 }
 
 export const oneRequestSchema = yup.object().shape({

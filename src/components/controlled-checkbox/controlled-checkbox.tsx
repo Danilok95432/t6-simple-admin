@@ -28,12 +28,13 @@ type ControlledCheckboxProps = {
 
 type CheckboxInputProps = {
 	$margin?: string
+	$marginMobile?: string
 }
 
 const StyledCheckboxWrapper = styled.div<CheckboxInputProps>`
 	margin: ${({ $margin }) => $margin ?? '0'};
 	@media (max-width: 1024px) {
-		margin: 0;
+		margin: ${({ $marginMobile }) => $marginMobile ?? '0'};
 	}
 `
 
@@ -45,6 +46,7 @@ export const ControlledCheckbox: FC<ControlledCheckboxProps & CheckboxInputProps
 	required,
 	options,
 	$margin,
+	$marginMobile,
 	disabled,
 }) => {
 	const {
@@ -69,7 +71,11 @@ export const ControlledCheckbox: FC<ControlledCheckboxProps & CheckboxInputProps
 
 	if (type === 'radio') {
 		return (
-			<StyledCheckboxWrapper className={cn(styles.radioInputs, className)} $margin={$margin}>
+			<StyledCheckboxWrapper
+				className={cn(styles.radioInputs, className)}
+				$margin={$margin}
+				$marginMobile={$marginMobile}
+			>
 				{options?.map((option) => (
 					<label key={option.value}>
 						<input
@@ -87,7 +93,11 @@ export const ControlledCheckbox: FC<ControlledCheckboxProps & CheckboxInputProps
 	}
 
 	return (
-		<StyledCheckboxWrapper className={cn(styles.checkboxEl, className)} $margin={$margin}>
+		<StyledCheckboxWrapper
+			className={cn(styles.checkboxEl, className)}
+			$margin={$margin}
+			$marginMobile={$marginMobile}
+		>
 			<div
 				className={cn(styles.inputWrapper, { [styles._disabled]: disabled })}
 				onClick={handleCheckboxChange}

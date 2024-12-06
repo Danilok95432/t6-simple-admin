@@ -65,6 +65,10 @@ export const NewsList = () => {
 		console.log(id + 'спрятан')
 	}
 
+	const rowClickHandler = (id: string) => {
+		navigate(`/news/news-list/${id}`)
+	}
+
 	if (isLoading || !news) return <Loader />
 
 	return (
@@ -91,10 +95,11 @@ export const NewsList = () => {
 					className={styles.newsTable}
 					rowData={formatObjectsTableData(news)}
 					colTitles={tableTitles}
+					rowClickHandler={rowClickHandler}
 				/>
 				<TableFooter
 					totalElements={news.length}
-					addClickHandler={() => navigate('/news/news-list')}
+					addClickHandler={() => navigate('/news/news-list/new')}
 					addText='Добавить новость'
 				/>
 			</div>

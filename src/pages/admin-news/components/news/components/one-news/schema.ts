@@ -1,4 +1,4 @@
-import { transformArray } from 'src/helpers/utils'
+import { splitAndTrimStringToArray } from 'src/helpers/utils'
 import { type FileWithPreview } from 'src/types/files'
 import * as yup from 'yup'
 
@@ -28,7 +28,7 @@ export const oneNewsSchema = yup.object().shape({
 		.min(1, 'Должен быть хотя бы один тег')
 		.max(5, 'Максимум 5 тегов')
 		.required('Теги обязательны')
-		.transform(transformArray),
+		.transform(splitAndTrimStringToArray),
 	shortDesc: yup.string().required('Введите короткое описание'),
 	textNews: yup.string().required('Введите текст новости'),
 	seoDesc: yup.string().required('Введите описание'),
@@ -37,5 +37,5 @@ export const oneNewsSchema = yup.object().shape({
 		.of(yup.string().trim().required('Ключевое слово обязательно'))
 		.min(1, 'Должно быть хотя бы одно ключевое слово')
 		.required('Ключевые слова обязательны')
-		.transform(transformArray),
+		.transform(splitAndTrimStringToArray),
 })

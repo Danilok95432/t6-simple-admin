@@ -89,6 +89,7 @@ export const transformToFormData = (data: FieldValues) => {
 	return formData
 }
 
-export const transformArray = (value: string | undefined): string[] => {
+// Преобразует строку в массив строк разделенных запятой
+export const splitAndTrimStringToArray = (value: string | undefined): string[] => {
 	return value ? value.split(',').map((element) => element.trim()) : []
 }

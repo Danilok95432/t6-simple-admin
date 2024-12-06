@@ -18,6 +18,7 @@ import { PlacementSection } from 'src/pages/one-event-layout/pages/admin-event-c
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
+import { LinksSection } from 'src/pages/one-event-layout/pages/admin-event-content/components/links-section/links-section'
 
 export const AdminEventContent: FC = () => {
 	const methods = useForm<EventContentInputs>({
@@ -33,6 +34,9 @@ export const AdminEventContent: FC = () => {
 			isShowDocsSection: false,
 			docsSection: true,
 			docs: [],
+			isShowLinksSection: false,
+			linksSection: true,
+			links: [{ linkText: '', linkUrl: '' }],
 		},
 	})
 
@@ -52,6 +56,7 @@ export const AdminEventContent: FC = () => {
 					<PlacementSection />
 					<GallerySection />
 					<DocsSection />
+					<LinksSection />
 					<AdminControllers outLink={AdminRoute.AdminHome} variant='2' />
 				</form>
 			</FormProvider>

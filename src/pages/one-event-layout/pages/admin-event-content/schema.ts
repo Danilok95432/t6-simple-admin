@@ -6,6 +6,10 @@ type PlacementBlock = {
 	placementDesc: string
 	placementScript: string
 }
+type LinkBlock = {
+	linkText: string
+	linkUrl: string
+}
 
 export type EventContentInputs = {
 	logoImage?: FileWithPreview[]
@@ -17,6 +21,10 @@ export type EventContentInputs = {
 	docsSection?: boolean
 	isShowDocsSection?: boolean
 	docs?: FileWithPreview[]
+	isShowLinksSection?: boolean
+	linksSection?: boolean
+	links?: LinkBlock[]
+	linksBlockTitle?: string
 }
 
 export const eventContentSchema = yup.object().shape({

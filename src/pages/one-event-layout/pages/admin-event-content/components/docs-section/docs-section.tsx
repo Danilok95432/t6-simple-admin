@@ -5,8 +5,6 @@ import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 import { AddButton } from 'src/UI/AddButton/AddButton'
 import { RemoveFileSvg } from 'src/UI/icons/removeFileSVG'
 
-import styles from './index.module.scss'
-
 export const DocsSection: FC = () => {
 	return (
 		<AdminSection
@@ -21,7 +19,6 @@ export const DocsSection: FC = () => {
 			}
 		>
 			<ReactDropzone
-				className={styles.docsList}
 				previewVariant='list'
 				removeIcon={<RemoveFileSvg />}
 				name='docs'

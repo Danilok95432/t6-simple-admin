@@ -68,6 +68,10 @@ export const VideosList = () => {
 		console.log(id + 'спрятан')
 	}
 
+	const rowClickHandler = (id: string) => {
+		navigate(`/news/videos-list/${id}`)
+	}
+
 	if (isLoading || !videos) return <Loader />
 
 	return (
@@ -94,6 +98,7 @@ export const VideosList = () => {
 					className={styles.videosTable}
 					rowData={formatObjectsTableData(videos)}
 					colTitles={tableTitles}
+					rowClickHandler={rowClickHandler}
 				/>
 				<TableFooter
 					totalElements={videos.length}

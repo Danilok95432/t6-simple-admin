@@ -21,6 +21,9 @@ import { AdminEventProfile } from 'src/pages/one-event-layout/pages/admin-event-
 import { AdminEventContacts } from 'src/pages/one-event-layout/pages/admin-event-contacts/admin-event-contacts'
 import { AdminEventContent } from 'src/pages/one-event-layout/pages/admin-event-content/admin-event-content'
 import { AdminEventPartners } from 'src/pages/one-event-layout/pages/admin-event-partners/admin-event-partners'
+import { AdminEventNews } from 'src/pages/one-event-layout/pages/admin-event-news/admin-event-news'
+import { AdminEventVideos } from 'src/pages/one-event-layout/pages/admin-event-videos/admin-event-videos'
+import { AdminEventProgram } from 'src/pages/one-event-layout/pages/admin-event-program/admin-event-program'
 import { AdminEventHistory } from 'src/pages/one-event-layout/pages/admin-event-history/admin-event-history'
 
 import { CommunityLayout } from 'src/pages/community-layout/community-layout'
@@ -91,6 +94,9 @@ export const AdminRoutes: FC = () => {
 					<Route path={`${AdminRoute.AdminEventContacts}/:id`} element={<AdminEventContacts />} />
 					<Route path={`${AdminRoute.AdminEventContent}/:id`} element={<AdminEventContent />} />
 					<Route path={`${AdminRoute.AdminEventPartners}/:id`} element={<AdminEventPartners />} />
+					<Route path={`${AdminRoute.AdminEventNews}/:id`} element={<AdminEventNews />} />
+					<Route path={`${AdminRoute.AdminEventVideos}/:id`} element={<AdminEventVideos />} />
+					<Route path={`${AdminRoute.AdminEventProgram}/:id`} element={<AdminEventProgram />} />
 					<Route path={`${AdminRoute.AdminEventHistory}/:id`} element={<AdminEventHistory />} />
 				</Route>
 

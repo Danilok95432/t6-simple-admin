@@ -1,96 +1,38 @@
 import { type FC } from 'react'
-
-import { ControlledInput } from 'src/components/controlled-input/controlled-input'
-
+import { AdminSection } from 'src/components/admin-section/admin-section'
+import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-radio-btns'
 import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
-import { GridRow } from 'src/components/grid-row/grid-row'
+import { AddButton } from 'src/UI/AddButton/AddButton'
+import { RemoveFileSvg } from 'src/UI/icons/removeFileSVG'
 
-import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
+
 export const DocsSection: FC = () => {
 	return (
-		<section className={styles.docsSection}>
-			<ul className={styles.docsList}>
-				<li>
-					<h6>Документ 1</h6>
-					<GridRow
-						$alignItems='center'
-						$template='auto/repeat(auto-fit, minmax(250px, 1fr))'
-						$gap='10px'
-					>
-						<ControlledInput
-							className={adminStyles.adminMainInput}
-							name='docName1'
-							placeholder='название, например, Регламент соревнований'
-							margin='0'
-						/>
-						<ReactDropzone
-							name='docFile1'
-							variant='text'
-							customUploadBtn={
-								<button className={styles.docUploadBtn} type='button'>
-									<span>Загрузить файл с компьютера</span> в формате PDF
-								</button>
-							}
-							margin='0'
-							accept={{
-								'application/pdf': ['.pdf'],
-							}}
-						/>
-					</GridRow>
-				</li>
-				<li>
-					<h6>Документ 2</h6>
-					<GridRow
-						$alignItems='center'
-						$template='auto/repeat(auto-fit, minmax(250px, 1fr))'
-						$gap='10px'
-					>
-						<ControlledInput
-							className={adminStyles.adminMainInput}
-							name='docName2'
-							placeholder='название, например, Условия участия'
-							margin='0'
-						/>
-						<ReactDropzone
-							name='docFile2'
-							variant='text'
-							customUploadBtn={
-								<button className={styles.docUploadBtn} type='button'>
-									<span>Загрузить файл с компьютера</span> в формате PDF
-								</button>
-							}
-							margin='0'
-							accept={{
-								'application/pdf': ['.pdf'],
-							}}
-						/>
-					</GridRow>
-				</li>
-				<li>
-					<h6>Документ 3</h6>
-					<GridRow
-						$alignItems='center'
-						$template='auto/repeat(auto-fit, minmax(250px, 1fr))'
-						$gap='10px'
-					>
-						<ControlledInput className={adminStyles.adminMainInput} name='docName3' margin='0' />
-						<ReactDropzone
-							name='docFile3'
-							variant='text'
-							customUploadBtn={
-								<button className={styles.docUploadBtn} type='button'>
-									<span>Загрузить файл с компьютера</span> в формате PDF
-								</button>
-							}
-							margin='0'
-							accept={{
-								'application/pdf': ['.pdf'],
-							}}
-						/>
-					</GridRow>
-				</li>
-			</ul>
-		</section>
+		<AdminSection
+			titleText='Документы события'
+			sectionName='docsSection'
+			additionalNodeForHead={
+				<SwitchedRadioBtns
+					name='isShowDocsSection'
+					contentRadio1='Показать всем'
+					contentRadio2='Скрыть'
+				/>
+			}
+		>
+			<ReactDropzone
+				className={styles.docsList}
+				previewVariant='list'
+				removeIcon={<RemoveFileSvg />}
+				name='docs'
+				accept={{
+					'application/pdf': ['.pdf'],
+					'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+				}}
+				maxFiles={7}
+				multiple
+				customUploadBtn={<AddButton>Добавить документ</AddButton>}
+			/>
+		</AdminSection>
 	)
 }

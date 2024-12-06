@@ -13,6 +13,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+
   a {
     font-size: 16px;
     color: #000000;
@@ -28,6 +29,7 @@
   svg path {
     transition: all .3s;
   }
+
   &:hover {
     svg path {
       fill: #184F71;
@@ -44,9 +46,13 @@
 
   li {
     position: relative;
-    border-radius: 3px;
-    width: 175px;
-    height: 130px;
+
+    .imgFileWrapper {
+      border-radius: 3px;
+      width: 175px;
+      height: 130px;
+    }
+
     img {
       width: 100%;
       height: 100%;
@@ -58,24 +64,22 @@
   .textFile {
     width: 175px;
     height: 210px;
-    background-color: #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 18px 10px 10px;
+    border: 1px solid #CCCCCC;
 
     span {
       width: 100px;
       height: 135px;
       border-radius: 3px;
-      border: 1px solid #C2CAC9;
-      background-color: #F4F7FA;
+      border: 1px solid #CCCCCC;
     }
 
     a {
-      color: #015DB9;
-      font-family: 'PT Sans', sans-serif;
-      font-size: 14px;
+      color: #000000;
+      font-size: 13px;
       text-align: center;
       margin-top: auto;
       max-width: 160px;
@@ -90,6 +94,7 @@
   position: absolute;
   right: 8px;
   top: 8px;
+  z-index: 10;
 }
 
 // стили для текстового варианта превью
@@ -142,6 +147,7 @@
     display: flex;
     gap: 5px;
     align-items: center;
+
     p {
       font-size: 14px;
       font-weight: 600;

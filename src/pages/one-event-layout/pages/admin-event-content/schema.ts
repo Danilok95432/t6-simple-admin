@@ -11,13 +11,12 @@ export type EventContentInputs = {
 	logoImage?: FileWithPreview[]
 	isShowPlacementsSection?: boolean
 	placementsSection?: boolean
-	placements: PlacementBlock[]
+	placements?: PlacementBlock[]
 	gallerySection?: boolean
 	isShowGallerySection?: boolean
-	galleryImages?: FileWithPreview[]
-	docFile1?: FileWithPreview[]
-	docFile2?: FileWithPreview[]
-	docFile3?: FileWithPreview[]
+	docsSection?: boolean
+	isShowDocsSection?: boolean
+	docs?: FileWithPreview[]
 }
 
 export const eventContentSchema = yup.object().shape({
@@ -33,5 +32,6 @@ export const eventContentSchema = yup.object().shape({
 				)
 			: yup.array().notRequired()
 	}),
-	photoGallery: yup.array().max(10, 'Не больше 10 фото'),
+	connectPhoto: yup.string().url('Неверный формат ссылки'),
+	docs: yup.array().max(7, 'Не больше 7 файлов'),
 })

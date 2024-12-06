@@ -81,13 +81,15 @@ export const FilePreviews: FC<FilePreviewsProps> = ({
 							</button>
 						)}
 						{ImagesFormat.includes(defineFileFormat(file.name)) ? (
-							<img
-								src={file.preview}
-								alt={file.name}
-								onLoad={() => {
-									URL.revokeObjectURL(file.preview)
-								}}
-							/>
+							<div className={styles.imgFileWrapper}>
+								<img
+									src={file.preview}
+									alt={file.name}
+									onLoad={() => {
+										URL.revokeObjectURL(file.preview)
+									}}
+								/>
+							</div>
 						) : (
 							<div className={styles.textFile}>
 								<span></span>

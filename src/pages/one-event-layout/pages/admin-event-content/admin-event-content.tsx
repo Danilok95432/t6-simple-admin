@@ -14,10 +14,10 @@ import { PreviewSection } from 'src/pages/one-event-layout/pages/admin-event-con
 import { DocsSection } from 'src/pages/one-event-layout/pages/admin-event-content/components/docs-section/docs-section'
 import { GallerySection } from 'src/pages/one-event-layout/pages/admin-event-content/components/gallery-section/gallery-section'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
+import { PlacementSection } from 'src/pages/one-event-layout/pages/admin-event-content/components/placement-section/placement-section'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
-import { PlacementSection } from 'src/pages/one-event-layout/pages/admin-event-content/components/placement-section/placement-section'
 
 export const AdminEventContent: FC = () => {
 	const methods = useForm<EventContentInputs>({
@@ -30,10 +30,9 @@ export const AdminEventContent: FC = () => {
 			placements: [{ placementTitle: '', placementDesc: '', placementScript: '' }],
 			isShowGallerySection: false,
 			gallerySection: true,
-			galleryImages: [],
-			docFile1: [],
-			docFile2: [],
-			docFile3: [],
+			isShowDocsSection: false,
+			docsSection: true,
+			docs: [],
 		},
 	})
 
@@ -56,6 +55,9 @@ export const AdminEventContent: FC = () => {
 					<AdminControllers outLink={AdminRoute.AdminHome} variant='2' />
 				</form>
 			</FormProvider>
+			<Link to={`/${AdminRoute.AdminEventsList}`} className={adminStyles.adminReturnLink}>
+				Возврат к списку событий
+			</Link>
 		</AdminContent>
 	)
 }

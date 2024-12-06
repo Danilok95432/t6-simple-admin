@@ -52,7 +52,7 @@ export const MainSection = () => {
 			<ReactDropzone
 				label='Основное изображение'
 				name='mainImg'
-				prompt='JPEG, PNG, 500х500px, не более 2.5 Мб'
+				prompt='PNG, JPG, JPEG. 1000 х1000px, не более 3 Мб'
 				accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
 				margin='20px 0 20px 0'
 			/>

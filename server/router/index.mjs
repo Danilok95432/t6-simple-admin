@@ -21,6 +21,8 @@ import {
 	getRequestById,
 	deleteRequest,
 	getPromoBlocks,
+	deleteEventPartner,
+	getPartnersByEventId,
 } from '../controllers/main-controller.mjs'
 import { Router } from 'express'
 
@@ -41,6 +43,8 @@ router.get('/cultures/:id', getCultureById)
 router.delete('/cultureDelete/:id', deleteCulture)
 router.get('/events', getEvents)
 router.delete('/eventDelete/:id', deleteEvent)
+router.get('/events/:id/partners', getPartnersByEventId)
+router.delete('/event/:eventId/partnerDelete/:partnerId', deleteEventPartner)
 router.get('/videos', getVideos)
 router.get('/videos/:id', getVideoById)
 router.delete('/videoDelete/:id', deleteVideo)

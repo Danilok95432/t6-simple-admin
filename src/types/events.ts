@@ -5,3 +5,12 @@ export type EventItem = {
 	dates: [Date, Date]
 	object: string
 }
+
+export type EventPartners = {
+	id: string
+	isHidden: boolean
+	title: string
+	typeOrg: string
+	typePart: string[]
+	priority: number
+}

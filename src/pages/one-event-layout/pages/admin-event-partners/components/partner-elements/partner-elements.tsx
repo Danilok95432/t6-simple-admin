@@ -14,6 +14,7 @@ import { RowController } from 'src/components/row-controller/row-controller'
 import { TableFooter } from 'src/components/table-footer/table-footer'
 import { GridRow } from 'src/components/grid-row/grid-row'
 import { TableSearchInput } from 'src/modules/table-search-input/table-search'
+import { AdminRoute } from 'src/routes/admin-routes/consts'
 
 import styles from './index.module.scss'
 
@@ -66,6 +67,9 @@ export const PartnerElements = () => {
 	const rowDeleteHandler = async (partnerId: string) => {
 		await deletePartnerById({ eventId: id ?? '', partnerId })
 	}
+	const rowClickHandler = (id: string) => {
+		navigate(`${AdminRoute.AdminEventOnePartner}/${id}`)
+	}
 
 	const rowHideHandler = async (id: string) => {
 		console.log(id + 'спрятан')
@@ -75,32 +79,33 @@ export const PartnerElements = () => {
 
 	return (
 		<>
-			<div>
-				<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
-					<TableSearchInput
-						handleSearch={(val) => handleSearch('title', val)}
-						placeholder='искать по наименованию'
-					/>
-					<TableSearchInput
-						handleSearch={(val) => handleSearch('typeOrg', val)}
-						placeholder='искать по виду организации'
-					/>
-					<TableSearchInput
-						handleSearch={(val) => handleSearch('typePart', val)}
-						placeholder='искать по типу партнерства'
-					/>
-				</GridRow>
-				<CustomTable
-					className={styles.partnersTable}
-					rowData={formatObjectsTableData(partners)}
-					colTitles={tableTitles}
+			<h3 className={styles.title}>Партнеры</h3>
+
+			<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
+				<TableSearchInput
+					handleSearch={(val) => handleSearch('title', val)}
+					placeholder='искать по наименованию'
 				/>
-				<TableFooter
-					totalElements={partners.length}
-					addClickHandler={() => navigate('/events/event-info/new')}
-					addText='Добавить партнера'
+				<TableSearchInput
+					handleSearch={(val) => handleSearch('typeOrg', val)}
+					placeholder='искать по виду организации'
 				/>
-			</div>
+				<TableSearchInput
+					handleSearch={(val) => handleSearch('typePart', val)}
+					placeholder='искать по типу партнерства'
+				/>
+			</GridRow>
+			<CustomTable
+				className={styles.partnersTable}
+				rowData={formatObjectsTableData(partners)}
+				rowClickHandler={rowClickHandler}
+				colTitles={tableTitles}
+			/>
+			<TableFooter
+				totalElements={partners.length}
+				addClickHandler={() => navigate(`${AdminRoute.AdminEventOnePartner}/new`)}
+				addText='Добавить партнера'
+			/>
 		</>
 	)
 }

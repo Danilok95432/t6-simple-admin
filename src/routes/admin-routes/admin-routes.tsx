@@ -20,7 +20,7 @@ import { OneEventLayout } from 'src/pages/one-event-layout/one-event-layout'
 import { AdminEventProfile } from 'src/pages/one-event-layout/pages/admin-event-profile/admin-event-profile'
 import { AdminEventContacts } from 'src/pages/one-event-layout/pages/admin-event-contacts/admin-event-contacts'
 import { AdminEventContent } from 'src/pages/one-event-layout/pages/admin-event-content/admin-event-content'
-import { AdminEventPartners } from 'src/pages/one-event-layout/pages/admin-event-partners/admin-event-partners'
+import { AdminEventPartnersLayout } from 'src/pages/one-event-layout/pages/admin-event-partners/admin-event-partners-layout'
 import { AdminEventNews } from 'src/pages/one-event-layout/pages/admin-event-news/admin-event-news'
 import { AdminEventVideos } from 'src/pages/one-event-layout/pages/admin-event-videos/admin-event-videos'
 import { AdminEventProgram } from 'src/pages/one-event-layout/pages/admin-event-program/admin-event-program'
@@ -48,6 +48,8 @@ import { ObjectLocation } from 'src/pages/object-element-layout/pages/object-loc
 
 import { AdminSupport } from 'src/pages/admin-support/admin-support'
 import { AdminSettings } from 'src/pages/admin-settings/admin-settings'
+import { PartnerElements } from 'src/pages/one-event-layout/pages/admin-event-partners/components/partner-elements/partner-elements'
+import { OnePartner } from 'src/pages/one-event-layout/pages/admin-event-partners/components/one-partner/one-partner'
 
 export const AdminRoutes: FC = () => {
 	return (
@@ -93,7 +95,16 @@ export const AdminRoutes: FC = () => {
 					<Route path={`${AdminRoute.AdminEventProfile}/:id`} element={<AdminEventProfile />} />
 					<Route path={`${AdminRoute.AdminEventContacts}/:id`} element={<AdminEventContacts />} />
 					<Route path={`${AdminRoute.AdminEventContent}/:id`} element={<AdminEventContent />} />
-					<Route path={`${AdminRoute.AdminEventPartners}/:id`} element={<AdminEventPartners />} />
+					<Route
+						path={`${AdminRoute.AdminEventPartners}/:id`}
+						element={<AdminEventPartnersLayout />}
+					>
+						<Route index element={<PartnerElements />} />
+						<Route
+							path={`${AdminRoute.AdminEventOnePartner}/:partnerId`}
+							element={<OnePartner />}
+						/>
+					</Route>
 					<Route path={`${AdminRoute.AdminEventNews}/:id`} element={<AdminEventNews />} />
 					<Route path={`${AdminRoute.AdminEventVideos}/:id`} element={<AdminEventVideos />} />
 					<Route path={`${AdminRoute.AdminEventProgram}/:id`} element={<AdminEventProgram />} />

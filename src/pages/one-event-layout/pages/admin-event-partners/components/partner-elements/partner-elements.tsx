@@ -53,7 +53,13 @@ export const PartnerElements = () => {
 						className={cn({ 'hidden-cell': partnersEl.isHidden }, styles.priorityBox)}
 						key='3'
 						type='text'
-						value={partnersEl.priority}
+						defaultValue={partnersEl.priority}
+						onChange={(e) =>
+							console.log(
+								`очередность партнера с id ${partnersEl.id} изменена на значение ${e.target.value}`,
+							)
+						}
+						onClick={(e) => e.stopPropagation()}
 					/>,
 					<RowController
 						id={partnersEl.id}
@@ -81,7 +87,7 @@ export const PartnerElements = () => {
 	if (isLoading || !partners) return <Loader />
 
 	return (
-		<>
+		<div className={styles.partnerElementsPage}>
 			<h3 className={styles.title}>Партнеры</h3>
 
 			<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
@@ -109,6 +115,6 @@ export const PartnerElements = () => {
 				addClickHandler={() => navigate(`${AdminRoute.AdminEventOnePartner}/new`)}
 				addText='Добавить партнера'
 			/>
-		</>
+		</div>
 	)
 }

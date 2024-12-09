@@ -18,18 +18,6 @@ export const MainSection = () => {
 				maxWidth='1140px'
 				margin='0 0 20px 0'
 			/>
-			<FlexRow $margin='0 0 40px' $direction='column' $gap='20px'>
-				<ControlledCheckbox
-					name='showOnMainPage'
-					label='Показывать партнера на главной странице сайта Федерации'
-					type='checkbox'
-				/>
-				<ControlledCheckbox
-					name='hidePartner'
-					label='Запретить показывать партнера во всех разделах сайта'
-					type='checkbox'
-				/>
-			</FlexRow>
 			<CustomText $fontSize='14px' $fontWeight='600' $margin='0 0 18px'>
 				Виды партнерства (возможен выбор нескольких видов)
 			</CustomText>

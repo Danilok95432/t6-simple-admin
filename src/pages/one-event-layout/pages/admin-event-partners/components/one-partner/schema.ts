@@ -3,8 +3,6 @@ import * as yup from 'yup'
 
 export type OnePartnerInputs = {
 	titlePartner: string
-	showOnMainPage?: boolean
-	hidePartner?: boolean
 	generalSponsor?: boolean
 	partner?: boolean
 	infoPartner?: boolean

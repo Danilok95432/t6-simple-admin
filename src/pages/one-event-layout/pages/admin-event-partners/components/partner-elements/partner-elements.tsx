@@ -49,9 +49,12 @@ export const PartnerElements = () => {
 					<p className={cn({ 'hidden-cell': partnersEl.isHidden })} key='2'>
 						{partnersEl.typePart.join(', ')}
 					</p>,
-					<p className={cn({ 'hidden-cell': partnersEl.isHidden }, styles.priorityBox)} key='3'>
-						{partnersEl.priority}
-					</p>,
+					<input
+						className={cn({ 'hidden-cell': partnersEl.isHidden }, styles.priorityBox)}
+						key='3'
+						type='text'
+						value={partnersEl.priority}
+					/>,
 					<RowController
 						id={partnersEl.id}
 						hideHandler={rowHideHandler}

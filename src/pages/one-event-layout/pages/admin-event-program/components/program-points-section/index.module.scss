@@ -1,0 +1,16 @@
+.pointItem {
+  &:not(:last-child) {
+    margin-bottom: 35px;
+  }
+
+  .dateRow {
+    grid-template: auto / 0.8fr 0.8fr 0.9fr 1.5fr;
+    max-width: 1136px;
+    gap: 40px;
+    @media (max-width: 1400px) {
+      gap: 20px;
+      max-width: 100%;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    }
+  }
+}

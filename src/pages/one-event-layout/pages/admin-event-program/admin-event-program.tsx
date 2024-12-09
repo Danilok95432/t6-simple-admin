@@ -45,7 +45,7 @@ export const AdminEventProgram: FC = () => {
 					<ProgramPointsSection />
 					<FlexRow $margin='40px 0 0 0'>
 						<AdminButton as='button' type='submit'>
-							Подать заявку
+							Сохранить
 						</AdminButton>
 						<AdminButton as='route' to='/events-list' $variant='light'>
 							Отменить
@@ -53,6 +53,9 @@ export const AdminEventProgram: FC = () => {
 					</FlexRow>
 				</form>
 			</FormProvider>
+			<Link to={`/${AdminRoute.AdminEventsList}`} className={adminStyles.adminReturnLink}>
+				Возврат к списку событий
+			</Link>
 		</AdminContent>
 	)
 }

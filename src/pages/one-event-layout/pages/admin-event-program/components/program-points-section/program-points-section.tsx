@@ -5,12 +5,14 @@ import { AdminSection } from 'src/components/admin-section/admin-section'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-radio-btns'
 import { GridRow } from 'src/components/grid-row/grid-row'
-import { FlexRow } from 'src/components/flex-row/flex-row'
 import { TrashIconSvg } from 'src/UI/icons/trashIconSVG'
 import { AddButton } from 'src/UI/AddButton/AddButton'
 import { ControlledDateInput } from 'src/components/controlled-date-input/controlled-date-input'
+import { CustomText } from 'src/components/custom-text/custom-text'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
+import styles from './index.module.scss'
+import { FlexRow } from 'src/components/flex-row/flex-row'
 
 export const ProgramPointsSection = () => {
 	const { control } = useFormContext<ProgramInputs>()
@@ -33,41 +35,58 @@ export const ProgramPointsSection = () => {
 		>
 			<div>
 				{fields?.map((field, idx) => (
-					<div key={field.id}>
-						<FlexRow>
-							<ControlledInput
-								label='Название пункта программы'
-								name={`points.${idx}.pointTitle`}
-							/>
+					<div className={styles.pointItem} key={field.id}>
+						<CustomText $fontWeight='600' $margin='0 0 10px 0'>
+							Название пункта программы
+						</CustomText>
+						<GridRow
+							$margin='0 0 18px 0'
+							$template='auto / 0.95fr 0.05fr'
+							$maxWidth='1196px'
+							$alignItems='center'
+							$gap='0'
+						>
+							<ControlledInput name={`points.${idx}.pointTitle`} />
 							{idx !== 0 && (
 								<button type='button' onClick={() => remove(idx)}>
 									<TrashIconSvg />
 								</button>
 							)}
-						</FlexRow>
-						<GridRow $template='auto / 0.8fr 0.8fr 0.8fr 1.6fr'>
-							<ControlledDateInput
-								className={adminStyles.adminDateInput}
-								name={`points.${idx}.pointDate`}
-								dateFormat='dd.MM.yyyy'
-								placeholder='дд.мм.гггг'
-							/>
-							<ControlledDateInput
-								className={adminStyles.adminTimeInput}
-								name={`points.${idx}.pointTimeStart`}
-								placeholder='чч.мм'
-								dateFormat='HH:mm'
-								showTimeSelectOnly
-								showTimeSelect
-							/>
-							<ControlledDateInput
-								className={adminStyles.adminTimeInput}
-								name={`points.${idx}.pointTimeEnd`}
-								placeholder='чч.мм'
-								dateFormat='HH:mm'
-								showTimeSelectOnly
-								showTimeSelect
-							/>
+						</GridRow>
+						<GridRow className={styles.dateRow}>
+							<FlexRow $alignItems='center' $wrap='nowrap' $gap='12px'>
+								<CustomText $fontWeight='600'>Дата</CustomText>
+								<ControlledDateInput
+									className={adminStyles.adminDateInput}
+									name={`points.${idx}.pointDate`}
+									dateFormat='dd.MM.yyyy'
+									placeholder='дд.мм.гггг'
+									margin='0'
+								/>
+							</FlexRow>
+							<FlexRow $alignItems='center' $wrap='nowrap' $gap='12px'>
+								<CustomText $fontWeight='600'>Начало</CustomText>
+								<ControlledDateInput
+									className={adminStyles.adminTimeInput}
+									name={`points.${idx}.pointTimeStart`}
+									placeholder='чч.мм'
+									dateFormat='HH:mm'
+									showTimeSelectOnly
+									showTimeSelect
+								/>
+							</FlexRow>
+							<FlexRow $alignItems='center' $wrap='nowrap' $gap='12px'>
+								<CustomText $fontWeight='600'>Окончание</CustomText>
+								<ControlledDateInput
+									className={adminStyles.adminTimeInput}
+									name={`points.${idx}.pointTimeEnd`}
+									placeholder='чч.мм'
+									dateFormat='HH:mm'
+									showTimeSelectOnly
+									showTimeSelect
+								/>
+							</FlexRow>
+
 							<ControlledInput name={`points.${idx}.pointLocation`} placeholder='Локация' />
 						</GridRow>
 					</div>

@@ -174,6 +174,28 @@ export const deleteEvent = (req, res) => {
 	res.status(200).json(deleteIdx)
 }
 
+export const getPartnersByEventId = (req, res) => {
+	const eventId = req.params.id
+
+	const filteredEvents = events.find((el) => el.id === eventId)
+	res.status(200).json(filteredEvents.partners)
+}
+
+export const deleteEventPartner = (req, res) => {
+	const eventId = req.params.eventId
+	const partnerId = req.params.partnerId
+	const foundEvent= events.find((event) => event.id === eventId)
+	let deleteIdx
+	foundEvent.partners.forEach((el, idx) => {
+		if (el.id === partnerId) {
+			deleteIdx = idx
+		}
+	})
+	foundEvent.partners.splice(deleteIdx, 1)
+
+	res.status(200).json(deleteIdx)
+}
+
 export const getVideos = (req, res) => {
 	const { q, y } = req.query
 

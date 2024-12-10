@@ -1,5 +1,5 @@
 import { type EventPartners } from 'src/types/events'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import cn from 'classnames'
 
 import {
@@ -16,7 +16,9 @@ import { GridRow } from 'src/components/grid-row/grid-row'
 import { TableSearchInput } from 'src/modules/table-search-input/table-search'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 
+import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
+import { Container } from 'src/UI/Container/Container'
 
 export const PartnerElements = () => {
 	const { id } = useParams()
@@ -49,9 +51,18 @@ export const PartnerElements = () => {
 					<p className={cn({ 'hidden-cell': partnersEl.isHidden })} key='2'>
 						{partnersEl.typePart.join(', ')}
 					</p>,
-					<p className={cn({ 'hidden-cell': partnersEl.isHidden }, styles.priorityBox)} key='3'>
-						{partnersEl.priority}
-					</p>,
+					<input
+						className={cn({ 'hidden-cell': partnersEl.isHidden }, styles.priorityBox)}
+						key='3'
+						type='text'
+						value={partnersEl.priority}
+						onChange={(e) =>
+							console.log(
+								`очередность партнера с id ${partnersEl.id} изменена на значение ${e.target.value}`,
+							)
+						}
+						onClick={(e) => e.stopPropagation()}
+					/>,
 					<RowController
 						id={partnersEl.id}
 						hideHandler={rowHideHandler}
@@ -78,7 +89,12 @@ export const PartnerElements = () => {
 	if (isLoading || !partners) return <Loader />
 
 	return (
-		<>
+		<div className={styles.partnerElementsPage}>
+			<Container $padding='0 0 35px 30px' $paddingMobile='0 0 35px 30px'>
+				<Link to={`/${AdminRoute.AdminEventsList}`} className={adminStyles.adminReturnLink}>
+					Возврат к списку событий
+				</Link>
+			</Container>
 			<h3 className={styles.title}>Партнеры</h3>
 
 			<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
@@ -106,6 +122,11 @@ export const PartnerElements = () => {
 				addClickHandler={() => navigate(`${AdminRoute.AdminEventOnePartner}/new`)}
 				addText='Добавить партнера'
 			/>
-		</>
+			<Container $padding='35px 0 54px 30px' $paddingMobile='35px 0 54px 30px'>
+				<Link to={`/${AdminRoute.AdminEventsList}`} className={adminStyles.adminReturnLink}>
+					Возврат к списку событий
+				</Link>
+			</Container>
+		</div>
 	)
 }

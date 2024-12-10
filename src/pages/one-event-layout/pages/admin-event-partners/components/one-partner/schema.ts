@@ -22,10 +22,11 @@ export type OnePartnerInputs = {
 	services?: boolean
 	tradingGoods?: boolean
 	linkPartner: string
-	logoPartner?: FileWithPreview[]
+	logoPartner: FileWithPreview[]
 }
 
 export const onePartnerSchema = yup.object().shape({
 	titlePartner: yup.string().required('Введите название'),
-	linkPartner: yup.string().url('Неверный формат ссылки').required('Введите cсылку'),
+	linkPartner: yup.string().url('Неверный формат ссылки').required('Введите ссылку'),
+	logoPartner: yup.array().min(1, 'Загрузите логотип').required('Загрузите логотип'),
 })

@@ -9,16 +9,34 @@ import { AdminButton } from 'src/UI/AdminButton/AdminButton'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
+import {
+	useGetAllObjectsQuery,
+	useSaveObjectDescriptionMutation,
+} from 'src/store/objects/objects.api'
+import { useEffect } from 'react'
+import { transformToFormData } from 'src/helpers/utils'
 
 export const AdminObjects = () => {
+	const { data: objectsDataResponse, isError } = useGetAllObjectsQuery(null)
+	const [saveDescription] = useSaveObjectDescriptionMutation()
+
 	const methods = useForm<ObjectInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(objectSchema),
 	})
 
-	const onSubmit: SubmitHandler<ObjectInputs> = (data) => {
-		console.log(data)
+	const onSubmit: SubmitHandler<ObjectInputs> = async (data) => {
+		const formData = transformToFormData(data)
+		await saveDescription(formData)
 	}
+
+	useEffect(() => {
+		if (objectsDataResponse?.description && !isError) {
+			methods.reset({
+				description: objectsDataResponse.description,
+			})
+		}
+	}, [objectsDataResponse, isError])
 
 	return (
 		<>
@@ -34,7 +52,7 @@ export const AdminObjects = () => {
 					<AdminContent $padding='30px 30px 0 30px' $height='300px' $backgroundColor='#ffffff'>
 						<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 							<ControlledInput
-								name='objectDesc'
+								name='description'
 								label='Описание раздела «Объекты»'
 								margin='0'
 								height='200px'

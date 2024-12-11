@@ -1,4 +1,4 @@
-import React, { type FC, type InputHTMLAttributes } from 'react'
+import React, { type FC, type InputHTMLAttributes, memo } from 'react'
 import { IMaskInput, type IMaskInputProps } from 'react-imask'
 import styled from 'styled-components'
 
@@ -53,7 +53,7 @@ const StyledTableSearchInput = styled.div<StyledTableSearchProps>`
 
 export const TableSearchInput: FC<
 	(InputProps | MaskProps) & TableSearchProps & StyledTableSearchProps
-> = ({ handleSearch, $variant, ...rest }) => {
+> = memo(({ handleSearch, $variant, ...rest }) => {
 	const onChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		handleSearch(e.currentTarget.value.toLowerCase())
 	}
@@ -76,4 +76,6 @@ export const TableSearchInput: FC<
 			<input onChange={onChangeSearchInput} {...(rest as InputProps)} />
 		</StyledTableSearchInput>
 	)
-}
+})
+
+TableSearchInput.displayName = 'TableSearchInput'

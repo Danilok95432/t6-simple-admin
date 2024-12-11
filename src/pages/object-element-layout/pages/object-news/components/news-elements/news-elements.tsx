@@ -25,7 +25,12 @@ export const NewsElements: FC = () => {
 	const { id } = useParams()
 
 	const { handleSearch, searchParams } = useTableSearch(['title', 'tags', 'date'])
-	const { data: news, isLoading } = useGetNewsByObjectIdQuery({ id, search: searchParams.title })
+	const { data: news = [], isLoading } = useGetNewsByObjectIdQuery({
+		id,
+		title: searchParams.title,
+		tags: searchParams.tags,
+		date: searchParams.date,
+	})
 
 	const [deleteNewsById] = useDeleteObjectNewsByIdMutation()
 
@@ -37,18 +42,18 @@ export const NewsElements: FC = () => {
 			return {
 				rowId: newsEl.id,
 				cells: [
-					<p className={cn({ 'hidden-cell-icon': newsEl.isHidden }, styles.titleNewsTable)} key='0'>
+					<p className={cn({ 'hidden-cell-icon': newsEl.hidden }, styles.titleNewsTable)} key='0'>
 						{newsEl.title}
 					</p>,
-					<p className={cn({ 'hidden-cell': newsEl.isHidden })} key='1'>
+					<p className={cn({ 'hidden-cell': newsEl.hidden })} key='1'>
 						{mainFormatDate(newsEl.date)}
 					</p>,
-					<p className={cn({ 'hidden-cell': newsEl.isHidden })} key='2'>
-						{newsEl.tags.join(', ')}
+					<p className={cn({ 'hidden-cell': newsEl.hidden })} key='2'>
+						{newsEl.tags}
 					</p>,
 					<MainCheckBox
 						key='3'
-						checked={newsEl.isKey}
+						checked={newsEl.main}
 						svgNode={<CheckMarkSvg />}
 						className={styles.checkBoxWrapperObjectNews}
 					/>,
@@ -72,7 +77,7 @@ export const NewsElements: FC = () => {
 		console.log(id + 'спрятан')
 	}
 
-	if (isLoading || !news) return <Loader />
+	if (isLoading) return <Loader />
 
 	return (
 		<div>

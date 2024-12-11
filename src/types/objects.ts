@@ -1,12 +1,13 @@
-import { type FileWithPreview } from './files'
-
 export type ObjectNews = {
 	id: string
-	isHidden: boolean
+	hidden: boolean
 	title: string
-	tags: string[]
-	isKey: boolean
+	tags: string
+	main: boolean
 	date: Date
+}
+export type ObjectNewsResponse = {
+	news: ObjectNews[]
 }
 
 export type ObjectEvents = {
@@ -21,22 +22,13 @@ export type ObjectEvents = {
 
 export type ObjectItem = {
 	id: string
-	isHidden: boolean
+	hidden: boolean
 	title: string
-	type: string
-	relation: string
-	objectMainImg: FileWithPreview[]
-	objectDesc: string
-	objectDescFull: string
-	phoneNumber?: string
-	emailAddress?: string
-	emailAddressFull: string
-	tgText: string
-	tgAddress?: string
-	vkText: string
-	vkAddress?: string
-	coords: string
-	news: ObjectNews[]
-	events: ObjectEvents[]
-	objectImages: FileWithPreview[]
+	object_apply_name: string
+	object_type_name: string
+}
+
+export type ObjectsResponse = {
+	description: string
+	objects: ObjectItem[]
 }

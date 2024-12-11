@@ -1,38 +1,50 @@
-import { type ObjectNews, type ObjectItem, type ObjectEvents } from 'src/types/objects'
+import {
+	type ObjectNews,
+	type ObjectEvents,
+	type ObjectsResponse,
+	type ObjectNewsResponse,
+} from 'src/types/objects'
+import { type FieldValues } from 'react-hook-form'
 
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { BASE_URL, ReducerPath } from 'src/helpers/consts'
+import { ReducerPath } from 'src/helpers/consts'
+import { baseQueryWithReauth } from 'src/helpers/base-query'
 
 export const objectsApi = createApi({
 	reducerPath: ReducerPath.Objects,
 	tagTypes: ['Object', 'ObjectNews', 'ObjectEvents'],
-	baseQuery: fetchBaseQuery({
-		baseUrl: BASE_URL,
-	}),
+	baseQuery: baseQueryWithReauth,
 	endpoints: (build) => ({
-		getAllObjects: build.query<ObjectItem[], { search?: string }>({
-			query: ({ search = '' }) => ({
-				url: `objects`,
-				params: {
-					q: search,
-				},
+		getAllObjects: build.query<ObjectsResponse, null>({
+			query: () => ({
+				url: `objects/list`,
 			}),
 			providesTags: ['Object'],
 		}),
-		getObjectById: build.query<ObjectItem, string>({
-			query: (objId) => ({
-				url: `objects/${objId}`,
+		saveObjectDescription: build.mutation<null, FieldValues>({
+			query: (formData) => ({
+				url: `objects/save_description`,
+				method: 'POST',
+				body: formData,
 			}),
-			providesTags: ['Object'],
+			invalidatesTags: ['Object'],
 		}),
-		getNewsByObjectId: build.query<ObjectNews[], { id: string | undefined; search?: string }>({
-			query: ({ id: objId, search }) => ({
-				url: `objects/${objId}/news`,
+
+		getNewsByObjectId: build.query<
+			ObjectNews[],
+			{ id?: string; title?: string; date?: string; tags?: string }
+		>({
+			query: ({ id = '', title = '', date = '', tags = '' }) => ({
+				url: `objects/news/list`,
 				params: {
-					q: search,
+					id,
+					title,
+					date,
+					tags,
 				},
 			}),
+			transformResponse: (response: ObjectNewsResponse) => response.news,
 			providesTags: ['Object', 'ObjectNews'],
 		}),
 		getEventsByObjectId: build.query<ObjectEvents[], { id: string | undefined; search?: string }>({
@@ -44,6 +56,7 @@ export const objectsApi = createApi({
 			}),
 			providesTags: ['Object', 'ObjectEvents'],
 		}),
+
 		deleteObjectById: build.mutation<null, string>({
 			query: (objectId) => ({
 				url: `objectDelete/${objectId}`,
@@ -70,10 +83,10 @@ export const objectsApi = createApi({
 
 export const {
 	useGetAllObjectsQuery,
-	useGetObjectByIdQuery,
 	useDeleteObjectByIdMutation,
 	useGetNewsByObjectIdQuery,
 	useDeleteObjectNewsByIdMutation,
 	useGetEventsByObjectIdQuery,
 	useDeleteObjectEventsByIdMutation,
+	useSaveObjectDescriptionMutation,
 } = objectsApi

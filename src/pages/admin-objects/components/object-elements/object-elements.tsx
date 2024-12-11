@@ -4,7 +4,6 @@ import { type FC } from 'react'
 import cn from 'classnames'
 
 import { useDeleteObjectByIdMutation, useGetAllObjectsQuery } from 'src/store/objects/objects.api'
-import { useTableSearch } from 'src/hooks/table-search/table-search'
 
 import { CustomTable } from 'src/components/custom-table/custom-table'
 import { Loader } from 'src/components/loader/loader'
@@ -12,13 +11,14 @@ import { RowController } from 'src/components/row-controller/row-controller'
 import { TableFooter } from 'src/components/table-footer/table-footer'
 import { GridRow } from 'src/components/grid-row/grid-row'
 import { TableSearchInput } from 'src/modules/table-search-input/table-search'
+import { useTableSearch } from 'src/hooks/table-search/table-search'
 
 import styles from './index.module.scss'
 
 export const ObjectElements: FC = () => {
-	const { handleSearch, searchParams } = useTableSearch(['title', 'type', 'relation'])
+	const { handleSearch } = useTableSearch(['title', 'type', 'relation'])
 
-	const { data: objects, isLoading } = useGetAllObjectsQuery({ search: searchParams.title })
+	const { data: objectsDataResponse, isLoading } = useGetAllObjectsQuery(null)
 	const [deleteObjectById] = useDeleteObjectByIdMutation()
 	const navigate = useNavigate()
 
@@ -28,14 +28,14 @@ export const ObjectElements: FC = () => {
 			return {
 				rowId: objectEl.id,
 				cells: [
-					<p className={cn({ 'hidden-cell-icon': objectEl.isHidden })} key='0'>
+					<p className={cn({ 'hidden-cell-icon': objectEl.hidden })} key='0'>
 						{objectEl.title}
 					</p>,
-					<p className={cn({ 'hidden-cell': objectEl.isHidden })} key='1'>
-						{objectEl.type}
+					<p className={cn({ 'hidden-cell': objectEl.hidden })} key='1'>
+						{objectEl.object_type_name}
 					</p>,
-					<p className={cn({ 'hidden-cell': objectEl.isHidden })} key='2'>
-						{objectEl.relation}
+					<p className={cn({ 'hidden-cell': objectEl.hidden })} key='2'>
+						{objectEl.object_apply_name}
 					</p>,
 					<RowController
 						id={objectEl.id}
@@ -60,7 +60,7 @@ export const ObjectElements: FC = () => {
 		navigate(`/object/object-info/${id}`)
 	}
 
-	if (isLoading || !objects) return <Loader />
+	if (isLoading || !objectsDataResponse?.objects) return <Loader />
 
 	return (
 		<div>
@@ -80,12 +80,12 @@ export const ObjectElements: FC = () => {
 			</GridRow>
 			<CustomTable
 				className={styles.objectTable}
-				rowData={formatObjectsTableData(objects)}
+				rowData={formatObjectsTableData(objectsDataResponse.objects)}
 				colTitles={tableTitles}
 				rowClickHandler={rowClickHandler}
 			/>
 			<TableFooter
-				totalElements={objects.length}
+				totalElements={objectsDataResponse.objects.length}
 				addClickHandler={() => navigate('/object/object-info/new')}
 				addText='Добавить объект'
 			/>

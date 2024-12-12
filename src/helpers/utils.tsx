@@ -1,9 +1,12 @@
 import { type ReactNode } from 'react'
 import { type SelOption } from 'src/types/select'
 import { type FieldValues } from 'react-hook-form'
+import { type ResponseError } from 'src/types/global'
 
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
+import { isRejectedWithValue, type Middleware } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 
 // утилитарная функция для кастомного селекта
 export const getValue = (value: string, options: SelOption[]) => {
@@ -92,4 +95,30 @@ export const transformToFormData = (data: FieldValues) => {
 // Преобразует строку в массив строк разделенных запятой
 export const splitAndTrimStringToArray = (value: string | undefined): string[] => {
 	return value ? value.split(',').map((element) => element.trim()) : []
+}
+
+// middleware для перехвата ошибок в rtk query
+
+export const rtkQueryErrorLogger: Middleware = () => (next) => (action) => {
+	if (isRejectedWithValue(action)) {
+		const errorData = action.payload as ResponseError
+		const errorMessage = errorData.data.error
+		toast.error(errorMessage, {
+			position: 'top-right',
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true,
+		})
+
+		if (errorData.status === 401) {
+			toast.warn('Необходимо авторизоваться', {
+				position: 'top-right',
+				autoClose: 5000,
+			})
+		}
+	}
+
+	return next(action)
 }

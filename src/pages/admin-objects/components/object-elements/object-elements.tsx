@@ -3,25 +3,35 @@ import { useNavigate } from 'react-router-dom'
 import { type FC } from 'react'
 import cn from 'classnames'
 
-import { useDeleteObjectByIdMutation, useGetAllObjectsQuery } from 'src/store/objects/objects.api'
+import {
+	useDeleteObjectByIdMutation,
+	useGetAllObjectsQuery,
+	useHideObjectByIdMutation,
+} from 'src/store/objects/objects.api'
 
+import { useAppSelector } from 'src/hooks/store'
+import { ObjectsElementsFiltrationInputs } from 'src/pages/admin-objects/components/object-elements/consts'
 import { CustomTable } from 'src/components/custom-table/custom-table'
-import { Loader } from 'src/components/loader/loader'
 import { RowController } from 'src/components/row-controller/row-controller'
 import { TableFooter } from 'src/components/table-footer/table-footer'
 import { GridRow } from 'src/components/grid-row/grid-row'
-import { TableSearchInput } from 'src/modules/table-search-input/table-search'
-import { useTableSearch } from 'src/hooks/table-search/table-search'
+import { TableFiltration } from 'src/modules/table-filtration/table-filtration'
+import { getFiltrationValues } from 'src/modules/table-filtration/store/table-filtration.selectors'
 
 import styles from './index.module.scss'
 
 export const ObjectElements: FC = () => {
-	const { handleSearch } = useTableSearch(['title', 'type', 'relation'])
+	const filterValues = useAppSelector(getFiltrationValues)
 
-	const { data: objectsDataResponse, isLoading } = useGetAllObjectsQuery(null)
+	const { data: objectsDataResponse } = useGetAllObjectsQuery({
+		title: filterValues.title,
+		type: filterValues.type,
+		relation: filterValues.relation,
+	})
 	const [deleteObjectById] = useDeleteObjectByIdMutation()
-	const navigate = useNavigate()
+	const [hideObjectById] = useHideObjectByIdMutation()
 
+	const navigate = useNavigate()
 	const tableTitles = ['Наименование', 'Тип объекта', 'Принадлежность', '']
 	const formatObjectsTableData = (objectsData: ObjectItem[]) => {
 		return objectsData.map((objectEl) => {
@@ -53,39 +63,26 @@ export const ObjectElements: FC = () => {
 		await deleteObjectById(id)
 	}
 	const rowHideHandler = async (id: string) => {
-		console.log(id + 'спрятан')
+		await hideObjectById(id)
 	}
 
 	const rowClickHandler = (id: string) => {
 		navigate(`/object/object-info/${id}`)
 	}
 
-	if (isLoading || !objectsDataResponse?.objects) return <Loader />
-
 	return (
 		<div>
 			<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
-				<TableSearchInput
-					handleSearch={(val) => handleSearch('title', val)}
-					placeholder='искать по наименованию'
-				/>
-				<TableSearchInput
-					handleSearch={(val) => handleSearch('type', val)}
-					placeholder='тип объекта'
-				/>
-				<TableSearchInput
-					handleSearch={(val) => handleSearch('relation', val)}
-					placeholder='принадлежность'
-				/>
+				<TableFiltration filterInputs={ObjectsElementsFiltrationInputs} />
 			</GridRow>
 			<CustomTable
 				className={styles.objectTable}
-				rowData={formatObjectsTableData(objectsDataResponse.objects)}
+				rowData={formatObjectsTableData(objectsDataResponse?.objects ?? [])}
 				colTitles={tableTitles}
 				rowClickHandler={rowClickHandler}
 			/>
 			<TableFooter
-				totalElements={objectsDataResponse.objects.length}
+				totalElements={objectsDataResponse?.objects.length}
 				addClickHandler={() => navigate('/object/object-info/new')}
 				addText='Добавить объект'
 			/>

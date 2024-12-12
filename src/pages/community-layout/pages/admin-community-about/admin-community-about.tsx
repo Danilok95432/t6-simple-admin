@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import { type FC, useEffect } from 'react'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import {
 	type CommunityInputs,
@@ -16,22 +16,35 @@ import { AdminControllers } from 'src/components/admin-controllers/admin-control
 import { TitleSection } from 'src/pages/community-layout/pages/admin-community-about/components/title-section/title-section'
 import { GallerySection } from 'src/pages/community-layout/pages/admin-community-about/components/gallery-section/gallery-section'
 import { ArticleSection } from 'src/pages/community-layout/pages/admin-community-about/components/article-section/article-section'
+import {
+	useGetAboutCommunityQuery,
+	useSaveAboutCommunityMutation,
+} from 'src/store/community/community.api'
+import { transformToFormData } from 'src/helpers/utils'
 
 export const AdminCommunityAbout: FC = () => {
+	const { data: aboutCommunityData } = useGetAboutCommunityQuery(null)
+	const [saveAboutCommunity] = useSaveAboutCommunityMutation()
+
 	const methods = useForm<CommunityInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(communitySchema),
 		defaultValues: {
-			aboutTitleImage: [],
 			galleryImages: [],
 			gallerySection: false,
-			articleSection: false,
 		},
 	})
 
-	const onSubmit: SubmitHandler<CommunityInputs> = (data) => {
-		console.log(data)
+	const onSubmit: SubmitHandler<CommunityInputs> = async (data) => {
+		await saveAboutCommunity(transformToFormData(data))
 	}
+
+	useEffect(() => {
+		if (aboutCommunityData) {
+			const { caption, mainDescs, descs } = aboutCommunityData
+			methods.reset({ caption, mainDescs, descs, articleSection: true })
+		}
+	}, [aboutCommunityData])
 
 	return (
 		<>

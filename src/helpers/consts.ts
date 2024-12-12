@@ -1,20 +1,20 @@
 export enum ReducerPath {
-	Regions = 'regions/api',
-	Users = 'users/api',
 	Objects = 'objects/api',
 	Projects = 'projects/api',
 	News = 'news/api',
 	Events = 'events/api',
 	Culture = 'culture/api',
 	SiteSettings = 'site-settings/api',
-	Videos = 'Videos',
-	Requests = 'Requests',
+	Videos = 'videos/api',
+	Requests = 'requests/api',
+	Community = 'community/api',
 }
 
 export const ImagesFormat = ['png', 'jpeg', 'jpg', 'webp', 'gif']
 export enum NameSpace {
 	Modal = 'MODAL',
 	Auth = 'AUTH',
+	TableFiltration = 'TABLE_FILTRATION',
 }
 
 export enum DisplayBreakpoints {

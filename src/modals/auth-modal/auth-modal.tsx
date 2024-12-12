@@ -8,9 +8,9 @@ import { ControlledInput } from 'src/components/controlled-input/controlled-inpu
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
 import { PassRecoveryModal } from 'src/modals/pass-recovery-modal/pass-recovery-modal'
 import { useLoginUserMutation } from 'src/store/auth/auth.api'
+import { transformToFormData } from 'src/helpers/utils'
 
 import styles from './index.module.scss'
-import { transformToFormData } from 'src/helpers/utils'
 
 export const AuthModal = () => {
 	const { closeModal, openModal, setAuth, setUser } = useActions()

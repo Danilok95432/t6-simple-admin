@@ -23,7 +23,10 @@ export const CustomTable: FC<CustomTableProps & React.HTMLAttributes<HTMLTableEl
 	...props
 }) => {
 	return (
-		<table {...props} className={cn(styles.customTable, className)}>
+		<table
+			{...props}
+			className={cn(styles.customTable, className, { [styles._short]: rowData?.length < 3 })}
+		>
 			{!!colTitles && (
 				<thead>
 					<tr>

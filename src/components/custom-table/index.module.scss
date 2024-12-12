@@ -33,6 +33,7 @@
         background: #F5F7FA;
       }
     }
+
     &:nth-last-child(1), &:nth-last-child(2) {
       :global {
         .row-controllers {
@@ -41,7 +42,6 @@
         }
       }
     }
-
   }
 
 
@@ -108,5 +108,21 @@
     color: #015DB9;
     font-size: 14px;
     font-weight: 400;
+  }
+}
+
+._short {
+  padding-bottom: 100px;
+
+  tr {
+
+    &:nth-last-child(1), &:nth-last-child(2) {
+      :global {
+        .row-controllers {
+          top: 100%;
+          bottom: auto;
+        }
+      }
+    }
   }
 }

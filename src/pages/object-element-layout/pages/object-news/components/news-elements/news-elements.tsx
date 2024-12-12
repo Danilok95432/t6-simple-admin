@@ -7,32 +7,34 @@ import { mainFormatDate } from 'src/helpers/utils'
 import {
 	useDeleteObjectNewsByIdMutation,
 	useGetNewsByObjectIdQuery,
+	useHideObjectNewsByIdMutation,
 } from 'src/store/objects/objects.api'
-import { useTableSearch } from 'src/hooks/table-search/table-search'
 
 import { CustomTable } from 'src/components/custom-table/custom-table'
-import { Loader } from 'src/components/loader/loader'
 import { RowController } from 'src/components/row-controller/row-controller'
 import { TableFooter } from 'src/components/table-footer/table-footer'
 import { GridRow } from 'src/components/grid-row/grid-row'
-import { TableSearchInput } from 'src/modules/table-search-input/table-search'
 import { MainCheckBox } from 'src/UI/MainCheckBox/MainCheckBox'
 import { CheckMarkSvg } from 'src/UI/icons/checkMarkSVG'
+import { TableFiltration } from 'src/modules/table-filtration/table-filtration'
+import { ObjectNewsFiltrationInputs } from 'src/pages/object-element-layout/pages/object-news/components/news-elements/consts'
+import { useAppSelector } from 'src/hooks/store'
+import { getFiltrationValues } from 'src/modules/table-filtration/store/table-filtration.selectors'
 
 import styles from './index.module.scss'
 
 export const NewsElements: FC = () => {
 	const { id } = useParams()
-
-	const { handleSearch, searchParams } = useTableSearch(['title', 'tags', 'date'])
-	const { data: news = [], isLoading } = useGetNewsByObjectIdQuery({
+	const filterValues = useAppSelector(getFiltrationValues)
+	const { data: news = [] } = useGetNewsByObjectIdQuery({
 		id,
-		title: searchParams.title,
-		tags: searchParams.tags,
-		date: searchParams.date,
+		title: filterValues.title,
+		tags: filterValues.tags,
+		date: filterValues.date,
 	})
 
 	const [deleteNewsById] = useDeleteObjectNewsByIdMutation()
+	const [hideNewsById] = useHideObjectNewsByIdMutation()
 
 	const navigate = useNavigate()
 
@@ -70,32 +72,17 @@ export const NewsElements: FC = () => {
 	}
 
 	const rowDeleteHandler = async (newsId: string) => {
-		await deleteNewsById({ objectId: id ?? '', newsId })
+		await deleteNewsById(newsId)
 	}
 
-	const rowHideHandler = async (id: string) => {
-		console.log(id + 'спрятан')
+	const rowHideHandler = async (newsId: string) => {
+		await hideNewsById(newsId)
 	}
-
-	if (isLoading) return <Loader />
 
 	return (
 		<div>
 			<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
-				<TableSearchInput
-					handleSearch={(val) => handleSearch('title', val)}
-					placeholder='искать по наименованию'
-				/>
-				<TableSearchInput
-					handleSearch={(val) => handleSearch('tags', val)}
-					placeholder='искать по тегам'
-				/>
-				<TableSearchInput
-					handleSearch={(val) => handleSearch('date', val)}
-					placeholder='дата'
-					$variant='date'
-					mask={Date}
-				/>
+				<TableFiltration filterInputs={ObjectNewsFiltrationInputs} />
 			</GridRow>
 			<CustomTable
 				className={styles.newsTable}

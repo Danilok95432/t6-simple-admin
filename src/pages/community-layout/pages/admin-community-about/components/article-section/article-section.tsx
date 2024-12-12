@@ -7,15 +7,8 @@ export const ArticleSection: FC = () => {
 	return (
 		<AdminSection titleText='Основная статья' sectionName='articleSection'>
 			<ControlledInput
-				name='articleName'
-				label='Название статьи'
-				placeholder='Название статьи'
-				width='78%'
-				margin='0 0 20px 0'
-			/>
-			<ControlledInput
-				name='articleText'
-				label='Текст статьи'
+				name='descs'
+				label='Текст статьи*'
 				placeholder='Поле ввода текста статьи'
 				margin='0'
 				height='300px'

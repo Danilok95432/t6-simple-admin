@@ -15,15 +15,15 @@ export const TitleSection: FC = () => {
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput
-				name='authorText'
-				label='Текст'
+				name='mainDescs'
+				label='Текст-анонс*'
 				margin='0 0 20px 0'
 				height='200px'
 				isTextarea
 			/>
 			<ControlledInput
-				name='authorSign'
-				label='Подпись автора текста'
+				name='caption'
+				label='Подпись под анонсом*'
 				placeholder='Текст'
 				margin='0'
 				width='78%'

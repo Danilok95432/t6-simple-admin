@@ -16,19 +16,41 @@ export const objectsApi = createApi({
 	tagTypes: ['Object', 'ObjectNews', 'ObjectEvents'],
 	baseQuery: baseQueryWithReauth,
 	endpoints: (build) => ({
-		getAllObjects: build.query<ObjectsResponse, null>({
-			query: () => ({
+		getAllObjects: build.query<ObjectsResponse, { title: string; type: string; relation: string }>({
+			query: ({ title = '', type = '', relation = '' }) => ({
 				url: `objects/list`,
+				params: {
+					title,
+					type,
+					relation,
+				},
 			}),
 			providesTags: ['Object'],
 		}),
+
+		deleteObjectById: build.mutation<null, string>({
+			query: (objectId) => ({
+				url: `objects/list/delete`,
+				method: 'DELETE',
+				body: { id: objectId },
+			}),
+			invalidatesTags: ['Object'],
+		}),
+		hideObjectById: build.mutation<null, string>({
+			query: (objectId) => ({
+				url: `objects/list/hide`,
+				method: 'POST',
+				body: { id: objectId },
+			}),
+			invalidatesTags: ['Object'],
+		}),
+
 		saveObjectDescription: build.mutation<null, FieldValues>({
 			query: (formData) => ({
 				url: `objects/save_description`,
 				method: 'POST',
 				body: formData,
 			}),
-			invalidatesTags: ['Object'],
 		}),
 
 		getNewsByObjectId: build.query<
@@ -45,8 +67,9 @@ export const objectsApi = createApi({
 				},
 			}),
 			transformResponse: (response: ObjectNewsResponse) => response.news,
-			providesTags: ['Object', 'ObjectNews'],
+			providesTags: ['ObjectNews'],
 		}),
+
 		getEventsByObjectId: build.query<ObjectEvents[], { id: string | undefined; search?: string }>({
 			query: ({ id: objId, search }) => ({
 				url: `objects/${objId}/events`,
@@ -54,29 +77,31 @@ export const objectsApi = createApi({
 					q: search,
 				},
 			}),
-			providesTags: ['Object', 'ObjectEvents'],
+			providesTags: ['ObjectEvents'],
 		}),
 
-		deleteObjectById: build.mutation<null, string>({
-			query: (objectId) => ({
-				url: `objectDelete/${objectId}`,
+		deleteObjectNewsById: build.mutation<null, string>({
+			query: (newsId) => ({
+				url: `/objects/news/delete`,
 				method: 'DELETE',
+				body: { id: newsId },
 			}),
-			invalidatesTags: ['Object'],
+			invalidatesTags: ['ObjectNews'],
 		}),
-		deleteObjectNewsById: build.mutation<null, { objectId: string; newsId: string }>({
-			query: ({ objectId, newsId }) => ({
-				url: `/object/${objectId}/newsDelete/${newsId}`,
-				method: 'DELETE',
+		hideObjectNewsById: build.mutation<null, string>({
+			query: (newsId) => ({
+				url: `/objects/news/hide`,
+				method: 'POST',
+				body: { id: newsId },
 			}),
-			invalidatesTags: ['Object', 'ObjectNews'],
+			invalidatesTags: ['ObjectNews'],
 		}),
 		deleteObjectEventsById: build.mutation<null, { objectId: string; eventId: string }>({
 			query: ({ objectId, eventId }) => ({
 				url: `/object/${objectId}/eventDelete/${eventId}`,
 				method: 'DELETE',
 			}),
-			invalidatesTags: ['Object', 'ObjectEvents'],
+			invalidatesTags: ['ObjectEvents'],
 		}),
 	}),
 })
@@ -84,9 +109,11 @@ export const objectsApi = createApi({
 export const {
 	useGetAllObjectsQuery,
 	useDeleteObjectByIdMutation,
+	useHideObjectByIdMutation,
+	useSaveObjectDescriptionMutation,
 	useGetNewsByObjectIdQuery,
 	useDeleteObjectNewsByIdMutation,
 	useGetEventsByObjectIdQuery,
 	useDeleteObjectEventsByIdMutation,
-	useSaveObjectDescriptionMutation,
+	useHideObjectNewsByIdMutation,
 } = objectsApi

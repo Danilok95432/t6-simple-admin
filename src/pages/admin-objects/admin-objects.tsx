@@ -1,23 +1,27 @@
+import { type ObjectInputs, objectSchema } from './schema'
 import { Helmet } from 'react-helmet-async'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { type ObjectInputs, objectSchema } from './schema'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
+import { useEffect } from 'react'
 
-import { AdminContent } from 'src/components/admin-content/admin-content'
-import { ObjectElements } from './components/object-elements/object-elements'
-import { AdminButton } from 'src/UI/AdminButton/AdminButton'
-import { ControlledInput } from 'src/components/controlled-input/controlled-input'
-
-import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import {
 	useGetAllObjectsQuery,
 	useSaveObjectDescriptionMutation,
 } from 'src/store/objects/objects.api'
-import { useEffect } from 'react'
+import { AdminContent } from 'src/components/admin-content/admin-content'
+import { ObjectElements } from './components/object-elements/object-elements'
+import { AdminButton } from 'src/UI/AdminButton/AdminButton'
+import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { transformToFormData } from 'src/helpers/utils'
 
+import adminStyles from 'src/routes/admin-layout/index.module.scss'
+
 export const AdminObjects = () => {
-	const { data: objectsDataResponse, isError } = useGetAllObjectsQuery(null)
+	const { data: objectsDataResponse } = useGetAllObjectsQuery({
+		title: '',
+		type: '',
+		relation: '',
+	})
 	const [saveDescription] = useSaveObjectDescriptionMutation()
 
 	const methods = useForm<ObjectInputs>({
@@ -26,17 +30,16 @@ export const AdminObjects = () => {
 	})
 
 	const onSubmit: SubmitHandler<ObjectInputs> = async (data) => {
-		const formData = transformToFormData(data)
-		await saveDescription(formData)
+		await saveDescription(transformToFormData(data))
 	}
 
 	useEffect(() => {
-		if (objectsDataResponse?.description && !isError) {
+		if (objectsDataResponse?.description) {
 			methods.reset({
 				description: objectsDataResponse.description,
 			})
 		}
-	}, [objectsDataResponse, isError])
+	}, [objectsDataResponse])
 
 	return (
 		<>

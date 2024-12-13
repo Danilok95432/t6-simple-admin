@@ -9,7 +9,6 @@ import { tableFiltrationReducer } from 'src/modules/table-filtration/store/table
 
 import { authApi } from 'src/store/auth/auth.api'
 import { objectsApi } from 'src/store/objects/objects.api'
-import { projectsApi } from 'src/store/projects/projects.api'
 import { newsApi } from 'src/store/news/news.api'
 import { videosApi } from './videos/videos.api'
 import { requestsApi } from './requests/requests.api'
@@ -25,7 +24,6 @@ export const store = configureStore({
 		[NameSpace.Modal]: modalReducer,
 		[NameSpace.TableFiltration]: tableFiltrationReducer,
 		[objectsApi.reducerPath]: objectsApi.reducer,
-		[projectsApi.reducerPath]: projectsApi.reducer,
 		[newsApi.reducerPath]: newsApi.reducer,
 		[videosApi.reducerPath]: videosApi.reducer,
 		[requestsApi.reducerPath]: requestsApi.reducer,
@@ -37,7 +35,6 @@ export const store = configureStore({
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({ serializableCheck: false }).concat(
 			objectsApi.middleware,
-			projectsApi.middleware,
 			newsApi.middleware,
 			videosApi.middleware,
 			requestsApi.middleware,

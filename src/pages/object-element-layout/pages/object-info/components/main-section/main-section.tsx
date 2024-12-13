@@ -27,7 +27,7 @@ export const MainSection: FC = () => {
 					{ label: 'Северо-Западный', value: '7' },
 					{ label: 'Приволжский', value: '8' },
 				]}
-				name='type'
+				name='object_types'
 				label='Тип объекта *'
 				margin='0 0 20px 0'
 			/>
@@ -40,19 +40,19 @@ export const MainSection: FC = () => {
 					{ label: 'АНО Татарский Этноспорт', value: '5' },
 					{ label: 'Без образования юрлица', value: '6' },
 				]}
-				name='relation'
+				name='object_apply'
 				label='Принадлежность объекта *'
 				margin='0 0 20px 0'
 			/>
 			<ReactDropzone
 				label='Основное изображение'
-				name='objectMainImg'
+				name='photo'
 				prompt='JPEG, PNG, 500х500px, не более 2.5 Мб'
 				accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput
-				name='objectDesc'
+				name='mainDescs'
 				label='Краткое описание объекта *'
 				placeholder='Поле ввода текста описания'
 				margin='0 0 20px 0'
@@ -60,7 +60,7 @@ export const MainSection: FC = () => {
 				isTextarea
 			/>
 			<ControlledInput
-				name='objectDescFull'
+				name='descList'
 				label='Полное описание объекта *'
 				placeholder='Поле ввода текста статьи'
 				margin='0 0 10px 0'

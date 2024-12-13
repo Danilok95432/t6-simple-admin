@@ -3,6 +3,7 @@ import {
 	type ObjectEvents,
 	type ObjectsResponse,
 	type ObjectNewsResponse,
+	type ObjectInfoResponse,
 } from 'src/types/objects'
 import { type FieldValues } from 'react-hook-form'
 
@@ -53,7 +54,7 @@ export const objectsApi = createApi({
 			}),
 		}),
 
-		getObjectInfo: build.query<ObjectsResponse, string>({
+		getObjectInfo: build.query<ObjectInfoResponse, string>({
 			query: (id) => ({
 				url: `objects/edit`,
 				params: {

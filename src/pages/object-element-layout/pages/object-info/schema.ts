@@ -3,27 +3,27 @@ import { type FileWithPreview } from 'src/types/files'
 
 export type ObjectInfoInputs = {
 	title: string
-	type: string
-	relation: string
-	objectMainImg?: FileWithPreview[]
-	objectDesc: string
-	objectDescFull: string
-	phoneNumber?: string
-	emailAddress?: string
-	emailAddressFull: string
-	tgText?: string
-	tgAddress?: string
-	vkText?: string
-	vkAddress?: string
+	object_types: string
+	object_apply: string
+	photo?: FileWithPreview[]
+	mainDescs: string
+	descList: string
+	phone?: string
+	email: string
+	address?: string
+	tgName?: string
+	tgSoc?: string
+	vkName?: string
+	vkSoc?: string
 	coords: string
 }
 
 export const objectInfoSchema = yup.object().shape({
 	title: yup.string().required('Введите название'),
-	type: yup.string().required('Введите тип'),
-	relation: yup.string().required('Введите принадлежность объекта'),
-	objectDesc: yup.string().required('Введите краткое описание'),
-	objectDescFull: yup.string().required('Введите полное описание'),
-	emailAddressFull: yup.string().required('Введите полный почтовый адрес'),
+	object_types: yup.string().required('Введите тип'),
+	object_apply: yup.string().required('Введите принадлежность объекта'),
+	mainDescs: yup.string().required('Введите краткое описание'),
+	descList: yup.string().required('Введите полное описание'),
+	email: yup.string().required('Введите полный почтовый адрес'),
 	coords: yup.string().required('Введите координаты через запятую'),
 })

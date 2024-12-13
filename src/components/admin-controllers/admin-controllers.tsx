@@ -5,8 +5,9 @@ import { AdminButton } from 'src/UI/AdminButton/AdminButton'
 import styled from 'styled-components'
 
 type AdminControllersProps = {
-	outLink: string
-	variant?: '1' | '2'
+	outLink?: string
+	variant?: '1' | '2' | '3'
+	isSent?: boolean
 }
 
 type AdminStyledBtns = {
@@ -27,6 +28,7 @@ const StyledAdminControllers = styled.section<AdminStyledBtns>`
 export const AdminControllers: FC<AdminControllersProps> = ({
 	outLink,
 	variant = '1',
+	isSent = false,
 	...props
 }) => {
 	const renderButtonsVariant = (variant: AdminControllersProps['variant']) => {
@@ -55,6 +57,12 @@ export const AdminControllers: FC<AdminControllersProps> = ({
 							Отменить изменения
 						</AdminButton>
 					</>
+				)
+			case '3':
+				return (
+					<AdminButton as='button' type='submit' $variant={isSent ? 'sent' : 'primary'}>
+						{isSent ? 'Изменения сохранены' : 'Применить и продолжить'}
+					</AdminButton>
 				)
 		}
 	}

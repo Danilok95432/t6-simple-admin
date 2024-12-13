@@ -1,3 +1,5 @@
+import type { FileWithPreview } from 'src/types/files'
+
 export type ObjectNews = {
 	id: string
 	hidden: boolean
@@ -31,4 +33,20 @@ export type ObjectItem = {
 export type ObjectsResponse = {
 	description: string
 	objects: ObjectItem[]
+}
+export type ObjectInfoResponse = {
+	address: string
+	coords: string
+	descList: string
+	email: string
+	mainDescs: string
+	object_apply: string
+	object_types: string
+	phone: string
+	photo: FileWithPreview[]
+	tgName: string
+	tgSoc: string
+	title: string
+	vkName: string
+	vkSoc: string
 }

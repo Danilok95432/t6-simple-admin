@@ -15,29 +15,29 @@ export const ContactsSection: FC = () => {
 		>
 			<GridRow $margin='20px 0' $gap='10px'>
 				<ControlledMaskedInput
-					name='phoneNumber'
+					name='phone'
 					label='Номер телефона'
 					mask='{+7} (000) 000-00-00'
 					placeholder='+7 (999) 000-77-44'
 				/>
 				<ControlledInput
-					name='emailAddress'
+					name='email'
 					label='Адрес электронной почты (e-mail)'
 					placeholder='example@example.com'
 				/>
 			</GridRow>
 			<ControlledInput
-				name='emailAddressFull'
+				name='address'
 				label='Полный почтовый адрес объекта*'
 				placeholder='example@example.com'
 			/>
 			<GridRow $margin='20px 0' $gap='10px' $alignItems='end'>
-				<ControlledInput name='tgText' label='Телеграм' placeholder='Текст ссылки' />
-				<ControlledInput name='tgAddress' placeholder='Адрес URL' />
+				<ControlledInput name='tgName' label='Телеграм' placeholder='Текст ссылки' />
+				<ControlledInput name='tgSoc' placeholder='Адрес URL' />
 			</GridRow>
 			<GridRow $margin='0 0 20px 0' $gap='10px' $alignItems='end'>
-				<ControlledInput name='vkText' label='ВКонтакте' placeholder='Текст ссылки' />
-				<ControlledInput name='vkAddress' placeholder='Адрес URL' />
+				<ControlledInput name='vkName' label='ВКонтакте' placeholder='Текст ссылки' />
+				<ControlledInput name='vkSoc' placeholder='Адрес URL' />
 			</GridRow>
 			<ControlledInput
 				name='coords'

@@ -1,6 +1,7 @@
 import React, { type FC, type ReactNode } from 'react'
 import { Link, type LinkProps } from 'react-router-dom'
 import { CancelVariantBtnSvg } from 'src/UI/icons/cancelVariantBtnSVG'
+import { SentVariantBtnSvg } from 'src/UI/icons/sentVariantBtnSvg'
 
 import styled, { css } from 'styled-components'
 
@@ -15,17 +16,10 @@ type ButtonComponentProps = {
 	$fontSize?: string
 	$height?: string
 	$radius?: string
-	$variant?: 'primary' | 'light' | 'cancel'
+	$variant?: 'primary' | 'light' | 'cancel' | 'sent'
 }
 
-type SharedStylesTypes = {
-	$padding?: string
-	$fontSize?: string
-	$margin?: string
-	$height?: string
-	$radius?: string
-	$variant?: 'primary' | 'light' | 'cancel'
-}
+type SharedStylesTypes = Omit<ButtonComponentProps, 'as' | 'children'>
 
 const sharedStyles = css<SharedStylesTypes>`
 	padding: ${({ $padding }) => $padding ?? '0 24px'};
@@ -33,9 +27,11 @@ const sharedStyles = css<SharedStylesTypes>`
 	height: ${({ $height }) => $height ?? '45px'};
 	font-size: ${({ $fontSize }) => $fontSize ?? '14px'};
 	border-radius: ${({ $radius }) => $radius ?? '3px'};
+	pointer-events: ${({ $variant }) => ($variant === 'sent' ? 'none' : 'initial')};
 
 	background: ${({ $variant }) => {
 		if ($variant === 'primary') return '#184F71'
+		if ($variant === 'sent') return '#018EA3'
 		return '#ffffff'
 	}};
 	color: ${({ $variant }) => {
@@ -92,6 +88,7 @@ export const AdminButton: FC<ButtonComponentProps & (ButtonProps | AnchorProps |
 		return (
 			<StyledButton $variant={$variant} {...(props as ButtonProps)}>
 				{$variant === 'cancel' && <CancelVariantBtnSvg />}
+				{$variant === 'sent' && <SentVariantBtnSvg />}
 				{children}
 			</StyledButton>
 		)
@@ -100,6 +97,7 @@ export const AdminButton: FC<ButtonComponentProps & (ButtonProps | AnchorProps |
 		return (
 			<StyledLink $variant={$variant} {...(props as AnchorProps)}>
 				{$variant === 'cancel' && <CancelVariantBtnSvg />}
+				{$variant === 'sent' && <SentVariantBtnSvg />}
 				{children}
 			</StyledLink>
 		)
@@ -108,6 +106,7 @@ export const AdminButton: FC<ButtonComponentProps & (ButtonProps | AnchorProps |
 		return (
 			<StyledRouteLink $variant={$variant} {...(props as LinkProps)}>
 				{$variant === 'cancel' && <CancelVariantBtnSvg />}
+				{$variant === 'sent' && <SentVariantBtnSvg />}
 				{children}
 			</StyledRouteLink>
 		)

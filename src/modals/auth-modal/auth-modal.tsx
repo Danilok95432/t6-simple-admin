@@ -6,14 +6,13 @@ import { CloseModalSvg } from 'src/UI/icons/closeModalSVG'
 import { useActions } from 'src/hooks/actions/actions'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
-import { PassRecoveryModal } from 'src/modals/pass-recovery-modal/pass-recovery-modal'
 import { useLoginUserMutation } from 'src/store/auth/auth.api'
 import { transformToFormData } from 'src/helpers/utils'
 
 import styles from './index.module.scss'
 
 export const AuthModal = () => {
-	const { closeModal, openModal, setAuth, setUser } = useActions()
+	const { closeModal, setAuth, setUser } = useActions()
 	const [loginUser] = useLoginUserMutation()
 
 	const methods = useForm<AuthInputs>({
@@ -86,13 +85,6 @@ export const AuthModal = () => {
 						<AdminButton as='button' $height='40px' $margin='0 0 20px 0' type='submit'>
 							Войти
 						</AdminButton>
-						<button
-							className='modal-link-btn'
-							onClick={() => openModal(<PassRecoveryModal />)}
-							type='button'
-						>
-							Восстановить пароль
-						</button>
 					</form>
 				</FormProvider>
 			</div>

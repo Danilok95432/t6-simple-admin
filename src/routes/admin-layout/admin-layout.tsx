@@ -2,13 +2,13 @@ import { type FC } from 'react'
 
 import { Outlet } from 'react-router-dom'
 
-import { AdminNavigation } from 'src/components/admin-navigation/admin-navigation'
 import { Container } from 'src/UI/Container/Container'
 import { Helmet } from 'react-helmet-async'
 import { AdminFooter } from 'src/components/admin-footer/admin-footer'
 import { AdminHeader } from 'src/modules/admin-header/admin-header'
 
 import styles from './index.module.scss'
+import { AdminNavigation } from 'src/modules/admin-navigation/admin-navigation'
 
 export const AdminLayout: FC = () => {
 	return (

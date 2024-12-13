@@ -102,7 +102,7 @@ export const splitAndTrimStringToArray = (value: string | undefined): string[] =
 export const rtkQueryErrorLogger: Middleware = () => (next) => (action) => {
 	if (isRejectedWithValue(action)) {
 		const errorData = action.payload as ResponseError
-		const errorMessage = errorData.data.error
+		const errorMessage = errorData.data.errortext
 		toast.error(errorMessage, {
 			position: 'top-right',
 			autoClose: 5000,

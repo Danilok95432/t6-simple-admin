@@ -19,6 +19,6 @@ export type ResponseError = {
 	status: number
 	data: {
 		status: string
-		error: string
+		errortext: string
 	}
 }

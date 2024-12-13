@@ -7,7 +7,7 @@ import { baseQueryWithReauth } from 'src/helpers/base-query'
 
 export const communityApi = createApi({
 	reducerPath: ReducerPath.Community,
-	tagTypes: ['CommunityAbout', 'CommunityHisory'],
+	tagTypes: ['CommunityAbout', 'CommunityHistory'],
 	baseQuery: baseQueryWithReauth,
 	endpoints: (build) => ({
 		getAboutCommunity: build.query<AboutCommunityResponse, null>({
@@ -28,7 +28,7 @@ export const communityApi = createApi({
 			query: () => ({
 				url: `home/history/edit`,
 			}),
-			providesTags: ['CommunityHisory'],
+			providesTags: ['CommunityHistory'],
 		}),
 		saveHistoryCommunity: build.mutation<null, FieldValues>({
 			query: (formData) => ({
@@ -36,7 +36,7 @@ export const communityApi = createApi({
 				method: 'POST',
 				body: formData,
 			}),
-			invalidatesTags: ['CommunityHisory'],
+			invalidatesTags: ['CommunityHistory'],
 		}),
 	}),
 })

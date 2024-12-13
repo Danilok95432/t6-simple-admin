@@ -3,20 +3,20 @@ import { type FileWithPreview } from 'src/types/files'
 
 export type ArticleInputs = {
 	articleName: string
-	articleTopText: string
+	topDescs: string
 	gallerySection?: boolean
 	galleryImages?: FileWithPreview[]
-	articleBottomSection?: boolean
-	articleBottomText?: string
+	bottomDescsSection?: boolean
+	bottomDescs?: string
 }
 
 export const articleSchema = yup.object().shape({
 	articleName: yup.string().required('Введите название статьи'),
-	articleTopText: yup.string().required('Введите текст статьи'),
+	topDescs: yup.string().required('Введите текст статьи'),
 	gallerySection: yup.boolean(),
-	articleBottomSection: yup.boolean(),
-	articleBottomText: yup.string().when('articleBottomSection', ([articleBottomSection]) => {
-		return articleBottomSection
+	bottomDescsSection: yup.boolean(),
+	bottomDescs: yup.string().when('bottomDescsSection', ([bottomDescsSection]) => {
+		return bottomDescsSection
 			? yup.string().required('Введите текст статьи')
 			: yup.string().notRequired()
 	}),

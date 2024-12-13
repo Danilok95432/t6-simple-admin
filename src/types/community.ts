@@ -7,3 +7,10 @@ export type AboutCommunityResponse = {
 	logo: string
 	photoGallery: ImageItem
 }
+
+export type HistoryCommunityResponse = {
+	articleName: string
+	topDescs: string
+	galleryImages: ImageItem
+	bottomDescs: string
+}

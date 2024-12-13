@@ -14,7 +14,7 @@ export const TitleSection: FC = () => {
 				width='100%'
 			/>
 			<ControlledInput
-				name='articleTopText'
+				name='topDescs'
 				label='Текст верхней части статьи*'
 				margin='0'
 				height='218px'

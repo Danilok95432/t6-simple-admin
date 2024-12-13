@@ -33,11 +33,6 @@ export const authApi = createApi({
 				url: '/refresh',
 			}),
 		}),
-		testLogin: build.query<unknown, null>({
-			query: () => ({
-				url: 'objects/list',
-			}),
-		}),
 	}),
 })
 export const {

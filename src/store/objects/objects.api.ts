@@ -13,7 +13,7 @@ import { baseQueryWithReauth } from 'src/helpers/base-query'
 
 export const objectsApi = createApi({
 	reducerPath: ReducerPath.Objects,
-	tagTypes: ['Object', 'ObjectNews', 'ObjectEvents'],
+	tagTypes: ['Object', 'ObjectInfo', 'ObjectNews', 'ObjectEvents'],
 	baseQuery: baseQueryWithReauth,
 	endpoints: (build) => ({
 		getAllObjects: build.query<ObjectsResponse, { title: string; type: string; relation: string }>({
@@ -53,6 +53,23 @@ export const objectsApi = createApi({
 			}),
 		}),
 
+		getObjectInfo: build.query<ObjectsResponse, string>({
+			query: (id) => ({
+				url: `objects/edit`,
+				params: {
+					id,
+				},
+			}),
+			providesTags: ['ObjectInfo'],
+		}),
+		saveObjectInfo: build.mutation<null, FieldValues>({
+			query: (formData) => ({
+				url: `objects/save`,
+				method: 'POST',
+				body: formData,
+			}),
+			invalidatesTags: ['ObjectInfo'],
+		}),
 		getNewsByObjectId: build.query<
 			ObjectNews[],
 			{ id?: string; title?: string; date?: string; tags?: string }
@@ -111,6 +128,8 @@ export const {
 	useDeleteObjectByIdMutation,
 	useHideObjectByIdMutation,
 	useSaveObjectDescriptionMutation,
+	useGetObjectInfoQuery,
+	useSaveObjectInfoMutation,
 	useGetNewsByObjectIdQuery,
 	useDeleteObjectNewsByIdMutation,
 	useGetEventsByObjectIdQuery,

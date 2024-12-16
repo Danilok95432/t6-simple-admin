@@ -25,10 +25,8 @@ export const AdminCommunityCulture: FC = () => {
 			galleryImages: [],
 		},
 	})
-
 	const onSubmit: SubmitHandler<CommunityCultureInputs> = (data) => {
 		console.log(data)
-		console.log(methods.getValues('galleryImages'))
 	}
 
 	return (

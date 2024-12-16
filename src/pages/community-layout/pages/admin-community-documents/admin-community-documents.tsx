@@ -9,14 +9,13 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Helmet } from 'react-helmet-async'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
-import { AdminRoute } from 'src/routes/admin-routes/consts'
-
 import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
 
 import { TitleSection } from 'src/pages/community-layout/pages/admin-community-documents/components/title-section/title-section'
 import { MainDocSection } from 'src/pages/community-layout/pages/admin-community-documents/components/main-doc-section/main-doc-section'
 import { RulesSection } from 'src/pages/community-layout/pages/admin-community-documents/components/rules-section/rules-section'
 import { LawsSection } from 'src/pages/community-layout/pages/admin-community-documents/components/laws-section/laws-section'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const AdminCommunityDocuments: FC = () => {
 	const methods = useForm<CommunityDocumentsInputs>({
@@ -39,9 +38,10 @@ export const AdminCommunityDocuments: FC = () => {
 			],
 		},
 	})
-
+	const { isSent, markAsSent } = useIsSent(methods.control)
 	const onSubmit: SubmitHandler<CommunityDocumentsInputs> = (data) => {
 		console.log(data)
+		markAsSent(true)
 	}
 	return (
 		<>
@@ -55,7 +55,7 @@ export const AdminCommunityDocuments: FC = () => {
 						<MainDocSection />
 						<RulesSection />
 						<LawsSection />
-						<AdminControllers outLink={AdminRoute.AdminHome} />
+						<AdminControllers variant='3' isSent={isSent} />
 					</form>
 				</FormProvider>
 			</AdminContent>

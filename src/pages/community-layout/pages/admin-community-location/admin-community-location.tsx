@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet-async'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
-import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
 import { MailSection } from 'src/pages/community-layout/pages/admin-community-location/components/mail-section/mail-section'
 import { PhoneSection } from 'src/pages/community-layout/pages/admin-community-location/components/phones-section/phone-section'
@@ -15,6 +14,7 @@ import {
 	type LocationInputs,
 	locationSchema,
 } from 'src/pages/community-layout/pages/admin-community-location/schema'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const AdminCommunityLocation: FC = () => {
 	const methods = useForm<LocationInputs>({
@@ -26,9 +26,10 @@ export const AdminCommunityLocation: FC = () => {
 			emailsSection: true,
 		},
 	})
-
+	const { isSent, markAsSent } = useIsSent(methods.control)
 	const onSubmit: SubmitHandler<LocationInputs> = (data) => {
 		console.log(data)
+		markAsSent(true)
 	}
 	return (
 		<>
@@ -42,7 +43,7 @@ export const AdminCommunityLocation: FC = () => {
 						<MailSection />
 						<PhoneSection />
 						<EmailsSection />
-						<AdminControllers outLink={AdminRoute.AdminHome} />
+						<AdminControllers variant='3' isSent={isSent} />
 					</form>
 				</FormProvider>
 			</AdminContent>

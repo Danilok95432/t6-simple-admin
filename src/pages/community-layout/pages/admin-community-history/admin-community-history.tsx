@@ -15,11 +15,11 @@ import {
 } from 'src/pages/community-layout/pages/admin-community-history/schema'
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
-import { AdminRoute } from 'src/routes/admin-routes/consts'
 
 import { TitleSection } from './components/title-section/title-section'
 import { GallerySection } from './components/gallery-section/gallery-section'
 import { ArticleSection } from './components/article-section/article-section'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const AdminCommunityHistory: FC = () => {
 	const { data: aboutHistoryData } = useGetHistoryCommunityQuery(null)
@@ -34,9 +34,14 @@ export const AdminCommunityHistory: FC = () => {
 			bottomDescsSection: false,
 		},
 	})
-
+	const { isSent, markAsSent } = useIsSent(methods.control)
 	const onSubmit: SubmitHandler<ArticleInputs> = async (data) => {
-		await saveHistoryCommunity(transformToFormData(data))
+		try {
+			const res = await saveHistoryCommunity(transformToFormData(data))
+			if (res) markAsSent(true)
+		} catch (e) {
+			console.error(e)
+		}
 	}
 
 	useEffect(() => {
@@ -63,7 +68,7 @@ export const AdminCommunityHistory: FC = () => {
 						<TitleSection />
 						<GallerySection />
 						<ArticleSection />
-						<AdminControllers outLink={AdminRoute.AdminHome} />
+						<AdminControllers variant='3' isSent={isSent} />
 					</form>
 				</FormProvider>
 			</AdminContent>

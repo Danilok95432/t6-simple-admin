@@ -1,5 +1,5 @@
-import { type FC, useEffect, useState } from 'react'
-import { FormProvider, type SubmitHandler, useForm, useWatch } from 'react-hook-form'
+import { type FC, useEffect } from 'react'
+import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import {
 	type CommunityInputs,
 	communitySchema,
@@ -9,9 +9,7 @@ import { Helmet } from 'react-helmet-async'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
-
 import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
-
 import { TitleSection } from 'src/pages/community-layout/pages/admin-community-about/components/title-section/title-section'
 import { GallerySection } from 'src/pages/community-layout/pages/admin-community-about/components/gallery-section/gallery-section'
 import { ArticleSection } from 'src/pages/community-layout/pages/admin-community-about/components/article-section/article-section'
@@ -20,11 +18,11 @@ import {
 	useSaveAboutCommunityMutation,
 } from 'src/store/community/community.api'
 import { transformToFormData } from 'src/helpers/utils'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const AdminCommunityAbout: FC = () => {
 	const { data: aboutCommunityData } = useGetAboutCommunityQuery(null)
 	const [saveAboutCommunity] = useSaveAboutCommunityMutation()
-	const [isSent, setIsSent] = useState<boolean>(false)
 
 	const methods = useForm<CommunityInputs>({
 		mode: 'onBlur',
@@ -34,20 +32,16 @@ export const AdminCommunityAbout: FC = () => {
 			gallerySection: false,
 		},
 	})
-	const watchedValues = useWatch({ control: methods.control })
+	const { isSent, markAsSent } = useIsSent(methods.control)
 
 	const onSubmit: SubmitHandler<CommunityInputs> = async (data) => {
 		try {
 			const res = await saveAboutCommunity(transformToFormData(data))
-			if (res) setIsSent(true)
+			if (res) markAsSent(true)
 		} catch (e) {
 			console.error(e)
 		}
 	}
-
-	useEffect(() => {
-		setIsSent(false)
-	}, [watchedValues])
 
 	useEffect(() => {
 		if (aboutCommunityData) {

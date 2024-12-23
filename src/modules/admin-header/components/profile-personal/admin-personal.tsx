@@ -2,7 +2,7 @@ import { type FC } from 'react'
 
 import cn from 'classnames'
 import { NotificationSvg } from 'src/UI/icons/notificationSVG'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { AdminPersonalSvg } from 'src/UI/icons/adminPersonalSVG'
 import { LoginIconSvg } from 'src/UI/icons/loginIconSVG'
@@ -18,6 +18,7 @@ import styles from './index.module.scss'
 export const AdminPersonal: FC = () => {
 	const { openModal, setAuth, setUser } = useActions()
 	const [logoutUser] = useLogoutUserMutation()
+	const navigate = useNavigate()
 
 	const currentUser = useAppSelector(authUser)
 	const isAuth = useAppSelector(isAuthUser)
@@ -28,6 +29,7 @@ export const AdminPersonal: FC = () => {
 			setAuth(false)
 			setUser(null)
 			localStorage.removeItem('token')
+			navigate('/')
 		} catch (e) {
 			console.log(e)
 		}

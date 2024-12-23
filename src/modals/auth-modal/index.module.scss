@@ -1,11 +1,14 @@
 div.authModal {
-  width: 35vw;
-  @media (max-width: 1440px) {
-    width: 50vw;
-  }
+  width: 530px;
+
+  // @media (max-width: 1440px) {
+  //   width: 50vw;
+  // }
+
   @media (max-width: 768px) {
-    width: 80vw;
+    width: 65vw;
   }
+
   input {
     font-size: 14px;
     padding: 12px 10px;
@@ -14,10 +17,12 @@ div.authModal {
 
 .loginInputWrapper {
   position: relative;
+
   button {
     position: absolute;
     right: 7px;
     top: 32px;
+
     @media (max-width: 768px) {
       right: 3px;
       padding: 0 2px;

@@ -6,11 +6,10 @@ import { AdminRoutes } from 'src/routes/admin-routes/admin-routes'
 import { NotFound } from 'src/pages/not-found/not-found'
 import { useLazyCheckAuthQuery } from 'src/store/auth/auth.api'
 import { useActions } from 'src/hooks/actions/actions'
-import { AuthModal } from 'src/modals/auth-modal/auth-modal'
 
 export const App: FC = () => {
 	const [checkAuth, { data: authData }] = useLazyCheckAuthQuery()
-	const { openModal, setAuth, setUser } = useActions()
+	const { setAuth, setUser } = useActions()
 
 	useEffect(() => {
 		if (localStorage.getItem('token')) {
@@ -24,12 +23,7 @@ export const App: FC = () => {
 			setAuth(true)
 			setUser(authData.user)
 		}
-		openAuthModal()
 	}, [authData])
-
-	const openAuthModal = () => {
-		openModal(<AuthModal />)
-	}
 
 	return (
 		<Routes>

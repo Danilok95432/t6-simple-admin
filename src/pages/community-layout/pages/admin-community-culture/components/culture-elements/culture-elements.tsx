@@ -51,13 +51,19 @@ export const CultureElements: FC = () => {
 					<p className={cn({ 'hidden-cell': cultureEl.isHidden })} key='3'>
 						{cultureEl.region}
 					</p>,
-					<a
-						className={cn({ 'hidden-cell': cultureEl.isHidden })}
-						href={cultureEl.site ?? '#'}
-						key='4'
-					>
-						{cultureEl.site}
-					</a>,
+					cultureEl.site ? (
+						<a
+							className={cn({ 'hidden-cell': cultureEl.isHidden }, styles.cultureTableLink)}
+							href={cultureEl.site}
+							key='4'
+						>
+							{cultureEl.site}
+						</a>
+					) : (
+						<p key='4' className={cn({ 'hidden-cell': cultureEl.isHidden })}>
+							нет сайта
+						</p>
+					),
 					<RowController
 						id={cultureEl.id}
 						hideHandler={rowHideHandler}

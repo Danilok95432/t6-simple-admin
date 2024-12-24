@@ -12,6 +12,7 @@ registerLocale('ru', ru)
 
 type ControlledDateInputProps = {
 	className?: string
+	classNameDatePicker?: string
 	label?: string
 	name: string
 	dateFormat?: string
@@ -25,6 +26,7 @@ type ControlledDateInputProps = {
 export const ControlledDateInput: FC<ControlledDateInputProps> = ({
 	name,
 	className,
+	classNameDatePicker,
 	label,
 	dateFormat,
 	showTimeSelect,
@@ -63,6 +65,7 @@ export const ControlledDateInput: FC<ControlledDateInputProps> = ({
 					placeholderText={placeholder}
 					showTimeSelect={showTimeSelect ?? false}
 					showTimeSelectOnly={showTimeSelectOnly}
+					calendarClassName={classNameDatePicker}
 				/>
 			</label>
 

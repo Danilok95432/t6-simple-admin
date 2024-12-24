@@ -2,6 +2,7 @@ import React, { type FC, type ReactNode } from 'react'
 import { Link, type LinkProps } from 'react-router-dom'
 import { CancelVariantBtnSvg } from 'src/UI/icons/cancelVariantBtnSVG'
 import { SentVariantBtnSvg } from 'src/UI/icons/sentVariantBtnSvg'
+import { DelayVariantBtnSVG } from '../icons/delayVariantBtnSVG'
 
 import styled, { css } from 'styled-components'
 
@@ -16,7 +17,7 @@ type ButtonComponentProps = {
 	$fontSize?: string
 	$height?: string
 	$radius?: string
-	$variant?: 'primary' | 'light' | 'cancel' | 'sent'
+	$variant?: 'primary' | 'light' | 'cancel' | 'sent' | 'delay'
 }
 
 type SharedStylesTypes = Omit<ButtonComponentProps, 'as' | 'children'>
@@ -36,7 +37,7 @@ const sharedStyles = css<SharedStylesTypes>`
 	}};
 	color: ${({ $variant }) => {
 		if ($variant === 'cancel') return '#D9001B'
-		if ($variant === 'light') return '#002C47'
+		if ($variant === 'light' || $variant === 'delay') return '#002C47'
 		return '#ffffff'
 	}};
 	box-shadow: ${({ $variant }) => {
@@ -58,11 +59,13 @@ const sharedStyles = css<SharedStylesTypes>`
 		background-color: ${({ $variant }) => {
 			if ($variant === 'cancel') return '#ffffff'
 			if ($variant === 'light') return '#ffffff'
+			if ($variant === 'delay') return '#ffffff'
 			return '#018EA3'
 		}};
 		color: ${({ $variant }) => {
 			if ($variant === 'cancel') return '#D9001B'
 			if ($variant === 'light') return '#018EA3'
+			if ($variant === 'delay') return '#002C47'
 			return '#ffffff'
 		}};
 	}
@@ -89,6 +92,7 @@ export const AdminButton: FC<ButtonComponentProps & (ButtonProps | AnchorProps |
 			<StyledButton $variant={$variant} {...(props as ButtonProps)}>
 				{$variant === 'cancel' && <CancelVariantBtnSvg />}
 				{$variant === 'sent' && <SentVariantBtnSvg />}
+				{$variant === 'delay' && <DelayVariantBtnSVG />}
 				{children}
 			</StyledButton>
 		)
@@ -98,6 +102,7 @@ export const AdminButton: FC<ButtonComponentProps & (ButtonProps | AnchorProps |
 			<StyledLink $variant={$variant} {...(props as AnchorProps)}>
 				{$variant === 'cancel' && <CancelVariantBtnSvg />}
 				{$variant === 'sent' && <SentVariantBtnSvg />}
+				{$variant === 'delay' && <DelayVariantBtnSVG />}
 				{children}
 			</StyledLink>
 		)
@@ -107,6 +112,7 @@ export const AdminButton: FC<ButtonComponentProps & (ButtonProps | AnchorProps |
 			<StyledRouteLink $variant={$variant} {...(props as LinkProps)}>
 				{$variant === 'cancel' && <CancelVariantBtnSvg />}
 				{$variant === 'sent' && <SentVariantBtnSvg />}
+				{$variant === 'delay' && <DelayVariantBtnSVG />}
 				{children}
 			</StyledRouteLink>
 		)

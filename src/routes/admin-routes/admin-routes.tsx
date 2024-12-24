@@ -14,6 +14,7 @@ import { OneVideo } from 'src/pages/admin-news/components/videos/components/one-
 import { RequestsLayout } from 'src/pages/admin-news/components/requests/requests-layout'
 import { RequestsList } from 'src/pages/admin-news/components/requests/components/requests-list/requests-list'
 import { OneRequest } from 'src/pages/admin-news/components/requests/components/one-request/one-request'
+import { OpenRequest } from 'src/pages/admin-news/components/requests/components/open-request/open-request'
 
 import { EventsList } from 'src/pages/events-list/events-list'
 import { OneEventLayout } from 'src/pages/one-event-layout/one-event-layout'
@@ -66,7 +67,8 @@ export const AdminRoutes: FC = () => {
 					</Route>
 					<Route path={AdminRoute.AdminRequestList} element={<RequestsLayout />}>
 						<Route index element={<RequestsList />} />
-						<Route path=':id' element={<OneRequest />} />
+						<Route path=':id' element={<OpenRequest />} />
+						<Route path='new' element={<OneRequest />} />
 					</Route>
 				</Route>
 				<Route path={AdminRoute.AdminAtmans} element={<CommunityLayout />}>

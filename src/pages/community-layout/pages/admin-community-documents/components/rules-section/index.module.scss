@@ -9,7 +9,7 @@
 .rulesRow {
   display: grid;
   grid-template: auto / 1fr 440px;
-  align-items: center;
+  align-items: flex-start;
   gap: 50px;
   @media (max-width: 1440px) {
     grid-template: 1fr / 1fr;
@@ -21,6 +21,13 @@
   display: flex;
   gap: 60px;
   align-items: center;
+  .hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .rulesMoreBtn {
+    margin-left: 15px;
+  }
   @media (max-width: 1024px) {
     gap: 20px;
   }

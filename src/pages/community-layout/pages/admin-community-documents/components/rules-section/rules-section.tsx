@@ -1,5 +1,6 @@
 import { type FC } from 'react'
 import { type CommunityDocumentsInputs } from 'src/pages/community-layout/pages/admin-community-documents/schema'
+import cn from 'classnames'
 
 import { useFieldArray, useFormContext } from 'react-hook-form'
 
@@ -10,7 +11,7 @@ import { AdminSection } from 'src/components/admin-section/admin-section'
 import { ControlledMaskedInput } from 'src/components/controlled-masked-input/controlled-masked-input'
 import { AddButton } from 'src/UI/AddButton/AddButton'
 import { GridRow } from 'src/components/grid-row/grid-row'
-import { TrashIconSvg } from 'src/UI/icons/trashIconSVG'
+import { RowGridController } from 'src/components/row-grid-controller/row-grid-controller'
 
 import styles from './index.module.scss'
 
@@ -64,11 +65,11 @@ export const RulesSection: FC = () => {
 										],
 									}}
 								/>
-								{idx !== 0 && (
-									<button type='button' onClick={() => remove(idx)}>
-										<TrashIconSvg />
-									</button>
-								)}
+								<RowGridController
+									id={idx}
+									className={cn({ [styles.hidden]: idx === 0 }, styles.rulesMoreBtn)}
+									removeHandler={() => remove(idx)}
+								/>
 							</div>
 						</div>
 					</li>

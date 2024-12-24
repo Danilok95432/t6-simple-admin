@@ -14,6 +14,7 @@ export const MainDocSection: FC = () => {
 				label='Название документа'
 				placeholder='Название'
 				margin='0 0 20px 0'
+				maxWidth='1140px'
 			/>
 			<ControlledInput
 				name='mainDocDescription'

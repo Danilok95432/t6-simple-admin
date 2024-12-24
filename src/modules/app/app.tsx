@@ -1,15 +1,17 @@
 import { type FC, useEffect } from 'react'
 
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 
 import { AdminRoutes } from 'src/routes/admin-routes/admin-routes'
 import { NotFound } from 'src/pages/not-found/not-found'
 import { useLazyCheckAuthQuery } from 'src/store/auth/auth.api'
 import { useActions } from 'src/hooks/actions/actions'
+import { AuthModal } from 'src/modals/auth-modal/auth-modal'
 
 export const App: FC = () => {
 	const [checkAuth, { data: authData }] = useLazyCheckAuthQuery()
-	const { setAuth, setUser } = useActions()
+	const { openModal, setAuth, setUser } = useActions()
+	const location = useLocation()
 
 	useEffect(() => {
 		if (localStorage.getItem('token')) {
@@ -24,6 +26,14 @@ export const App: FC = () => {
 			setUser(authData.user)
 		}
 	}, [authData])
+
+	useEffect(() => {
+		if (!localStorage.getItem('token')) openAuthModal()
+	}, [location])
+
+	const openAuthModal = () => {
+		openModal(<AuthModal />)
+	}
 
 	return (
 		<Routes>

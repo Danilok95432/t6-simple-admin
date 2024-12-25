@@ -20,8 +20,9 @@ export const MainCheckBox: FC<MainCheckBoxProps & React.InputHTMLAttributes<HTML
 	return (
 		<div
 			className={cn(styles.checkBoxWrapper, props.className)}
-			onClick={() => {
+			onClick={(e) => {
 				setActive(!active)
+				e.stopPropagation()
 			}}
 		>
 			<label className={cn({ [styles._active]: active })}>{active && <CheckMarkSvg />}</label>

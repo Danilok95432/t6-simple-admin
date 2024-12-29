@@ -1,33 +1,30 @@
 div.passRecoveryModal {
-  width: 530px;
-  // @media (max-width: 1440px) {
-  //   width: 50vw;
-  // }
+	width: 530px;
 
-  @media (max-width: 768px) {
-    width: 65vw;
-  }
+	@media (max-width: 590px) {
+		width: 85vw;
+	}
 
-  input {
-    font-size: 14px;
-    padding: 12px 10px;
-  }
+	input {
+		font-size: 14px;
+		padding: 12px 10px;
+	}
 }
 
 .loginInputWrapper {
-  position: relative;
+	position: relative;
 
-  button {
-    position: absolute;
-    right: 7px;
-    top: 32px;
+	button {
+		position: absolute;
+		right: 7px;
+		top: 32px;
 
-    @media (max-width: 768px) {
-      right: 3px;
-      padding: 0 2px;
-      height: 30px;
-      top: 30px;
-      max-width: 80px;
-    }
-  }
+		@media (max-width: 768px) {
+			right: 3px;
+			padding: 0 2px;
+			height: 30px;
+			top: 30px;
+			max-width: 80px;
+		}
+	}
 }

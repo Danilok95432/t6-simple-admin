@@ -11,7 +11,7 @@
   opacity: 0;
   transition: 0.5s;
   pointer-events: none;
-  z-index: 999999;
+  z-index: 0;
   .modalContent {
     transform: scale(0.5);
     transition: 0.4s;

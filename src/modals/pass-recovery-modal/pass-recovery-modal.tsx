@@ -2,7 +2,6 @@ import { type PassRecoveryInputs, passRecoverySchema } from 'src/modals/pass-rec
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { CloseModalSvg } from 'src/UI/icons/closeModalSVG'
 import { useActions } from 'src/hooks/actions/actions'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
@@ -12,7 +11,7 @@ import { AuthModal } from 'src/modals/auth-modal/auth-modal'
 import styles from './index.module.scss'
 
 export const PassRecoveryModal = () => {
-	const { closeModal, openModal } = useActions()
+	const { openModal } = useActions()
 
 	const methods = useForm<PassRecoveryInputs>({
 		mode: 'onBlur',
@@ -32,9 +31,6 @@ export const PassRecoveryModal = () => {
 		<div className={styles.passRecoveryModal}>
 			<div className='modal-header'>
 				<h3>Т-6 Атманов Угол</h3>
-				<button onClick={() => closeModal()} type='button'>
-					<CloseModalSvg />
-				</button>
 			</div>
 			<div className='modal-content'>
 				<h4>Восстановление пароля</h4>

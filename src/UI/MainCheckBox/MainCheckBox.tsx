@@ -8,7 +8,7 @@ import styles from './index.module.scss'
 type MainCheckBoxProps = {
 	svgNode?: ReactNode
 	checked: boolean
-	disabled: boolean
+	disabled?: boolean
 	label?: string
 }
 export const MainCheckBox: FC<MainCheckBoxProps & React.InputHTMLAttributes<HTMLInputElement>> = ({

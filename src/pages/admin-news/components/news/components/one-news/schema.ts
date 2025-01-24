@@ -1,27 +1,38 @@
 import { splitAndTrimStringToArray } from 'src/helpers/utils'
-import { type FileWithPreview } from 'src/types/files'
 import * as yup from 'yup'
 
+export type NewsGallery = {
+	label: string
+	id: string
+}
+
+export type NewsPhoto = {
+	id: string
+	thumbnail: string
+	original: string
+	title: string
+}
+
 export type OneNewsInputs = {
-	titleNews: string
-	datePublish: Date
+	title: string
+	itemdate: Date
 	tags: string[]
-	gallery?: string
-	shortDesc: string
-	textNews: string
-	mainImg?: FileWithPreview[]
-	seoDesc: string
-	seoKeywords: string[]
-	isKeyNews?: boolean
-	isHiddenNews?: boolean
+	news_gallerys?: NewsGallery[]
+	short: string
+	full: string
+	photo?: NewsPhoto[]
+	description: string
+	keywords: string[]
+	main?: boolean
+	hidden?: boolean
 }
 
 export const oneNewsSchema = yup.object().shape({
-	titleNews: yup
+	title: yup
 		.string()
 		.required('Заголовок обязателен')
 		.max(200, 'Заголовок не может превышать 200 символов'),
-	datePublish: yup.date().required('Введите дату'),
+	itemdate: yup.date().required('Введите дату'),
 	tags: yup
 		.array()
 		.of(yup.string().trim().required('Тег обязателен'))
@@ -29,10 +40,10 @@ export const oneNewsSchema = yup.object().shape({
 		.max(5, 'Максимум 5 тегов')
 		.required('Теги обязательны')
 		.transform(splitAndTrimStringToArray),
-	shortDesc: yup.string().required('Введите короткое описание'),
-	textNews: yup.string().required('Введите текст новости'),
-	seoDesc: yup.string().required('Введите описание'),
-	seoKeywords: yup
+	short: yup.string().required('Введите короткое описание'),
+	full: yup.string().required('Введите текст новости'),
+	description: yup.string().required('Введите описание'),
+	keywords: yup
 		.array()
 		.of(yup.string().trim().required('Ключевое слово обязательно'))
 		.min(1, 'Должно быть хотя бы одно ключевое слово')

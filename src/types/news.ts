@@ -1,8 +1,21 @@
 export type NewsItem = {
 	id: string
-	isHidden: boolean
+	hidden: boolean
 	title: string
 	tags: string[]
-	isKey: boolean
+	main: boolean
+	date: Date
+}
+
+export type NewsResponse = {
+	news: NewsItem[]
+}
+
+export type NewsInfoResponse = {
+	id: string
+	hidden: boolean
+	title: string
+	tags: string[]
+	main: boolean
 	date: Date
 }

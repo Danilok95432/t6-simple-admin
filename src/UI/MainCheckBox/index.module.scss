@@ -17,6 +17,9 @@
       border: 1px solid #184F71;
       background: #184F71;
     }
+    &._disabled {
+      pointer-events: none;
+    }
   }
   input {
     z-index: -1;

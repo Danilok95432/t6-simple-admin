@@ -8,20 +8,24 @@ import styles from './index.module.scss'
 type MainCheckBoxProps = {
 	svgNode?: ReactNode
 	checked: boolean
+	disabled: boolean
 	label?: string
 }
 export const MainCheckBox: FC<MainCheckBoxProps & React.InputHTMLAttributes<HTMLInputElement>> = ({
 	svgNode,
 	checked,
+	disabled,
 	label,
 	...props
 }) => {
 	const [active, setActive] = useState(checked)
 	return (
 		<div
-			className={cn(styles.checkBoxWrapper, props.className)}
+			className={cn(styles.checkBoxWrapper, props.className, { [styles._disabled]: disabled })}
 			onClick={(e) => {
-				setActive(!active)
+				if (!disabled) {
+					setActive(!active)
+				}
 				e.stopPropagation()
 			}}
 		>

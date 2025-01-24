@@ -8,13 +8,13 @@ export const SeoSection = () => {
 		<AdminSection className={styles.seoSection} isBlock={false}>
 			<h5 className={styles.seoSectionTitle}>SEO (продвижение сайта)</h5>
 			<ControlledInput
-				name='seoDesc'
+				name='description'
 				label='Введите описание (description)'
 				placeholder='Описание'
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput
-				name='seoKeywords'
+				name='keywords'
 				label='Введите ключевые слова (keywords)'
 				placeholder='Введите ключевые слова (keywords)'
 				margin='0'

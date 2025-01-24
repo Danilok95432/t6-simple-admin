@@ -1,25 +1,41 @@
-import { type NewsItem } from 'src/types/news'
+import { type NewsResponse, type NewsItem, type NewsInfoResponse } from 'src/types/news'
 
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { BASE_URL, ReducerPath } from 'src/helpers/consts'
+import { ReducerPath } from 'src/helpers/consts'
+import { baseQueryWithReauth } from 'src/helpers/base-query'
 
 export const newsApi = createApi({
 	reducerPath: ReducerPath.News,
-	tagTypes: ['News'],
-	baseQuery: fetchBaseQuery({
-		baseUrl: BASE_URL,
-	}),
+	tagTypes: ['News', 'NewsInfo'],
+	baseQuery: baseQueryWithReauth,
 	endpoints: (build) => ({
-		getAllNews: build.query<NewsItem[], { search?: string; year?: string }>({
-			query: ({ search = '', year = '' }) => ({
-				url: `news`,
+		getAllNews: build.query<NewsResponse, { title?: string; date?: string; tags?: string }>({
+			query: ({ title = '', date = '', tags = '' }) => ({
+				url: `news/list`,
 				params: {
-					q: search,
-					y: year,
+					title,
+					date,
+					tags,
 				},
 			}),
 			providesTags: ['News'],
+		}),
+		deleteNewsById: build.mutation<null, string>({
+			query: (newsId) => ({
+				url: `news/delete`,
+				method: 'DELETE',
+				body: { id: newsId },
+			}),
+			invalidatesTags: ['News'],
+		}),
+		hideNewsById: build.mutation<null, string>({
+			query: (newsId) => ({
+				url: `news/hide`,
+				method: 'POST',
+				body: { id: newsId },
+			}),
+			invalidatesTags: ['News'],
 		}),
 		getNewsById: build.query<NewsItem, string>({
 			query: (newsId) => ({
@@ -27,14 +43,22 @@ export const newsApi = createApi({
 			}),
 			providesTags: ['News'],
 		}),
-		deleteNewsById: build.mutation<null, string>({
-			query: (newsId) => ({
-				url: `newsDelete/${newsId}`,
-				method: 'DELETE',
+		getNewsInfo: build.query<NewsInfoResponse, string>({
+			query: (id) => ({
+				url: `news/edit`,
+				params: {
+					id,
+				},
 			}),
-			invalidatesTags: ['News'],
+			providesTags: ['NewsInfo'],
 		}),
 	}),
 })
 
-export const { useGetAllNewsQuery, useGetNewsByIdQuery, useDeleteNewsByIdMutation } = newsApi
+export const {
+	useGetAllNewsQuery,
+	useGetNewsByIdQuery,
+	useDeleteNewsByIdMutation,
+	useHideNewsByIdMutation,
+	useGetNewsInfoQuery,
+} = newsApi

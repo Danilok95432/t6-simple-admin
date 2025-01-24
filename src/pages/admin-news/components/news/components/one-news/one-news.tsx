@@ -15,21 +15,37 @@ import { AdminRoute } from 'src/routes/admin-routes/consts'
 import styles from './index.module.scss'
 import { MainSection } from './components/main-section/main-section'
 import { SeoSection } from './components/seo-section/seo-section'
+import { useGetNewsInfoQuery } from 'src/store/news/news.api'
+import { useParams } from 'react-router-dom'
+import { transformToFormData } from 'src/helpers/utils'
+import { useEffect } from 'react'
 
 export const OneNews = () => {
+	const { id = '0' } = useParams()
+
+	const { data: newsInfoData } = useGetNewsInfoQuery(id)
+
 	const methods = useForm<OneNewsInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(oneNewsSchema),
 		defaultValues: {
-			isKeyNews: true,
-			isHiddenNews: false,
-			mainImg: [],
+			main: true,
+			hidden: false,
+			news_gallerys: [],
 		},
 	})
 
 	const onSubmit: SubmitHandler<OneNewsInputs> = (data) => {
-		console.log(data)
+		const newsInfoFormData = transformToFormData(data)
+		newsInfoFormData.append('id', id)
+		/* await saveNewsInfo(newsInfoFormData) */
 	}
+
+	useEffect(() => {
+		if (newsInfoData) {
+			methods.reset({ ...newsInfoData })
+		}
+	}, [newsInfoData])
 
 	return (
 		<>
@@ -44,7 +60,7 @@ export const OneNews = () => {
 							</div>
 							<div className={styles.oneNewsContentRight}>
 								<SwitchedRadioBtns
-									name='isKeyNews'
+									name='main'
 									label='Ключевая новость'
 									$variant='switcher'
 									contentRadio1={
@@ -61,7 +77,7 @@ export const OneNews = () => {
 									}
 								/>
 								<SwitchedRadioBtns
-									name='isHiddenNews'
+									name='hidden'
 									label='Спрятать'
 									$variant='switcher'
 									contentRadio1={

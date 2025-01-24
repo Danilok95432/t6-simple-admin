@@ -13,7 +13,7 @@ export const MainSection = () => {
 	return (
 		<AdminSection className={styles.mainSection} isBlock={false}>
 			<ControlledInput
-				name='titleNews'
+				name='title'
 				label='Заголовок новости (не больше 200 символов)'
 				isTextarea
 				height='56px'
@@ -24,7 +24,7 @@ export const MainSection = () => {
 			</CustomText>
 			<ControlledDateInput
 				className={adminStyles.adminDateInput}
-				name='datePublish'
+				name='itemdate'
 				dateFormat='dd.MM.yyyy'
 				placeholder='дд.мм.гггг'
 				margin='0 0 20px 0'
@@ -37,21 +37,21 @@ export const MainSection = () => {
 			/>
 			<ControlledSelect
 				selectOptions={[{ label: 'Не выбрано', value: '1' }]}
-				name='gallery'
+				name='news_gallerys'
 				label='Галерея'
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput
-				name='shortDesc'
+				name='short'
 				label='Краткое описание (анонс новости)'
 				isTextarea
 				height='200px'
 				margin='0 0 20px 0'
 			/>
-			<QuillEditor name='textNews' label='Текст новости' $heightEditor='350px' $maxWidth='1140px' />
+			<QuillEditor name='full' label='Текст новости' $heightEditor='350px' $maxWidth='1140px' />
 			<ReactDropzone
 				label='Основное изображение'
-				name='mainImg'
+				name='photo'
 				prompt='PNG, JPG, JPEG. 1000 х1000px, не более 3 Мб'
 				accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
 				margin='20px 0 20px 0'

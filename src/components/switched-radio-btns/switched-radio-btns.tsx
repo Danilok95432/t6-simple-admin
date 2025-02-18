@@ -14,7 +14,7 @@ type SwitchedRadioBtnsProps = {
 }
 
 type StyledRadioBtnsProps = {
-	$variant?: 'primary' | 'switcher'
+	$variant?: 'primary' | 'switcher' | 'keySwitcher'
 }
 const variantStyles = {
 	primary: css`
@@ -74,6 +74,39 @@ const variantStyles = {
 				display: flex;
 				align-items: center;
 				gap: 8px;
+			}
+		}
+	`,
+	keySwitcher: css`
+		display: flex;
+		gap: 0px;
+		background: #f2f2f2;
+		border-radius: 3px;
+		padding: 3px;
+		width: 100%;
+		._active {
+			color: #000000;
+			background: #ffffff;
+			box-shadow: 0 0 3px 0 rgba(1, 61, 86, 0.15);
+			svg {
+				path,
+				rect {
+					fill: #000000;
+				}
+			}
+		}
+		label {
+			cursor: pointer;
+			display: flex;
+			justify-content: space-between;
+
+			span {
+				color: #868686;
+				padding: 5px 14px;
+				border-radius: 3px;
+				display: flex;
+				align-items: center;
+				gap: 7px;
 			}
 		}
 	`,

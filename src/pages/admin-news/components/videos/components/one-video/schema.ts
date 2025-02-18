@@ -11,6 +11,7 @@ export type OneVideoInputs = {
 	vkexport: string
 	photo?: FileWithPreview[]
 	hidden?: boolean
+	key?: boolean
 }
 
 export const oneVideoSchema = yup.object().shape({

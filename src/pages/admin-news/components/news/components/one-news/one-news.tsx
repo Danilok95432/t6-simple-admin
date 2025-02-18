@@ -78,7 +78,7 @@ export const OneNews = () => {
 								<SwitchedRadioBtns
 									name='main'
 									label='Ключевая новость'
-									$variant='switcher'
+									$variant='keySwitcher'
 									contentRadio1={
 										<>
 											<SwitchedKeyNewsSvg />

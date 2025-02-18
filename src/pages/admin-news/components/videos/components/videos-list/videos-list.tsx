@@ -35,7 +35,7 @@ export const VideosList = () => {
 
 	const navigate = useNavigate()
 
-	const tableTitles = ['Наименование', 'Дата', 'Теги', 'Ключевая', '']
+	const tableTitles = ['Наименование', 'Дата', 'Теги', 'Ключевое', '']
 	const formatObjectsTableData = (videosData: VideoItem[]) => {
 		return videosData.map((videosEl) => {
 			return {
@@ -56,6 +56,7 @@ export const VideosList = () => {
 					<MainCheckBox
 						key='3'
 						checked={videosEl.key}
+						disabled={true}
 						svgNode={<CheckMarkSvg />}
 						className={styles.checkBoxWrapperVideos}
 					/>,

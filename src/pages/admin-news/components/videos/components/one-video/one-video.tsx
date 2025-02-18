@@ -19,6 +19,8 @@ import { SwitchedShowSvg } from 'src/UI/icons/switchedShowSVG'
 import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { MainSection } from './components/main-section/main-section'
+import { SwitchedKeyNewsSvg } from 'src/UI/icons/switchedKeyNewsSVG'
+import { SwitchedDefaultNewsSvg } from 'src/UI/icons/switchedDefaultNewsSVG'
 
 import styles from './index.module.scss'
 
@@ -33,6 +35,7 @@ export const OneVideo = () => {
 		resolver: yupResolver(oneVideoSchema),
 		defaultValues: {
 			photo: [],
+			key: false,
 			hidden: false,
 		},
 	})
@@ -69,7 +72,24 @@ export const OneVideo = () => {
 							<div className={styles.oneVideoContentLeft}>
 								<MainSection />
 							</div>
-							<div className={styles.oneVideoRight}>
+							<div className={styles.oneVideoContentRight}>
+								<SwitchedRadioBtns
+									name='key'
+									label='Ключевое видео'
+									$variant='keySwitcher'
+									contentRadio1={
+										<>
+											<SwitchedKeyNewsSvg />
+											Ключевое
+										</>
+									}
+									contentRadio2={
+										<>
+											<SwitchedDefaultNewsSvg />
+											Обычное
+										</>
+									}
+								/>
 								<SwitchedRadioBtns
 									name='hidden'
 									label='Спрятать'

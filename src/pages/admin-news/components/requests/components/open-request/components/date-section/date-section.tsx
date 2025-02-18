@@ -18,7 +18,7 @@ export const DateSection = () => {
 				<ControlledDateInput
 					className={cn(adminStyles.adminDateInput, styles.dateInput)}
 					classNameDatePicker={styles.datePicker}
-					name='datePublish'
+					name='publicdate'
 					dateFormat='dd.MM.yyyy'
 					placeholder='дд.мм.гггг'
 					margin='0'

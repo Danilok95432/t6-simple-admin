@@ -14,19 +14,33 @@ import { DateSection } from './components/date-section/date-section'
 import { DescSection } from './components/desc-section/desc-section'
 
 import styles from './index.module.scss'
+import { useGetNewIdRequestQuery, useGetRequestInfoQuery } from 'src/store/requests/requests.api'
+import { useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 
 export const OpenRequest = () => {
+	const { id = '0' } = useParams()
+	const { data: requestInfoData } = useGetRequestInfoQuery(id)
+	const { refetch: getNewId } = useGetNewIdRequestQuery(null)
+
 	const methods = useForm<OpenRequestInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(openRequestSchema),
 		defaultValues: {
-			isHiddenRequest: true,
+			hidden: true,
+			original_date: false,
 		},
 	})
 
-	const onSubmit: SubmitHandler<OpenRequestInputs> = (data) => {
+	const onSubmit: SubmitHandler<OpenRequestInputs> = async (data) => {
 		console.log(data)
 	}
+
+	useEffect(() => {
+		if (requestInfoData) {
+			methods.reset({ ...requestInfoData })
+		}
+	}, [requestInfoData])
 
 	return (
 		<>
@@ -38,11 +52,16 @@ export const OpenRequest = () => {
 							<div className={styles.requestContentLeft}>
 								<Disclaimer />
 								<DateSection />
-								<DescSection />
+								<DescSection
+									title={requestInfoData?.title}
+									source={requestInfoData?.source}
+									requestType={requestInfoData?.request_type}
+									short={requestInfoData?.short}
+								/>
 							</div>
 							<div className={styles.requestContentRight}>
 								<SwitchedRadioBtns
-									name='isHiddenRequest'
+									name='hidden'
 									label='Спрятать'
 									$variant='switcher'
 									contentRadio1={

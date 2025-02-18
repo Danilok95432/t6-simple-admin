@@ -1,9 +1,32 @@
 export type RequestItem = {
 	id: string
-	isHidden: string
+	hidden: string
 	title: string
-	type: string
+	request_type: string
+	id_request_status: string
+	request_status_name: string
+	short: string
+	date: Date
+	source: string
+}
+
+export type RequestResponse = {
+	requests: RequestItem[]
+}
+
+export type RequestNewIdResponse = {
 	status: string
+	id: string
+}
+
+export type RequestInfoResponse = {
+	id: string
+	hidden: string
+	title: string
+	request_type: string
+	id_request_status: string
+	request_status_name: string
+	short: string
 	date: Date
 	source: string
 }

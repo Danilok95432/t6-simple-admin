@@ -1,8 +1,17 @@
 import * as yup from 'yup'
 
 export type OpenRequestInputs = {
-	datePublish?: Date
-	isHiddenRequest?: boolean
+	publicdate: string
+	short?: string
+	title: string
+	hidden?: boolean
+	original_date?: boolean
+	id_request_type?: string
+	request_type?: string
+	item_id?: string
 }
 
-export const openRequestSchema = yup.object().shape({})
+export const openRequestSchema = yup.object().shape({
+	title: yup.string().required('Введите название'),
+	publicdate: yup.string().required('Введите дату'),
+})

@@ -15,13 +15,13 @@ export const DateSection = () => {
 			<FlexRow $gap='25px'>
 				<ControlledDateInput
 					className={adminStyles.adminDateInput}
-					name='datePublish'
+					name='publicdate'
 					dateFormat='dd.MM.yyyy'
 					placeholder='дд.мм.гггг'
 					margin='0'
 				/>
 				<ControlledCheckbox
-					name='asOriginalContent'
+					name='original_date '
 					label='Как в оригинальной новости / видеозаписи'
 					type='checkbox'
 					$margin='8px 0 0 0'

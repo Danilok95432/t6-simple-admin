@@ -7,14 +7,14 @@ export const DescSection = () => {
 	return (
 		<AdminSection isBlock={false} className={styles.descSection}>
 			<ControlledInput
-				name='desc'
+				name='short'
 				label='Краткое описание (хранится в базе, предназначено для редактора)'
 				isTextarea
 				height='78px'
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput
-				name='titleContentRequest'
+				name='title'
 				label='Выбор новости или видеозаписи'
 				placeholder='Начните вводить название новости или видеозаписи'
 				margin='0 0 20px 0'

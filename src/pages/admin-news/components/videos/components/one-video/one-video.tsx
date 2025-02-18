@@ -75,7 +75,7 @@ export const OneVideo = () => {
 							<div className={styles.oneVideoContentRight}>
 								<SwitchedRadioBtns
 									name='key'
-									label='Ключевое видео'
+									label='Ключевая запись'
 									$variant='keySwitcher'
 									contentRadio1={
 										<>

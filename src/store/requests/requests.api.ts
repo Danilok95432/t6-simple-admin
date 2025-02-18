@@ -1,30 +1,44 @@
-import { type RequestItem } from 'src/types/requests'
+import {
+	type RequestResponse,
+	type RequestItem,
+	type RequestNewIdResponse,
+	type RequestInfoResponse,
+} from 'src/types/requests'
 
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { BASE_URL, ReducerPath } from 'src/helpers/consts'
+import { ReducerPath } from 'src/helpers/consts'
+import { baseQueryWithReauth } from 'src/helpers/base-query'
+import { type FieldValues } from 'react-hook-form'
 
 export const requestsApi = createApi({
 	reducerPath: ReducerPath.Requests,
-	tagTypes: ['Requests'],
-	baseQuery: fetchBaseQuery({
-		baseUrl: BASE_URL,
-	}),
+	tagTypes: ['Requests', 'RequestInfo'],
+	baseQuery: baseQueryWithReauth,
 	endpoints: (build) => ({
-		getAllRequests: build.query<RequestItem[], { search?: string; exceptStatus?: string[] }>({
-			query: ({ search = '', exceptStatus = [''] }) => ({
-				url: `requests`,
+		getAllRequests: build.query<RequestResponse, { title?: string; date?: string }>({
+			query: ({ title = '', date = '' }) => ({
+				url: `requests/list`,
 				params: {
-					q: search,
-					y: exceptStatus,
+					title,
+					date,
 				},
 			}),
 			providesTags: ['Requests'],
 		}),
 		deleteRequestById: build.mutation<null, string>({
 			query: (requestId) => ({
-				url: `requestDelete/${requestId}`,
+				url: `requests/delete`,
 				method: 'DELETE',
+				body: { id: requestId },
+			}),
+			invalidatesTags: ['Requests'],
+		}),
+		hideRequestById: build.mutation<null, string>({
+			query: (requestId) => ({
+				url: `requests/hide`,
+				method: 'POST',
+				body: { id: requestId },
 			}),
 			invalidatesTags: ['Requests'],
 		}),
@@ -32,9 +46,40 @@ export const requestsApi = createApi({
 			query: (requestId) => ({
 				url: `requests/${requestId}`,
 			}),
+			providesTags: ['Requests'],
+		}),
+		getRequestInfo: build.query<RequestInfoResponse, string>({
+			query: (id) => ({
+				url: `requests/edit`,
+				params: {
+					id,
+				},
+			}),
+			providesTags: ['RequestInfo'],
+		}),
+		saveRequestInfo: build.mutation<string, FieldValues>({
+			query: (FormData) => ({
+				url: `requests/save`,
+				method: 'POST',
+				body: FormData,
+			}),
+			invalidatesTags: ['RequestInfo', 'Requests'],
+		}),
+		getNewIdRequest: build.query<RequestNewIdResponse, null>({
+			query: () => ({
+				url: `requests/getnew`,
+			}),
+			providesTags: ['RequestInfo', 'Requests'],
 		}),
 	}),
 })
 
-export const { useGetAllRequestsQuery, useGetRequestByIdQuery, useDeleteRequestByIdMutation } =
-	requestsApi
+export const {
+	useGetAllRequestsQuery,
+	useGetRequestByIdQuery,
+	useDeleteRequestByIdMutation,
+	useSaveRequestInfoMutation,
+	useHideRequestByIdMutation,
+	useGetNewIdRequestQuery,
+	useGetRequestInfoQuery,
+} = requestsApi

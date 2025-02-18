@@ -2,18 +2,12 @@
   grid-template-columns: 
   minmax(300px, 400px)
   minmax(150px, 280px)
-  minmax(80px, 120px)
-  minmax(280px, 280px)
+  minmax(80px, 220px)
+  minmax(190px, 190px)
   minmax(190px, 190px)
   minmax(190px, 190px);
   @media (max-width: 1700px) {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  }
-  .checkBoxWrapperRequest {
-    margin-left: 80px;
-    @media (max-width: 1700px) {
-      margin-left: 0;
-    }
   }
 }
 

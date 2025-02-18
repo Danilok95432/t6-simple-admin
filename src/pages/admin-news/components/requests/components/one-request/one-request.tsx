@@ -20,8 +20,8 @@ export const OneRequest = () => {
 		mode: 'onBlur',
 		resolver: yupResolver(oneRequestSchema),
 		defaultValues: {
-			isHiddenRequest: true,
-			asOriginalContent: false,
+			hidden: true,
+			original_date: false,
 		},
 	})
 

@@ -11,21 +11,21 @@ type StatusRequestsProps = {
 
 export const StatusRequests: FC<StatusRequestsProps> = ({ statusCode }) => {
 	switch (statusCode) {
-		case 'placed':
-			return (
-				<div className={styles.statusRequest}>
-					<RequestStatusPlacedSVG />
-					<p>размещена</p>
-				</div>
-			)
-		case 'pending':
+		case '1':
 			return (
 				<div className={styles.statusRequest}>
 					<RequestStatusPendingSVG />
 					<p>отложена</p>
 				</div>
 			)
-		case 'rejected':
+		case '2':
+			return (
+				<div className={styles.statusRequest}>
+					<RequestStatusPlacedSVG />
+					<p>размещена</p>
+				</div>
+			)
+		case '3':
 			return (
 				<div className={styles.statusRequest}>
 					<RequestStatusRejectedSVG />

@@ -17,6 +17,7 @@ type ControlledInputProps = {
 	maxWidth?: string
 	height?: string
 	type?: string
+	isReadOnly?: boolean
 } & React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>
 
 export const ControlledInput: FC<ControlledInputProps> = ({
@@ -30,6 +31,7 @@ export const ControlledInput: FC<ControlledInputProps> = ({
 	maxWidth,
 	height,
 	type,
+	isReadOnly,
 	...props
 }) => {
 	const {
@@ -50,6 +52,7 @@ export const ControlledInput: FC<ControlledInputProps> = ({
 					<textarea
 						{...register(name)}
 						{...props}
+						readOnly={isReadOnly}
 						className={cn(styles.controlledInput, {
 							[styles.noValid]: errors[name],
 						})}
@@ -76,6 +79,7 @@ export const ControlledInput: FC<ControlledInputProps> = ({
 							{...register(name)}
 							{...props}
 							type={isVisiblePass ? 'text' : 'password'}
+							readOnly={isReadOnly}
 							className={cn(styles.controlledInput, {
 								[styles.noValid]: errors[name],
 							})}
@@ -106,6 +110,7 @@ export const ControlledInput: FC<ControlledInputProps> = ({
 				<input
 					{...register(name)}
 					{...props}
+					readOnly={isReadOnly}
 					className={cn(styles.controlledInput, {
 						[styles.noValid]: errors[name],
 					})}

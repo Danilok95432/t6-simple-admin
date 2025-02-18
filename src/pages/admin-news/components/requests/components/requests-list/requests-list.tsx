@@ -6,25 +6,31 @@ import { mainFormatDate } from 'src/helpers/utils'
 import {
 	useDeleteRequestByIdMutation,
 	useGetAllRequestsQuery,
+	useHideRequestByIdMutation,
 } from 'src/store/requests/requests.api'
-import { useTableSearch } from 'src/hooks/table-search/table-search'
 
 import { CustomTable } from 'src/components/custom-table/custom-table'
 import { Loader } from 'src/components/loader/loader'
 import { RowController } from 'src/components/row-controller/row-controller'
 import { TableFooter } from 'src/components/table-footer/table-footer'
 import { GridRow } from 'src/components/grid-row/grid-row'
-import { TableSearchInput } from 'src/modules/table-search-input/table-search'
 import { MainCheckBox } from 'src/UI/MainCheckBox/MainCheckBox'
 import { StatusRequests } from 'src/components/status-requests/status-requests'
 
 import styles from './index.module.scss'
+import { getFiltrationValues } from 'src/modules/table-filtration/store/table-filtration.selectors'
+import { useAppSelector } from 'src/hooks/store'
+import { TableFiltration } from 'src/modules/table-filtration/table-filtration'
+import { RequestsElementsFiltrationInputs } from './consts'
 
 export const RequestsList = () => {
-	const { handleSearch, searchParams } = useTableSearch(['title', 'source', 'date'])
-
-	const { data: requests, isLoading } = useGetAllRequestsQuery({ search: searchParams.title })
+	const filterValues = useAppSelector(getFiltrationValues)
+	const { data: requestsDataResponse, isLoading } = useGetAllRequestsQuery({
+		title: filterValues.title,
+		date: filterValues.date,
+	})
 	const [deleteRequestById] = useDeleteRequestByIdMutation()
+	const [hideRequestById] = useHideRequestByIdMutation()
 
 	const navigate = useNavigate()
 
@@ -35,21 +41,21 @@ export const RequestsList = () => {
 				rowId: requestEl.id,
 				cells: [
 					<p
-						className={cn({ 'hidden-cell-icon': requestEl.isHidden }, styles.titleRequestsTable)}
+						className={cn({ 'hidden-cell-icon': requestEl.hidden }, styles.titleRequestsTable)}
 						key='0'
 					>
 						{requestEl.title}
 					</p>,
-					<p className={cn({ 'hidden-cell': requestEl.isHidden })} key='1'>
-						{requestEl.type}
+					<p className={cn({ 'hidden-cell': requestEl.hidden })} key='1'>
+						{requestEl.request_type}
 					</p>,
-					<div className={cn({ 'hidden-cell': requestEl.isHidden })} key='2'>
-						<StatusRequests statusCode={requestEl.status} />
+					<div className={cn({ 'hidden-cell': requestEl.hidden })} key='2'>
+						<StatusRequests statusCode={requestEl.id_request_status} />
 					</div>,
-					<p className={cn({ 'hidden-cell': requestEl.isHidden })} key='3'>
+					<p className={cn({ 'hidden-cell': requestEl.hidden })} key='3'>
 						{mainFormatDate(requestEl.date)}
 					</p>,
-					<p className={cn({ 'hidden-cell': requestEl.isHidden })} key='4'>
+					<p className={cn({ 'hidden-cell': requestEl.hidden })} key='4'>
 						{requestEl.source}
 					</p>,
 					<RowController
@@ -69,14 +75,14 @@ export const RequestsList = () => {
 	}
 
 	const rowHideHandler = async (id: string) => {
-		console.log(id + 'спрятан')
+		await hideRequestById(id)
 	}
 
 	const rowClickHandler = (id: string) => {
 		navigate(`/news/requests-list/${id}`)
 	}
 
-	if (isLoading || !requests) return <Loader />
+	if (isLoading || !requestsDataResponse?.requests) return <Loader />
 
 	return (
 		<>
@@ -88,20 +94,8 @@ export const RequestsList = () => {
 					$padding='0 29px'
 					className={styles.searchRow}
 				>
-					<TableSearchInput
-						handleSearch={(val) => handleSearch('title', val)}
-						placeholder='искать по наименованию'
-					/>
-					<TableSearchInput
-						handleSearch={(val) => handleSearch('source', val)}
-						placeholder='искать по источнику'
-					/>
-					<TableSearchInput
-						handleSearch={(val) => handleSearch('date', val)}
-						placeholder='дата'
-						$variant='date'
-						mask={Date}
-					/>
+					<TableFiltration filterInputs={RequestsElementsFiltrationInputs} />
+					<div></div>
 					<MainCheckBox
 						className={styles.checkBoxWrapperRequest}
 						checked={false}
@@ -112,12 +106,12 @@ export const RequestsList = () => {
 				</GridRow>
 				<CustomTable
 					className={styles.requestsTable}
-					rowData={formatObjectsTableData(requests)}
+					rowData={formatObjectsTableData(requestsDataResponse?.requests)}
 					colTitles={tableTitles}
 					rowClickHandler={rowClickHandler}
 				/>
 				<TableFooter
-					totalElements={requests.length}
+					totalElements={requestsDataResponse?.requests.length}
 					addClickHandler={() => navigate('/news/requests-list/new')}
 					addText='Подать заявку'
 				/>

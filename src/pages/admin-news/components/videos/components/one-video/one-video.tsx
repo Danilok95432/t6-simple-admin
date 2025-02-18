@@ -1,6 +1,16 @@
 import { type OneVideoInputs, oneVideoSchema } from './schema'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useParams } from 'react-router-dom'
+import { useEffect } from 'react'
+
+import {
+	useGetNewIdVideoQuery,
+	useGetVideoInfoQuery,
+	useSaveVideoInfoMutation,
+} from 'src/store/videos/videos.api'
+import { formatDate, transformToFormData } from 'src/helpers/utils'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 import { Container } from 'src/UI/Container/Container'
 import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-radio-btns'
@@ -13,18 +23,41 @@ import { MainSection } from './components/main-section/main-section'
 import styles from './index.module.scss'
 
 export const OneVideo = () => {
+	const { id = '0' } = useParams()
+	const { data: videoInfoData } = useGetVideoInfoQuery(id)
+	const [saveVideoInfo] = useSaveVideoInfoMutation()
+	const { refetch: getNewId } = useGetNewIdVideoQuery(null)
+
 	const methods = useForm<OneVideoInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(oneVideoSchema),
 		defaultValues: {
-			mainImg: [],
-			isHiddenVideo: false,
+			photo: [],
+			hidden: false,
 		},
 	})
 
-	const onSubmit: SubmitHandler<OneVideoInputs> = (data) => {
-		console.log(data)
+	const { isSent, markAsSent } = useIsSent(methods.control)
+	const onSubmit: SubmitHandler<OneVideoInputs> = async (data) => {
+		const dateFormat = formatDate(data.itemdate)
+		if (dateFormat) data.itemdate = dateFormat
+		const videoInfoFormData = transformToFormData(data)
+		let videoId = id
+
+		if (id === 'new') {
+			const newIdResponse = await getNewId().unwrap()
+			videoId = newIdResponse.id
+			videoInfoFormData.append('id', videoId)
+		} else videoInfoFormData.append('id', videoId)
+		const res = await saveVideoInfo(videoInfoFormData)
+		if (res) markAsSent(true)
 	}
+
+	useEffect(() => {
+		if (videoInfoData) {
+			methods.reset({ ...videoInfoData })
+		}
+	}, [videoInfoData])
 
 	return (
 		<>
@@ -38,7 +71,7 @@ export const OneVideo = () => {
 							</div>
 							<div className={styles.oneVideoRight}>
 								<SwitchedRadioBtns
-									name='isHiddenVideo'
+									name='hidden'
 									label='Спрятать'
 									$variant='switcher'
 									contentRadio1={
@@ -56,7 +89,11 @@ export const OneVideo = () => {
 								/>
 							</div>
 						</div>
-						<AdminControllers outLink={AdminRoute.AdminHome} />
+						<AdminControllers
+							variant='4'
+							outLink={`/${AdminRoute.AdminNews}/${AdminRoute.AdminVideosList}`}
+							isSent={isSent}
+						/>
 					</form>
 				</FormProvider>
 			</Container>

@@ -10,7 +10,7 @@ export const MainSection = () => {
 	return (
 		<AdminSection isBlock={false}>
 			<ControlledInput
-				name='titleVideo'
+				name='title'
 				label='Название записи (не больше 200 символов)'
 				isTextarea
 				height='56px'
@@ -21,7 +21,7 @@ export const MainSection = () => {
 			</CustomText>
 			<ControlledDateInput
 				className={adminStyles.adminDateInput}
-				name='datePublish'
+				name='itemdate'
 				dateFormat='dd.MM.yyyy'
 				placeholder='дд.мм.гггг'
 				margin='0 0 20px 0'
@@ -33,20 +33,20 @@ export const MainSection = () => {
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput
-				name='shortDesc'
+				name='short'
 				label='Краткое описание (хранится в базе)'
 				isTextarea
 				height='78px'
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput
-				name='linkVideo'
+				name='vkvideo'
 				label='Ссылка на видео ВК'
 				placeholder='Введите текст ссылки на запись'
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput
-				name='textCode'
+				name='vkexport'
 				label='Текст кода для вставки (экспорт из ВК)'
 				isTextarea
 				height='78px'
@@ -54,7 +54,7 @@ export const MainSection = () => {
 			/>
 			<ReactDropzone
 				label='Основное изображение'
-				name='mainImg'
+				name='photo'
 				prompt='PNG, JPG, JPEG. 1000 х1000px, не более 3 Мб'
 				accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
 				margin='20px 0 20px 0'

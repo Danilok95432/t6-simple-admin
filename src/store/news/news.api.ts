@@ -1,4 +1,10 @@
-import { type NewsResponse, type NewsItem, type NewsInfoResponse } from 'src/types/news'
+import {
+	type NewsResponse,
+	type NewsItem,
+	type NewsInfoResponse,
+	type NewsNewIdResponse,
+} from 'src/types/news'
+import { type FieldValues } from 'react-hook-form'
 
 import { createApi } from '@reduxjs/toolkit/query/react'
 
@@ -52,6 +58,20 @@ export const newsApi = createApi({
 			}),
 			providesTags: ['NewsInfo'],
 		}),
+		saveNewsInfo: build.mutation<string, FieldValues>({
+			query: (FormData) => ({
+				url: `news/save`,
+				method: 'POST',
+				body: FormData,
+			}),
+			invalidatesTags: ['NewsInfo', 'News'],
+		}),
+		getNewIdNews: build.query<NewsNewIdResponse, null>({
+			query: () => ({
+				url: `news/getnew`,
+			}),
+			providesTags: ['NewsInfo', 'News'],
+		}),
 	}),
 })
 
@@ -61,4 +81,6 @@ export const {
 	useDeleteNewsByIdMutation,
 	useHideNewsByIdMutation,
 	useGetNewsInfoQuery,
+	useSaveNewsInfoMutation,
+	useGetNewIdNewsQuery,
 } = newsApi

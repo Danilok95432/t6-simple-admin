@@ -1,7 +1,16 @@
 import { type OneNewsInputs, oneNewsSchema } from './schema'
-
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
+import { useParams } from 'react-router-dom'
+import { useEffect } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
+
+import {
+	useGetNewIdNewsQuery,
+	useGetNewsInfoQuery,
+	useSaveNewsInfoMutation,
+} from 'src/store/news/news.api'
+import { formatDate, transformToFormData } from 'src/helpers/utils'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 import { Container } from 'src/UI/Container/Container'
 import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-radio-btns'
@@ -11,19 +20,17 @@ import { SwitchedKeyNewsSvg } from 'src/UI/icons/switchedKeyNewsSVG'
 import { SwitchedDefaultNewsSvg } from 'src/UI/icons/switchedDefaultNewsSVG'
 import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
-
-import styles from './index.module.scss'
 import { MainSection } from './components/main-section/main-section'
 import { SeoSection } from './components/seo-section/seo-section'
-import { useGetNewsInfoQuery } from 'src/store/news/news.api'
-import { useParams } from 'react-router-dom'
-import { transformToFormData } from 'src/helpers/utils'
-import { useEffect } from 'react'
+
+import styles from './index.module.scss'
 
 export const OneNews = () => {
 	const { id = '0' } = useParams()
 
 	const { data: newsInfoData } = useGetNewsInfoQuery(id)
+	const [saveNewsInfo] = useSaveNewsInfoMutation()
+	const { refetch: getNewId } = useGetNewIdNewsQuery(null)
 
 	const methods = useForm<OneNewsInputs>({
 		mode: 'onBlur',
@@ -34,11 +41,20 @@ export const OneNews = () => {
 			news_gallerys: [],
 		},
 	})
-
-	const onSubmit: SubmitHandler<OneNewsInputs> = (data) => {
+	const { isSent, markAsSent } = useIsSent(methods.control)
+	const onSubmit: SubmitHandler<OneNewsInputs> = async (data) => {
+		const dateFormat = formatDate(data.itemdate)
+		if (dateFormat) data.itemdate = dateFormat
 		const newsInfoFormData = transformToFormData(data)
-		newsInfoFormData.append('id', id)
-		/* await saveNewsInfo(newsInfoFormData) */
+		let newsId = id
+
+		if (id === 'new') {
+			const newIdResponse = await getNewId().unwrap()
+			newsId = newIdResponse.id
+			newsInfoFormData.append('id', newsId)
+		} else newsInfoFormData.append('id', newsId)
+		const res = await saveNewsInfo(newsInfoFormData)
+		if (res) markAsSent(true)
 	}
 
 	useEffect(() => {
@@ -95,7 +111,11 @@ export const OneNews = () => {
 								/>
 							</div>
 						</div>
-						<AdminControllers outLink={AdminRoute.AdminHome} />
+						<AdminControllers
+							variant='4'
+							outLink={`/${AdminRoute.AdminNews}/${AdminRoute.AdminNewsList}`}
+							isSent={isSent}
+						/>
 					</form>
 				</FormProvider>
 			</Container>

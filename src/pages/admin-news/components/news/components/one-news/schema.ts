@@ -15,9 +15,10 @@ export type NewsPhoto = {
 
 export type OneNewsInputs = {
 	title: string
-	itemdate: Date
+	itemdate: string
 	tags: string[]
 	news_gallerys?: NewsGallery[]
+	id_gallery?: string
 	short: string
 	full: string
 	photo?: NewsPhoto[]
@@ -32,7 +33,7 @@ export const oneNewsSchema = yup.object().shape({
 		.string()
 		.required('Заголовок обязателен')
 		.max(200, 'Заголовок не может превышать 200 символов'),
-	itemdate: yup.date().required('Введите дату'),
+	itemdate: yup.string().required('Введите дату'),
 	tags: yup
 		.array()
 		.of(yup.string().trim().required('Тег обязателен'))

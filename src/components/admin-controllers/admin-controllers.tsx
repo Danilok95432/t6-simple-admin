@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 type AdminControllersProps = {
 	outLink?: string
-	variant?: '1' | '2' | '3'
+	variant?: '1' | '2' | '3' | '4'
 	isSent?: boolean
 }
 
@@ -63,6 +63,17 @@ export const AdminControllers: FC<AdminControllersProps> = ({
 					<AdminButton as='button' type='submit' $variant={isSent ? 'sent' : 'primary'}>
 						{isSent ? 'Изменения сохранены' : 'Применить и продолжить'}
 					</AdminButton>
+				)
+			case '4':
+				return (
+					<>
+						<AdminButton as='button' type='submit' $variant={isSent ? 'sent' : 'primary'}>
+							{isSent ? 'Изменения сохранены' : 'Применить и продолжить'}
+						</AdminButton>
+						<AdminButton as='route' to={outLink} $variant='light'>
+							Сохранить и выйти
+						</AdminButton>
+					</>
 				)
 		}
 	}

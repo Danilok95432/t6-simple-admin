@@ -77,6 +77,21 @@ export const mainFormatDate = (
 	return format(date, dateFormat, { locale: ru })
 }
 
+// функция форматирования даты для отправки на сервер
+export const formatDate = (dateString: string): string | null => {
+	const date = new Date(dateString)
+
+	const timezoneOffset = date.getTimezoneOffset()
+	const timezoneSign = timezoneOffset > 0 ? '-' : '+'
+	const timezoneHours = String(Math.abs(Math.floor(timezoneOffset / 60))).padStart(2, '0')
+	const timezoneMinutes = String(Math.abs(timezoneOffset % 60)).padStart(2, '0')
+	const timezone = `${timezoneSign}${timezoneHours}:${timezoneMinutes}`
+
+	const isoDateString = date.toISOString().slice(0, 19)
+
+	return `${isoDateString}${timezone}`
+}
+
 // форматирование данных с формы в виде объекта в формат FormData
 export const transformToFormData = (data: FieldValues) => {
 	const formData = new FormData()

@@ -8,41 +8,42 @@ export const MainBlocksSection = () => {
 		<AdminSection
 			className={styles.mainBlocksSection}
 			titleText='Основные блоки на главной странице'
+			noBorder
 		>
 			<ControlledCheckbox
 				name='isShowObjects'
 				label='Показать блок «Объекты»'
-				$margin='0 0 25px 0'
+				$margin='0 0 20px 0'
 				type='checkbox'
 			/>
 			<ControlledCheckbox
 				name='isShowEvents'
 				label='Показать блок «События»'
-				$margin='0 0 25px 0'
+				$margin='0 0 20px 0'
 				type='checkbox'
 			/>
 			<ControlledCheckbox
 				name='isShowMap'
 				label='Показать блок «Карта»'
-				$margin='0 0 25px 0'
+				$margin='0 0 20px 0'
 				type='checkbox'
 			/>
 			<ControlledCheckbox
 				name='isShowNews'
 				label='Показать блок «Новости»'
-				$margin='0 0 25px 0'
+				$margin='0 0 20px 0'
 				type='checkbox'
 			/>
 			<ControlledCheckbox
 				name='isShowVideos'
 				label='Показать блок «Видеолента»'
-				$margin='0 0 25px 0'
+				$margin='0 0 20px 0'
 				type='checkbox'
 			/>
 			<ControlledCheckbox
 				name='isShowPartners'
 				label='Показать блок «Партнеры»'
-				$margin='0 0 25px 0'
+				$margin='0 0 20px 0'
 				type='checkbox'
 			/>
 			<ControlledCheckbox

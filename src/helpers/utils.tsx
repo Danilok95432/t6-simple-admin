@@ -104,6 +104,7 @@ export const transformToFormData = (data: FieldValues) => {
 			formData.append(key, String(value))
 		}
 	})
+
 	return formData
 }
 

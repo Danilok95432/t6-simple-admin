@@ -8,6 +8,7 @@ type AdminContentProps = {
 	title?: string
 	link?: string
 	$padding?: string
+	$width?: string
 	$height?: string
 	$backgroundColor?: string
 }
@@ -15,14 +16,15 @@ type AdminContentProps = {
 const StyledAdminContent = styled.div<AdminContentProps>`
 	border-radius: 5px;
 	background-color: ${({ $backgroundColor }) => $backgroundColor ?? '#f5f7fa'};
-	padding: ${({ $padding }) => $padding ?? '33px 20px 60px 28px'};
+	padding: ${({ $padding }) => $padding ?? '31px 30px 55px'};
+	max-width: ${({ $width }) => $width ?? '1570px'};
 	min-height: ${({ $height }) => $height ?? '800px'};
 
 	.content-title {
 		display: flex;
 		gap: 20px;
 		align-items: flex-end;
-		margin-bottom: 25px;
+		margin-bottom: 30px;
 		@media (max-width: 1024px) {
 			flex-direction: column;
 			gap: 10px;

@@ -1,6 +1,8 @@
 import { type PromoInputs, promoModalSchema } from 'src/modals/promo-modal/schema'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 
+import { yupResolver } from '@hookform/resolvers/yup'
+
 import { CloseModalSvg } from 'src/UI/icons/closeModalSVG'
 import { useActions } from 'src/hooks/actions/actions'
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
@@ -10,7 +12,6 @@ import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-r
 import { SwitchedHiddenSvg } from 'src/UI/icons/switchedHiddenSVG'
 import { SwitchedShowSvg } from 'src/UI/icons/switchedShowSVG'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
-import { yupResolver } from '@hookform/resolvers/yup'
 
 import styles from './index.module.scss'
 

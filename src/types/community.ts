@@ -14,3 +14,20 @@ export type HistoryCommunityResponse = {
 	galleryImages: ImageItem
 	bottomDescs: string
 }
+
+export type LocationCommunityResponse = {
+	mapCoords: string
+	mailAddress: string
+	phone: PhoneLocationCommunity
+	email: EmailLocationCommunity
+}
+
+type PhoneLocationCommunity = {
+	contact: string
+	formatNumber: string
+}
+
+type EmailLocationCommunity = {
+	contact: string
+	email: string
+}

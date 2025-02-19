@@ -1,18 +1,20 @@
 div.promoModal {
-  width: 50vw;
+  width: 962px;
 
   @media (max-width: 1440px) {
-    width: 80vw;
+    width: 70vw;
   }
 
   :global {
     .modal-header {
       background: #ffffff;
       border-bottom: 1px solid #E1E1E1;
+
       button svg rect {
         fill: #000000;
         stroke: #000000;
       }
+
       h3 {
         font-size: 18px;
         color: #000000;
@@ -25,6 +27,7 @@ div.promoModal {
     align-items: flex-start;
     gap: 40px;
     margin-bottom: 30px;
+
     @media (max-width: 1024px) {
       flex-direction: column-reverse;
       gap: 20px;
@@ -34,6 +37,7 @@ div.promoModal {
   .promoFormLeft {
     flex-grow: 1;
   }
+
   .promoFormRight {
     width: 240px;
     min-width: 240px;

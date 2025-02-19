@@ -16,6 +16,7 @@ type AdminSectionProps = {
 	headSectionClassName?: string
 	titleText?: string
 	isBlock?: boolean
+	noBorder?: boolean
 }
 
 export const AdminSection: FC<AdminSectionProps> = ({
@@ -26,6 +27,7 @@ export const AdminSection: FC<AdminSectionProps> = ({
 	titleText,
 	headSectionClassName,
 	isBlock = true,
+	noBorder = false,
 	additionalNodeForHead,
 }) => {
 	const { watch } = useFormContext()
@@ -42,7 +44,11 @@ export const AdminSection: FC<AdminSectionProps> = ({
 				{sectionName ? (
 					<AdminSwitcher name={sectionName}>{titleText}</AdminSwitcher>
 				) : (
-					titleText && <h2 className={styles.singleTitle}>{titleText}</h2>
+					titleText && (
+						<h2 className={cn(styles.singleTitle, { [styles.noBorderBottom]: noBorder })}>
+							{titleText}
+						</h2>
+					)
 				)}
 				{additionalNodeForHead}
 			</div>

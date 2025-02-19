@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 
 export type LocationInputs = {
-	mapCoord: string
+	mapCoords: string
 	mailSection?: boolean
 	mailAddress?: string
 	phoneSection?: boolean
@@ -13,7 +13,7 @@ export type LocationInputs = {
 }
 
 export const locationSchema = yup.object().shape({
-	mapCoord: yup.string().required('Введите координаты'),
+	mapCoords: yup.string().required('Введите координаты'),
 	mailSection: yup.boolean(),
 	mailAddress: yup.string().when('mailSection', ([mailSection]) => {
 		return mailSection ? yup.string().required('Введите адрес') : yup.string().notRequired()

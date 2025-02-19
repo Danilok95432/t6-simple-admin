@@ -12,6 +12,7 @@ type StyledIMaskProps = {
 	$gap?: string
 	$maxWidth?: string
 	$width?: string
+	$height?: string
 	$validError?: boolean
 }
 
@@ -26,6 +27,7 @@ const StyledIMask = styled.div<StyledIMaskProps>`
 	margin: ${({ $margin }) => $margin ?? '0'};
 	max-width: ${({ $maxWidth }) => $maxWidth ?? '100%'};
 	width: ${({ $width }) => $width ?? '100%'};
+	$height: ${({ $height }) => $height ?? '145px'};
 	input {
 		outline: 1px solid ${({ $validError }) => ($validError ? '#F00000' : '#AFAFAF')};
 		border: none;
@@ -56,6 +58,7 @@ export const ControlledMaskedInput: FC<
 	$validError,
 	$maxWidth,
 	$width,
+	$height,
 	label,
 	name,
 	placeholder,

@@ -34,10 +34,13 @@ export const AdminCommunityHistory: FC = () => {
 			bottomDescsSection: false,
 		},
 	})
+
 	const { isSent, markAsSent } = useIsSent(methods.control)
+
 	const onSubmit: SubmitHandler<ArticleInputs> = async (data) => {
 		try {
 			const res = await saveHistoryCommunity(transformToFormData(data))
+
 			if (res) markAsSent(true)
 		} catch (e) {
 			console.error(e)

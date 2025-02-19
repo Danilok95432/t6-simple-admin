@@ -12,6 +12,7 @@
   transition: 0.5s;
   pointer-events: none;
   z-index: 0;
+
   .modalContent {
     transform: scale(0.5);
     transition: 0.4s;
@@ -36,12 +37,13 @@
     }
 
   }
+
   :global {
 
     .modal-header {
       background: #246083;
       border-radius: 10px 10px 0 0;
-      padding: 23px 26px;
+      padding: 25px 26px;
       display: flex;
       gap: 15px;
       align-items: center;
@@ -58,6 +60,7 @@
         margin-bottom: 15px;
       }
     }
+
     .modal-link-btn {
       border: none;
       outline: none;
@@ -76,9 +79,9 @@
 .active {
   pointer-events: all;
   opacity: 1;
+  z-index: 10;
 
   .modalContent {
     transform: scale(1);
   }
 }
-

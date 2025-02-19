@@ -6,6 +6,7 @@ import { AdminSwitcher } from 'src/components/admin-switcher/admin-switcher'
 import { useFormContext } from 'react-hook-form'
 
 import styles from './index.module.scss'
+import classNames from 'classnames'
 
 type AdminSectionProps = {
 	children: ReactNode
@@ -16,6 +17,7 @@ type AdminSectionProps = {
 	headSectionClassName?: string
 	titleText?: string
 	isBlock?: boolean
+	noBorder?: boolean
 }
 
 export const AdminSection: FC<AdminSectionProps> = ({
@@ -26,6 +28,7 @@ export const AdminSection: FC<AdminSectionProps> = ({
 	titleText,
 	headSectionClassName,
 	isBlock = true,
+	noBorder = false,
 	additionalNodeForHead,
 }) => {
 	const { watch } = useFormContext()
@@ -42,7 +45,11 @@ export const AdminSection: FC<AdminSectionProps> = ({
 				{sectionName ? (
 					<AdminSwitcher name={sectionName}>{titleText}</AdminSwitcher>
 				) : (
-					titleText && <h2 className={styles.singleTitle}>{titleText}</h2>
+					titleText && (
+						<h2 className={classNames(styles.singleTitle, { [styles.noBorderBottom]: noBorder })}>
+							{titleText}
+						</h2>
+					)
 				)}
 				{additionalNodeForHead}
 			</div>

@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import { useEffect, type FC } from 'react'
 
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { Helmet } from 'react-helmet-async'
@@ -15,8 +15,17 @@ import {
 	locationSchema,
 } from 'src/pages/community-layout/pages/admin-community-location/schema'
 import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
+import {
+	useGetLocationCommunityQuery,
+	useSaveLocationCommunityMutation,
+} from 'src/store/community/community.api'
+import { transformToFormData } from 'src/helpers/utils'
+import { LocationCommunityResponse } from 'src/types/community'
 
 export const AdminCommunityLocation: FC = () => {
+	const { data: aboutLocationData } = useGetLocationCommunityQuery(null)
+	const [saveLocationCommunity] = useSaveLocationCommunityMutation()
+
 	const methods = useForm<LocationInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(locationSchema),
@@ -26,17 +35,49 @@ export const AdminCommunityLocation: FC = () => {
 			emailsSection: true,
 		},
 	})
+
 	const { isSent, markAsSent } = useIsSent(methods.control)
-	const onSubmit: SubmitHandler<LocationInputs> = (data) => {
-		console.log(data)
-		markAsSent(true)
+
+	const onSubmit: SubmitHandler<LocationInputs> = async (data) => {
+		const renameData = {
+			mapCoords: data.mapCoords,
+			mailAddress: data.mailAddress!,
+			['phone.contact']: data.phoneOwner!,
+			['phone.formatNumber']: data.phoneNumber!,
+			['email.contact']: data.emailOwner!,
+			['email.email']: data.emailAddress!,
+		}
+
+		try {
+			const res = await saveLocationCommunity(transformToFormData(renameData))
+
+			if (res) markAsSent(true)
+		} catch (error) {
+			console.log(error)
+		}
 	}
+
+	useEffect(() => {
+		if (aboutLocationData) {
+			const { mapCoords, mailAddress, phone, email } = aboutLocationData
+
+			methods.reset({
+				mapCoords,
+				mailAddress,
+				phoneOwner: phone.contact,
+				phoneNumber: phone.formatNumber,
+				emailOwner: email.contact,
+				emailAddress: email.email,
+			})
+		}
+	}, [aboutLocationData])
+
 	return (
 		<>
 			<Helmet>
 				<title>Карта и маршруты</title>
 			</Helmet>
-			<AdminContent title='Карта и машруты' link='#'>
+			<AdminContent title='Карта и маршруты' link='#' $height='1277px'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<MapSection />

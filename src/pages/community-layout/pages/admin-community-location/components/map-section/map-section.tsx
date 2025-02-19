@@ -15,9 +15,11 @@ export const MapSection: FC = () => {
 	const { getValues } = useFormContext<LocationInputs>()
 
 	const loadMap = () => {
-		const coordValues = getValues('mapCoord')
+		const coordValues = getValues('mapCoords')
+
 		if (coordValues) {
 			const coordArr = coordValues.split(',')
+
 			if (coordArr.length !== 2) return
 			setMapCoordinates([+coordArr[0], +coordArr[1]])
 		}
@@ -28,7 +30,7 @@ export const MapSection: FC = () => {
 			<ControlledMaskedInput
 				label='Координаты (широта, долгота в градусах, минутах и секундах)*'
 				mask={/^[^a-zA-Zа-яА-Я]*$/}
-				name='mapCoord'
+				name='mapCoords'
 				$margin='0 0 15px 0'
 				placeholder='Координаты'
 				disabled={!!mapCoordinates}

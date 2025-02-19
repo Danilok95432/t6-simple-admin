@@ -14,14 +14,13 @@ import { DateSection } from './components/date-section/date-section'
 import { DescSection } from './components/desc-section/desc-section'
 
 import styles from './index.module.scss'
-import { useGetNewIdRequestQuery, useGetRequestInfoQuery } from 'src/store/requests/requests.api'
+import { useGetRequestInfoQuery } from 'src/store/requests/requests.api'
 import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 
 export const OpenRequest = () => {
 	const { id = '0' } = useParams()
 	const { data: requestInfoData } = useGetRequestInfoQuery(id)
-	const { refetch: getNewId } = useGetNewIdRequestQuery(null)
 
 	const methods = useForm<OpenRequestInputs>({
 		mode: 'onBlur',

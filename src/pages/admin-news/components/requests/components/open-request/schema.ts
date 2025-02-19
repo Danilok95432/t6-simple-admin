@@ -7,6 +7,8 @@ export type OpenRequestInputs = {
 	hidden?: boolean
 	original_date?: boolean
 	id_request_type?: string
+	request_type_name?: string
+	source?: string
 	request_type?: string
 	item_id?: string
 }

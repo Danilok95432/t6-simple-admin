@@ -2,6 +2,8 @@ import { type OneRequestInputs, oneRequestSchema } from './schema'
 
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useGetNewIdRequestQuery } from 'src/store/requests/requests.api'
+import { formatDate, transformToFormData } from 'src/helpers/utils'
 
 import { Container } from 'src/UI/Container/Container'
 import { Disclaimer } from './components/disclaimer/disclaimer'
@@ -16,6 +18,8 @@ import { FlexRow } from 'src/components/flex-row/flex-row'
 import styles from './index.module.scss'
 
 export const OneRequest = () => {
+	const { refetch: getNewId } = useGetNewIdRequestQuery(null)
+
 	const methods = useForm<OneRequestInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(oneRequestSchema),
@@ -25,8 +29,14 @@ export const OneRequest = () => {
 		},
 	})
 
-	const onSubmit: SubmitHandler<OneRequestInputs> = (data) => {
+	const onSubmit: SubmitHandler<OneRequestInputs> = async (data) => {
 		console.log(data)
+		const dateFormat = formatDate(data.publicdate)
+		if (dateFormat) data.publicdate = dateFormat
+		const requestInfoFormData = transformToFormData(data)
+		const newIdResponse = await getNewId().unwrap()
+		requestInfoFormData.append('id', newIdResponse.id)
+		// const res = await saveRequestInfo(requestInfoFormData)
 	}
 
 	return (

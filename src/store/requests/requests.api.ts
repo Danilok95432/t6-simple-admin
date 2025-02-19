@@ -48,9 +48,18 @@ export const requestsApi = createApi({
 			}),
 			providesTags: ['Requests'],
 		}),
-		getRequestInfo: build.query<RequestInfoResponse, string>({
+		getNewRequestInfo: build.query<RequestInfoResponse, string>({
 			query: (id) => ({
 				url: `requests/edit`,
+				params: {
+					id,
+				},
+			}),
+			providesTags: ['RequestInfo'],
+		}),
+		getRequestInfo: build.query<RequestInfoResponse, string>({
+			query: (id) => ({
+				url: `requests/view`,
 				params: {
 					id,
 				},
@@ -82,4 +91,5 @@ export const {
 	useHideRequestByIdMutation,
 	useGetNewIdRequestQuery,
 	useGetRequestInfoQuery,
+	useGetNewRequestInfoQuery,
 } = requestsApi

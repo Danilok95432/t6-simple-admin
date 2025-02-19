@@ -1,6 +1,6 @@
 export type RequestItem = {
 	id: string
-	hidden: string
+	hidden: boolean
 	title: string
 	request_type: string
 	id_request_status: string
@@ -21,7 +21,7 @@ export type RequestNewIdResponse = {
 
 export type RequestInfoResponse = {
 	id: string
-	hidden: string
+	hidden: boolean
 	title: string
 	request_type: string
 	id_request_status: string

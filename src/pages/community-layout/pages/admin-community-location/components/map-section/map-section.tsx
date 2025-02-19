@@ -2,6 +2,7 @@ import { type FC, useState } from 'react'
 import { type LocationInputs } from 'src/pages/community-layout/pages/admin-community-location/schema'
 
 import { useFormContext } from 'react-hook-form'
+import { useGetLocationCommunityQuery } from 'src/store/community/community.api'
 
 import { AdminSection } from 'src/components/admin-section/admin-section'
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
@@ -12,7 +13,10 @@ import styles from './index.module.scss'
 
 export const MapSection: FC = () => {
 	const [mapCoordinates, setMapCoordinates] = useState<[number, number] | null>(null)
-	const { getValues } = useFormContext<LocationInputs>()
+	const { getValues, setValue } = useFormContext<LocationInputs>()
+	const prevMapCoordinates = useGetLocationCommunityQuery(null)
+		.data?.mapCoords.split(',')
+		.map((el) => +el)
 
 	const loadMap = () => {
 		const coordValues = getValues('mapCoords')
@@ -33,7 +37,7 @@ export const MapSection: FC = () => {
 				name='mapCoords'
 				$margin='0 0 15px 0'
 				placeholder='Координаты'
-				disabled={!!mapCoordinates}
+				disabled={!mapCoordinates?.length}
 			/>
 			<div className={styles.mapControllers}>
 				<AdminButton $padding='0 20px' $height='35px' type='button' onClick={loadMap}>
@@ -44,7 +48,10 @@ export const MapSection: FC = () => {
 						$padding='0 20px'
 						$height='35px'
 						type='button'
-						onClick={() => setMapCoordinates(null)}
+						onClick={() => {
+							setMapCoordinates([prevMapCoordinates![0], prevMapCoordinates![1]])
+							setValue('mapCoords', prevMapCoordinates?.join(', ')!)
+						}}
 					>
 						Отменить
 					</AdminButton>

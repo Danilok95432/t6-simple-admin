@@ -8,6 +8,7 @@ import {
 	useSaveHistoryCommunityMutation,
 } from 'src/store/community/community.api'
 import { transformToFormData } from 'src/helpers/utils'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 import {
 	type ArticleInputs,
@@ -19,7 +20,6 @@ import { AdminControllers } from 'src/components/admin-controllers/admin-control
 import { TitleSection } from './components/title-section/title-section'
 import { GallerySection } from './components/gallery-section/gallery-section'
 import { ArticleSection } from './components/article-section/article-section'
-import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const AdminCommunityHistory: FC = () => {
 	const { data: aboutHistoryData } = useGetHistoryCommunityQuery(null)

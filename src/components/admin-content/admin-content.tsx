@@ -16,7 +16,7 @@ type AdminContentProps = {
 const StyledAdminContent = styled.div<AdminContentProps>`
 	border-radius: 5px;
 	background-color: ${({ $backgroundColor }) => $backgroundColor ?? '#f5f7fa'};
-	padding: ${({ $padding }) => $padding ?? '33px 30px 28px'};
+	padding: ${({ $padding }) => $padding ?? '31px 30px 55px'};
 	max-width: ${({ $width }) => $width ?? '1570px'};
 	min-height: ${({ $height }) => $height ?? '800px'};
 

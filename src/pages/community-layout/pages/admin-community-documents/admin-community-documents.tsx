@@ -7,6 +7,7 @@ import {
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Helmet } from 'react-helmet-async'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
@@ -15,7 +16,6 @@ import { TitleSection } from 'src/pages/community-layout/pages/admin-community-d
 import { MainDocSection } from 'src/pages/community-layout/pages/admin-community-documents/components/main-doc-section/main-doc-section'
 import { RulesSection } from 'src/pages/community-layout/pages/admin-community-documents/components/rules-section/rules-section'
 import { LawsSection } from 'src/pages/community-layout/pages/admin-community-documents/components/laws-section/laws-section'
-import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const AdminCommunityDocuments: FC = () => {
 	const methods = useForm<CommunityDocumentsInputs>({

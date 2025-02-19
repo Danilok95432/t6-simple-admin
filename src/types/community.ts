@@ -22,12 +22,12 @@ export type LocationCommunityResponse = {
 	email: EmailLocationCommunity
 }
 
-interface PhoneLocationCommunity {
+type PhoneLocationCommunity = {
 	contact: string
 	formatNumber: string
 }
 
-interface EmailLocationCommunity {
+type EmailLocationCommunity = {
 	contact: string
 	email: string
 }

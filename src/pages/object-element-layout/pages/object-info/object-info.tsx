@@ -55,7 +55,10 @@ export const ObjectInfo = () => {
 				<AdminContent title='Об объекте' link='#' $padding='0 0 50px 0'>
 					<FormProvider {...methods}>
 						<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
-							<MainSection />
+							<MainSection
+								objectTypes={objInfoData?.object_types}
+								objectApply={objInfoData?.object_apply}
+							/>
 							<ContactsSection />
 							<AdminControllers outLink={AdminRoute.AdminHome} />
 						</form>

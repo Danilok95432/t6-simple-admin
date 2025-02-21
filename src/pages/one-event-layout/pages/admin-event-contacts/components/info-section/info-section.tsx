@@ -10,7 +10,7 @@ export const InfoSection = () => {
 	return (
 		<AdminSection>
 			<ControlledInput
-				name='site'
+				name='website'
 				label='Интернет-сайт'
 				placeholder='Полное название события'
 				margin='0 0 20px 0'
@@ -26,12 +26,12 @@ export const InfoSection = () => {
 				$template='auto / 0.35fr 0.65fr'
 			>
 				<ControlledMaskedInput
-					name='phone'
+					name='contact_telphone'
 					placeholder='+7 (999) 999-00-00'
 					mask='{+7} (000) 000-00-00'
 				/>
 				<SwitchedRadioBtns
-					name='isShowPhone'
+					name='hide_telphone'
 					contentRadio1='Показать всем'
 					contentRadio2='Скрыть'
 				/>
@@ -46,23 +46,15 @@ export const InfoSection = () => {
 				$margin='0 0 20px 0'
 				$template='auto / 0.35fr 0.65fr'
 			>
-				<ControlledInput name='tgChannel' placeholder='Полное название события' />
-				<SwitchedRadioBtns
-					name='isShowTgChannel'
-					contentRadio1='Показать всем'
-					contentRadio2='Скрыть'
-				/>
+				<ControlledInput name='contact_tg' placeholder='Полное название события' />
+				<SwitchedRadioBtns name='hide_tg' contentRadio1='Показать всем' contentRadio2='Скрыть' />
 			</GridRow>
 			<CustomText $margin='0 0 5px 0' $fontWeight='600'>
 				Контактный e-mail
 			</CustomText>
 			<GridRow $alignItems='center' $gap='30px' $mdGap='5px' $template='auto / 0.35fr 0.65fr'>
-				<ControlledInput name='email' placeholder='адрес электронной почты' />
-				<SwitchedRadioBtns
-					name='isShowEmail'
-					contentRadio1='Показать всем'
-					contentRadio2='Скрыть'
-				/>
+				<ControlledInput name='contact_email' placeholder='адрес электронной почты' />
+				<SwitchedRadioBtns name='hide_email' contentRadio1='Показать всем' contentRadio2='Скрыть' />
 			</GridRow>
 		</AdminSection>
 	)

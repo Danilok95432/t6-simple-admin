@@ -16,7 +16,7 @@ export const DateSection = () => {
 			<GridRow $template='auto/204px 204px'>
 				<ControlledDateInput
 					className={adminStyles.adminDateInput}
-					name='dateEventStart'
+					name='date_from'
 					dateFormat='dd.MM.yyyy'
 					placeholder='дд.мм.гггг'
 				/>
@@ -24,7 +24,7 @@ export const DateSection = () => {
 					className={adminStyles.adminTimeInput}
 					name='timeEventStart'
 					placeholder='чч.мм'
-					dateFormat='HH:mm'
+					dateFormat='HH:mm:ss'
 					showTimeSelectOnly
 					showTimeSelect
 				/>
@@ -35,7 +35,7 @@ export const DateSection = () => {
 			<GridRow $template='auto/204px 204px'>
 				<ControlledDateInput
 					className={adminStyles.adminDateInput}
-					name='dateEventEnd'
+					name='date_to'
 					dateFormat='dd.MM.yyyy'
 					placeholder='дд.мм.гггг'
 					margin='0'
@@ -44,7 +44,7 @@ export const DateSection = () => {
 					className={adminStyles.adminTimeInput}
 					name='timeEventEnd'
 					placeholder='чч.мм'
-					dateFormat='HH:mm'
+					dateFormat='HH:mm:ss'
 					showTimeSelectOnly
 					showTimeSelect
 					margin='0'

@@ -1,34 +1,34 @@
+import { type SelOption } from 'src/types/select'
 import * as yup from 'yup'
 
 export type EventProfileInputs = {
-	eventName: string
-	eventFace?: string
-	eventType: string
-	eventLevel: string
-	eventTags?: string
-	dateEventStart: Date
-	timeEventStart: Date
-	dateEventEnd: Date
-	timeEventEnd: Date
-	shortDesc: string
-	fullDesc: string
-	eventConditions: string
-	eventSchedule: string
-	visitingAge?: string
-	areaList: string
+	title: string
+	objects_list?: SelOption[]
+	event_types_list?: SelOption[]
+	event_levels_list?: SelOption[]
+	tags?: string
+	date_from: string
+	time_from: string
+	date_to: string
+	time_to: string
+	description: string
+	fullinfo: string
+	conditions: string
+	raspisanie: string
+	age_list?: SelOption[]
+	locations_list?: SelOption[]
+	main?: boolean
+	hidden?: boolean
 }
 
 export const eventProfileSchema = yup.object().shape({
-	eventName: yup.string().required('Введите название события'),
-	eventType: yup.string().required().notOneOf(['0'], 'Выберите значение'),
-	eventLevel: yup.string().required().notOneOf(['0'], 'Выберите значение'),
-	dateEventStart: yup.date().required('Введите дату'),
-	timeEventStart: yup.date().required('Введите время'),
-	dateEventEnd: yup.date().required('Введите дату'),
-	timeEventEnd: yup.date().required('Введите время'),
-	shortDesc: yup.string().required('Введите краткое описание'),
-	fullDesc: yup.string().required('Введите подробное описание'),
-	eventConditions: yup.string().required('Укажите условия'),
-	eventSchedule: yup.string().required('Укажите расписание'),
-	areaList: yup.string().required().notOneOf(['0'], 'Выберите значение'),
+	title: yup.string().required('Введите название события'),
+	date_from: yup.string().required('Введите дату'),
+	time_from: yup.string().required('Введите время'),
+	date_to: yup.string().required('Введите дату'),
+	time_to: yup.string().required('Введите время'),
+	description: yup.string().required('Введите краткое описание'),
+	fullinfo: yup.string().required('Введите подробное описание'),
+	conditions: yup.string().required('Укажите условия'),
+	raspisanie: yup.string().required('Укажите расписание'),
 })

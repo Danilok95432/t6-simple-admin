@@ -1,10 +1,6 @@
 import { splitAndTrimStringToArray } from 'src/helpers/utils'
+import { type SelOption } from 'src/types/select'
 import * as yup from 'yup'
-
-export type NewsGallery = {
-	label: string
-	id: string
-}
 
 export type NewsPhoto = {
 	id: string
@@ -17,7 +13,7 @@ export type OneNewsInputs = {
 	title: string
 	itemdate: string
 	tags: string[]
-	news_gallerys?: NewsGallery[]
+	news_gallerys?: SelOption[]
 	id_gallery?: string
 	short: string
 	full: string

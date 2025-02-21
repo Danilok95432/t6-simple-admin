@@ -9,23 +9,30 @@ import { Loader } from 'src/components/loader/loader'
 import { RowController } from 'src/components/row-controller/row-controller'
 import { TableFooter } from 'src/components/table-footer/table-footer'
 import { GridRow } from 'src/components/grid-row/grid-row'
-import { TableSearchInput } from 'src/modules/table-search-input/table-search'
-import { useDeleteEventByIdMutation, useGetAllEventsQuery } from 'src/store/events/events.api'
-import { useTableSearch } from 'src/hooks/table-search/table-search'
+import {
+	useDeleteEventByIdMutation,
+	useGetAllEventsQuery,
+	useHideEventByIdMutation,
+} from 'src/store/events/events.api'
 import { mainFormatDate } from 'src/helpers/utils'
 
 import styles from './index.module.scss'
+import { useAppSelector } from 'src/hooks/store'
+import { getFiltrationValues } from 'src/modules/table-filtration/store/table-filtration.selectors'
+import { TableFiltration } from 'src/modules/table-filtration/table-filtration'
+import { EventsElementsFiltrationInputs } from './consts'
 
 export const EventsTable: FC = () => {
-	const { handleSearch, searchParams } = useTableSearch([
-		'title',
-		'dateStart',
-		'dateEnd',
-		'location',
-	])
-	const { data: events, isLoading } = useGetAllEventsQuery({ search: searchParams.title })
-
+	const filterValues = useAppSelector(getFiltrationValues)
+	const { data: eventsDataResponse, isLoading } = useGetAllEventsQuery({
+		idObject: filterValues.id_object,
+		title: filterValues.title,
+		objectTitle: filterValues.object_title,
+		dateFrom: filterValues.date_from,
+		dateTo: filterValues.date_to,
+	})
 	const [deleteEventById] = useDeleteEventByIdMutation()
+	const [hideEventById] = useHideEventByIdMutation()
 
 	const navigate = useNavigate()
 
@@ -35,17 +42,17 @@ export const EventsTable: FC = () => {
 			return {
 				rowId: eventEl.id,
 				cells: [
-					<p className={cn({ 'hidden-cell-icon': eventEl.isHidden })} key='0'>
+					<p className={cn({ 'hidden-cell-icon': eventEl.hidden })} key='0'>
 						{eventEl.title}
 					</p>,
-					<p className={cn({ 'hidden-cell': eventEl.isHidden })} key='1'>
-						{mainFormatDate(eventEl.dates[0])}
+					<p className={cn({ 'hidden-cell': eventEl.hidden })} key='1'>
+						{mainFormatDate(eventEl.date[0])}
 					</p>,
-					<p className={cn({ 'hidden-cell': eventEl.isHidden })} key='2'>
-						{mainFormatDate(eventEl.dates[1])}
+					<p className={cn({ 'hidden-cell': eventEl.hidden })} key='2'>
+						{mainFormatDate(eventEl.date[1])}
 					</p>,
-					<p className={cn({ 'hidden-cell': eventEl.isHidden })} key='3'>
-						{eventEl.object}
+					<p className={cn({ 'hidden-cell': eventEl.hidden })} key='3'>
+						{eventEl.object_title}
 					</p>,
 					<RowController
 						id={eventEl.id}
@@ -63,45 +70,28 @@ export const EventsTable: FC = () => {
 		await deleteEventById(id)
 	}
 	const rowHideHandler = async (id: string) => {
-		console.log(id + 'спрятан')
+		await hideEventById(id)
 	}
 
 	const rowClickHandler = (id: string) => {
 		navigate(`/event/event-profile/${id}`)
 	}
 
-	if (isLoading || !events) return <Loader />
+	if (isLoading || !eventsDataResponse?.events) return <Loader />
 
 	return (
 		<div>
 			<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
-				<TableSearchInput
-					handleSearch={(val) => handleSearch('title', val)}
-					placeholder='искать по наименованию'
-				/>
-				<TableSearchInput
-					handleSearch={(val) => handleSearch('dateStart', val)}
-					placeholder='начало'
-					$variant='date'
-				/>
-				<TableSearchInput
-					handleSearch={(val) => handleSearch('dateEnd', val)}
-					placeholder='окончание'
-					$variant='date'
-				/>
-				<TableSearchInput
-					handleSearch={(val) => handleSearch('location', val)}
-					placeholder='место проведения'
-				/>
+				<TableFiltration filterInputs={EventsElementsFiltrationInputs} />
 			</GridRow>
 			<CustomTable
 				className={styles.eventsTable}
-				rowData={formatEventsTableData(events)}
+				rowData={formatEventsTableData(eventsDataResponse?.events)}
 				colTitles={tableTitles}
 				rowClickHandler={rowClickHandler}
 			/>
 			<TableFooter
-				totalElements={events.length}
+				totalElements={eventsDataResponse?.events.length}
 				addClickHandler={() => navigate('/event/event-profile/new')}
 				addText='Добавить событие'
 			/>

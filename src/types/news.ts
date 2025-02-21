@@ -1,3 +1,5 @@
+import { type SelOption } from './select'
+
 export type NewsItem = {
 	id: string
 	hidden: boolean
@@ -23,4 +25,5 @@ export type NewsInfoResponse = {
 	tags: string[]
 	main: boolean
 	date: Date
+	news_gallerys?: SelOption[]
 }

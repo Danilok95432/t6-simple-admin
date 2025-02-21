@@ -5,32 +5,39 @@ import { ControlledSelect } from 'src/components/controlled-select/controlled-se
 import { GridRow } from 'src/components/grid-row/grid-row'
 
 import styles from './index.module.scss'
+import { type FC } from 'react'
+import { type SelOption } from 'src/types/select'
 
-export const DescSection = () => {
+type DescSectionProps = {
+	ageList?: SelOption[]
+	locationsList?: SelOption[]
+}
+
+export const DescSection: FC<DescSectionProps> = ({ ageList, locationsList }) => {
 	return (
 		<AdminSection isBlock={false}>
 			<ControlledInput
-				name='shortDesc'
+				name='description'
 				label='Краткое описание *'
 				placeholder='Краткое описание события'
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput
-				name='fullDesc'
+				name='fullinfo'
 				label='Подробное описание *'
 				placeholder='Подробное описание события'
 				isTextarea
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput
-				name='eventConditions'
+				name='conditions'
 				label='Условия участия *'
 				placeholder='Условия участия в событии'
 				isTextarea
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput
-				name='eventSchedule'
+				name='raspisanie'
 				label='Расписание события *'
 				placeholder='Расписание события нумерованным текстом'
 				isTextarea
@@ -40,23 +47,15 @@ export const DescSection = () => {
 			<GridRow $template='auto/ 0.5fr' $mdTemplate='1fr / 1fr' $margin='0 0 20px 0'>
 				<ControlledSelect
 					label='Возрастной рейтинг *'
-					name='visitingAge'
-					selectOptions={[
-						{ label: 'посещение, с 16 лет', value: '1' },
-						{ label: 'посещение, с 18 лет', value: '2' },
-						{ label: 'без ограничение по возрасту', value: '3' },
-					]}
+					name='age_list'
+					selectOptions={ageList ?? [{ label: 'Не выбрано', value: '0' }]}
 				/>
 			</GridRow>
 			<ControlledSelect
 				label='Площадка *'
-				name='areaList'
+				name='locations_list'
 				margin='0 0 25px 0'
-				selectOptions={[
-					{ label: 'выбрать из списка', value: '0' },
-					{ label: 'площадка 1', value: '1' },
-					{ label: 'площадка 2', value: '2' },
-				]}
+				selectOptions={locationsList ?? [{ label: 'Не выбрано', value: '0' }]}
 			/>
 			<p className={styles.placeRequest}>
 				Если площадки нет в списке, Вы можете <a href='#'>запросить добавление новой площадки</a>

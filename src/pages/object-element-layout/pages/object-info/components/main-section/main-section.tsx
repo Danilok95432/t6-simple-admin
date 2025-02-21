@@ -1,4 +1,5 @@
 import { type FC } from 'react'
+import { type SelOption } from 'src/types/select'
 
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { AdminSection } from 'src/components/admin-section/admin-section'
@@ -7,7 +8,12 @@ import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 
 import styles from './index.module.scss'
 
-export const MainSection: FC = () => {
+type MainSectionProps = {
+	objectTypes?: SelOption[]
+	objectApply?: SelOption[]
+}
+
+export const MainSection: FC<MainSectionProps> = ({ objectTypes, objectApply }) => {
 	return (
 		<AdminSection innerClassName={styles.mainSectionInner} titleText='Основные данные'>
 			<ControlledInput
@@ -17,29 +23,13 @@ export const MainSection: FC = () => {
 				margin='0 0 20px 0'
 			/>
 			<ControlledSelect
-				selectOptions={[
-					{ label: 'Ремесленный центр', value: '1' },
-					{ label: 'Центральный', value: '2' },
-					{ label: 'Здание', value: '3' },
-					{ label: 'Площадка', value: '4' },
-					{ label: 'Выставка', value: '5' },
-					{ label: 'Культурный центр', value: '6' },
-					{ label: 'Северо-Западный', value: '7' },
-					{ label: 'Приволжский', value: '8' },
-				]}
+				selectOptions={objectTypes ?? [{ label: 'Не выбрано', value: '0' }]}
 				name='object_types'
 				label='Тип объекта *'
 				margin='0 0 20px 0'
 			/>
 			<ControlledSelect
-				selectOptions={[
-					{ label: 'Совместная', value: '1' },
-					{ label: 'Частная', value: '2' },
-					{ label: 'Государственная', value: '3' },
-					{ label: 'Муниципальная', value: '4' },
-					{ label: 'АНО Татарский Этноспорт', value: '5' },
-					{ label: 'Без образования юрлица', value: '6' },
-				]}
+				selectOptions={objectApply ?? [{ label: 'Не выбрано', value: '0' }]}
 				name='object_apply'
 				label='Принадлежность объекта *'
 				margin='0 0 20px 0'

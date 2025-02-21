@@ -1,10 +1,11 @@
 import * as yup from 'yup'
 import { type FileWithPreview } from 'src/types/files'
+import { type SelOption } from 'src/types/select'
 
 export type ObjectInfoInputs = {
 	title: string
-	object_types: string
-	object_apply: string
+	object_types?: SelOption[]
+	object_apply?: SelOption[]
 	photo?: FileWithPreview[]
 	mainDescs: string
 	descList: string
@@ -20,8 +21,6 @@ export type ObjectInfoInputs = {
 
 export const objectInfoSchema = yup.object().shape({
 	title: yup.string().required('Введите название'),
-	object_types: yup.string().required('Введите тип'),
-	object_apply: yup.string().required('Введите принадлежность объекта'),
 	mainDescs: yup.string().required('Введите краткое описание'),
 	descList: yup.string().required('Введите полное описание'),
 	email: yup.string().required('Введите полный почтовый адрес'),

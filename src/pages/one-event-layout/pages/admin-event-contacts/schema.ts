@@ -1,32 +1,21 @@
+import { type pathwaysEvent } from 'src/types/events'
 import * as yup from 'yup'
-import type { RouteBlock } from 'src/types/global'
 
 export type EventContactsInputs = {
-	site?: string
-	phone?: string
-	tgChannel?: string
-	email?: string
-	isShowPhone?: boolean
-	isShowTgChannel?: boolean
-	isShowEmail?: boolean
-	isShowRoutesSection?: boolean
-	routesSection?: boolean
-	routes?: RouteBlock[]
+	website: string
+	contact_telphone: string
+	contact_tg: string
+	contact_email: string
+	hide_telphone?: boolean
+	hide_tg?: boolean
+	hide_email?: boolean
+	pathways?: pathwaysEvent[]
+	hide_pathways?: boolean
 }
 
 export const eventContactsSchema = yup.object().shape({
-	site: yup.string().url('Неверный формат сайта'),
-	email: yup.string().email('Неверный формат e-mail'),
-	routesSection: yup.boolean(),
-	routes: yup.array().when('routesSection', ([routesSection]) => {
-		return routesSection
-			? yup.array().of(
-					yup.object().shape({
-						routeTitle: yup.string().required('Введите название маршрута'),
-						routeDesc: yup.string().required('Введите описание маршрута'),
-						routeScript: yup.string().required('Введите текст скрипта'),
-					}),
-				)
-			: yup.array().notRequired()
-	}),
+	website: yup.string().url('Неверный формат сайта').required(),
+	contact_email: yup.string().email('Неверный формат e-mail').required(),
+	contact_tg: yup.string().url('Неверный формат ссылки').required(),
+	contact_telphone: yup.string().required('Неверный формат телефона').required(),
 })

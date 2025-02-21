@@ -71,7 +71,7 @@ export const OneNews = () => {
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<div className={styles.oneNewsContent}>
 							<div className={styles.oneNewsContentLeft}>
-								<MainSection />
+								<MainSection galleryOptions={newsInfoData?.news_gallerys} />
 								<SeoSection />
 							</div>
 							<div className={styles.oneNewsContentRight}>

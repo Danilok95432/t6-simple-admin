@@ -1,3 +1,6 @@
+import { type SelOption } from 'src/types/select'
+import { type FC } from 'react'
+
 import { AdminSection } from 'src/components/admin-section/admin-section'
 import { ControlledDateInput } from 'src/components/controlled-date-input/controlled-date-input'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
@@ -9,7 +12,11 @@ import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
 
-export const MainSection = () => {
+type MainSectionProps = {
+	galleryOptions?: SelOption[]
+}
+
+export const MainSection: FC<MainSectionProps> = ({ galleryOptions }) => {
 	return (
 		<AdminSection className={styles.mainSection} isBlock={false}>
 			<ControlledInput
@@ -36,7 +43,7 @@ export const MainSection = () => {
 				margin='0 0 20px 0'
 			/>
 			<ControlledSelect
-				selectOptions={[{ label: 'Не выбрано', value: '1' }]}
+				selectOptions={galleryOptions ?? [{ label: 'Не выбрано', value: '0' }]}
 				name='news_gallerys'
 				label='Галерея'
 				margin='0 0 20px 0'

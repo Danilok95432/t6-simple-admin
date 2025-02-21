@@ -157,7 +157,7 @@ div.adminCheckbox {
         content: '';
         width: 13px;
         height: 10px;
-        z-index: 20;
+        z-index: 0;
         right: 10px;
         top: 50%;
         transform: translateY(-50%);
@@ -200,7 +200,7 @@ div.adminCheckbox {
         content: '';
         width: 13px;
         height: 13px;
-        z-index: 20;
+        z-index: 0;
         right: 10px;
         top: 50%;
         transform: translateY(-50%);

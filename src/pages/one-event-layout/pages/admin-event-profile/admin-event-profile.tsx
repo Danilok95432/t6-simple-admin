@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import { useEffect, type FC } from 'react'
 import {
 	type EventProfileInputs,
 	eventProfileSchema,
@@ -7,6 +7,12 @@ import {
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Link, useParams } from 'react-router-dom'
+import {
+	useGetEventInfoQuery,
+	useGetNewIdEventQuery,
+	useSaveEventProfileInfoMutation,
+} from 'src/store/events/events.api'
+import { formatDate, transformToFormData } from 'src/helpers/utils'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
@@ -20,15 +26,46 @@ import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
 
 export const AdminEventProfile: FC = () => {
-	const { id } = useParams()
+	const { id = '0' } = useParams()
+	const { data: eventInfoData } = useGetEventInfoQuery(id)
+	const [saveEventInfo] = useSaveEventProfileInfoMutation()
+	const { refetch: getNewId } = useGetNewIdEventQuery(null)
+
 	const methods = useForm<EventProfileInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(eventProfileSchema),
+		defaultValues: {
+			main: false,
+			hidden: false,
+		},
 	})
 
-	const onSubmit: SubmitHandler<EventProfileInputs> = (data) => {
+	const onSubmit: SubmitHandler<EventProfileInputs> = async (data) => {
 		console.log(data)
+		const dateFormatFrom = formatDate(data.date_from)
+		const dateFormatTo = formatDate(data.date_to)
+		const timeFormatFrom = formatDate(data.time_from)
+		const timeFormatTo = formatDate(data.time_to)
+		if (dateFormatFrom) data.date_from = dateFormatFrom
+		if (dateFormatTo) data.date_to = dateFormatTo
+		if (timeFormatFrom) data.time_from = timeFormatFrom
+		if (timeFormatTo) data.time_to = timeFormatTo
+		const eventInfoFormData = transformToFormData(data)
+		let eventId = id
+
+		if (id === 'new') {
+			const newIdResponse = await getNewId().unwrap()
+			eventId = newIdResponse.id
+			eventInfoFormData.append('id', eventId)
+		} else eventInfoFormData.append('id', eventId)
+		await saveEventInfo(eventInfoFormData)
 	}
+
+	useEffect(() => {
+		if (eventInfoData) {
+			methods.reset({ ...eventInfoData })
+		}
+	}, [eventInfoData])
 
 	return (
 		<AdminContent className={styles.eventProfilePage} $backgroundColor='#ffffff'>
@@ -43,9 +80,16 @@ export const AdminEventProfile: FC = () => {
 					noValidate
 					autoComplete='off'
 				>
-					<TitleSection />
+					<TitleSection
+						objectsList={eventInfoData?.objects_list}
+						eventTypesList={eventInfoData?.event_types_list}
+						eventLevelsList={eventInfoData?.event_levels_list}
+					/>
 					<DateSection />
-					<DescSection />
+					<DescSection
+						ageList={eventInfoData?.age_list}
+						locationsList={eventInfoData?.locations_list}
+					/>
 					{id === 'new' ? (
 						<FlexRow $margin='0 0 40px 0'>
 							<AdminButton as='button' type='submit'>

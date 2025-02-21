@@ -1,5 +1,5 @@
 import { type FC } from 'react'
-import { type ObjLocationInputs } from 'src/pages/object-element-layout/pages/object-location/schema'
+import { type EventContactsInputs } from '../../schema'
 
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
@@ -13,23 +13,20 @@ import styles from './index.module.scss'
 import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-radio-btns'
 
 export const RoutesSection: FC = () => {
-	const {
-		control,
-		formState: { errors },
-	} = useFormContext<ObjLocationInputs>()
+	const { control } = useFormContext<EventContactsInputs>()
 
 	const { fields, append, remove } = useFieldArray({
 		control,
-		name: 'routes',
+		name: 'pathways',
 	})
 
 	return (
 		<AdminSection
 			titleText={`Маршруты (${fields?.length} из 3)`}
-			sectionName='routesSection'
+			sectionName='hide_pathways'
 			additionalNodeForHead={
 				<SwitchedRadioBtns
-					name='isShowRoutesSection'
+					name='hide_pathways'
 					contentRadio1='Показать всем'
 					contentRadio2='Скрыть'
 				/>
@@ -42,22 +39,19 @@ export const RoutesSection: FC = () => {
 						<GridRow>
 							<FlexRow $direction='column' $gap='15px'>
 								<ControlledInput
-									name={`routes.${idx}.routeTitle`}
-									dynamicError={errors?.routes?.[idx]?.routeTitle}
+									name={`pathways[${idx}].title`}
 									placeholder='Название маршрута'
 									width='100%'
 								/>
 								<ControlledInput
-									name={`routes.${idx}.routeDesc`}
-									dynamicError={errors?.routes?.[idx]?.routeDesc}
+									name={`pathways[${idx}].desc`}
 									placeholder='Описание маршрута'
 									height='58px'
 									isTextarea
 								/>
 							</FlexRow>
 							<ControlledInput
-								name={`routes.${idx}.routeScript`}
-								dynamicError={errors?.routes?.[idx]?.routeScript}
+								name={`pathways[${idx}].location`}
 								placeholder='Текст скрипта Яндекса'
 								height='106px'
 								isTextarea
@@ -79,9 +73,9 @@ export const RoutesSection: FC = () => {
 					onClick={() =>
 						append(
 							{
-								routeTitle: '',
-								routeDesc: '',
-								routeScript: '',
+								title: '',
+								desc: '',
+								location: '',
 							},
 							{ shouldFocus: false },
 						)

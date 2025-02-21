@@ -1,3 +1,6 @@
+import { type SelOption } from 'src/types/select'
+import { type FC } from 'react'
+
 import { AdminSection } from 'src/components/admin-section/admin-section'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 
@@ -5,23 +8,29 @@ import { ControlledSelect } from 'src/components/controlled-select/controlled-se
 import { GridRow } from 'src/components/grid-row/grid-row'
 import { CustomText } from 'src/components/custom-text/custom-text'
 
-export const TitleSection = () => {
+type TitleSectionProps = {
+	objectsList?: SelOption[]
+	eventTypesList?: SelOption[]
+	eventLevelsList?: SelOption[]
+}
+
+export const TitleSection: FC<TitleSectionProps> = ({
+	objectsList,
+	eventTypesList,
+	eventLevelsList,
+}) => {
 	return (
 		<AdminSection isBlock={false}>
 			<ControlledInput
-				name='eventName'
+				name='title'
 				label='Название события *'
 				placeholder='Полное название события'
 				margin='0 0 20px 0'
 			/>
 			<ControlledSelect
-				name='eventLevel'
+				name='objects_list'
 				label='Событие проводится от лица *'
-				selectOptions={[
-					{ label: 'Татарстанское республиканское отделение', value: '1' },
-					{ label: 'лицо 1', value: '2' },
-					{ label: 'лицо 2', value: '3' },
-				]}
+				selectOptions={objectsList ?? [{ label: 'Не выбрано', value: '0' }]}
 				margin='0 0 20px 0'
 			/>
 			<CustomText $margin='0 0 5px 0' $fontWeight='600'>
@@ -29,25 +38,17 @@ export const TitleSection = () => {
 			</CustomText>
 			<GridRow $margin='0 0 20px 0'>
 				<ControlledSelect
-					name='eventType'
-					selectOptions={[
-						{ label: 'выбрать тип из списка', value: '0' },
-						{ label: 'тип 1', value: '1' },
-						{ label: 'тип 2', value: '2' },
-					]}
+					name='event_types_list'
+					selectOptions={eventTypesList ?? [{ label: 'Не выбрано', value: '0' }]}
 				/>
 				<ControlledSelect
-					name='eventLevel'
-					selectOptions={[
-						{ label: 'выбрать уровень', value: '0' },
-						{ label: 'уровень 1', value: '1' },
-						{ label: 'уровень 2', value: '2' },
-					]}
+					name='event_levels_list'
+					selectOptions={eventLevelsList ?? [{ label: 'Не выбрано', value: '0' }]}
 				/>
 			</GridRow>
 
 			<ControlledInput
-				name='eventTags'
+				name='tags'
 				label='Теги события'
 				placeholder='первый тег, второй тег, третий тег'
 			/>

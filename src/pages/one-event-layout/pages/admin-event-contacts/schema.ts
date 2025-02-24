@@ -16,6 +16,6 @@ export type EventContactsInputs = {
 export const eventContactsSchema = yup.object().shape({
 	website: yup.string().url('Неверный формат сайта').required(),
 	contact_email: yup.string().email('Неверный формат e-mail').required(),
-	contact_tg: yup.string().url('Неверный формат ссылки').required(),
+	contact_tg: yup.string().required('Введите имя пользователя или тег группы'),
 	contact_telphone: yup.string().required('Неверный формат телефона').required(),
 })

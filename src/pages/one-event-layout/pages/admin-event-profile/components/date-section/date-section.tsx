@@ -22,7 +22,7 @@ export const DateSection = () => {
 				/>
 				<ControlledDateInput
 					className={adminStyles.adminTimeInput}
-					name='timeEventStart'
+					name='time_from'
 					placeholder='чч.мм'
 					dateFormat='HH:mm:ss'
 					showTimeSelectOnly
@@ -42,7 +42,7 @@ export const DateSection = () => {
 				/>
 				<ControlledDateInput
 					className={adminStyles.adminTimeInput}
-					name='timeEventEnd'
+					name='time_to'
 					placeholder='чч.мм'
 					dateFormat='HH:mm:ss'
 					showTimeSelectOnly

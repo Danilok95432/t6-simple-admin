@@ -12,7 +12,7 @@ import {
 	useGetNewIdEventQuery,
 	useSaveEventProfileInfoMutation,
 } from 'src/store/events/events.api'
-import { formatDate, transformToFormData } from 'src/helpers/utils'
+import { formatDate, formatDateToISOWithTimezone, transformToFormData } from 'src/helpers/utils'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
@@ -24,6 +24,7 @@ import { FlexRow } from 'src/components/flex-row/flex-row'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
+import { parse, format } from 'date-fns'
 
 export const AdminEventProfile: FC = () => {
 	const { id = '0' } = useParams()
@@ -41,16 +42,30 @@ export const AdminEventProfile: FC = () => {
 	})
 
 	const onSubmit: SubmitHandler<EventProfileInputs> = async (data) => {
-		console.log(data)
 		const dateFormatFrom = formatDate(data.date_from)
 		const dateFormatTo = formatDate(data.date_to)
-		const timeFormatFrom = formatDate(data.time_from)
-		const timeFormatTo = formatDate(data.time_to)
+		const timeFormatFrom = formatDateToISOWithTimezone(data.time_from)
+		const timeFormatTo = formatDateToISOWithTimezone(data.time_to)
 		if (dateFormatFrom) data.date_from = dateFormatFrom
 		if (dateFormatTo) data.date_to = dateFormatTo
-		if (timeFormatFrom) data.time_from = timeFormatFrom
-		if (timeFormatTo) data.time_to = timeFormatTo
-		const eventInfoFormData = transformToFormData(data)
+		const serverData = {
+			title: data.title,
+			tags: data.tags,
+			date_from: data.date_from,
+			time_from: timeFormatFrom,
+			date_to: data.date_to,
+			time_to: timeFormatTo,
+			description: data.description,
+			fullinfo: data.fullinfo,
+			conditions: data.conditions,
+			raspisanie: data.raspisanie,
+			id_object: data.objects_list,
+			id_event_type: data.event_types_list,
+			id_event_level: data.event_levels_list,
+			id_age_limit: data.age_list,
+			id_location: data.locations_list,
+		}
+		const eventInfoFormData = transformToFormData(serverData)
 		let eventId = id
 
 		if (id === 'new') {
@@ -63,7 +78,31 @@ export const AdminEventProfile: FC = () => {
 
 	useEffect(() => {
 		if (eventInfoData) {
-			methods.reset({ ...eventInfoData })
+			let initialTimeEventStart: Date | undefined
+			let initialTimeEventEnd: Date | undefined
+			if (eventInfoData.date_from && eventInfoData.time_from) {
+				const initialTimeEventStartValue = parse(
+					`${format(new Date(eventInfoData.date_from), 'yyyy-MM-dd')} ${eventInfoData.time_from}`,
+					'yyyy-MM-dd HH:mm:ss',
+					new Date(),
+				)
+				initialTimeEventStart = initialTimeEventStartValue
+			}
+			if (eventInfoData.date_to && eventInfoData.time_to) {
+				const initialTimeEventEndValue = parse(
+					`${format(new Date(eventInfoData.date_to), 'yyyy-MM-dd')} ${eventInfoData.time_to}`,
+					'yyyy-MM-dd HH:mm:ss',
+					new Date(),
+				)
+				initialTimeEventEnd = initialTimeEventEndValue
+			}
+
+			const transformedData = {
+				...eventInfoData,
+				time_from: initialTimeEventStart ?? undefined,
+				time_to: initialTimeEventEnd ?? undefined,
+			}
+			methods.reset({ ...transformedData })
 		}
 	}, [eventInfoData])
 

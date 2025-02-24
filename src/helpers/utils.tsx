@@ -3,7 +3,7 @@ import { type SelOption } from 'src/types/select'
 import { type FieldValues } from 'react-hook-form'
 import { type ResponseError } from 'src/types/global'
 
-import { format } from 'date-fns'
+import { format, isDate } from 'date-fns'
 import { ru } from 'date-fns/locale'
 import { isRejectedWithValue, type Middleware } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
@@ -90,6 +90,28 @@ export const formatDate = (dateString: string): string | null => {
 	const isoDateString = date.toISOString().slice(0, 19)
 
 	return `${isoDateString}${timezone}`
+}
+
+export const formatDateToISOWithTimezone = (
+	date: Date | null | undefined,
+	timezoneOffset: string = '+03:00',
+): string => {
+	if (!date || !isDate(date) || isNaN(date.getTime())) {
+		return 'Invalid Date' // Return a default string for invalid dates
+	}
+
+	try {
+		// Format the date into ISO 8601 format with the specified timezone offset.
+		const formattedDate = format(date, `yyyy-MM-dd'T'HH:mm:ss${timezoneOffset}`)
+		return formattedDate
+	} catch (error) {
+		console.error('Error formatting date:', error)
+		return 'Invalid Date' // Return a default string if formatting fails
+	}
+}
+
+export const booleanToNumberString = (bool: boolean | undefined): string => {
+	return bool ? '1' : '0'
 }
 
 // форматирование данных с формы в виде объекта в формат FormData

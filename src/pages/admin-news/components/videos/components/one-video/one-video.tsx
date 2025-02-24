@@ -9,7 +9,7 @@ import {
 	useGetVideoInfoQuery,
 	useSaveVideoInfoMutation,
 } from 'src/store/videos/videos.api'
-import { formatDate, transformToFormData } from 'src/helpers/utils'
+import { booleanToNumberString, formatDate, transformToFormData } from 'src/helpers/utils'
 import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 import { Container } from 'src/UI/Container/Container'
@@ -44,7 +44,18 @@ export const OneVideo = () => {
 	const onSubmit: SubmitHandler<OneVideoInputs> = async (data) => {
 		const dateFormat = formatDate(data.itemdate)
 		if (dateFormat) data.itemdate = dateFormat
-		const videoInfoFormData = transformToFormData(data)
+		const serverData = {
+			title: data.title,
+			itemdate: data.itemdate,
+			tags: data.tags,
+			short: data.short,
+			vkvideo: data.vkvideo,
+			vkexport: data.vkexport,
+			photo: data.photo,
+			key: booleanToNumberString(data.key),
+			hidden: booleanToNumberString(data.hidden),
+		}
+		const videoInfoFormData = transformToFormData(serverData)
 		let videoId = id
 
 		if (id === 'new') {

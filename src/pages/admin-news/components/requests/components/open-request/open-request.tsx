@@ -26,7 +26,7 @@ export const OpenRequest = () => {
 		mode: 'onBlur',
 		resolver: yupResolver(openRequestSchema),
 		defaultValues: {
-			hidden: true,
+			hidden: false,
 			original_date: false,
 		},
 	})

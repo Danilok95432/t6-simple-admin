@@ -12,7 +12,7 @@ export const InfoSection = () => {
 			<ControlledInput
 				name='website'
 				label='Интернет-сайт'
-				placeholder='Полное название события'
+				placeholder='www.example.com'
 				margin='0 0 20px 0'
 			/>
 			<CustomText $margin='0 0 5px 0' $fontWeight='600'>
@@ -46,7 +46,7 @@ export const InfoSection = () => {
 				$margin='0 0 20px 0'
 				$template='auto / 0.35fr 0.65fr'
 			>
-				<ControlledInput name='contact_tg' placeholder='Полное название события' />
+				<ControlledInput name='contact_tg' placeholder='@ имя пользователя' />
 				<SwitchedRadioBtns name='hide_tg' contentRadio1='Показать всем' contentRadio2='Скрыть' />
 			</GridRow>
 			<CustomText $margin='0 0 5px 0' $fontWeight='600'>

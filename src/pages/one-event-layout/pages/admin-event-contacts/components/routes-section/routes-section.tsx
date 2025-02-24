@@ -7,7 +7,6 @@ import { AdminSection } from 'src/components/admin-section/admin-section'
 import { GridRow } from 'src/components/grid-row/grid-row'
 import { AddButton } from 'src/UI/AddButton/AddButton'
 import { FlexRow } from 'src/components/flex-row/flex-row'
-import { TrashIconSvg } from 'src/UI/icons/trashIconSVG'
 
 import styles from './index.module.scss'
 import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-radio-btns'
@@ -15,7 +14,7 @@ import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-r
 export const RoutesSection: FC = () => {
 	const { control } = useFormContext<EventContactsInputs>()
 
-	const { fields, append, remove } = useFieldArray({
+	const { fields, append } = useFieldArray({
 		control,
 		name: 'pathways',
 	})
@@ -57,12 +56,6 @@ export const RoutesSection: FC = () => {
 								isTextarea
 							/>
 						</GridRow>
-
-						{idx !== 0 && (
-							<button type='button' onClick={() => remove(idx)}>
-								<TrashIconSvg />
-							</button>
-						)}
 					</li>
 				))}
 			</ul>

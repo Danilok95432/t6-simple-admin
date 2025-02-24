@@ -9,7 +9,7 @@ import {
 	useGetNewsInfoQuery,
 	useSaveNewsInfoMutation,
 } from 'src/store/news/news.api'
-import { formatDate, transformToFormData } from 'src/helpers/utils'
+import { booleanToNumberString, formatDate, transformToFormData } from 'src/helpers/utils'
 import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 import { Container } from 'src/UI/Container/Container'
@@ -36,7 +36,7 @@ export const OneNews = () => {
 		mode: 'onBlur',
 		resolver: yupResolver(oneNewsSchema),
 		defaultValues: {
-			main: true,
+			main: false,
 			hidden: false,
 			news_gallerys: [],
 		},
@@ -45,7 +45,21 @@ export const OneNews = () => {
 	const onSubmit: SubmitHandler<OneNewsInputs> = async (data) => {
 		const dateFormat = formatDate(data.itemdate)
 		if (dateFormat) data.itemdate = dateFormat
-		const newsInfoFormData = transformToFormData(data)
+		const serverData = {
+			title: data.title,
+			itemdate: data.itemdate,
+			tags: data.tags,
+			news_gallerys: data.news_gallerys,
+			id_gallery: data.news_gallerys,
+			short: data.short,
+			full: data.full,
+			photo: data.photo,
+			description: data.description,
+			keywords: data.keywords,
+			main: booleanToNumberString(data.main),
+			hidden: booleanToNumberString(data.hidden),
+		}
+		const newsInfoFormData = transformToFormData(serverData)
 		let newsId = id
 
 		if (id === 'new') {

@@ -87,6 +87,14 @@ export const eventsApi = createApi({
 			}),
 			providesTags: ['Events', 'EventPartners'],
 		}),
+		saveEventContactInfo: build.mutation<string, FieldValues>({
+			query: (FormData) => ({
+				url: `events/save_contacts`,
+				method: 'POST',
+				body: FormData,
+			}),
+			invalidatesTags: ['EventInfo', 'Events'],
+		}),
 		getPartnersByEventId: build.query<EventPartners[], { id: string | undefined; search?: string }>(
 			{
 				query: ({ id: eventId, search }) => ({
@@ -116,6 +124,7 @@ export const {
 	useSaveEventProfileInfoMutation,
 	useGetNewIdEventQuery,
 	useGetContactsByEventIdQuery,
+	useSaveEventContactInfoMutation,
 	useGetPartnersByEventIdQuery,
 	useDeleteEventPartnerByIdMutation,
 } = eventsApi

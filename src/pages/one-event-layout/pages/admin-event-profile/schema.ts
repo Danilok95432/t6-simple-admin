@@ -8,9 +8,9 @@ export type EventProfileInputs = {
 	event_levels_list?: SelOption[]
 	tags?: string
 	date_from: string
-	time_from: string
+	time_from: Date
 	date_to: string
-	time_to: string
+	time_to: Date
 	description: string
 	fullinfo: string
 	conditions: string
@@ -24,9 +24,9 @@ export type EventProfileInputs = {
 export const eventProfileSchema = yup.object().shape({
 	title: yup.string().required('Введите название события'),
 	date_from: yup.string().required('Введите дату'),
-	time_from: yup.string().required('Введите время'),
+	time_from: yup.date().required('Введите время'),
 	date_to: yup.string().required('Введите дату'),
-	time_to: yup.string().required('Введите время'),
+	time_to: yup.date().required('Введите время'),
 	description: yup.string().required('Введите краткое описание'),
 	fullinfo: yup.string().required('Введите подробное описание'),
 	conditions: yup.string().required('Укажите условия'),

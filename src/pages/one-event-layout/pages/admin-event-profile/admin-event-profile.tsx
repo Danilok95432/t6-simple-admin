@@ -6,13 +6,13 @@ import {
 
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
 	useGetEventInfoQuery,
 	useGetNewIdEventQuery,
 	useSaveEventProfileInfoMutation,
 } from 'src/store/events/events.api'
-import { formatDate, formatDateToISOWithTimezone, transformToFormData } from 'src/helpers/utils'
+import { formatDateToYYYYMMDD, formatTimeToHHMM, transformToFormData } from 'src/helpers/utils'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
@@ -31,6 +31,7 @@ export const AdminEventProfile: FC = () => {
 	const { data: eventInfoData } = useGetEventInfoQuery(id)
 	const [saveEventInfo] = useSaveEventProfileInfoMutation()
 	const { refetch: getNewId } = useGetNewIdEventQuery(null)
+	const navigate = useNavigate()
 
 	const methods = useForm<EventProfileInputs>({
 		mode: 'onBlur',
@@ -42,10 +43,10 @@ export const AdminEventProfile: FC = () => {
 	})
 
 	const onSubmit: SubmitHandler<EventProfileInputs> = async (data) => {
-		const dateFormatFrom = formatDate(data.date_from)
-		const dateFormatTo = formatDate(data.date_to)
-		const timeFormatFrom = formatDateToISOWithTimezone(data.time_from)
-		const timeFormatTo = formatDateToISOWithTimezone(data.time_to)
+		const dateFormatFrom = formatDateToYYYYMMDD(data.date_from)
+		const dateFormatTo = formatDateToYYYYMMDD(data.date_to)
+		const timeFormatFrom = formatTimeToHHMM(data.time_from)
+		const timeFormatTo = formatTimeToHHMM(data.time_to)
 		if (dateFormatFrom) data.date_from = dateFormatFrom
 		if (dateFormatTo) data.date_to = dateFormatTo
 		const serverData = {
@@ -74,6 +75,7 @@ export const AdminEventProfile: FC = () => {
 			eventInfoFormData.append('id', eventId)
 		} else eventInfoFormData.append('id', eventId)
 		await saveEventInfo(eventInfoFormData)
+		navigate(`/${AdminRoute.AdminEventsList}`)
 	}
 
 	useEffect(() => {
@@ -134,7 +136,7 @@ export const AdminEventProfile: FC = () => {
 							<AdminButton as='button' type='submit'>
 								Создать новое событие
 							</AdminButton>
-							<AdminButton as='route' to='/' $variant='cancel'>
+							<AdminButton as='route' to={`/${AdminRoute.AdminEventsList}`} $variant='cancel'>
 								Отменить
 							</AdminButton>
 						</FlexRow>

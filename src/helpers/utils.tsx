@@ -3,7 +3,7 @@ import { type SelOption } from 'src/types/select'
 import { type FieldValues } from 'react-hook-form'
 import { type ResponseError } from 'src/types/global'
 
-import { format, isDate } from 'date-fns'
+import { format, isDate, isValid } from 'date-fns'
 import { ru } from 'date-fns/locale'
 import { isRejectedWithValue, type Middleware } from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
@@ -92,24 +92,58 @@ export const formatDate = (dateString: string): string | null => {
 	return `${isoDateString}${timezone}`
 }
 
-export const formatDateToISOWithTimezone = (
-	date: Date | null | undefined,
-	timezoneOffset: string = '+03:00',
-): string => {
+// функция форматирования времени для отправки на сервер
+export const formatTimeToHHMM = (date: Date | null | undefined): string => {
 	if (!date || !isDate(date) || isNaN(date.getTime())) {
-		return 'Invalid Date' // Return a default string for invalid dates
+		return 'Invalid Date'
 	}
 
 	try {
-		// Format the date into ISO 8601 format with the specified timezone offset.
-		const formattedDate = format(date, `yyyy-MM-dd'T'HH:mm:ss${timezoneOffset}`)
-		return formattedDate
+		const formattedTime = format(date, 'HH:mm')
+		return formattedTime
 	} catch (error) {
 		console.error('Error formatting date:', error)
-		return 'Invalid Date' // Return a default string if formatting fails
+		return 'Invalid Date'
 	}
 }
 
+// функция форматирования даты для отправки на сервер в формате YYYY-MM-DD
+export const formatDateToYYYYMMDD = (date: Date | string | null | undefined): string => {
+	if (!date) {
+		return 'Invalid Date'
+	}
+
+	let parsedDate: Date
+
+	if (typeof date === 'string') {
+		try {
+			parsedDate = new Date(date)
+			if (isNaN(parsedDate.getTime())) {
+				return 'Invalid Date'
+			}
+		} catch (error) {
+			return 'Invalid Date'
+		}
+	} else if (date instanceof Date) {
+		parsedDate = date
+	} else {
+		return 'Invalid Date'
+	}
+
+	if (!isValid(parsedDate)) {
+		return 'Invalid Date'
+	}
+
+	try {
+		const formattedDate = format(parsedDate, 'yyyy-MM-dd')
+		return formattedDate
+	} catch (error) {
+		console.error('Error formatting date:', error)
+		return 'Invalid Date'
+	}
+}
+
+// функция форматирования флагов для отправки на сервер
 export const booleanToNumberString = (bool: boolean | undefined): string => {
 	return bool ? '1' : '0'
 }

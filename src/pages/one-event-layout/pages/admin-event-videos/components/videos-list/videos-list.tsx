@@ -1,10 +1,9 @@
 import { type VideoItem } from 'src/types/videos'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import cn from 'classnames'
 
 import { useAppSelector } from 'src/hooks/store'
 import { getFiltrationValues } from 'src/modules/table-filtration/store/table-filtration.selectors'
-import { VideosElementsFiltrationInputs } from './consts'
 import { mainFormatDate } from 'src/helpers/utils'
 import {
 	useDeleteVideoByIdMutation,
@@ -12,6 +11,7 @@ import {
 	useGetNewIdVideoQuery,
 	useHideVideoByIdMutation,
 } from 'src/store/videos/videos.api'
+import { VideosElementsByEventIdFiltrationInputs } from './consts'
 
 import { TableFiltration } from 'src/modules/table-filtration/table-filtration'
 import { CustomTable } from 'src/components/custom-table/custom-table'
@@ -24,14 +24,17 @@ import { CheckMarkSvg } from 'src/UI/icons/checkMarkSVG'
 
 import styles from './index.module.scss'
 
-export const VideosList = () => {
+export const EventVideosList = () => {
+	const { id = '0' } = useParams()
 	const filterValues = useAppSelector(getFiltrationValues)
+
 	const { data: videosDataResponse, isLoading } = useGetAllVideosQuery({
+		idEvent: id,
 		title: filterValues.title,
 		date: filterValues.date,
 		tags: filterValues.tags,
 	})
-	const { refetch: getNewId } = useGetNewIdVideoQuery({ idEvent: '', idObject: '' })
+	const { refetch: getNewId } = useGetNewIdVideoQuery({ idEvent: id, idObject: '' })
 	const [deleteVideoById] = useDeleteVideoByIdMutation()
 	const [hideVideoById] = useHideVideoByIdMutation()
 
@@ -100,10 +103,9 @@ export const VideosList = () => {
 
 	return (
 		<>
-			<h3>Видеолента</h3>
 			<div>
 				<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
-					<TableFiltration filterInputs={VideosElementsFiltrationInputs} />
+					<TableFiltration filterInputs={VideosElementsByEventIdFiltrationInputs} />
 				</GridRow>
 				<CustomTable
 					className={styles.videosTable}

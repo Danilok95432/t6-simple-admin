@@ -16,10 +16,15 @@ export const videosApi = createApi({
 	tagTypes: ['Videos', 'VideoInfo'],
 	baseQuery: baseQueryWithReauth,
 	endpoints: (build) => ({
-		getAllVideos: build.query<VideoResponse, { title?: string; date?: string; tags?: string }>({
-			query: ({ title = '', date = '', tags = '' }) => ({
+		getAllVideos: build.query<
+			VideoResponse,
+			{ idEvent?: string; idObject?: string; title?: string; date?: string; tags?: string }
+		>({
+			query: ({ idEvent = '', idObject = '', title = '', date = '', tags = '' }) => ({
 				url: `video/list`,
 				params: {
+					id_event: idEvent,
+					id_object: idObject,
 					title,
 					date,
 					tags,
@@ -66,9 +71,13 @@ export const videosApi = createApi({
 			}),
 			invalidatesTags: ['VideoInfo', 'Videos'],
 		}),
-		getNewIdVideo: build.query<VideoNewIdResponse, null>({
-			query: () => ({
+		getNewIdVideo: build.query<VideoNewIdResponse, { idEvent?: string; idObject?: string }>({
+			query: ({ idEvent = '', idObject = '' }) => ({
 				url: `video/getnew`,
+				params: {
+					id_event: idEvent,
+					id_object: idObject,
+				},
 			}),
 			providesTags: ['VideoInfo', 'Videos'],
 		}),

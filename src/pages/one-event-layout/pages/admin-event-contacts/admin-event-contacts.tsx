@@ -20,7 +20,7 @@ import { AdminControllers } from 'src/components/admin-controllers/admin-control
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
-import { booleanToNumberString, transformToFormData } from 'src/helpers/utils'
+import { booleanToNumberString } from 'src/helpers/utils'
 
 export const AdminEventContacts: FC = () => {
 	const { id = '0' } = useParams()
@@ -39,33 +39,26 @@ export const AdminEventContacts: FC = () => {
 	})
 
 	const onSubmit: SubmitHandler<EventContactsInputs> = async (data) => {
-		const pathwaysTitle: string[] = []
-		const pathwaysDesc: string[] = []
-		const pathwaysLocation: string[] = []
 		const eventId = id
+		const eventInfoFormData = new FormData()
 
-		data.pathways?.forEach((pathway) => {
-			pathwaysTitle.push(pathway.title)
-			pathwaysDesc.push(pathway.desc)
-			pathwaysLocation.push(pathway.location)
+		eventInfoFormData.append('id', eventId)
+
+		data.pathways?.forEach((pathway, index) => {
+			eventInfoFormData.append(`pathways_title[${index}]`, pathway.title)
+			eventInfoFormData.append(`pathways_desc[${index}]`, pathway.desc)
+			eventInfoFormData.append(`pathways_location[${index}]`, pathway.location)
 		})
 
-		const serverData = {
-			website: data.website,
-			contact_telphone: data.contact_telphone,
-			contact_tg: data.contact_tg,
-			contact_email: data.contact_email,
-			hide_telphone: booleanToNumberString(data.hide_telphone),
-			hide_tg: booleanToNumberString(data.hide_tg),
-			hide_email: booleanToNumberString(data.hide_email),
-			hide_pathways: booleanToNumberString(data.hide_pathways),
-			pathways_title: pathwaysTitle,
-			pathways_desc: pathwaysDesc,
-			pathways_location: pathwaysLocation,
-		}
+		eventInfoFormData.append('website', data.website)
+		eventInfoFormData.append('contact_tg', data.contact_tg)
+		eventInfoFormData.append('contact_telphone', data.contact_telphone)
+		eventInfoFormData.append('contact_email', data.contact_email)
+		eventInfoFormData.append('hide_telphone', booleanToNumberString(data.hide_telphone))
+		eventInfoFormData.append('hide_tg', booleanToNumberString(data.hide_tg))
+		eventInfoFormData.append('hide_email', booleanToNumberString(data.hide_email))
+		eventInfoFormData.append('hide_pathways', booleanToNumberString(data.hide_pathways))
 
-		const eventInfoFormData = transformToFormData(serverData)
-		eventInfoFormData.append('id', eventId)
 		await saveEventContactsInfo(eventInfoFormData)
 	}
 

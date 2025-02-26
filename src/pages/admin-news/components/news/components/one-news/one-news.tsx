@@ -4,11 +4,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import {
-	useGetNewIdNewsQuery,
-	useGetNewsInfoQuery,
-	useSaveNewsInfoMutation,
-} from 'src/store/news/news.api'
+import { useGetNewsInfoQuery, useSaveNewsInfoMutation } from 'src/store/news/news.api'
 import { booleanToNumberString, formatDate, transformToFormData } from 'src/helpers/utils'
 import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
@@ -30,7 +26,6 @@ export const OneNews = () => {
 
 	const { data: newsInfoData } = useGetNewsInfoQuery(id)
 	const [saveNewsInfo] = useSaveNewsInfoMutation()
-	const { refetch: getNewId } = useGetNewIdNewsQuery(null)
 
 	const methods = useForm<OneNewsInputs>({
 		mode: 'onBlur',
@@ -60,13 +55,8 @@ export const OneNews = () => {
 			hidden: booleanToNumberString(data.hidden),
 		}
 		const newsInfoFormData = transformToFormData(serverData)
-		let newsId = id
-
-		if (id === 'new') {
-			const newIdResponse = await getNewId().unwrap()
-			newsId = newIdResponse.id
-			newsInfoFormData.append('id', newsId)
-		} else newsInfoFormData.append('id', newsId)
+		const newsId = id
+		newsInfoFormData.append('id', newsId)
 		const res = await saveNewsInfo(newsInfoFormData)
 		if (res) markAsSent(true)
 	}

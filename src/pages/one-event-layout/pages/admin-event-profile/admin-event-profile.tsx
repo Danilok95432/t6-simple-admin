@@ -7,12 +7,13 @@ import {
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useGetEventInfoQuery, useSaveEventProfileInfoMutation } from 'src/store/events/events.api'
 import {
-	useGetEventInfoQuery,
-	useGetNewIdEventQuery,
-	useSaveEventProfileInfoMutation,
-} from 'src/store/events/events.api'
-import { formatDateToYYYYMMDD, formatTimeToHHMM, transformToFormData } from 'src/helpers/utils'
+	currentDateString,
+	formatDateToYYYYMMDD,
+	formatTimeToHHMM,
+	transformToFormData,
+} from 'src/helpers/utils'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
@@ -30,7 +31,6 @@ export const AdminEventProfile: FC = () => {
 	const { id = '0' } = useParams()
 	const { data: eventInfoData } = useGetEventInfoQuery(id)
 	const [saveEventInfo] = useSaveEventProfileInfoMutation()
-	const { refetch: getNewId } = useGetNewIdEventQuery(null)
 	const navigate = useNavigate()
 
 	const methods = useForm<EventProfileInputs>({
@@ -67,13 +67,8 @@ export const AdminEventProfile: FC = () => {
 			id_location: data.locations_list,
 		}
 		const eventInfoFormData = transformToFormData(serverData)
-		let eventId = id
-
-		if (id === 'new') {
-			const newIdResponse = await getNewId().unwrap()
-			eventId = newIdResponse.id
-			eventInfoFormData.append('id', eventId)
-		} else eventInfoFormData.append('id', eventId)
+		const eventId = id
+		eventInfoFormData.append('id', eventId)
 		await saveEventInfo(eventInfoFormData)
 		navigate(`/${AdminRoute.AdminEventsList}`)
 	}
@@ -82,7 +77,16 @@ export const AdminEventProfile: FC = () => {
 		if (eventInfoData) {
 			let initialTimeEventStart: Date | undefined
 			let initialTimeEventEnd: Date | undefined
-			if (eventInfoData.date_from && eventInfoData.time_from) {
+			let initialDateEventStart: string | undefined
+			let initialDateEventEnd: string | undefined
+			if (eventInfoData.date_from === '0000-00-00') initialDateEventStart = currentDateString()
+			if (eventInfoData.date_to === '0000-00-00') initialDateEventEnd = currentDateString()
+			if (
+				eventInfoData.date_from &&
+				eventInfoData.time_from &&
+				eventInfoData.date_from !== '0000-00-00' &&
+				eventInfoData.date_to !== '0000-00-00'
+			) {
 				const initialTimeEventStartValue = parse(
 					`${format(new Date(eventInfoData.date_from), 'yyyy-MM-dd')} ${eventInfoData.time_from}`,
 					'yyyy-MM-dd HH:mm:ss',
@@ -90,7 +94,12 @@ export const AdminEventProfile: FC = () => {
 				)
 				initialTimeEventStart = initialTimeEventStartValue
 			}
-			if (eventInfoData.date_to && eventInfoData.time_to) {
+			if (
+				eventInfoData.date_from &&
+				eventInfoData.time_from &&
+				eventInfoData.date_from !== '0000-00-00' &&
+				eventInfoData.date_to !== '0000-00-00'
+			) {
 				const initialTimeEventEndValue = parse(
 					`${format(new Date(eventInfoData.date_to), 'yyyy-MM-dd')} ${eventInfoData.time_to}`,
 					'yyyy-MM-dd HH:mm:ss',
@@ -101,6 +110,12 @@ export const AdminEventProfile: FC = () => {
 
 			const transformedData = {
 				...eventInfoData,
+				date_from:
+					eventInfoData.date_from === '0000-00-00'
+						? initialDateEventStart
+						: eventInfoData.date_from,
+				date_to:
+					eventInfoData.date_to === '0000-00-00' ? initialDateEventEnd : eventInfoData.date_to,
 				time_from: initialTimeEventStart ?? undefined,
 				time_to: initialTimeEventEnd ?? undefined,
 			}

@@ -39,6 +39,7 @@ import { CultureInfo } from 'src/pages/culture-element-layout/pages/culture-info
 import { CultureHistory } from 'src/pages/culture-element-layout/pages/culture-history/culture-history'
 
 import { AdminObjects } from 'src/pages/admin-objects/admin-objects'
+import { AdminPartnersLayout } from 'src/pages/admin-partners-layout/admin-partners-layout'
 import { ObjectElementLayout } from 'src/pages/object-element-layout/object-element-layout'
 import { ObjectInfo } from 'src/pages/object-element-layout/pages/object-info/object-info'
 import { ObjectNews } from 'src/pages/object-element-layout/pages/object-news/object-news'
@@ -51,6 +52,8 @@ import { AdminSupport } from 'src/pages/admin-support/admin-support'
 import { AdminSettings } from 'src/pages/admin-settings/admin-settings'
 import { PartnerElements } from 'src/pages/one-event-layout/pages/admin-event-partners/components/partner-elements/partner-elements'
 import { OnePartner } from 'src/pages/one-event-layout/pages/admin-event-partners/components/one-partner/one-partner'
+import { Partner } from 'src/pages/admin-partners-layout/components/partner/partner'
+import { PartnersElements } from 'src/pages/admin-partners-layout/components/partners-elements/partners-elements'
 
 export const AdminRoutes: FC = () => {
 	return (
@@ -111,6 +114,11 @@ export const AdminRoutes: FC = () => {
 					<Route path={`${AdminRoute.AdminEventVideos}/:id`} element={<AdminEventVideos />} />
 					<Route path={`${AdminRoute.AdminEventProgram}/:id`} element={<AdminEventProgram />} />
 					<Route path={`${AdminRoute.AdminEventHistory}/:id`} element={<AdminEventHistory />} />
+				</Route>
+
+				<Route path={AdminRoute.AdminPartners} element={<AdminPartnersLayout />}>
+					<Route index element={<PartnersElements />} />
+					<Route path={`${AdminRoute.AdminPartner}/:id`} element={<Partner />} />
 				</Route>
 
 				<Route path={AdminRoute.AdminSupport} element={<AdminSupport />} />

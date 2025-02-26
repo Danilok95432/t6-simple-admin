@@ -4,8 +4,10 @@ import {
 	type EventPartners,
 	type EventResponse,
 	type EventContacts,
+	type EventContent,
 } from 'src/types/events'
 import { type FieldValues } from 'react-hook-form'
+import { type NewsResponse } from 'src/types/news'
 
 import { createApi } from '@reduxjs/toolkit/query/react'
 
@@ -14,7 +16,15 @@ import { baseQueryWithReauth } from 'src/helpers/base-query'
 
 export const eventsApi = createApi({
 	reducerPath: ReducerPath.Events,
-	tagTypes: ['Events', 'EventInfo', 'EventPartners'],
+	tagTypes: [
+		'Events',
+		'EventInfo',
+		'EventPartners',
+		'EventContacts',
+		'EventContent',
+		'EventNews',
+		'EventVideo',
+	],
 	baseQuery: baseQueryWithReauth,
 	endpoints: (build) => ({
 		getAllEvents: build.query<
@@ -85,7 +95,7 @@ export const eventsApi = createApi({
 					id,
 				},
 			}),
-			providesTags: ['Events', 'EventPartners'],
+			providesTags: ['Events', 'EventContacts'],
 		}),
 		saveEventContactInfo: build.mutation<string, FieldValues>({
 			query: (FormData) => ({
@@ -93,7 +103,24 @@ export const eventsApi = createApi({
 				method: 'POST',
 				body: FormData,
 			}),
-			invalidatesTags: ['EventInfo', 'Events'],
+			invalidatesTags: ['EventInfo', 'Events', 'EventContacts'],
+		}),
+		getContentByEventId: build.query<EventContent, string>({
+			query: (id) => ({
+				url: `events/edit_content`,
+				params: {
+					id,
+				},
+			}),
+			providesTags: ['EventInfo', 'Events', 'EventContacts'],
+		}),
+		saveEventContentInfo: build.mutation<string, FieldValues>({
+			query: (FormData) => ({
+				url: `events/save_content`,
+				method: 'POST',
+				body: FormData,
+			}),
+			invalidatesTags: ['EventInfo', 'Events', 'EventContacts'],
 		}),
 		getPartnersByEventId: build.query<EventPartners[], { id: string | undefined; search?: string }>(
 			{
@@ -113,6 +140,29 @@ export const eventsApi = createApi({
 			}),
 			invalidatesTags: ['Events', 'EventPartners'],
 		}),
+		getNewsByEventId: build.query<
+			NewsResponse,
+			{ idEvent: string; title?: string; date?: string; tags?: string }
+		>({
+			query: ({ idEvent = '', title = '', date = '', tags = '' }) => ({
+				url: `events/news/list`,
+				params: {
+					idEvent,
+					title,
+					date,
+					tags,
+				},
+			}),
+			providesTags: ['Events', 'EventNews'],
+		}),
+		saveEventNewsInfo: build.mutation<string, FieldValues>({
+			query: (FormData) => ({
+				url: `events/save_news`,
+				method: 'POST',
+				body: FormData,
+			}),
+			invalidatesTags: ['EventInfo', 'Events', 'EventNews'],
+		}),
 	}),
 })
 
@@ -125,6 +175,8 @@ export const {
 	useGetNewIdEventQuery,
 	useGetContactsByEventIdQuery,
 	useSaveEventContactInfoMutation,
+	useGetContentByEventIdQuery,
+	useSaveEventContentInfoMutation,
 	useGetPartnersByEventIdQuery,
 	useDeleteEventPartnerByIdMutation,
 } = eventsApi

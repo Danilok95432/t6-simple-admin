@@ -7,18 +7,14 @@ import { AdminSection } from 'src/components/admin-section/admin-section'
 import { GridRow } from 'src/components/grid-row/grid-row'
 import { AddButton } from 'src/UI/AddButton/AddButton'
 import { FlexRow } from 'src/components/flex-row/flex-row'
-import { TrashIconSvg } from 'src/UI/icons/trashIconSVG'
 import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-radio-btns'
 
 import styles from './index.module.scss'
 
 export const PlacementSection: FC = () => {
-	const {
-		control,
-		formState: { errors },
-	} = useFormContext<EventContentInputs>()
+	const { control } = useFormContext<EventContentInputs>()
 
-	const { fields, append, remove } = useFieldArray({
+	const { fields, append } = useFieldArray({
 		control,
 		name: 'placements',
 	})
@@ -26,10 +22,10 @@ export const PlacementSection: FC = () => {
 	return (
 		<AdminSection
 			titleText={`Размещение (${fields?.length} из 3)`}
-			sectionName='placementsSection'
+			sectionName='hide_placements'
 			additionalNodeForHead={
 				<SwitchedRadioBtns
-					name='isShowPlacementsSection'
+					name='hide_placements'
 					contentRadio1='Показать всем'
 					contentRadio2='Скрыть'
 				/>
@@ -42,33 +38,24 @@ export const PlacementSection: FC = () => {
 						<GridRow>
 							<FlexRow $direction='column' $gap='15px'>
 								<ControlledInput
-									name={`placements.${idx}.placementTitle`}
-									dynamicError={errors?.placements?.[idx]?.placementTitle}
+									name={`placements[${idx}].title`}
 									placeholder='Название места размещения'
 									width='100%'
 								/>
 								<ControlledInput
-									name={`placements.${idx}.placementDesc`}
-									dynamicError={errors?.placements?.[idx]?.placementDesc}
+									name={`placements[${idx}].desc`}
 									placeholder='Описание места и кратких правил размещения'
 									height='58px'
 									isTextarea
 								/>
 							</FlexRow>
 							<ControlledInput
-								name={`placements.${idx}.placementScript`}
-								dynamicError={errors?.placements?.[idx]?.placementScript}
+								name={`placements[${idx}].location`}
 								placeholder='Текст скрипта Яндекса'
 								height='106px'
 								isTextarea
 							/>
 						</GridRow>
-
-						{idx !== 0 && (
-							<button type='button' onClick={() => remove(idx)}>
-								<TrashIconSvg />
-							</button>
-						)}
 					</li>
 				))}
 			</ul>
@@ -79,9 +66,9 @@ export const PlacementSection: FC = () => {
 					onClick={() =>
 						append(
 							{
-								placementTitle: '',
-								placementDesc: '',
-								placementScript: '',
+								title: '',
+								desc: '',
+								location: '',
 							},
 							{ shouldFocus: false },
 						)

@@ -1,8 +1,8 @@
-import { type FC } from 'react'
+import { useEffect, type FC } from 'react'
 
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import {
 	type EventContentInputs,
@@ -19,30 +19,72 @@ import { PlacementSection } from 'src/pages/one-event-layout/pages/admin-event-c
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
 import { LinksSection } from 'src/pages/one-event-layout/pages/admin-event-content/components/links-section/links-section'
+import {
+	useGetContentByEventIdQuery,
+	useSaveEventContentInfoMutation,
+} from 'src/store/events/events.api'
+import { booleanToNumberString, transformToFormData } from 'src/helpers/utils'
 
 export const AdminEventContent: FC = () => {
+	const { id = '0' } = useParams()
+	const { data: contentInfoData } = useGetContentByEventIdQuery(id)
+	const [saveEventContentInfo] = useSaveEventContentInfoMutation()
+
 	const methods = useForm<EventContentInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(eventContentSchema),
 		defaultValues: {
-			logoImage: [],
-			isShowPlacementsSection: false,
-			placementsSection: true,
-			placements: [{ placementTitle: '', placementDesc: '', placementScript: '' }],
-			isShowGallerySection: false,
-			gallerySection: true,
-			isShowDocsSection: false,
-			docsSection: true,
-			docs: [],
-			isShowLinksSection: false,
-			linksSection: true,
-			links: [{ linkText: '', linkUrl: '' }],
+			hide_placements: false,
+			hide_gallery: false,
+			hide_links: false,
 		},
 	})
 
-	const onSubmit: SubmitHandler<EventContentInputs> = (data) => {
-		console.log(data)
+	const onSubmit: SubmitHandler<EventContentInputs> = async (data) => {
+		const placementsTitle: string[] = []
+		const placementsDesc: string[] = []
+		const placementsLocation: string[] = []
+
+		const linksTitle: string[] = []
+		const linksLink: string[] = []
+		const linksDesc: string[] = []
+		const eventId = id
+
+		data.placements?.forEach((placement) => {
+			placementsTitle.push(placement.title)
+			placementsDesc.push(placement.desc)
+			placementsLocation.push(placement.location)
+		})
+
+		data.links?.forEach((link) => {
+			linksTitle.push(link.title)
+			linksLink.push(link.link)
+			linksDesc.push(link.desc)
+		})
+
+		const serverData = {
+			linksBlock_title: data.linksBlock_title,
+			hide_placements: booleanToNumberString(data.hide_placements),
+			hide_gallery: booleanToNumberString(data.hide_gallery),
+			hide_links: booleanToNumberString(data.hide_links),
+			placements_title: placementsTitle,
+			placements_desc: placementsDesc,
+			placements_location: placementsLocation,
+			link_title: linksTitle,
+			links_link: linksLink,
+			links_desc: linksDesc,
+		}
+
+		const eventInfoFormData = transformToFormData(serverData)
+		eventInfoFormData.append('id', eventId)
+		await saveEventContentInfo(eventInfoFormData)
 	}
+
+	useEffect(() => {
+		if (contentInfoData) {
+			methods.reset({ ...contentInfoData })
+		}
+	}, [contentInfoData])
 
 	return (
 		<AdminContent className={styles.eventContentPage}>

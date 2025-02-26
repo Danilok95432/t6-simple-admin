@@ -10,10 +10,10 @@ export const GallerySection: FC = () => {
 	return (
 		<AdminSection
 			titleText='Галерея'
-			sectionName='gallerySection'
+			sectionName='hide_gallery'
 			additionalNodeForHead={
 				<SwitchedRadioBtns
-					name='isShowGallerySection'
+					name='hide_gallery'
 					contentRadio1='Показать всем'
 					contentRadio2='Скрыть'
 				/>

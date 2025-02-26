@@ -52,6 +52,18 @@ export type pathwaysEvent = {
 	location: string
 }
 
+export type placementsEvent = {
+	title: string
+	desc: string
+	location: string
+}
+
+export type linksEvent = {
+	title: string
+	link: string
+	desc: string
+}
+
 export type EventContacts = {
 	website: string
 	contact_telphone?: string
@@ -62,4 +74,13 @@ export type EventContacts = {
 	hide_email?: boolean
 	pathways?: pathwaysEvent[]
 	hide_pathways?: boolean
+}
+
+export type EventContent = {
+	placements: placementsEvent[]
+	linksBlock_title: string
+	hide_placements?: boolean
+	hide_gallery?: boolean
+	links: linksEvent[]
+	hide_links?: boolean
 }

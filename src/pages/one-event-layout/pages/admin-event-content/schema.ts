@@ -1,45 +1,15 @@
+import { type linksEvent, type placementsEvent } from 'src/types/events'
 import * as yup from 'yup'
-import { type FileWithPreview } from 'src/types/files'
-
-type PlacementBlock = {
-	placementTitle: string
-	placementDesc: string
-	placementScript: string
-}
-type LinkBlock = {
-	linkText: string
-	linkUrl: string
-}
 
 export type EventContentInputs = {
-	logoImage?: FileWithPreview[]
-	isShowPlacementsSection?: boolean
-	placementsSection?: boolean
-	placements?: PlacementBlock[]
-	gallerySection?: boolean
-	isShowGallerySection?: boolean
-	docsSection?: boolean
-	isShowDocsSection?: boolean
-	docs?: FileWithPreview[]
-	isShowLinksSection?: boolean
-	linksSection?: boolean
-	links?: LinkBlock[]
-	linksBlockTitle?: string
+	placements?: placementsEvent[]
+	linksBlock_title: string
+	hide_placements?: boolean
+	hide_gallery?: boolean
+	links?: linksEvent[]
+	hide_links?: boolean
 }
 
 export const eventContentSchema = yup.object().shape({
-	placementsSection: yup.boolean(),
-	placements: yup.array().when('placementsSection', ([placementsSection]) => {
-		return placementsSection
-			? yup.array().of(
-					yup.object().shape({
-						placementTitle: yup.string().required('Введите название места'),
-						placementDesc: yup.string().required('Введите описание места'),
-						placementScript: yup.string().required('Введите текст скрипта'),
-					}),
-				)
-			: yup.array().notRequired()
-	}),
-	connectPhoto: yup.string().url('Неверный формат ссылки'),
-	docs: yup.array().max(7, 'Не больше 7 файлов'),
+	linksBlock_title: yup.string().required('Введите название ссылок'),
 })

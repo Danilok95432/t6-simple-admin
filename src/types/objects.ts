@@ -31,6 +31,16 @@ export type ObjectItem = {
 	object_type_name: string
 }
 
+export type PartnersItem = {
+	id: string
+	isHidden: boolean
+	title: string
+	events: string
+	organizationType: string
+	partnershipType: string
+	priority: string
+}
+
 export type ObjectsResponse = {
 	description: string
 	objects: ObjectItem[]

@@ -2,8 +2,9 @@ import type { TabNavigationItem } from 'src/types/navigation'
 import { TabNavigation } from 'src/components/tab-navigation/tab-navigation'
 import { Outlet, useParams } from 'react-router-dom'
 
-import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
+
+import adminStyles from 'src/routes/admin-layout/index.module.scss'
 
 export const ObjectElementLayout = () => {
 	const { id } = useParams()

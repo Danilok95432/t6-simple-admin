@@ -43,6 +43,7 @@ export const LinksSection: FC = () => {
 								placeholder='Текст ссылки'
 								maxWidth='1140px'
 							/>
+							<ControlledInput name={`links[${idx}].desc`} placeholder='Текст подписи' />
 							<ControlledInput name={`links[${idx}].link`} placeholder='Адрес URL' />
 						</GridRow>
 					</li>

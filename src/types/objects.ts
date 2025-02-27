@@ -45,6 +45,7 @@ export type ObjectsResponse = {
 	description: string
 	objects: ObjectItem[]
 }
+
 export type ObjectInfoResponse = {
 	address: string
 	coords: string

@@ -35,7 +35,12 @@ export const OnePartner = () => {
 				Возврат к списку партнеров
 			</Link>
 			<h3>Партнер</h3>
-			<Container $padding='0 0 40px 0' $paddingMobile='0 0 40px 0'>
+			<Container
+				$padding='0 0 40px 0'
+				$paddingMobile='0 0 40px 0'
+				$margin='0'
+				className={styles.containerEventPartners}
+			>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<MainSection />

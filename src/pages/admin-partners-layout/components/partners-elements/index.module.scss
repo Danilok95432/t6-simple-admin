@@ -18,7 +18,7 @@
 		minmax(30px, 0.2fr)
 		minmax(30px, 0.2fr);
 
-	td {
+	td :not(:last-child) {
 		border-bottom: 1px solid rgb(225 225 225 / 1);
 	}
 

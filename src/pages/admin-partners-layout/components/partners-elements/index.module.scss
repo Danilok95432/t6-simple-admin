@@ -11,15 +11,18 @@
 
 .objectTable {
 	grid-template-columns:
-		minmax(200px, 1.1fr)
-		minmax(60px, 0.2fr)
-		minmax(130px, 0.6fr)
-		minmax(130px, 0.6fr)
-		minmax(30px, 0.2fr)
-		minmax(30px, 0.2fr);
+		minmax(360px, 2.2fr)
+		minmax(150px, 1.1fr)
+		minmax(270px, 1.3fr)
+		minmax(100px, 0.6fr)
+		minmax(100px, 0.6fr)
+		minmax(50px, 0.2fr);
 
-	td :not(:last-child) {
-		border-bottom: 1px solid rgb(225 225 225 / 1);
+	tr:last-child {
+		td {
+			border-bottom: 1px solid #f5f5f5;
+			margin-bottom: 30px;
+		}
 	}
 
 	.priorityBox {

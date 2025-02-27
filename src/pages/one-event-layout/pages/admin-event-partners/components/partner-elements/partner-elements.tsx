@@ -8,6 +8,7 @@ import {
 } from 'src/store/events/events.api'
 import { useTableSearch } from 'src/hooks/table-search/table-search'
 
+import { Container } from 'src/UI/Container/Container'
 import { CustomTable } from 'src/components/custom-table/custom-table'
 import { Loader } from 'src/components/loader/loader'
 import { RowController } from 'src/components/row-controller/row-controller'
@@ -18,16 +19,27 @@ import { AdminRoute } from 'src/routes/admin-routes/consts'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
-import { Container } from 'src/UI/Container/Container'
 
 export const PartnerElements = () => {
 	const { id } = useParams()
 
 	const { handleSearch, searchParams } = useTableSearch(['title', 'typeOrg', 'typePart'])
-	const { data: partners, isLoading } = useGetPartnersByEventIdQuery({
-		id,
-		search: searchParams.title,
-	})
+
+	// const { data: partners, isLoading } = useGetPartnersByEventIdQuery({
+	// 	id,
+	// 	search: searchParams.title,
+	// })
+	// mock
+	const partners = [
+		{
+			id: '1',
+			isHidden: false,
+			title: 'ООО МЦАИ',
+			typeOrg: '',
+			typePart: [''],
+			priority: '',
+		},
+	]
 
 	const [deletePartnerById] = useDeleteEventPartnerByIdMutation()
 
@@ -86,7 +98,7 @@ export const PartnerElements = () => {
 		console.log(id + 'спрятан')
 	}
 
-	if (isLoading || !partners) return <Loader />
+	// if (isLoading || !partners) return <Loader />
 
 	return (
 		<div className={styles.partnerElementsPage}>

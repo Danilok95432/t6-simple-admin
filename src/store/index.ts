@@ -16,6 +16,7 @@ import { eventsApi } from 'src/store/events/events.api'
 import { culturesApi } from 'src/store/cultures/cultures.api'
 import { siteSettingsApi } from 'src/store/site-settings/site-settings.api'
 import { communityApi } from 'src/store/community/community.api'
+import { partnersApi } from './partners/partners.api'
 
 export const store = configureStore({
 	reducer: {
@@ -31,6 +32,7 @@ export const store = configureStore({
 		[culturesApi.reducerPath]: culturesApi.reducer,
 		[siteSettingsApi.reducerPath]: siteSettingsApi.reducer,
 		[communityApi.reducerPath]: communityApi.reducer,
+		[partnersApi.reducerPath]: partnersApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({ serializableCheck: false }).concat(
@@ -43,6 +45,7 @@ export const store = configureStore({
 			siteSettingsApi.middleware,
 			authApi.middleware,
 			communityApi.middleware,
+			partnersApi.middleware,
 			rtkQueryErrorLogger,
 		),
 })

@@ -10,9 +10,10 @@ export enum ReducerPath {
 	Community = 'community/api',
 	Partners = 'partners/api',
 	UploadImages = 'uploadImages/api',
-
+}
 
 export const ImagesFormat = ['png', 'jpeg', 'jpg', 'webp', 'gif']
+
 export enum NameSpace {
 	Modal = 'MODAL',
 	Auth = 'AUTH',

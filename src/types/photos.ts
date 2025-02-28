@@ -3,3 +3,9 @@ export type ImageItem = {
 	thumbnail: string
 	original: string
 }
+
+export type ImageUploadRespone = {
+	status: string
+	id_catimage: string
+	images: ImageItem[]
+}

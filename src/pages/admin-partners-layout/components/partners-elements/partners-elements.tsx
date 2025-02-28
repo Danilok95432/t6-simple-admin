@@ -18,7 +18,7 @@ export const PartnersElements: FC = () => {
 	const objectsDataResponse = [
 		{
 			id: '1',
-			isHidden: false,
+			hidden: false,
 			title: 'ООО МЦАИ',
 			events: '3',
 			organizationType: 'наука',
@@ -54,7 +54,7 @@ export const PartnersElements: FC = () => {
 						{partnerEl.partnershipType}
 					</p>,
 					<input
-						className={cn({ 'hidden-cell': partnerEl.isHidden }, styles.priorityBox)}
+						className={cn({ 'hidden-cell': partnerEl.hidden }, styles.priorityBox)}
 						key='5'
 						type='text'
 						value={partnerEl.priority}

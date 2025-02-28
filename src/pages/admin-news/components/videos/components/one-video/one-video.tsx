@@ -4,11 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 
-import {
-	useGetNewIdVideoQuery,
-	useGetVideoInfoQuery,
-	useSaveVideoInfoMutation,
-} from 'src/store/videos/videos.api'
+import { useGetVideoInfoQuery, useSaveVideoInfoMutation } from 'src/store/videos/videos.api'
 import { booleanToNumberString, formatDate, transformToFormData } from 'src/helpers/utils'
 import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
@@ -28,7 +24,6 @@ export const OneVideo = () => {
 	const { id = '0' } = useParams()
 	const { data: videoInfoData } = useGetVideoInfoQuery(id)
 	const [saveVideoInfo] = useSaveVideoInfoMutation()
-	const { refetch: getNewId } = useGetNewIdVideoQuery(null)
 
 	const methods = useForm<OneVideoInputs>({
 		mode: 'onBlur',
@@ -56,13 +51,8 @@ export const OneVideo = () => {
 			hidden: booleanToNumberString(data.hidden),
 		}
 		const videoInfoFormData = transformToFormData(serverData)
-		let videoId = id
-
-		if (id === 'new') {
-			const newIdResponse = await getNewId().unwrap()
-			videoId = newIdResponse.id
-			videoInfoFormData.append('id', videoId)
-		} else videoInfoFormData.append('id', videoId)
+		const videoId = id
+		videoInfoFormData.append('id', videoId)
 		const res = await saveVideoInfo(videoInfoFormData)
 		if (res) markAsSent(true)
 	}

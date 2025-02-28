@@ -1,30 +1,24 @@
-import { type EventPartners } from 'src/types/events'
+import { type PartnerItem } from 'src/types/partners'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import cn from 'classnames'
 
-import {
-	useDeleteEventPartnerByIdMutation,
-	useGetPartnersByEventIdQuery,
-} from 'src/store/events/events.api'
-import { useTableSearch } from 'src/hooks/table-search/table-search'
+import { useDeleteEventPartnerByIdMutation } from 'src/store/events/events.api'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { TableFiltration } from 'src/modules/table-filtration/table-filtration'
 
 import { Container } from 'src/UI/Container/Container'
 import { CustomTable } from 'src/components/custom-table/custom-table'
-import { Loader } from 'src/components/loader/loader'
+// import { Loader } from 'src/components/loader/loader'
 import { RowController } from 'src/components/row-controller/row-controller'
 import { TableFooter } from 'src/components/table-footer/table-footer'
 import { GridRow } from 'src/components/grid-row/grid-row'
-import { ObjectsElementsFiltrationInputs } from 'src/pages/admin-partners-layout/components/partners-elements/consts'
+import { PartnerElementsFiltrationInputs } from 'src/pages/admin-partners-layout/components/partners-elements/consts'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
 
 export const PartnerElements = () => {
-	const { id } = useParams()
-
-	const { handleSearch, searchParams } = useTableSearch(['title', 'typeOrg', 'typePart'])
+	const { id = '' } = useParams()
 
 	// const { data: partners, isLoading } = useGetPartnersByEventIdQuery({
 	// 	id,
@@ -34,19 +28,23 @@ export const PartnerElements = () => {
 	const partners = [
 		{
 			id: '1',
-			isHidden: false,
+			hidden: false,
 			title: 'ООО МЦАИ',
-			typeOrg: '',
-			typePart: [''],
-			priority: '',
+			events_count: '',
+			partner_vids: [],
+			partner_types: [],
+			sortid: '',
+			itemlink: '',
 		},
 		{
-			id: '1',
-			isHidden: false,
+			id: '2',
+			hidden: false,
 			title: 'ООО МЦАИ',
-			typeOrg: '',
-			typePart: [''],
-			priority: '',
+			events_count: '',
+			partner_vids: [],
+			partner_types: [],
+			sortid: '',
+			itemlink: '',
 		},
 	]
 
@@ -56,28 +54,28 @@ export const PartnerElements = () => {
 
 	const tableTitles = ['Наименование', 'Вид организации', 'Тип партнерства', 'Очередность', '']
 
-	const formatObjectsTableData = (partnersData: EventPartners[]) => {
+	const formatObjectsTableData = (partnersData: PartnerItem[]) => {
 		return partnersData.map((partnersEl) => {
 			return {
 				rowId: partnersEl.id,
 				cells: [
 					<p
-						className={cn({ 'hidden-cell-icon': partnersEl.isHidden }, styles.titlePartnersTable)}
+						className={cn({ 'hidden-cell-icon': partnersEl.hidden }, styles.titlePartnersTable)}
 						key='0'
 					>
 						{partnersEl.title}
 					</p>,
-					<p className={cn({ 'hidden-cell': partnersEl.isHidden })} key='1'>
-						{partnersEl.typeOrg}
+					<p className={cn({ 'hidden-cell': partnersEl.hidden })} key='1'>
+						{partnersEl.partner_vids.join(',')}
 					</p>,
-					<p className={cn({ 'hidden-cell': partnersEl.isHidden })} key='2'>
-						{partnersEl.typePart.join(', ')}
+					<p className={cn({ 'hidden-cell': partnersEl.hidden })} key='2'>
+						{partnersEl.partner_types.join(',')}
 					</p>,
 					<input
-						className={cn({ 'hidden-cell': partnersEl.isHidden }, styles.priorityBox)}
+						className={cn({ 'hidden-cell': partnersEl.hidden }, styles.priorityBox)}
 						key='3'
 						type='text'
-						value={partnersEl.priority}
+						value={partnersEl.sortid}
 						onChange={(e) =>
 							console.log(
 								`очередность партнера с id ${partnersEl.id} изменена на значение ${e.target.value}`,
@@ -120,7 +118,7 @@ export const PartnerElements = () => {
 			<h3 className={styles.title}>Партнеры</h3>
 
 			<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
-				<TableFiltration filterInputs={ObjectsElementsFiltrationInputs} />
+				<TableFiltration filterInputs={PartnerElementsFiltrationInputs} />
 			</GridRow>
 			<CustomTable
 				className={styles.partnersTable}

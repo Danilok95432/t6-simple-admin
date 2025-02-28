@@ -18,6 +18,7 @@ import {
 	useDeleteImageByIdMutation,
 	useUploadImagesMutation,
 } from 'src/store/uploadImages/uploadImages.api'
+import { useParams } from 'react-router-dom'
 
 type ReactDropzoneProps = {
 	name: string
@@ -68,12 +69,15 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 	const [uploadImages] = useUploadImagesMutation()
 	const [deleteImageById] = useDeleteImageByIdMutation()
 
+	const { id = '' } = useParams()
+
 	const uploadFile = useCallback(
 		async (file: File) => {
 			try {
 				const formData = new FormData()
 				formData.append('itemimage', file)
 				formData.append('imgtype', imgtype)
+				formData.append('id', id)
 
 				const response = await uploadImages(formData).unwrap()
 

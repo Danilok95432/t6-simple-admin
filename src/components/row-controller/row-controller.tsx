@@ -7,6 +7,7 @@ import styles from './index.module.scss'
 
 type RowControllerProps = {
 	textOfHidden?: string
+	className?: string
 	id: string
 	hideHandler: (id: string) => void
 	removeHandler: (id: string) => void
@@ -14,6 +15,7 @@ type RowControllerProps = {
 
 export const RowController: FC<RowControllerProps> = ({
 	textOfHidden,
+	className,
 	hideHandler,
 	removeHandler,
 	id,
@@ -28,7 +30,7 @@ export const RowController: FC<RowControllerProps> = ({
 	}
 
 	return (
-		<div className={styles.rowControllerWrapper}>
+		<div className={cn(styles.rowControllerWrapper, className)}>
 			<button className={styles.rowControllerBtn} type='button'>
 				<RowControllerIconSvg />
 			</button>

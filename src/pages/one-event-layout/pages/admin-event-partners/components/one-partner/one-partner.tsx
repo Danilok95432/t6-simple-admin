@@ -17,9 +17,6 @@ export const OnePartner = () => {
 	const methods = useForm<OnePartnerInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(onePartnerSchema),
-		defaultValues: {
-			logoPartner: [],
-		},
 	})
 
 	const onSubmit: SubmitHandler<OnePartnerInputs> = (data) => {

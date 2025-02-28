@@ -19,6 +19,7 @@ const StyledAdminContent = styled.div<AdminContentProps>`
 	padding: ${({ $padding }) => $padding ?? '31px 30px 55px'};
 	max-width: ${({ $width }) => $width ?? '1570px'};
 	min-height: ${({ $height }) => $height ?? '800px'};
+	position: relative;
 
 	.content-title {
 		display: flex;

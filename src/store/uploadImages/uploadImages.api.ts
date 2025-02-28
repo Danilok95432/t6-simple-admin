@@ -14,11 +14,7 @@ export const uploadImagesApi = createApi({
 			query: (formData) => ({
 				url: `images/upload`,
 				method: 'POST',
-				headers: {
-					'Content-Type': 'multipart/form-data;',
-				},
 				body: formData,
-				formData: true,
 			}),
 			invalidatesTags: ['ImageUpload'],
 		}),

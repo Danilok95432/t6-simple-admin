@@ -4,12 +4,13 @@ import cn from 'classnames'
 import { type PartnersItem } from 'src/types/objects'
 import { useTableSearch } from 'src/hooks/table-search/table-search'
 import { useGetAllPartnersQuery } from 'src/store/partners/partners.api'
+import { TableFiltration } from 'src/modules/table-filtration/table-filtration'
 
 import { GridRow } from 'src/components/grid-row/grid-row'
 import { CustomTable } from 'src/components/custom-table/custom-table'
 import { RowController } from 'src/components/row-controller/row-controller'
 import { TableFooter } from 'src/components/table-footer/table-footer'
-import { TableSearchInput } from 'src/modules/table-search-input/table-search'
+import { ObjectsElementsFiltrationInputs } from 'src/pages/admin-objects/components/object-elements/consts'
 
 import { Loader } from 'src/components/loader/loader'
 
@@ -89,18 +90,7 @@ export const PartnersElements: FC = () => {
 	return (
 		<div>
 			<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
-				<TableSearchInput
-					handleSearch={(value) => handleSearch('title', value)}
-					placeholder='искать по наименованию'
-				/>
-				<TableSearchInput
-					handleSearch={(value) => handleSearch('typeOrg', value)}
-					placeholder='искать по виду организации'
-				/>
-				<TableSearchInput
-					handleSearch={(value) => handleSearch('typePart', value)}
-					placeholder='искать по типу партнерства'
-				/>
+				<TableFiltration filterInputs={ObjectsElementsFiltrationInputs} />
 			</GridRow>
 			<CustomTable
 				className={styles.objectTable}

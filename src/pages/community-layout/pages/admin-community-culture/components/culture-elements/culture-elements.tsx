@@ -26,14 +26,7 @@ export const CultureElements: FC = () => {
 
 	const { handleSearch } = useTableSearch(['title', 'date', 'level', 'region'])
 
-	const tableTitles = [
-		'Наименование элемента',
-		'Размещено',
-		'Уровень',
-		'Регион',
-		'Отдельный сайт',
-		'',
-	]
+	const tableTitles = ['Наименование элемента', 'Размещено', 'Отдельный сайт', '']
 	const formatCulturesTableData = (culturesData: CultureElement[]) => {
 		return culturesData.map((cultureEl) => {
 			return {
@@ -44,12 +37,6 @@ export const CultureElements: FC = () => {
 					</p>,
 					<p className={cn({ 'hidden-cell': cultureEl.isHidden })} key='1'>
 						{mainFormatDate(cultureEl.assemblyDate)}
-					</p>,
-					<p className={cn({ 'hidden-cell': cultureEl.isHidden })} key='2'>
-						{cultureEl.level}
-					</p>,
-					<p className={cn({ 'hidden-cell': cultureEl.isHidden })} key='3'>
-						{cultureEl.region}
 					</p>,
 					cultureEl.site ? (
 						<a
@@ -101,14 +88,6 @@ export const CultureElements: FC = () => {
 					placeholder='размещено'
 					$variant='date'
 					mask={Date}
-				/>
-				<TableSearchInput
-					handleSearch={(val) => handleSearch('level', val)}
-					placeholder='уровень'
-				/>
-				<TableSearchInput
-					handleSearch={(val) => handleSearch('region', val)}
-					placeholder='регион'
 				/>
 			</GridRow>
 			<CustomTable

@@ -55,28 +55,6 @@ export const CultureInfo = () => {
 							maxWidth='1140px'
 							margin='0 0 20px 0'
 						/>
-						<ControlledSelect
-							className={styles.cultureSelect}
-							selectOptions={[
-								{ label: 'Государство', value: '1' },
-								{ label: 'Уровень 2', value: '2' },
-								{ label: 'Уровень 3', value: '3' },
-							]}
-							name='levelDirection'
-							label='Уровень направления *'
-							margin='0 0 20px 0'
-						/>
-						<ControlledSelect
-							className={styles.cultureSelect}
-							selectOptions={[
-								{ label: 'Россия', value: '1' },
-								{ label: 'Регион 2', value: '2' },
-								{ label: 'Регион 3', value: '3' },
-							]}
-							name='regionDirection'
-							label='Регион направления *'
-							margin='0 0 20px 0'
-						/>
 						<ControlledInput
 							name='site'
 							label='Адрес интернет-сайта *'
@@ -112,24 +90,6 @@ export const CultureInfo = () => {
 							$heightEditor='105px'
 							$maxWidth='1140px'
 						/>
-						<FlexRow $margin='30px 0 20px' $direction='column' $gap='25px'>
-							<ControlledCheckbox
-								name='isEventsByDisciplines'
-								label='Транслировать события по дисциплинам'
-								type='checkbox'
-							/>
-							<ControlledCheckbox
-								name='isParticipantsByDisciplines'
-								label='Транслировать участников по дисциплинам'
-								type='checkbox'
-							/>
-							<ControlledCheckbox
-								name='isParticipantsByEvents'
-								label='Транслировать участников по событиям'
-								type='checkbox'
-							/>
-						</FlexRow>
-
 						<FlexRow $margin='40px 0 45px 0' $gap='15px'>
 							<AdminButton as='button' type='submit'>
 								Сохранить

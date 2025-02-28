@@ -41,53 +41,53 @@ export const AdminControllers: FC<AdminControllersProps> = ({
 						</AdminButton>
 					</>
 				)
-			// case '2':
-			// 	return (
-			// 		<>
-			// 			<AdminButton as='link' to={outLink} $height='40px'>
-			// 				Применить и продолжить
-			// 			</AdminButton>
-			// 			<AdminButton as='button' type='submit' $variant='light' $height='40px'>
-			// 				Сохранить и выйти
-			// 			</AdminButton>
-			// 			<AdminButton
-			// 				className='_extreme'
-			// 				as='link'
-			// 				to={outLink}
-			// 				$variant='cancel'
-			// 				$height='40px'
-			// 			>
-			// 				Отменить изменения
-			// 			</AdminButton>
-			// 		</>
-			// 	)
-			// case '3':
-			// 	return (
-			// 		<AdminButton
-			// 			as='button'
-			// 			type='submit'
-			// 			$variant={isSent ? 'sent' : 'primary'}
-			// 			$height='40px'
-			// 		>
-			// 			{isSent ? 'Изменения сохранены' : 'Применить и продолжить'}
-			// 		</AdminButton>
-			// 	)
-			// case '4':
-			// 	return (
-			// 		<>
-			// 			<AdminButton
-			// 				as='button'
-			// 				type='submit'
-			// 				$variant={isSent ? 'sent' : 'primary'}
-			// 				$height='40px'
-			// 			>
-			// 				{isSent ? 'Изменения сохранены' : 'Применить и продолжить'}
-			// 			</AdminButton>
-			// 			<AdminButton as='route' to={outLink} $variant='light' $height='40px'>
-			// 				Сохранить и выйти
-			// 			</AdminButton>
-			// 		</>
-			// 	)
+			case '2':
+				return (
+					<>
+						<AdminButton as='link' to={outLink} $height='40px'>
+							Применить и продолжить
+						</AdminButton>
+						<AdminButton as='button' type='submit' $variant='light' $height='40px'>
+							Сохранить и выйти
+						</AdminButton>
+						<AdminButton
+							className='_extreme'
+							as='link'
+							to={outLink}
+							$variant='cancel'
+							$height='40px'
+						>
+							Отменить изменения
+						</AdminButton>
+					</>
+				)
+			case '3':
+				return (
+					<AdminButton
+						as='button'
+						type='submit'
+						$variant={isSent ? 'sent' : 'primary'}
+						$height='40px'
+					>
+						{isSent ? 'Изменения сохранены' : 'Применить и продолжить'}
+					</AdminButton>
+				)
+			case '4':
+				return (
+					<>
+						<AdminButton
+							as='button'
+							type='submit'
+							$variant={isSent ? 'sent' : 'primary'}
+							$height='40px'
+						>
+							{isSent ? 'Изменения сохранены' : 'Применить и продолжить'}
+						</AdminButton>
+						<AdminButton as='route' to={outLink} $variant='light' $height='40px'>
+							Сохранить и выйти
+						</AdminButton>
+					</>
+				)
 		}
 	}
 

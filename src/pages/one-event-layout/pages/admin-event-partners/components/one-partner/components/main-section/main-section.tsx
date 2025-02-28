@@ -15,7 +15,7 @@ export const MainSection = () => {
 				label='Название партнера *'
 				placeholder='Начните вводить название'
 				maxWidth='1140px'
-				margin='0 0 60px 0'
+				margin='0 0 40px 0'
 			/>
 			<CustomText $fontSize='14px' $fontWeight='600' $margin='0 0 18px'>
 				Виды партнерства (возможен выбор нескольких видов)

@@ -16,10 +16,15 @@ export const newsApi = createApi({
 	tagTypes: ['News', 'NewsInfo'],
 	baseQuery: baseQueryWithReauth,
 	endpoints: (build) => ({
-		getAllNews: build.query<NewsResponse, { title?: string; date?: string; tags?: string }>({
-			query: ({ title = '', date = '', tags = '' }) => ({
+		getAllNews: build.query<
+			NewsResponse,
+			{ idEvent?: string; idObject?: string; title?: string; date?: string; tags?: string }
+		>({
+			query: ({ idEvent = '', idObject = '', title = '', date = '', tags = '' }) => ({
 				url: `news/list`,
 				params: {
+					id_event: idEvent,
+					id_object: idObject,
 					title,
 					date,
 					tags,
@@ -66,9 +71,13 @@ export const newsApi = createApi({
 			}),
 			invalidatesTags: ['NewsInfo', 'News'],
 		}),
-		getNewIdNews: build.query<NewsNewIdResponse, null>({
-			query: () => ({
+		getNewIdNews: build.query<NewsNewIdResponse, { idEvent?: string; idObject?: string }>({
+			query: ({ idEvent = '', idObject = '' }) => ({
 				url: `news/getnew`,
+				params: {
+					id_event: idEvent,
+					id_object: idObject,
+				},
 			}),
 			providesTags: ['NewsInfo', 'News'],
 		}),

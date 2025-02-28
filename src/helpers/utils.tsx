@@ -143,6 +143,15 @@ export const formatDateToYYYYMMDD = (date: Date | string | null | undefined): st
 	}
 }
 
+export const currentDateString = (): string => {
+	const now = new Date()
+	const year = now.getFullYear()
+	const month = String(now.getMonth() + 1).padStart(2, '0')
+	const day = String(now.getDate()).padStart(2, '0')
+
+	return `${year}-${month}-${day}`
+}
+
 // функция форматирования флагов для отправки на сервер
 export const booleanToNumberString = (bool: boolean | undefined): string => {
 	return bool ? '1' : '0'

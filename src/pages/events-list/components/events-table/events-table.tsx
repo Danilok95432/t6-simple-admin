@@ -12,6 +12,7 @@ import { GridRow } from 'src/components/grid-row/grid-row'
 import {
 	useDeleteEventByIdMutation,
 	useGetAllEventsQuery,
+	useGetNewIdEventQuery,
 	useHideEventByIdMutation,
 } from 'src/store/events/events.api'
 import { mainFormatDate } from 'src/helpers/utils'
@@ -33,8 +34,14 @@ export const EventsTable: FC = () => {
 	})
 	const [deleteEventById] = useDeleteEventByIdMutation()
 	const [hideEventById] = useHideEventByIdMutation()
+	const { refetch: getNewId } = useGetNewIdEventQuery(null)
 
 	const navigate = useNavigate()
+
+	const addEvent = async () => {
+		const newIdResponse = await getNewId().unwrap()
+		return newIdResponse.id
+	}
 
 	const tableTitles = ['Наименование события', 'Начало', 'Окончание', 'Объект кластера', '']
 	const formatEventsTableData = (eventsData: EventItem[]) => {
@@ -77,6 +84,11 @@ export const EventsTable: FC = () => {
 		navigate(`/event/event-profile/${id}`)
 	}
 
+	const handleAddEventClick = async () => {
+		const newId = await addEvent()
+		navigate(`/event/event-profile/${newId}`)
+	}
+
 	if (isLoading || !eventsDataResponse?.events) return <Loader />
 
 	return (
@@ -92,7 +104,7 @@ export const EventsTable: FC = () => {
 			/>
 			<TableFooter
 				totalElements={eventsDataResponse?.events.length}
-				addClickHandler={() => navigate('/event/event-profile/new')}
+				addClickHandler={handleAddEventClick}
 				addText='Добавить событие'
 			/>
 		</div>

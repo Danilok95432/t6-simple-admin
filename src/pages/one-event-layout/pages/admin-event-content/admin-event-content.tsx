@@ -23,7 +23,7 @@ import {
 	useGetContentByEventIdQuery,
 	useSaveEventContentInfoMutation,
 } from 'src/store/events/events.api'
-import { booleanToNumberString, transformToFormData } from 'src/helpers/utils'
+import { booleanToNumberString } from 'src/helpers/utils'
 
 export const AdminEventContent: FC = () => {
 	const { id = '0' } = useParams()
@@ -41,42 +41,28 @@ export const AdminEventContent: FC = () => {
 	})
 
 	const onSubmit: SubmitHandler<EventContentInputs> = async (data) => {
-		const placementsTitle: string[] = []
-		const placementsDesc: string[] = []
-		const placementsLocation: string[] = []
-
-		const linksTitle: string[] = []
-		const linksLink: string[] = []
-		const linksDesc: string[] = []
 		const eventId = id
+		const eventInfoFormData = new FormData()
 
-		data.placements?.forEach((placement) => {
-			placementsTitle.push(placement.title)
-			placementsDesc.push(placement.desc)
-			placementsLocation.push(placement.location)
-		})
-
-		data.links?.forEach((link) => {
-			linksTitle.push(link.title)
-			linksLink.push(link.link)
-			linksDesc.push(link.desc)
-		})
-
-		const serverData = {
-			linksBlock_title: data.linksBlock_title,
-			hide_placements: booleanToNumberString(data.hide_placements),
-			hide_gallery: booleanToNumberString(data.hide_gallery),
-			hide_links: booleanToNumberString(data.hide_links),
-			placements_title: placementsTitle,
-			placements_desc: placementsDesc,
-			placements_location: placementsLocation,
-			link_title: linksTitle,
-			links_link: linksLink,
-			links_desc: linksDesc,
-		}
-
-		const eventInfoFormData = transformToFormData(serverData)
 		eventInfoFormData.append('id', eventId)
+
+		data.placements?.forEach((placement, index) => {
+			eventInfoFormData.append(`placements_title[${index}]`, placement.title)
+			eventInfoFormData.append(`placements_desc[${index}]`, placement.desc)
+			eventInfoFormData.append(`placements_location[${index}]`, placement.location)
+		})
+
+		data.links?.forEach((link, index) => {
+			eventInfoFormData.append(`links_title[${index}]`, link.title)
+			eventInfoFormData.append(`links_link[${index}]`, link.link)
+			eventInfoFormData.append(`links_desc[${index}]`, link.desc)
+		})
+
+		eventInfoFormData.append('linksBlock_title', data.linksBlock_title)
+		eventInfoFormData.append('hide_placements', booleanToNumberString(data.hide_placements))
+		eventInfoFormData.append('hide_gallery', booleanToNumberString(data.hide_gallery))
+		eventInfoFormData.append('hide_links', booleanToNumberString(data.hide_links))
+
 		await saveEventContentInfo(eventInfoFormData)
 	}
 

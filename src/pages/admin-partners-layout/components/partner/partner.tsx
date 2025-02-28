@@ -5,7 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Container } from 'src/UI/Container/Container'
 import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
-import { MainSection } from '../../../one-event-layout/pages/admin-event-partners/components/one-partner/components/main-section/main-section'
+import { MainSection } from './components/main-section/main-section'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'

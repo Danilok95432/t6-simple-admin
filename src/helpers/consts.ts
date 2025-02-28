@@ -8,10 +8,12 @@ export enum ReducerPath {
 	Videos = 'videos/api',
 	Requests = 'requests/api',
 	Community = 'community/api',
+	Partners = 'partners/api',
 	UploadImages = 'uploadImages/api',
 }
 
 export const ImagesFormat = ['png', 'jpeg', 'jpg', 'webp', 'gif']
+
 export enum NameSpace {
 	Modal = 'MODAL',
 	Auth = 'AUTH',

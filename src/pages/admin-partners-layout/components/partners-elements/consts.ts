@@ -1,18 +1,18 @@
 import { type FilterTableInput } from 'src/types/global'
 
-export const PartnersElementsFiltrationInputs: FilterTableInput[] = [
+export const ObjectsElementsFiltrationInputs: FilterTableInput[] = [
 	{
 		name: 'title',
 		placeholder: 'искать по наименованию',
 		type: 'text',
 	},
 	{
-		name: 'type',
+		name: 'typeOrg',
 		placeholder: 'искать по виду организации',
 		type: 'text',
 	},
 	{
-		name: 'relation',
+		name: 'typePart',
 		placeholder: 'искать по типу партнерства',
 		type: 'text',
 	},

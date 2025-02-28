@@ -37,7 +37,10 @@ export const AdminControllers: FC<AdminControllersProps> = ({
 				return (
 					<>
 						<AdminButton as='button' type='submit' $height='40px'>
-							Добавить партнера
+							Применить и продолжить
+						</AdminButton>
+						<AdminButton as='link' to={outLink} $variant='light' $height='40px'>
+							Сохранить и выйти
 						</AdminButton>
 					</>
 				)

@@ -1,10 +1,9 @@
 .searchRow {
 	grid-template-columns:
-		minmax(300px, 1.3fr)
-		minmax(170px, 0.6fr)
-		minmax(170px, 0.6fr)
-		minmax(100px, 0.5fr)
-		minmax(50px, 0.2fr);
+		minmax(300px, 1.8fr)
+		minmax(170px, 0.8fr)
+		minmax(170px, 0.8fr)
+		minmax(100px, 0.5fr);
 
 	@media (max-width: 1700px) {
 		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -16,9 +15,9 @@
 		minmax(360px, 1fr)
 		minmax(80px, 0.2fr)
 		minmax(270px, 0.5fr)
-		minmax(150px, 0.5fr)
+		minmax(200px, 0.5fr)
 		minmax(120px, 0.2fr)
-		minmax(50px, 0.15fr);
+		minmax(100px, 0.15fr);
 
 	.priorityBox {
 		width: 50px;

@@ -101,7 +101,7 @@ export const PartnersElements: FC = () => {
 			<TableFooter
 				totalElements={data.partners.length}
 				addClickHandler={() => navigate('/')}
-				addText='Добавить объект'
+				addText='Добавить партнера'
 			/>
 		</div>
 	)

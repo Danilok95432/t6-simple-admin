@@ -49,7 +49,7 @@ export const PartnersElements: FC = () => {
 						{partnerEl.partnershipType}
 					</p>,
 					<input
-						className={cn({ 'hidden-cell': partnerEl.isHidden }, styles.priorityBox)}
+						className={cn({ 'hidden-cell': partnerEl.hidden }, styles.priorityBox)}
 						key='5'
 						type='text'
 						value={partnerEl.priority}

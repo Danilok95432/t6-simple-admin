@@ -58,7 +58,7 @@ export const LinksSection: FC = () => {
 							{
 								title: '',
 								link: '',
-								itemdate: '',
+								desc: '',
 							},
 							{ shouldFocus: false },
 						)

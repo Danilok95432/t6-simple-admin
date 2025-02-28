@@ -7,7 +7,6 @@ import {
 	type EventContent,
 } from 'src/types/events'
 import { type FieldValues } from 'react-hook-form'
-import { type NewsResponse } from 'src/types/news'
 
 import { createApi } from '@reduxjs/toolkit/query/react'
 
@@ -139,29 +138,6 @@ export const eventsApi = createApi({
 				method: 'DELETE',
 			}),
 			invalidatesTags: ['Events', 'EventPartners'],
-		}),
-		getNewsByEventId: build.query<
-			NewsResponse,
-			{ idEvent: string; title?: string; date?: string; tags?: string }
-		>({
-			query: ({ idEvent = '', title = '', date = '', tags = '' }) => ({
-				url: `events/news/list`,
-				params: {
-					idEvent,
-					title,
-					date,
-					tags,
-				},
-			}),
-			providesTags: ['Events', 'EventNews'],
-		}),
-		saveEventNewsInfo: build.mutation<string, FieldValues>({
-			query: (FormData) => ({
-				url: `events/save_news`,
-				method: 'POST',
-				body: FormData,
-			}),
-			invalidatesTags: ['EventInfo', 'Events', 'EventNews'],
 		}),
 	}),
 })

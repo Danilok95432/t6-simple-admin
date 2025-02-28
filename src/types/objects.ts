@@ -33,7 +33,7 @@ export type ObjectItem = {
 
 export type PartnersItem = {
 	id: string
-	isHidden: boolean
+	hidden: boolean
 	title: string
 	events: string
 	organizationType: string

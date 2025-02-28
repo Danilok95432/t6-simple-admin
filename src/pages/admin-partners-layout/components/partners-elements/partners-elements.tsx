@@ -10,7 +10,7 @@ import { GridRow } from 'src/components/grid-row/grid-row'
 import { CustomTable } from 'src/components/custom-table/custom-table'
 import { RowController } from 'src/components/row-controller/row-controller'
 import { TableFooter } from 'src/components/table-footer/table-footer'
-import { ObjectsElementsFiltrationInputs } from 'src/pages/admin-objects/components/object-elements/consts'
+import { ObjectsElementsFiltrationInputs } from './consts'
 
 import { Loader } from 'src/components/loader/loader'
 

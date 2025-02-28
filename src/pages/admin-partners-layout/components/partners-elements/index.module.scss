@@ -2,10 +2,11 @@
 	grid-template-columns:
 		minmax(300px, 1.3fr)
 		minmax(170px, 0.6fr)
-		minmax(170px, 0.6fr);
-	max-width: 88% !important;
+		minmax(170px, 0.6fr)
+		minmax(100px, 0.5fr)
+		minmax(50px, 0.2fr);
 
-	@media (max-width: 1200px) {
+	@media (max-width: 1700px) {
 		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 	}
 }
@@ -13,10 +14,10 @@
 .objectTable {
 	grid-template-columns:
 		minmax(360px, 1fr)
-		minmax(50px, 0.2fr)
+		minmax(80px, 0.2fr)
 		minmax(270px, 0.5fr)
 		minmax(150px, 0.5fr)
-		minmax(50px, 0.2fr)
+		minmax(120px, 0.2fr)
 		minmax(50px, 0.15fr);
 
 	.priorityBox {

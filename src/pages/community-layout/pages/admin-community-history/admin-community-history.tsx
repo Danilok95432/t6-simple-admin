@@ -29,7 +29,7 @@ export const AdminCommunityHistory: FC = () => {
 		mode: 'onBlur',
 		resolver: yupResolver(articleSchema),
 		defaultValues: {
-			galleryImages: [],
+			photos: [],
 			gallerySection: false,
 			bottomDescsSection: false,
 		},
@@ -69,7 +69,7 @@ export const AdminCommunityHistory: FC = () => {
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<TitleSection />
-						<GallerySection />
+						<GallerySection images={aboutHistoryData?.photos} />
 						<ArticleSection />
 						<AdminControllers variant='3' isSent={isSent} />
 					</form>

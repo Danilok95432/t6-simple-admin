@@ -1,53 +1,56 @@
-import { type CultureElement } from 'src/types/culture'
+import { type CultureItem } from 'src/types/community'
 import { useNavigate } from 'react-router-dom'
 import { type FC } from 'react'
 import cn from 'classnames'
+
 import {
 	useDeleteCultureByIdMutation,
-	useGetAllCulturesQuery,
-} from 'src/store/cultures/cultures.api'
+	useHideCultureByIdMutation,
+} from 'src/store/community/community.api'
+
 import { CustomTable } from 'src/components/custom-table/custom-table'
 import { mainFormatDate } from 'src/helpers/utils'
 import { Loader } from 'src/components/loader/loader'
 import { RowController } from 'src/components/row-controller/row-controller'
 import { TableFooter } from 'src/components/table-footer/table-footer'
 import { GridRow } from 'src/components/grid-row/grid-row'
-import { TableSearchInput } from 'src/modules/table-search-input/table-search'
-import { useTableSearch } from 'src/hooks/table-search/table-search'
 
 import styles from './index.module.scss'
+import { TableFiltration } from 'src/modules/table-filtration/table-filtration'
+import { CultureElementsFiltrationInputs } from './consts'
 
-export const CultureElements: FC = () => {
-	const { data: cultures, isLoading } = useGetAllCulturesQuery({ search: '' })
+type CultureElementsProps = {
+	cultures?: CultureItem[]
+}
 
+export const CultureElements: FC<CultureElementsProps> = ({ cultures = [] }) => {
+	const [hideCulturesById] = useHideCultureByIdMutation()
 	const [deleteCulturesById] = useDeleteCultureByIdMutation()
 
 	const navigate = useNavigate()
 
-	const { handleSearch } = useTableSearch(['title', 'date', 'level', 'region'])
-
 	const tableTitles = ['Наименование элемента', 'Размещено', 'Отдельный сайт', '']
-	const formatCulturesTableData = (culturesData: CultureElement[]) => {
+	const formatCulturesTableData = (culturesData: CultureItem[]) => {
 		return culturesData.map((cultureEl) => {
 			return {
 				rowId: cultureEl.id,
 				cells: [
-					<p className={cn({ 'hidden-cell-icon': cultureEl.isHidden })} key='0'>
+					<p className={cn({ 'hidden-cell-icon': cultureEl.hidden })} key='0'>
 						{cultureEl.title}
 					</p>,
-					<p className={cn({ 'hidden-cell': cultureEl.isHidden })} key='1'>
-						{mainFormatDate(cultureEl.assemblyDate)}
+					<p className={cn({ 'hidden-cell': cultureEl.hidden })} key='1'>
+						{mainFormatDate(cultureEl.createdate)}
 					</p>,
-					cultureEl.site ? (
+					cultureEl.website ? (
 						<a
-							className={cn({ 'hidden-cell': cultureEl.isHidden }, styles.cultureTableLink)}
-							href={cultureEl.site}
+							className={cn({ 'hidden-cell': cultureEl.hidden }, styles.cultureTableLink)}
+							href={cultureEl.website}
 							key='4'
 						>
-							{cultureEl.site}
+							{cultureEl.website}
 						</a>
 					) : (
-						<p key='4' className={cn({ 'hidden-cell': cultureEl.isHidden })}>
+						<p key='4' className={cn({ 'hidden-cell': cultureEl.hidden })}>
 							нет сайта
 						</p>
 					),
@@ -67,28 +70,19 @@ export const CultureElements: FC = () => {
 		await deleteCulturesById(id)
 	}
 	const rowHideHandler = async (id: string) => {
-		console.log(id + 'спрятан')
+		await hideCulturesById(id)
 	}
 
 	const rowClickHandler = (id: string) => {
 		navigate(`/culture/culture-info/${id}`)
 	}
 
-	if (isLoading || !cultures) return <Loader />
+	if (!cultures) return <Loader />
 
 	return (
 		<div>
 			<GridRow $margin='0 0 15px 0' className={styles.searchRow}>
-				<TableSearchInput
-					handleSearch={(val) => handleSearch('title', val)}
-					placeholder='искать по наименованию'
-				/>
-				<TableSearchInput
-					handleSearch={(val) => handleSearch('date', val)}
-					placeholder='размещено'
-					$variant='date'
-					mask={Date}
-				/>
+				<TableFiltration filterInputs={CultureElementsFiltrationInputs} />
 			</GridRow>
 			<CustomTable
 				className={styles.cultureTable}

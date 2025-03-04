@@ -40,6 +40,9 @@ export const MainSection: FC<MainSectionProps> = ({ objectTypes, objectApply }) 
 				prompt='JPEG, PNG, 500х500px, не более 2.5 Мб'
 				accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
 				margin='0 0 20px 0'
+				previewVariant='sm-img'
+				imgtype='objects'
+				fileImages={[]}
 			/>
 			<ControlledInput
 				name='mainDescs'

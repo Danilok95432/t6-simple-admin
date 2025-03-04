@@ -1,38 +1,33 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { type CultureElement } from 'src/types/culture'
+import { createApi } from '@reduxjs/toolkit/query/react'
+import { type FieldValues } from 'react-hook-form'
+import { type CultureInfoResponse } from 'src/types/culture'
 
-import { BASE_URL, ReducerPath } from 'src/helpers/consts'
+import { ReducerPath } from 'src/helpers/consts'
+import { baseQueryWithReauth } from 'src/helpers/base-query'
 
 export const culturesApi = createApi({
 	reducerPath: ReducerPath.Culture,
-	tagTypes: ['Culture'],
-	baseQuery: fetchBaseQuery({
-		baseUrl: BASE_URL,
-	}),
+	tagTypes: ['Culture', 'CultureInfo'],
+	baseQuery: baseQueryWithReauth,
 	endpoints: (build) => ({
-		getAllCultures: build.query<CultureElement[], { search?: string }>({
-			query: ({ search = '' }) => ({
-				url: `cultures`,
+		getCultureInfo: build.query<CultureInfoResponse, string>({
+			query: (id) => ({
+				url: `home/culture/edit_item`,
 				params: {
-					q: search,
+					id,
 				},
 			}),
-			providesTags: ['Culture'],
+			providesTags: ['CultureInfo'],
 		}),
-		getCultureById: build.query<CultureElement, string>({
-			query: (cultureId) => ({
-				url: `cultures/${cultureId}`,
+		saveCultureInfoCommunity: build.mutation<null, FieldValues>({
+			query: (formData) => ({
+				url: `home/culture/save_item`,
+				method: 'POST',
+				body: formData,
 			}),
-		}),
-		deleteCultureById: build.mutation<null, string>({
-			query: (cultureId) => ({
-				url: `cultureDelete/${cultureId}`,
-				method: 'DELETE',
-			}),
-			invalidatesTags: ['Culture'],
+			invalidatesTags: ['CultureInfo'],
 		}),
 	}),
 })
 
-export const { useGetAllCulturesQuery, useGetCultureByIdQuery, useDeleteCultureByIdMutation } =
-	culturesApi
+export const { useGetCultureInfoQuery, useSaveCultureInfoCommunityMutation } = culturesApi

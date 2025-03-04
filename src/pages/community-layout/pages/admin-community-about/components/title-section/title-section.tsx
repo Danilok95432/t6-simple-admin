@@ -1,18 +1,26 @@
 import { type FC } from 'react'
+import { type ImageItemWithText } from 'src/types/photos'
 
 import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { AdminSection } from 'src/components/admin-section/admin-section'
 
-export const TitleSection: FC = () => {
+type TitleSectionProps = {
+	logo?: ImageItemWithText[]
+}
+
+export const TitleSection: FC<TitleSectionProps> = ({ logo }) => {
 	return (
 		<AdminSection titleText='Заглавный текст'>
 			<ReactDropzone
 				label='Фотография'
-				name='aboutTitleImage'
+				name='logo'
 				prompt='PNG, JPG, JPEG. 1000 х1000px, не более 3 Мб'
 				accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
 				margin='0 0 20px 0'
+				previewVariant='sm-img'
+				imgtype='about_general'
+				fileImages={logo}
 			/>
 			<ControlledInput
 				name='mainDescs'

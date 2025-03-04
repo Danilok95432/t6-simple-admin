@@ -1,18 +1,13 @@
-import { type FileWithPreview } from 'src/types/files'
+import { type ImageItemWithText } from './photos'
 
-export type CultureElement = {
+export type CultureInfoResponse = {
 	id: string
-	isHidden: boolean
-	site: string | null
+	hidden: boolean
+	website: string
 	title: string
-	region: string
-	level: string
-	assemblyDate: Date
-	logo: string | null
-	gallery: FileWithPreview[]
-	textBlock1: string | null
-	textBlock2: string | null
-	isEventsByDiscipline: boolean
-	isParticipantsByDiscipline: boolean
-	isParticipantsByEvents: boolean
+	desc: string
+	createdate: Date
+	logo: ImageItemWithText[]
+	photos: ImageItemWithText[]
+	bottomDesc: string
 }

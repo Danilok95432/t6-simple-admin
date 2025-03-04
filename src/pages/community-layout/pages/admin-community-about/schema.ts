@@ -1,12 +1,12 @@
 import * as yup from 'yup'
-import { type FileWithPreview } from 'src/types/files'
+import { type ImageItemWithText } from 'src/types/photos'
 
 export type CommunityInputs = {
-	aboutTitleImage?: FileWithPreview[]
+	logo?: ImageItemWithText[]
 	mainDescs: string
 	caption: string
 	gallerySection?: boolean
-	galleryImages?: FileWithPreview[]
+	photoGallery?: ImageItemWithText[]
 	articleSection?: boolean
 	descs?: string
 }

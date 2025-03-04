@@ -1,11 +1,13 @@
+import { type CultureItem } from 'src/types/community'
+import { type ImageItemWithText } from 'src/types/photos'
 import * as yup from 'yup'
-import type { FileWithPreview } from 'src/types/files'
 
 export type CommunityCultureInputs = {
-	cultureText: string
-	galleryImages?: FileWithPreview[]
+	topDesc: string
+	photos?: ImageItemWithText[]
+	cultures?: CultureItem[]
 }
 
 export const communityCultureSchema = yup.object().shape({
-	cultureText: yup.string().required('Введите текст'),
+	topDesc: yup.string().required('Введите текст'),
 })

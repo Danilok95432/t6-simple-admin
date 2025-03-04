@@ -18,8 +18,8 @@ export const communityTabs: TabNavigationItem[] = [
 		title: 'Материальная культура',
 		link: 'atm-culture',
 	},
-	{
+	/* {
 		title: 'Документы',
 		link: 'atm-documents',
-	},
+	}, */
 ]

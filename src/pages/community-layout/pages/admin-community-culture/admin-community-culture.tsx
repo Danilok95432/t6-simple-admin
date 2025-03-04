@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import { useEffect, type FC } from 'react'
 import {
 	type CommunityCultureInputs,
 	communityCultureSchema,
@@ -7,6 +7,11 @@ import {
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Helmet } from 'react-helmet-async'
+import {
+	useGetCultureCommunityQuery,
+	useSaveCultureCommunityMutation,
+} from 'src/store/community/community.api'
+import { transformToFormData } from 'src/helpers/utils'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
@@ -16,18 +21,35 @@ import { QuillEditor } from 'src/components/quill-editor/quill-editor'
 import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 import { AddButton } from 'src/UI/AddButton/AddButton'
 import { CultureElements } from 'src/pages/community-layout/pages/admin-community-culture/components/culture-elements/culture-elements'
+import { AddImageCulturePlusSVG } from 'src/UI/icons/addImageCulturePlusSVG'
+
+import styles from './index.module.scss'
 
 export const AdminCommunityCulture: FC = () => {
+	const { data: cultureCommunityData } = useGetCultureCommunityQuery(null)
+	const [saveCultureCommunity] = useSaveCultureCommunityMutation()
+
 	const methods = useForm<CommunityCultureInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(communityCultureSchema),
 		defaultValues: {
-			galleryImages: [],
+			photos: [],
 		},
 	})
-	const onSubmit: SubmitHandler<CommunityCultureInputs> = (data) => {
-		console.log(data)
+
+	const onSubmit: SubmitHandler<CommunityCultureInputs> = async (data) => {
+		try {
+			await saveCultureCommunity(transformToFormData(data))
+		} catch (e) {
+			console.error(e)
+		}
 	}
+
+	useEffect(() => {
+		if (cultureCommunityData) {
+			methods.reset({ ...cultureCommunityData })
+		}
+	}, [cultureCommunityData])
 
 	return (
 		<>
@@ -39,18 +61,22 @@ export const AdminCommunityCulture: FC = () => {
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<QuillEditor
 							$heightEditor='310px'
-							name='cultureText'
+							name='topDesc'
 							label='Текст о материальной культуре'
 						/>
 						<ReactDropzone
 							margin='30px 0 0 0'
-							label={`Галерея изображений (${methods?.watch('galleryImages')?.length} из 8)`}
-							previewVariant='list'
-							name='galleryImages'
+							label={`Галерея изображений (${cultureCommunityData?.photos?.length} из 8)`}
+							previewVariant='img-list'
+							variant='culture'
+							name='photos'
 							accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
 							maxFiles={8}
+							fileImages={cultureCommunityData?.photos}
+							imgtype='about_culture_photo'
+							dzAreaClassName={styles.cultureGalleryController}
 							multiple
-							customUploadBtn={<AddButton>Добавить фото</AddButton>}
+							customUploadBtn={<AddButton icon={<AddImageCulturePlusSVG />}> </AddButton>}
 						/>
 						<FlexRow $margin='25px 0 50px 0' $gap='15px'>
 							<AdminButton as='button' type='submit'>
@@ -62,7 +88,7 @@ export const AdminCommunityCulture: FC = () => {
 						</FlexRow>
 					</form>
 				</FormProvider>
-				<CultureElements />
+				<CultureElements cultures={cultureCommunityData?.cultures} />
 			</AdminContent>
 		</>
 	)

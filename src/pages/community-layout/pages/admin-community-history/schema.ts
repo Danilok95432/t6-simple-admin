@@ -1,11 +1,11 @@
 import * as yup from 'yup'
-import { type FileWithPreview } from 'src/types/files'
+import { type ImageItemWithText } from 'src/types/photos'
 
 export type ArticleInputs = {
 	articleName: string
 	topDescs: string
 	gallerySection?: boolean
-	galleryImages?: FileWithPreview[]
+	photos?: ImageItemWithText[]
 	bottomDescsSection?: boolean
 	bottomDescs?: string
 }

@@ -1,21 +1,24 @@
 import React, { type FC, type ReactNode, useEffect, useState, useCallback } from 'react'
 import { type Accept, useDropzone } from 'react-dropzone'
+import { type FileWithPreview } from 'src/types/files'
 
+import { useParams } from 'react-router-dom'
 import cn from 'classnames'
 import { useFormContext } from 'react-hook-form'
-
-import { FilePreviews } from 'src/components/file-previews/file-previews'
-import { RemovePhotoSvg } from 'src/UI/icons/removePhotoSVG'
-import { ErrorMessage } from '@hookform/error-message'
-import { AttachIconSvg } from 'src/UI/icons/attachIconSVG'
-
-import styles from './index.module.scss'
 import {
 	useDeleteImageByIdMutation,
 	useUploadImagesMutation,
 } from 'src/store/uploadImages/uploadImages.api'
-import { useParams } from 'react-router-dom'
-import { type ImageItemWithText } from 'src/types/photos'
+
+import { RemoveImageModalSVG } from 'src/UI/icons/RemoveImageModalSVG'
+import { RemoveTextFileSvg } from 'src/UI/icons/removeTextFileSVG'
+import { ErrorMessage } from '@hookform/error-message'
+import { AttachIconSvg } from 'src/UI/icons/attachIconSVG'
+import { AddButton } from 'src/UI/AddButton/AddButton'
+import { UploadFileSvg } from 'src/UI/icons/uploadFileSVG'
+import { FilePreviewsFiles } from '../file-previews-files/file-previews-files'
+
+import styles from './index.module.scss'
 
 type ReactDropzoneProps = {
 	name: string
@@ -30,14 +33,13 @@ type ReactDropzoneProps = {
 	removeIcon?: ReactNode
 	customUploadBtn?: ReactNode
 	uploadBtnText?: string
-	variant?: 'main' | 'text' | 'culture'
-	previewVariant?: 'main' | 'text' | 'sm-img' | 'list' | 'img-list'
+	variant?: 'main' | 'text'
+	previewVariant?: 'main' | 'text' | 'sm-img' | 'list'
 	imgtype?: string
 	imageIdFieldName?: string
-	fileImages?: ImageItemWithText[]
 }
 
-export const ReactDropzone: FC<ReactDropzoneProps> = ({
+export const ReactDropzoneFiles: FC<ReactDropzoneProps> = ({
 	className,
 	dzAreaClassName,
 	removeIcon,
@@ -54,9 +56,8 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 	margin,
 	imgtype = 'news',
 	imageIdFieldName,
-	fileImages = [],
 }) => {
-	const [currentFiles, setCurrentFiles] = useState<ImageItemWithText[]>([])
+	const [currentFiles, setCurrentFiles] = useState<FileWithPreview[]>([])
 	const [imageIds, setImageIds] = useState<string[]>([])
 
 	const {
@@ -79,6 +80,7 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 				formData.append('id', id)
 
 				const response = await uploadImages(formData).unwrap()
+
 				if (response.status === 'ok') {
 					const imageId = response.id_catimage
 					return imageId
@@ -96,17 +98,17 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 
 	const onDrop = useCallback(
 		async (acceptedFiles: File[]) => {
-			const newFiles: ImageItemWithText[] = []
+			const newFiles: FileWithPreview[] = []
 			const uploadedImageIds: string[] = []
 
 			for (const file of acceptedFiles) {
 				try {
 					const imageId = await uploadFile(file)
+
 					if (imageId) {
 						uploadedImageIds.push(imageId)
 						const newFile = Object.assign(file, {
-							id: imageId,
-							thumbnail: URL.createObjectURL(file),
+							preview: URL.createObjectURL(file),
 						})
 						newFiles.push(newFile)
 					}
@@ -125,6 +127,7 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 	const removeFile = useCallback(
 		async (index: number) => {
 			const imageIdToRemove = imageIds[index]
+
 			try {
 				if (imageIdToRemove) {
 					await deleteImageById(imageIdToRemove).unwrap()
@@ -149,7 +152,7 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 		[currentFiles, imageIds, deleteImageById, setValue, name, imageIdFieldName],
 	)
 
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({
+	const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
 		onDrop,
 		accept,
 		multiple,
@@ -157,45 +160,27 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 	})
 
 	useEffect(() => {
-		if (fileImages && fileImages.length > 0) {
-			setCurrentFiles(fileImages)
-			const initialImageIds = fileImages.map((img) => img.id)
-			setImageIds(initialImageIds)
+		return () => {
+			currentFiles?.forEach((file) => URL.revokeObjectURL(file.preview))
 		}
-	}, [fileImages])
+	}, [currentFiles])
 
-	const dropzoneArea = (
-		<div
-			className={cn(dzAreaClassName, {
-				[styles.activeArea]: isDragActive,
-				[styles.dropzoneArea]: !customUploadBtn,
-			})}
-			{...getRootProps()}
-		>
-			<input {...register(name)} {...getInputProps()} />
-			{customUploadBtn ?? (
-				<>
-					<span>Прикрепить файл</span>
-					<p>
-						{prompt ?? 'Перетащите файл на это поле'} <AttachIconSvg />
-					</p>
-				</>
-			)}
-		</div>
-	)
-
-	if (variant === 'culture') {
+	if (variant === 'text') {
 		return (
 			<div className={cn(styles.textFileUpload, className)} style={{ margin: margin ?? '' }}>
 				{label && <label>{label}</label>}
 				<input {...register(name)} {...getInputProps()} />
-				<FilePreviews
-					variant={'culture-img-list'}
+				<FilePreviewsFiles
+					variant={previewVariant ?? 'text'}
 					files={currentFiles}
-					removeBtn={removeIcon ?? <RemovePhotoSvg />}
+					removeBtn={removeIcon ?? <RemoveTextFileSvg />}
 					removeHandler={removeFile}
-					uploadBtn={currentFiles.length < maxFiles ? dropzoneArea : null}
 				/>
+				{currentFiles.length < maxFiles && (
+					<div className={styles.textFileController} onClick={open}>
+						{customUploadBtn ?? <AddButton icon={<UploadFileSvg />}>{uploadBtnText}</AddButton>}
+					</div>
+				)}
 				{errors[name] && (
 					<p className={styles.warningMessage}>
 						<ErrorMessage errors={errors} name={name} />
@@ -208,10 +193,10 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 	return (
 		<div className={cn(styles.reactDropzone, className)} style={{ margin: margin ?? '' }}>
 			{label && <label>{label}</label>}
-			<FilePreviews
+			<FilePreviewsFiles
 				variant={previewVariant ?? 'main'}
 				files={currentFiles}
-				removeBtn={removeIcon ?? <RemovePhotoSvg />}
+				removeBtn={removeIcon ?? <RemoveImageModalSVG />}
 				removeHandler={removeFile}
 			/>
 			{currentFiles.length < maxFiles && (

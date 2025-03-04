@@ -28,7 +28,7 @@ export const AdminCommunityAbout: FC = () => {
 		mode: 'onBlur',
 		resolver: yupResolver(communitySchema),
 		defaultValues: {
-			galleryImages: [],
+			photoGallery: [],
 			gallerySection: false,
 		},
 	})
@@ -58,8 +58,8 @@ export const AdminCommunityAbout: FC = () => {
 			<AdminContent title='Атманов угол' link='#'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
-						<TitleSection />
-						<GallerySection />
+						<TitleSection logo={aboutCommunityData?.logo} />
+						<GallerySection images={aboutCommunityData?.photoGallery} />
 						<ArticleSection />
 						<AdminControllers variant='3' isSent={isSent} />
 					</form>

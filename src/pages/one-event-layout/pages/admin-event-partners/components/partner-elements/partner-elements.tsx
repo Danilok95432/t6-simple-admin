@@ -127,12 +127,13 @@ export const PartnerElements = () => {
 				colTitles={tableTitles}
 			/>
 			<TableFooter
+				className={styles.tableFooterPartnerWrapper}
 				totalElements={partners.length}
 				addClickHandler={() => navigate(`${AdminRoute.AdminEventOnePartner}/new`)}
 				addText='Добавить партнера'
 			/>
-			<Container $padding='35px 0 54px 30px' $paddingMobile='35px 0 54px 30px'>
-				<Link to={`/${AdminRoute.AdminEventsList}`} className={adminStyles.adminReturnLink}>
+			<Container $padding='35px 0 54px 30px' $paddingMobile='35px 0 54px 30px' $position='unset'>
+				<Link to={`/${AdminRoute.AdminEventsList}`} className={adminStyles.adminReturnLinkAbs}>
 					Возврат к списку событий
 				</Link>
 			</Container>

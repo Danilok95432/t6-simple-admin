@@ -1,5 +1,7 @@
 .partnerElementsPage {
 	padding: 30px 0;
+	position: relative;
+	min-height: 800px;
 	.searchRow {
 		grid-template-columns:
 			minmax(360px, 2.1fr)
@@ -47,4 +49,12 @@
 		color: #000;
 		margin: 0 0 20px 29px;
 	}
+}
+
+.tableFooterPartnerWrapper {
+  padding: 0 28px;
+  position: absolute;
+  bottom: 70px;
+  left: 0;
+  width: 100%;
 }

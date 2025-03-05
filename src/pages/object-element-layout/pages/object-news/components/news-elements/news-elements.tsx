@@ -80,7 +80,7 @@ export const NewsElements: FC = () => {
 	}
 
 	return (
-		<div>
+		<div className={styles.objectNewsContainer}>
 			<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
 				<TableFiltration filterInputs={ObjectNewsFiltrationInputs} />
 			</GridRow>

@@ -24,8 +24,8 @@ export const ObjectNews = () => {
 					<h3 className={styles.title}>Новости</h3>
 				</Container>
 				<NewsElements />
-				<Container $padding='50px 35px' $paddingMobile='50px 35px'>
-					<Link to={`/${AdminRoute.AdminObjects}`} className={adminStyles.adminReturnLink}>
+				<Container $padding='20px 35px' $paddingMobile='50px 35px' $position='unset'>
+					<Link to={`/${AdminRoute.AdminObjects}`} className={adminStyles.adminReturnLinkAbs}>
 						Возврат к списку объектов
 					</Link>
 				</Container>

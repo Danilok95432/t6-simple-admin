@@ -100,7 +100,7 @@ export const EventNewsList = () => {
 
 	return (
 		<>
-			<div>
+			<div className={styles.eventNewsContainer}>
 				<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
 					<TableFiltration filterInputs={NewsElementsByEventIdFiltrationInputs} />
 				</GridRow>

@@ -289,3 +289,17 @@ div.adminCheckbox {
     margin-bottom: 35px;
   }
 }
+
+.adminReturnLinkAbs {
+  display: inline-block;
+  padding-left: 20px;
+  position: absolute;
+  bottom: 30px;
+  font-size: 14px;
+  text-decoration: underline;
+  color: #002C47;
+  background: url('data:image/svg+xml,<svg width="13" height="10" viewBox="0 0 13 10" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.158951 5.63061L4.01736 9.68649C4.23762 9.91435 4.5946 9.92195 4.82246 9.70928C5.05031 9.48902 5.05791 9.13204 4.84524 8.90418L1.89827 5.8129L11.4987 5.8129C11.8101 5.8129 12.0684 5.55466 12.0684 5.24325C12.0684 4.93185 11.8101 4.67361 11.4987 4.67361L1.89827 4.67361L4.84524 1.58232C5.06551 1.35447 5.05032 0.997487 4.82246 0.777224C4.70853 0.67089 4.57181 0.617723 4.4275 0.617723C4.2756 0.617723 4.12369 0.678485 4.01736 0.792415L0.158951 4.8407C-0.0537176 5.06097 -0.0537176 5.41035 0.158951 5.63061Z" fill="%23002C47"/></svg>') no-repeat left center ;
+  &:not(:last-child) {
+    margin-bottom: 35px;
+  }
+}

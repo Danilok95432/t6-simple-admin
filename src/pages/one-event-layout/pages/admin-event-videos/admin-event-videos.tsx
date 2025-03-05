@@ -25,8 +25,8 @@ export const AdminEventVideos: FC = () => {
 					<h3 className={styles.title}>Видеолента</h3>
 				</Container>
 				<EventVideosList />
-				<Container $padding='50px 35px' $paddingMobile='50px 35px'>
-					<Link to={`/${AdminRoute.AdminEventsList}`} className={adminStyles.adminReturnLink}>
+				<Container $padding='20px 35px' $paddingMobile='50px 35px' $position='unset'>
+					<Link to={`/${AdminRoute.AdminEventsList}`} className={adminStyles.adminReturnLinkAbs}>
 						Возврат к списку событий
 					</Link>
 				</Container>

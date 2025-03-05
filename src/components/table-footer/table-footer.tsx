@@ -13,6 +13,7 @@ type TableFooterProps = {
 	totalElements?: number
 	currentPage?: number
 	totalPages?: number
+	className?: string
 }
 
 export const TableFooter: FC<TableFooterProps> = ({
@@ -21,9 +22,10 @@ export const TableFooter: FC<TableFooterProps> = ({
 	totalElements = 0,
 	currentPage = 1,
 	totalPages = 1,
+	className,
 }) => {
 	return (
-		<div className={styles.tableFooterWrapper}>
+		<div className={className ?? styles.tableFooterWrapper}>
 			<div className={styles.tableFooter}>
 				<div className={styles.pagination}>
 					<div className={styles.paginationInfo}>

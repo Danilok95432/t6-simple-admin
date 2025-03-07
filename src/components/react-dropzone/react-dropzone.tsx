@@ -29,12 +29,14 @@ type ReactDropzoneProps = {
 	label?: string
 	removeIcon?: ReactNode
 	customUploadBtn?: ReactNode
+	customOpenModal?: ReactNode
 	uploadBtnText?: string
 	variant?: 'main' | 'text' | 'culture'
-	previewVariant?: 'main' | 'text' | 'sm-img' | 'list' | 'img-list'
+	previewVariant?: 'main' | 'text' | 'sm-img' | 'list' | 'img-list' | 'sm-img-edit'
 	imgtype?: string
 	imageIdFieldName?: string
 	fileImages?: ImageItemWithText[]
+	imgEditId?: string
 }
 
 export const ReactDropzone: FC<ReactDropzoneProps> = ({
@@ -48,6 +50,7 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 	multiple = false,
 	maxFiles = 1,
 	customUploadBtn,
+	customOpenModal,
 	uploadBtnText = 'Загрузить',
 	prompt,
 	label,
@@ -55,6 +58,7 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 	imgtype = 'news',
 	imageIdFieldName,
 	fileImages = [],
+	imgEditId = '',
 }) => {
 	const [currentFiles, setCurrentFiles] = useState<ImageItemWithText[]>([])
 	const [imageIds, setImageIds] = useState<string[]>([])
@@ -74,9 +78,14 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 		async (file: File) => {
 			try {
 				const formData = new FormData()
-				formData.append('itemimage', file)
-				formData.append('imgtype', imgtype)
-				formData.append('id', id)
+				if (imgEditId) {
+					formData.append('itemimage', file)
+					formData.append('id', imgEditId)
+				} else {
+					formData.append('itemimage', file)
+					formData.append('imgtype', imgtype)
+					formData.append('id_item', id)
+				}
 
 				const response = await uploadImages(formData).unwrap()
 				if (response.status === 'ok') {
@@ -126,7 +135,7 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 		async (index: number) => {
 			const imageIdToRemove = imageIds[index]
 			try {
-				if (imageIdToRemove) {
+				if (imageIdToRemove && imgEditId === '') {
 					await deleteImageById(imageIdToRemove).unwrap()
 				}
 				const newFiles = currentFiles.toSpliced(index, 1)
@@ -154,6 +163,7 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 		accept,
 		multiple,
 		maxFiles,
+		disabled: !!customOpenModal,
 	})
 
 	useEffect(() => {
@@ -192,6 +202,7 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 				<FilePreviews
 					variant={'culture-img-list'}
 					files={currentFiles}
+					imgtype={imgtype}
 					removeBtn={removeIcon ?? <RemovePhotoSvg />}
 					removeHandler={removeFile}
 					uploadBtn={currentFiles.length < maxFiles ? dropzoneArea : null}
@@ -211,6 +222,7 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 			<FilePreviews
 				variant={previewVariant ?? 'main'}
 				files={currentFiles}
+				imgtype={imgtype}
 				removeBtn={removeIcon ?? <RemovePhotoSvg />}
 				removeHandler={removeFile}
 			/>
@@ -218,12 +230,12 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 				<div
 					className={cn(dzAreaClassName, {
 						[styles.activeArea]: isDragActive,
-						[styles.dropzoneArea]: !customUploadBtn,
+						[styles.dropzoneArea]: !customUploadBtn && !customOpenModal,
 					})}
 					{...getRootProps()}
 				>
 					<input {...register(name)} {...getInputProps()} />
-					{customUploadBtn ?? (
+					{customUploadBtn ?? customOpenModal ?? (
 						<>
 							<span>Прикрепить файл</span>
 							<p>

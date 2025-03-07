@@ -157,13 +157,27 @@
 .smImgFilesList {
   li {
     display: flex;
-    gap: 5px;
+    gap: 10px;
     align-items: center;
-
+    position: relative;
+    img {
+      width: 61px;
+      height: 45px;
+    }
+    a {
+      font-size: 14px;
+      font-weight: 500;
+      color: #000000;
+    }
     p {
       font-size: 14px;
-      font-weight: 600;
-      color: #113770;
+      font-weight: 500;
+      color: #868686;
+    }
+    .removeTextBtn {
+      position: absolute;
+      right: 8px;
+      top: 8px;
     }
   }
 

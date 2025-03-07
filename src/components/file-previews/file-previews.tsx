@@ -9,8 +9,9 @@ type FilePreviewsProps = {
 	files: ImageItemWithText[]
 	removeBtn?: ReactNode
 	removeHandler?: (idx: number) => void
-	variant?: 'main' | 'text' | 'sm-img' | 'list' | 'img-list' | 'culture-img-list'
+	variant?: 'main' | 'text' | 'sm-img' | 'list' | 'img-list' | 'culture-img-list' | 'sm-img-edit'
 	uploadBtn?: ReactNode
+	imgtype?: string
 }
 export const FilePreviews: FC<FilePreviewsProps> = ({
 	files,
@@ -18,6 +19,7 @@ export const FilePreviews: FC<FilePreviewsProps> = ({
 	removeHandler,
 	variant = 'sm-img',
 	uploadBtn,
+	imgtype = '',
 }) => {
 	const { openModal } = useActions()
 	if (!files.length && variant !== 'culture-img-list') return null
@@ -63,7 +65,7 @@ export const FilePreviews: FC<FilePreviewsProps> = ({
 								onLoad={() => {
 									URL.revokeObjectURL(file.thumbnail)
 								}}
-								onClick={() => openModal(<ImageModal />)}
+								onClick={() => openModal(<ImageModal id={file.id} imgtype={imgtype} />)}
 							/>
 							<p className={styles.titleImg}>{file.title}</p>
 							<p className={styles.authorImg}>{file.author}</p>
@@ -95,7 +97,7 @@ export const FilePreviews: FC<FilePreviewsProps> = ({
 								onLoad={() => {
 									URL.revokeObjectURL(file.thumbnail)
 								}}
-								onClick={() => openModal(<ImageModal />)}
+								onClick={() => openModal(<ImageModal id={file.id} imgtype={imgtype} />)}
 							/>
 							<p className={styles.titleImg}>{file.title}</p>
 							<p className={styles.authorImg}>{file.author}</p>
@@ -112,6 +114,26 @@ export const FilePreviews: FC<FilePreviewsProps> = ({
 					</li>
 				))}
 				{uploadBtn && <li className={styles.addBtn}>{uploadBtn}</li>}
+			</ul>
+		)
+	}
+
+	if (variant === 'sm-img-edit') {
+		return (
+			<ul className={styles.smImgFilesList}>
+				<li>
+					<img src={files[0].thumbnail} alt='' />
+					<a href=''>{files[0].thumbnail.split('/')[files[0].thumbnail.split('/').length - 1]}</a>
+					{removeBtn && (
+						<button
+							className={styles.removeTextBtnEdit}
+							type='button'
+							onClick={() => removeHandler?.(0)}
+						>
+							{removeBtn}
+						</button>
+					)}
+				</li>
 			</ul>
 		)
 	}

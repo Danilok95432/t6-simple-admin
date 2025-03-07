@@ -1,12 +1,13 @@
-import { type ImageItemWithText } from 'src/types/photos'
 import * as yup from 'yup'
 
 export type ImagesInputs = {
+	id?: string
+	thumbnail?: string
+	original?: string
 	title: string
 	author?: string
-	image?: ImageItemWithText
 }
 
-export const imageSchema = yup.object().shape({
-	title: yup.string().required('Введите название'),
+export const imageSchema = yup.object({
+	title: yup.string().required('Заголовок обязателен'),
 })

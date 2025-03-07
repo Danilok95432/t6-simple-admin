@@ -34,9 +34,10 @@ type ReactDropzoneProps = {
 	customUploadBtn?: ReactNode
 	uploadBtnText?: string
 	variant?: 'main' | 'text'
-	previewVariant?: 'main' | 'text' | 'sm-img' | 'list'
+	previewVariant?: 'main' | 'text' | 'sm-img' | 'list' | 'sm-img-edit'
 	imgtype?: string
 	imageIdFieldName?: string
+	imageEdit?: string
 }
 
 export const ReactDropzoneFiles: FC<ReactDropzoneProps> = ({
@@ -56,6 +57,7 @@ export const ReactDropzoneFiles: FC<ReactDropzoneProps> = ({
 	margin,
 	imgtype = 'news',
 	imageIdFieldName,
+	imageEdit = '',
 }) => {
 	const [currentFiles, setCurrentFiles] = useState<FileWithPreview[]>([])
 	const [imageIds, setImageIds] = useState<string[]>([])
@@ -77,7 +79,7 @@ export const ReactDropzoneFiles: FC<ReactDropzoneProps> = ({
 				const formData = new FormData()
 				formData.append('itemimage', file)
 				formData.append('imgtype', imgtype)
-				formData.append('id', id)
+				formData.append('id_item', id)
 
 				const response = await uploadImages(formData).unwrap()
 
@@ -196,10 +198,11 @@ export const ReactDropzoneFiles: FC<ReactDropzoneProps> = ({
 			<FilePreviewsFiles
 				variant={previewVariant ?? 'main'}
 				files={currentFiles}
+				imageEdit={imageEdit}
 				removeBtn={removeIcon ?? <RemoveImageModalSVG />}
 				removeHandler={removeFile}
 			/>
-			{currentFiles.length < maxFiles && (
+			{currentFiles.length < maxFiles && imageEdit === '' && (
 				<div
 					className={cn(dzAreaClassName, {
 						[styles.activeArea]: isDragActive,

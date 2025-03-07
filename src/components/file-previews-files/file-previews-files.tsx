@@ -9,15 +9,17 @@ type FilePreviewsProps = {
 	files: FileWithPreview[]
 	removeBtn?: ReactNode
 	removeHandler?: (idx: number) => void
-	variant?: 'main' | 'text' | 'sm-img' | 'list'
+	variant?: 'main' | 'text' | 'sm-img' | 'list' | 'sm-img-edit'
+	imageEdit?: string
 }
 export const FilePreviewsFiles: FC<FilePreviewsProps> = ({
 	files,
 	removeBtn,
 	removeHandler,
 	variant = 'main',
+	imageEdit = '',
 }) => {
-	if (!files.length) return null
+	if (!files.length && imageEdit === '') return null
 
 	if (variant === 'text') {
 		return (
@@ -46,6 +48,27 @@ export const FilePreviewsFiles: FC<FilePreviewsProps> = ({
 			</ul>
 		)
 	}
+
+	if (variant === 'sm-img-edit') {
+		return (
+			<ul className={styles.smImgFilesList}>
+				<li>
+					<img src={imageEdit} alt='' />
+					<a href=''>{imageEdit.split('/')[imageEdit.split('/').length - 1]}</a>
+					{removeBtn && (
+						<button
+							className={styles.removeTextBtn}
+							type='button'
+							onClick={() => removeHandler?.(0)}
+						>
+							{removeBtn}
+						</button>
+					)}
+				</li>
+			</ul>
+		)
+	}
+
 	if (variant === 'sm-img') {
 		return (
 			<ul className={styles.smImgFilesList}>

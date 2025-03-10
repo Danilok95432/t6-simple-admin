@@ -11,12 +11,14 @@ import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
+import { type ImageItemWithText } from 'src/types/photos'
 
 type MainSectionProps = {
 	galleryOptions?: SelOption[]
+	photo?: ImageItemWithText[]
 }
 
-export const MainSection: FC<MainSectionProps> = ({ galleryOptions }) => {
+export const MainSection: FC<MainSectionProps> = ({ galleryOptions, photo }) => {
 	return (
 		<AdminSection className={styles.mainSection} isBlock={false}>
 			<ControlledInput
@@ -62,7 +64,9 @@ export const MainSection: FC<MainSectionProps> = ({ galleryOptions }) => {
 				prompt='PNG, JPG, JPEG. 1000 х1000px, не более 3 Мб'
 				accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
 				margin='20px 0 20px 0'
+				previewVariant='sm-img'
 				imgtype='news'
+				fileImages={photo}
 			/>
 		</AdminSection>
 	)

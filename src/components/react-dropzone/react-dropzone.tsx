@@ -37,6 +37,8 @@ type ReactDropzoneProps = {
 	imageIdFieldName?: string
 	fileImages?: ImageItemWithText[]
 	imgEditId?: string
+	syncAdd?: (file: ImageItemWithText) => void
+	syncEdit?: (file: ImageItemWithText) => void
 }
 
 export const ReactDropzone: FC<ReactDropzoneProps> = ({
@@ -59,8 +61,10 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 	imageIdFieldName,
 	fileImages = [],
 	imgEditId = '',
+	syncAdd,
+	syncEdit,
 }) => {
-	const [currentFiles, setCurrentFiles] = useState<ImageItemWithText[]>([])
+	const [currentFiles, setCurrentFiles] = useState<ImageItemWithText[]>(fileImages || [])
 	const [imageIds, setImageIds] = useState<string[]>([])
 
 	const {
@@ -174,6 +178,14 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 		}
 	}, [fileImages])
 
+	useEffect(() => {
+		return () => {
+			currentFiles.forEach((file) => {
+				if (file.thumbnail) URL.revokeObjectURL(file.thumbnail)
+			})
+		}
+	}, [currentFiles])
+
 	const dropzoneArea = (
 		<div
 			className={cn(dzAreaClassName, {
@@ -205,6 +217,8 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 					imgtype={imgtype}
 					removeBtn={removeIcon ?? <RemovePhotoSvg />}
 					removeHandler={removeFile}
+					syncAdd={syncAdd}
+					syncEdit={syncEdit}
 					uploadBtn={currentFiles.length < maxFiles ? dropzoneArea : null}
 				/>
 				{errors[name] && (
@@ -224,9 +238,11 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 				files={currentFiles}
 				imgtype={imgtype}
 				removeBtn={removeIcon ?? <RemovePhotoSvg />}
+				syncAdd={syncAdd}
+				syncEdit={syncEdit}
 				removeHandler={removeFile}
 			/>
-			{currentFiles.length < maxFiles && (
+			{(currentFiles.length < maxFiles || currentFiles.some((file) => !file.thumbnail)) && (
 				<div
 					className={cn(dzAreaClassName, {
 						[styles.activeArea]: isDragActive,

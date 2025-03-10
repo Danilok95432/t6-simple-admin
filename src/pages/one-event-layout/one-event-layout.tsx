@@ -36,10 +36,10 @@ export const OneEventLayout = () => {
 			title: 'Программа',
 			link: `/event/event-program/${id ?? 'new'}`,
 		},
-		{
+		/* {
 			title: 'История',
 			link: `/event/event-history/${id ?? 'new'}`,
-		},
+		}, */
 	]
 	return (
 		<>

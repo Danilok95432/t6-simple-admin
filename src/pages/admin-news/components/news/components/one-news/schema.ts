@@ -1,4 +1,5 @@
 import { splitAndTrimStringToArray } from 'src/helpers/utils'
+import { type ImageItemWithText } from 'src/types/photos'
 import { type SelOption } from 'src/types/select'
 import * as yup from 'yup'
 
@@ -17,7 +18,7 @@ export type OneNewsInputs = {
 	id_gallery?: string
 	short: string
 	full: string
-	photo?: NewsPhoto[]
+	photo?: ImageItemWithText[]
 	description: string
 	keywords: string[]
 	main?: boolean

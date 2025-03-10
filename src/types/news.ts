@@ -1,3 +1,4 @@
+import { type ImageItemWithText } from './photos'
 import { type SelOption } from './select'
 
 export type NewsItem = {
@@ -26,4 +27,5 @@ export type NewsInfoResponse = {
 	main: boolean
 	date: Date
 	news_gallerys?: SelOption[]
+	photo?: ImageItemWithText[]
 }

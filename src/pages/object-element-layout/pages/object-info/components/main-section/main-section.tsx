@@ -45,7 +45,7 @@ export const MainSection: FC<MainSectionProps> = ({ objectTypes, objectApply }) 
 				fileImages={[]}
 			/>
 			<ControlledInput
-				name='mainDescs'
+				name='mainDesc'
 				label='Краткое описание объекта *'
 				placeholder='Поле ввода текста описания'
 				margin='0 0 20px 0'

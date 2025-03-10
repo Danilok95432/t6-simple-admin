@@ -12,6 +12,8 @@ type FilePreviewsProps = {
 	variant?: 'main' | 'text' | 'sm-img' | 'list' | 'img-list' | 'culture-img-list' | 'sm-img-edit'
 	uploadBtn?: ReactNode
 	imgtype?: string
+	syncAdd?: (file: ImageItemWithText) => void
+	syncEdit?: (file: ImageItemWithText) => void
 }
 export const FilePreviews: FC<FilePreviewsProps> = ({
 	files,
@@ -20,9 +22,15 @@ export const FilePreviews: FC<FilePreviewsProps> = ({
 	variant = 'sm-img',
 	uploadBtn,
 	imgtype = '',
+	syncAdd,
+	syncEdit,
 }) => {
 	const { openModal } = useActions()
-	if (!files.length && variant !== 'culture-img-list') return null
+	if (!files.length && (variant !== 'culture-img-list' || files.some((file) => !file.thumbnail)))
+		return null
+	if (variant === 'sm-img-edit' && files.some((file) => !file.thumbnail)) {
+		return null
+	}
 	if (variant === 'sm-img') {
 		return (
 			<ul className={styles.smImgFilesList}>
@@ -65,7 +73,17 @@ export const FilePreviews: FC<FilePreviewsProps> = ({
 								onLoad={() => {
 									URL.revokeObjectURL(file.thumbnail)
 								}}
-								onClick={() => openModal(<ImageModal id={file.id} imgtype={imgtype} />)}
+								onClick={() =>
+									openModal(
+										<ImageModal
+											id={file.id}
+											imgtype={imgtype}
+											syncAddHandler={syncAdd}
+											syncEditHandler={syncEdit}
+											mode='edit'
+										/>,
+									)
+								}
 							/>
 							<p className={styles.titleImg}>{file.title}</p>
 							<p className={styles.authorImg}>{file.author}</p>
@@ -97,7 +115,17 @@ export const FilePreviews: FC<FilePreviewsProps> = ({
 								onLoad={() => {
 									URL.revokeObjectURL(file.thumbnail)
 								}}
-								onClick={() => openModal(<ImageModal id={file.id} imgtype={imgtype} />)}
+								onClick={() =>
+									openModal(
+										<ImageModal
+											id={file.id}
+											imgtype={imgtype}
+											syncAddHandler={syncAdd}
+											syncEditHandler={syncEdit}
+											mode='edit'
+										/>,
+									)
+								}
 							/>
 							<p className={styles.titleImg}>{file.title}</p>
 							<p className={styles.authorImg}>{file.author}</p>

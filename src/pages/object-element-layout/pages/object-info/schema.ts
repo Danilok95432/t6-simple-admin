@@ -7,7 +7,7 @@ export type ObjectInfoInputs = {
 	object_types?: SelOption[]
 	object_apply?: SelOption[]
 	photo?: FileWithPreview[]
-	mainDescs: string
+	mainDesc: string
 	descList: string
 	phone?: string
 	email: string
@@ -21,7 +21,7 @@ export type ObjectInfoInputs = {
 
 export const objectInfoSchema = yup.object().shape({
 	title: yup.string().required('Введите название'),
-	mainDescs: yup.string().required('Введите краткое описание'),
+	mainDesc: yup.string().required('Введите краткое описание'),
 	descList: yup.string().required('Введите полное описание'),
 	email: yup.string().required('Введите полный почтовый адрес'),
 	coords: yup.string().required('Введите координаты через запятую'),

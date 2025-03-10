@@ -23,10 +23,19 @@ import { RemoveImageModalSVG } from 'src/UI/icons/RemoveImageModalSVG'
 type ImageModalProps = {
 	id: string
 	imgtype: string
+	syncAddHandler?: (file: ImageItemWithText) => void
+	syncEditHandler?: (file: ImageItemWithText) => void
+	mode?: string
 }
 
-export const ImageModal: FC<ImageModalProps> = ({ id, imgtype }) => {
-	const { data: imageDataInfo } = useGetUploadedImageQuery(id)
+export const ImageModal: FC<ImageModalProps> = ({
+	id,
+	imgtype,
+	syncAddHandler,
+	syncEditHandler,
+	mode = 'add',
+}) => {
+	const { data: imageDataInfo, refetch } = useGetUploadedImageQuery(id)
 	const { refetch: getNewId } = useGetNewIdImageQuery({ imgtype, idItem: '' })
 	const [saveImageInfo] = useSaveUploadedImageInfoMutation()
 	const { closeModal } = useActions()
@@ -47,31 +56,51 @@ export const ImageModal: FC<ImageModalProps> = ({ id, imgtype }) => {
 		})()
 	}, [])
 
-	const imageArr: ImageItemWithText[] = []
-	const obj = {
-		id: imageDataInfo?.id ?? '',
-		thumbnail: imageDataInfo?.thumbnail ?? '',
-		original: imageDataInfo?.thumbnail ?? '',
-		author: imageDataInfo?.author ?? '',
-		title: imageDataInfo?.title ?? '',
-	}
-	imageArr.push(obj)
-
+	const imageArr: ImageItemWithText[] = imageDataInfo
+		? [
+				{
+					id: imageDataInfo.id,
+					thumbnail: imageDataInfo.thumbnail,
+					original: imageDataInfo.original,
+					author: imageDataInfo.author,
+					title: imageDataInfo.title,
+				},
+			]
+		: []
 	const methods = useForm<ImagesInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(imageSchema),
 	})
 
 	const onSubmit: SubmitHandler<ImagesInputs> = async (data) => {
-		console.log(data)
 		const serverData = {
 			title: data.title,
 			author: data.author,
 		}
 		const imageInfoFormData = transformToFormData(serverData)
 		imageInfoFormData.append('id', id)
+
 		try {
 			await saveImageInfo(imageInfoFormData)
+			await refetch()
+			if (syncAddHandler && mode === 'add') {
+				syncAddHandler({
+					id,
+					thumbnail: imageArr[0].thumbnail,
+					original: imageArr[0].original,
+					author: data.author,
+					title: data.title,
+				})
+			}
+			if (syncEditHandler && mode === 'edit') {
+				syncEditHandler({
+					id,
+					thumbnail: imageArr[0].thumbnail,
+					original: imageArr[0].original,
+					author: data.author,
+					title: data.title,
+				})
+			}
 			closeModal()
 		} catch (err) {
 			console.error(err)

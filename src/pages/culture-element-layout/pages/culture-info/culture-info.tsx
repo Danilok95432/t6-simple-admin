@@ -6,7 +6,7 @@ import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { Link, useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import {
 	useGetCultureInfoQuery,
@@ -26,11 +26,60 @@ import { AddImageCulturePlusSVG } from 'src/UI/icons/addImageCulturePlusSVG'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
+import { useActions } from 'src/hooks/actions/actions'
+import { useGetNewIdImageQuery } from 'src/store/uploadImages/uploadImages.api'
+import { ImageModal } from 'src/modals/images-modal/images-modal'
+import { type ImageItemWithText } from 'src/types/photos'
 
 export const CultureInfo = () => {
 	const { id = '0' } = useParams()
 	const { data: cultureInfoData } = useGetCultureInfoQuery(id)
+	const [localeImages, setLocaleImages] = useState<ImageItemWithText[]>(
+		cultureInfoData?.photos ?? [],
+	)
 	const [saveCultureInfo] = useSaveCultureInfoCommunityMutation()
+
+	const { refetch: getNewId } = useGetNewIdImageQuery({
+		imgtype: 'cultures_photo',
+		idItem: '',
+	})
+	const addImage = async () => {
+		const newIdResponse = await getNewId().unwrap()
+		return newIdResponse.id
+	}
+
+	const syncAddImagesHandler = useCallback((newImage: ImageItemWithText) => {
+		setLocaleImages((prevImages) => [...prevImages, newImage])
+	}, [])
+
+	const syncEditImagesHandler = useCallback((editImage: ImageItemWithText) => {
+		setLocaleImages((prevImages) => {
+			return prevImages.map((image) => {
+				if (image.id === editImage.id) {
+					return { ...image, ...editImage }
+				}
+				return image
+			})
+		})
+	}, [])
+
+	const { openModal } = useActions()
+
+	const handleOpenModal = async () => {
+		const newId = await addImage()
+		openModal(
+			<ImageModal
+				id={newId}
+				imgtype='cultures_photo'
+				syncAddHandler={syncAddImagesHandler}
+				syncEditHandler={syncEditImagesHandler}
+			/>,
+		)
+	}
+
+	useEffect(() => {
+		setLocaleImages(cultureInfoData?.photos ?? [])
+	}, [cultureInfoData?.photos])
 
 	const methods = useForm<CultureInfoInputs>({
 		mode: 'onBlur',
@@ -107,11 +156,30 @@ export const CultureInfo = () => {
 							name='photos'
 							accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
 							maxFiles={8}
-							fileImages={cultureInfoData?.photos}
+							fileImages={localeImages}
+							syncAdd={syncAddImagesHandler}
+							syncEdit={syncEditImagesHandler}
 							imgtype='cultures_photo'
 							dzAreaClassName={styles.cultureGalleryController}
 							multiple
-							customUploadBtn={<AddButton icon={<AddImageCulturePlusSVG />}> </AddButton>}
+							customOpenModal={
+								<AddButton
+									onClick={handleOpenModal}
+									icon={<AddImageCulturePlusSVG />}
+									$padding='44px 60px'
+								>
+									{' '}
+								</AddButton>
+							}
+							customUploadBtn={
+								<AddButton
+									onClick={handleOpenModal}
+									icon={<AddImageCulturePlusSVG />}
+									$padding='44px 60px'
+								>
+									{' '}
+								</AddButton>
+							}
 						/>
 						<QuillEditor
 							name='bottomDesc'

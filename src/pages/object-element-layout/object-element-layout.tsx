@@ -17,10 +17,10 @@ export const ObjectElementLayout = () => {
 			title: 'Новости',
 			link: `/${AdminRoute.AdminObject}/${AdminRoute.AdminObjNews}/${id}`,
 		},
-		{
+		/* {
 			title: 'История',
 			link: `/${AdminRoute.AdminObject}/${AdminRoute.AdminObjHistory}/${id}`,
-		},
+		}, */
 		{
 			title: 'События',
 			link: `/${AdminRoute.AdminObject}/${AdminRoute.AdminObjEvents}/${id}`,

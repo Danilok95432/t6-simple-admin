@@ -1,4 +1,4 @@
-import { useEffect, type FC } from 'react'
+import { useCallback, useEffect, useState, type FC } from 'react'
 import {
 	type CommunityCultureInputs,
 	communityCultureSchema,
@@ -24,10 +24,59 @@ import { CultureElements } from 'src/pages/community-layout/pages/admin-communit
 import { AddImageCulturePlusSVG } from 'src/UI/icons/addImageCulturePlusSVG'
 
 import styles from './index.module.scss'
+import { useActions } from 'src/hooks/actions/actions'
+import { useGetNewIdImageQuery } from 'src/store/uploadImages/uploadImages.api'
+import { ImageModal } from 'src/modals/images-modal/images-modal'
+import { type ImageItemWithText } from 'src/types/photos'
 
 export const AdminCommunityCulture: FC = () => {
 	const { data: cultureCommunityData } = useGetCultureCommunityQuery(null)
+	const [localeImages, setLocaleImages] = useState<ImageItemWithText[]>(
+		cultureCommunityData?.photos ?? [],
+	)
 	const [saveCultureCommunity] = useSaveCultureCommunityMutation()
+
+	const { refetch: getNewId } = useGetNewIdImageQuery({
+		imgtype: 'about_culture_photo',
+		idItem: '',
+	})
+	const addImage = async () => {
+		const newIdResponse = await getNewId().unwrap()
+		return newIdResponse.id
+	}
+
+	const syncAddImagesHandler = useCallback((newImage: ImageItemWithText) => {
+		setLocaleImages((prevImages) => [...prevImages, newImage])
+	}, [])
+
+	const syncEditImagesHandler = useCallback((editImage: ImageItemWithText) => {
+		setLocaleImages((prevImages) => {
+			return prevImages.map((image) => {
+				if (image.id === editImage.id) {
+					return { ...image, ...editImage }
+				}
+				return image
+			})
+		})
+	}, [])
+
+	const { openModal } = useActions()
+
+	const handleOpenModal = async () => {
+		const newId = await addImage()
+		openModal(
+			<ImageModal
+				id={newId}
+				imgtype='about_culture_photo'
+				syncAddHandler={syncAddImagesHandler}
+				syncEditHandler={syncEditImagesHandler}
+			/>,
+		)
+	}
+
+	useEffect(() => {
+		setLocaleImages(cultureCommunityData?.photos ?? [])
+	}, [cultureCommunityData?.photos])
 
 	const methods = useForm<CommunityCultureInputs>({
 		mode: 'onBlur',
@@ -72,11 +121,30 @@ export const AdminCommunityCulture: FC = () => {
 							name='photos'
 							accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
 							maxFiles={8}
-							fileImages={cultureCommunityData?.photos}
+							fileImages={localeImages}
+							syncAdd={syncAddImagesHandler}
+							syncEdit={syncEditImagesHandler}
 							imgtype='about_culture_photo'
 							dzAreaClassName={styles.cultureGalleryController}
 							multiple
-							customUploadBtn={<AddButton icon={<AddImageCulturePlusSVG />}> </AddButton>}
+							customOpenModal={
+								<AddButton
+									onClick={handleOpenModal}
+									icon={<AddImageCulturePlusSVG />}
+									$padding='44px 60px'
+								>
+									{' '}
+								</AddButton>
+							}
+							customUploadBtn={
+								<AddButton
+									onClick={handleOpenModal}
+									icon={<AddImageCulturePlusSVG />}
+									$padding='44px 60px'
+								>
+									{' '}
+								</AddButton>
+							}
 						/>
 						<FlexRow $margin='25px 0 50px 0' $gap='15px'>
 							<AdminButton as='button' type='submit'>

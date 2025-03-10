@@ -8,10 +8,12 @@ type StyledAddButtonProps = {
 	children: ReactNode
 	icon?: ReactNode
 	$margin?: string
+	$padding?: string
 }
 
 const StyledAddButton = styled.button<StyledAddButtonProps>`
 	margin: ${({ $margin }) => $margin ?? '0'};
+	padding: ${({ $padding }) => $padding ?? '0'};
 	background: none;
 	display: flex;
 	align-items: center;
@@ -30,11 +32,12 @@ const StyledAddButton = styled.button<StyledAddButtonProps>`
 export const AddButton: FC<StyledAddButtonProps & ButtonProps> = ({
 	children,
 	$margin,
+	$padding,
 	icon,
 	...props
 }) => {
 	return (
-		<StyledAddButton type='button' $margin={$margin} {...props}>
+		<StyledAddButton type='button' $margin={$margin} $padding={$padding} {...props}>
 			{icon ?? <AddFIlePlusSvg />}
 			<span>{children}</span>
 		</StyledAddButton>

@@ -9,13 +9,19 @@ import { Disclaimer } from './components/disclaimer/disclaimer'
 import { CustomText } from 'src/components/custom-text/custom-text'
 import { PartnerVidsSection } from './components/partnerVids/partnerVids'
 import { PartnerTypesSection } from './components/partnerTypes/partnerTypes'
+import { type ImageItemWithText } from 'src/types/photos'
 
 type MainSectionProps = {
 	partnerVids?: PartnerCheckBoxesInfo[]
 	partnerTypes?: PartnerCheckBoxesInfo[]
+	photo?: ImageItemWithText[]
 }
 
-export const MainSection: FC<MainSectionProps> = ({ partnerVids = [], partnerTypes = [] }) => {
+export const MainSection: FC<MainSectionProps> = ({
+	partnerVids = [],
+	partnerTypes = [],
+	photo,
+}) => {
 	return (
 		<AdminSection isBlock={false}>
 			<ControlledInput
@@ -52,6 +58,9 @@ export const MainSection: FC<MainSectionProps> = ({ partnerVids = [], partnerTyp
 				prompt='соотношение сторон 1:1 или 3:4, JPEG, PNG'
 				accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
 				margin='0 0 40px 0'
+				previewVariant='sm-img'
+				imgtype='partners'
+				fileImages={photo}
 			/>
 		</AdminSection>
 	)

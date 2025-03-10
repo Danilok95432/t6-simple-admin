@@ -41,7 +41,7 @@ export const CultureInfo = () => {
 
 	const { refetch: getNewId } = useGetNewIdImageQuery({
 		imgtype: 'cultures_photo',
-		idItem: '',
+		idItem: id,
 	})
 	const addImage = async () => {
 		const newIdResponse = await getNewId().unwrap()

@@ -1,3 +1,6 @@
+import { type FC } from 'react'
+import { type ImageItemWithText } from 'src/types/photos'
+
 import { AdminSection } from 'src/components/admin-section/admin-section'
 import { ControlledDateInput } from 'src/components/controlled-date-input/controlled-date-input'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
@@ -6,7 +9,11 @@ import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 
-export const MainSection = () => {
+type MainSectionProps = {
+	photo?: ImageItemWithText[]
+}
+
+export const MainSection: FC<MainSectionProps> = ({ photo }) => {
 	return (
 		<AdminSection isBlock={false}>
 			<ControlledInput
@@ -58,6 +65,9 @@ export const MainSection = () => {
 				prompt='PNG, JPG, JPEG. 1000 х1000px, не более 3 Мб'
 				accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
 				margin='20px 0 20px 0'
+				previewVariant='sm-img'
+				imgtype='videos'
+				fileImages={photo}
 			/>
 		</AdminSection>
 	)

@@ -4,7 +4,7 @@ import { type FC } from 'react'
 import { AdminSection } from 'src/components/admin-section/admin-section'
 import { ControlledDateInput } from 'src/components/controlled-date-input/controlled-date-input'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
-import { ControlledSelect } from 'src/components/controlled-select/controlled-select'
+// import { ControlledSelect } from 'src/components/controlled-select/controlled-select'
 import { CustomText } from 'src/components/custom-text/custom-text'
 import { QuillEditor } from 'src/components/quill-editor/quill-editor'
 import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
@@ -44,12 +44,14 @@ export const MainSection: FC<MainSectionProps> = ({ galleryOptions, photo }) => 
 				placeholder='Тег1, тег 2'
 				margin='0 0 20px 0'
 			/>
+			{/*
 			<ControlledSelect
 				selectOptions={galleryOptions ?? [{ label: 'Не выбрано', value: '0' }]}
 				name='news_gallerys'
 				label='Галерея'
 				margin='0 0 20px 0'
 			/>
+			*/}
 			<ControlledInput
 				name='short'
 				label='Краткое описание (анонс новости)'

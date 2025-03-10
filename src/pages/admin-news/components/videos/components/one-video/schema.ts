@@ -1,5 +1,5 @@
 import { splitAndTrimStringToArray } from 'src/helpers/utils'
-import { type FileWithPreview } from 'src/types/files'
+import { type ImageItemWithText } from 'src/types/photos'
 import * as yup from 'yup'
 
 export type OneVideoInputs = {
@@ -9,7 +9,7 @@ export type OneVideoInputs = {
 	short: string
 	vkvideo: string
 	vkexport: string
-	photo?: FileWithPreview[]
+	photo?: ImageItemWithText[]
 	hidden?: boolean
 	key?: boolean
 }

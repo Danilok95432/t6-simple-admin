@@ -54,6 +54,9 @@ import { PartnerElements } from 'src/pages/one-event-layout/pages/admin-event-pa
 import { OnePartner } from 'src/pages/one-event-layout/pages/admin-event-partners/components/one-partner/one-partner'
 import { Partner } from 'src/pages/admin-partners-layout/components/partner/partner'
 import { PartnersElements } from 'src/pages/admin-partners-layout/components/partners-elements/partners-elements'
+import { AdminQuestionsLayout } from 'src/pages/admin-questions/admin-questions-layout'
+import { QuestionsElements } from 'src/pages/admin-questions/components/questions-elements/questions-elements'
+import { Question } from 'src/pages/admin-questions/components/question/question'
 
 export const AdminRoutes: FC = () => {
 	return (
@@ -119,6 +122,11 @@ export const AdminRoutes: FC = () => {
 				<Route path={AdminRoute.AdminPartners} element={<AdminPartnersLayout />}>
 					<Route index element={<PartnersElements />} />
 					<Route path={`${AdminRoute.AdminPartner}/:id`} element={<Partner />} />
+				</Route>
+
+				<Route path={AdminRoute.AdminFrequentQuestions} element={<AdminQuestionsLayout />}>
+					<Route index element={<QuestionsElements />} />
+					<Route path={`${AdminRoute.AdminQuestion}/:id`} element={<Question />} />
 				</Route>
 
 				<Route path={AdminRoute.AdminSupport} element={<AdminSupport />} />

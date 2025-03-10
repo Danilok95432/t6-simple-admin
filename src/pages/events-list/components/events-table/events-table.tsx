@@ -17,11 +17,12 @@ import {
 } from 'src/store/events/events.api'
 import { mainFormatDate } from 'src/helpers/utils'
 
-import styles from './index.module.scss'
 import { useAppSelector } from 'src/hooks/store'
 import { getFiltrationValues } from 'src/modules/table-filtration/store/table-filtration.selectors'
 import { TableFiltration } from 'src/modules/table-filtration/table-filtration'
 import { EventsElementsFiltrationInputs } from './consts'
+
+import styles from './index.module.scss'
 
 export const EventsTable: FC = () => {
 	const filterValues = useAppSelector(getFiltrationValues)

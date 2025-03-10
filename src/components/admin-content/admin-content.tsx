@@ -7,6 +7,7 @@ type AdminContentProps = {
 	className?: string
 	title?: string
 	link?: string
+	linkPadding?: string
 	$padding?: string
 	$width?: string
 	$height?: string
@@ -65,12 +66,13 @@ export const AdminContent: FC<AdminContentProps> = ({
 	className,
 	title,
 	link,
+	linkPadding,
 	...props
 }) => {
 	return (
 		<StyledAdminContent className={className} {...props}>
 			{(title ?? link) && (
-				<div className='content-title'>
+				<div className='content-title' style={{ padding: linkPadding }}>
 					{title && <h3>{title}</h3>}
 					{link && <a href={link}>Посмотреть страницу на сайте</a>}
 				</div>

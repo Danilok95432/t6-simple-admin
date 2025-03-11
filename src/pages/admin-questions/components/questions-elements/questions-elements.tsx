@@ -1,17 +1,20 @@
 import { type FC } from 'react'
-import { type EventItem } from 'src/types/events'
 
 import { useNavigate } from 'react-router-dom'
 import cn from 'classnames'
+import { QuestionItem } from 'src/types/questions'
 
 import { CustomTable } from 'src/components/custom-table/custom-table'
 import { RowController } from 'src/components/row-controller/row-controller'
 import { TableFooter } from 'src/components/table-footer/table-footer'
+import { AdminContent } from 'src/components/admin-content/admin-content'
 
 import styles from './index.module.scss'
 
 export const QuestionsElements: FC = () => {
 	const navigate = useNavigate()
+	const tableTitles = ['Название вопроса', '']
+
 	const mockData = [
 		{ id: '1', title: 'Требуется ли регистрация для детей?' },
 		{ id: '2', title: 'Как понять, что я прошел регистрацию на сайте?' },
@@ -21,14 +24,14 @@ export const QuestionsElements: FC = () => {
 		},
 	]
 
-	const tableTitles = ['Название вопроса', '']
+	const addQuestion = async () => {}
 
-	const formatEventsTableData = (questionsData: EventItem[]) => {
+	const formatQuestionsTableData = (questionsData: QuestionItem[]) => {
 		return questionsData.map((questionEl) => {
 			return {
 				rowId: questionEl.id,
 				cells: [
-					<p className={cn({ 'hidden-cell-icon': questionEl.hidden })} key='0'>
+					<p className={cn({ 'hidden-cell-icon': questionEl.isHidden })} key='0'>
 						{questionEl.title}
 					</p>,
 					<RowController
@@ -42,7 +45,10 @@ export const QuestionsElements: FC = () => {
 			}
 		})
 	}
-	const rowDeleteHandler = async (id: string) => {}
+	const rowDeleteHandler = async (id: string) => {
+		console.log(id)
+	}
+
 	const rowHideHandler = async (id: string) => {
 		console.log(id)
 	}
@@ -56,21 +62,32 @@ export const QuestionsElements: FC = () => {
 		// navigate(`/frequent-questions/question/${newId}`)
 	}
 
-	// if (isLoading || !eventsDataResponse?.events) return <Loader />
-
 	return (
-		<>
-			<CustomTable
-				className={styles.questionTable}
-				rowData={formatEventsTableData(mockData)}
-				colTitles={tableTitles}
-				rowClickHandler={rowClickHandler}
-			/>
-			<TableFooter
-				totalElements={mockData?.length}
-				addClickHandler={handleAddQuestionClick}
-				addText='Добавить вопрос'
-			/>
-		</>
+		<AdminContent
+			$backgroundColor='#ffffff'
+			$height='786px'
+			$padding='30px 0'
+			link='/'
+			hasBottomLink
+			className={styles.questionsPageContent}
+			classNameLink={styles.questionsPageLinks}
+		>
+			<div className={styles.questionTableWrapper}>
+				<h3 className={styles['table-title']}>Частые вопросы</h3>
+
+				<CustomTable
+					className={styles.questionTable}
+					rowData={formatQuestionsTableData(mockData)}
+					colTitles={tableTitles}
+					rowClickHandler={rowClickHandler}
+				/>
+				<TableFooter
+					totalElements={mockData?.length}
+					addClickHandler={handleAddQuestionClick}
+					addText='Добавить вопрос'
+					className={styles.questionTableFooter}
+				/>
+			</div>
+		</AdminContent>
 	)
 }

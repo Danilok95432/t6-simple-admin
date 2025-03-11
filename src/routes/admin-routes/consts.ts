@@ -35,6 +35,8 @@ export enum AdminRoute {
 	AdminEventsList = 'events-list',
 	AdminPartners = 'partners',
 	AdminPartner = 'partner',
+	AdminFrequentQuestions = 'frequent-questions',
+	AdminQuestion = 'question',
 	AdminSupport = 'support',
 	AdminSettings = 'admin-settings',
 }

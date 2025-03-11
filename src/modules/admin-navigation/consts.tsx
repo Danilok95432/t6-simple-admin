@@ -7,6 +7,7 @@ import { AdminAboutIconSvg } from 'src/UI/icons/adminFederationIconSVG'
 import { AdminLibraryIconSvg } from 'src/UI/icons/adminLibraryIconSVG'
 import { AdminDepartmentsIconSvg } from 'src/UI/icons/adminDepartmentsIconSVG'
 import { AdminPartnersIconSvg } from 'src/UI/icons/adminPartnersIconSvg'
+import { AdminQuestionsIcon } from 'src/UI/icons/adminQuestionsIcon'
 
 export const adminMenuItems: NavigationItem[] = [
 	{
@@ -33,6 +34,11 @@ export const adminMenuItems: NavigationItem[] = [
 		title: 'Партнеры',
 		icon: <AdminPartnersIconSvg />,
 		link: 'partners',
+	},
+	{
+		title: 'Частые вопросы',
+		icon: <AdminQuestionsIcon />,
+		link: 'frequent-questions',
 	},
 	{
 		title: 'Библиотека',

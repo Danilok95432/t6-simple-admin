@@ -1,12 +1,15 @@
 import { type FC, type ReactNode } from 'react'
 
 import styled from 'styled-components'
+import classNames from 'classnames'
 
 type AdminContentProps = {
 	children: ReactNode
 	className?: string
+	classNameLink?: string
 	title?: string
 	link?: string
+	hasBottomLink?: boolean
 	$padding?: string
 	$width?: string
 	$height?: string
@@ -63,20 +66,28 @@ const StyledAdminContent = styled.div<AdminContentProps>`
 export const AdminContent: FC<AdminContentProps> = ({
 	children,
 	className,
+	classNameLink,
 	title,
 	link,
+	hasBottomLink,
 	...props
 }) => {
 	return (
 		<StyledAdminContent className={className} {...props}>
 			{(title ?? link) && (
-				<div className='content-title'>
+				<div className={classNames('content-title', classNameLink)}>
 					{title && <h3>{title}</h3>}
 					{link && <a href={link}>Посмотреть страницу на сайте</a>}
 				</div>
 			)}
 
 			{children}
+
+			{(title ?? link) && (
+				<div className={classNames('content-title', classNameLink)}>
+					{hasBottomLink && <a href={link}>Посмотреть страницу на сайте</a>}
+				</div>
+			)}
 		</StyledAdminContent>
 	)
 }

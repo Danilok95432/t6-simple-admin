@@ -11,6 +11,7 @@ type SwitchedRadioBtnsProps = {
 	contentRadio2: ReactNode
 	valueRadio1?: boolean
 	valueRadio2?: boolean
+	className: string
 }
 
 type StyledRadioBtnsProps = {
@@ -142,6 +143,7 @@ export const SwitchedRadioBtns: FC<SwitchedRadioBtnsProps & StyledRadioBtnsProps
 	contentRadio1,
 	contentRadio2,
 	$variant,
+	className,
 }) => {
 	const { register, setValue, watch } = useFormContext()
 	const handleChange = (value: boolean) => {
@@ -149,7 +151,7 @@ export const SwitchedRadioBtns: FC<SwitchedRadioBtnsProps & StyledRadioBtnsProps
 	}
 
 	return (
-		<StyledSwitchedRadioBtns $variant={$variant}>
+		<StyledSwitchedRadioBtns $variant={$variant} className={className}>
 			{label && <p>{label}</p>}
 			<div className='innerBtns'>
 				<label>

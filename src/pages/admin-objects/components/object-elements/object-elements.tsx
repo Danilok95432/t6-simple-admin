@@ -6,6 +6,7 @@ import cn from 'classnames'
 import {
 	useDeleteObjectByIdMutation,
 	useGetAllObjectsQuery,
+	useGetNewIdObjectQuery,
 	useHideObjectByIdMutation,
 } from 'src/store/objects/objects.api'
 
@@ -28,10 +29,17 @@ export const ObjectElements: FC = () => {
 		type: filterValues.type,
 		relation: filterValues.relation,
 	})
+	const { refetch: getNewId } = useGetNewIdObjectQuery(null)
 	const [deleteObjectById] = useDeleteObjectByIdMutation()
 	const [hideObjectById] = useHideObjectByIdMutation()
 
 	const navigate = useNavigate()
+
+	const addObject = async () => {
+		const newIdResponse = await getNewId().unwrap()
+		return newIdResponse.id
+	}
+
 	const tableTitles = ['Наименование', 'Тип объекта', 'Принадлежность', '']
 	const formatObjectsTableData = (objectsData: ObjectItem[]) => {
 		return objectsData.map((objectEl) => {
@@ -70,6 +78,11 @@ export const ObjectElements: FC = () => {
 		navigate(`/object/object-info/${id}`)
 	}
 
+	const handleAddObjectClick = async () => {
+		const newId = await addObject()
+		navigate(`/object/object-info/${newId}`)
+	}
+
 	return (
 		<div>
 			<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
@@ -83,7 +96,7 @@ export const ObjectElements: FC = () => {
 			/>
 			<TableFooter
 				totalElements={objectsDataResponse?.objects.length}
-				addClickHandler={() => navigate('/object/object-info/new')}
+				addClickHandler={handleAddObjectClick}
 				addText='Добавить объект'
 			/>
 		</div>

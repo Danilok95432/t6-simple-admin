@@ -1,10 +1,10 @@
 import {
 	type EventNewIdResponse,
 	type EventInfoResponse,
-	type EventPartners,
 	type EventResponse,
 	type EventContacts,
 	type EventContent,
+	type EventPartnersResponse,
 } from 'src/types/events'
 import { type FieldValues } from 'react-hook-form'
 
@@ -121,17 +121,19 @@ export const eventsApi = createApi({
 			}),
 			invalidatesTags: ['EventInfo', 'Events', 'EventContacts'],
 		}),
-		getPartnersByEventId: build.query<EventPartners[], { id: string | undefined; search?: string }>(
-			{
-				query: ({ id: eventId, search }) => ({
-					url: `events/${eventId}/partners`,
-					params: {
-						q: search,
-					},
-				}),
-				providesTags: ['Events', 'EventPartners'],
-			},
-		),
+		getPartnersByEventId: build.query<
+			EventPartnersResponse,
+			{ idEvent: string | undefined; title?: string }
+		>({
+			query: ({ idEvent, title }) => ({
+				url: `events/partners`,
+				params: {
+					id_event: idEvent,
+					q: title,
+				},
+			}),
+			providesTags: ['Events', 'EventPartners'],
+		}),
 		deleteEventPartnerById: build.mutation<null, { eventId: string; partnerId: string }>({
 			query: ({ eventId, partnerId }) => ({
 				url: `/event/${eventId}/partnerDelete/${partnerId}`,

@@ -4,6 +4,7 @@ import {
 	type ObjectsResponse,
 	type ObjectNewsResponse,
 	type ObjectInfoResponse,
+	type ObjectNewIdResponse,
 } from 'src/types/objects'
 import { type FieldValues } from 'react-hook-form'
 
@@ -121,6 +122,12 @@ export const objectsApi = createApi({
 			}),
 			invalidatesTags: ['ObjectEvents'],
 		}),
+		getNewIdObject: build.query<ObjectNewIdResponse, null>({
+			query: () => ({
+				url: `objects/getnew`,
+			}),
+			providesTags: ['ObjectInfo', 'Object'],
+		}),
 	}),
 })
 
@@ -136,4 +143,5 @@ export const {
 	useGetEventsByObjectIdQuery,
 	useDeleteObjectEventsByIdMutation,
 	useHideObjectNewsByIdMutation,
+	useGetNewIdObjectQuery,
 } = objectsApi

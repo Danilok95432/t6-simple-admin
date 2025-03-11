@@ -10,11 +10,16 @@ export type EventItem = {
 
 export type EventPartners = {
 	id: string
-	isHidden: boolean
+	id_partner: string
 	title: string
-	typeOrg: string
-	typePart: string[]
-	priority: number
+	partner_types: string[]
+	partner_vids: string[]
+	partner_number: string
+	hidden: boolean
+}
+
+export type EventPartnersResponse = {
+	partners: EventPartners[]
 }
 
 export type EventResponse = {

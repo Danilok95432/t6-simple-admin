@@ -1,14 +1,15 @@
-import { type ObjectNews } from 'src/types/objects'
+import { type NewsItem } from 'src/types/news'
 import { useNavigate, useParams } from 'react-router-dom'
 import { type FC } from 'react'
 import cn from 'classnames'
 
 import { mainFormatDate } from 'src/helpers/utils'
 import {
-	useDeleteObjectNewsByIdMutation,
-	useGetNewsByObjectIdQuery,
-	useHideObjectNewsByIdMutation,
-} from 'src/store/objects/objects.api'
+	useDeleteNewsByIdMutation,
+	useGetAllNewsQuery,
+	useGetNewIdNewsQuery,
+	useHideNewsByIdMutation,
+} from 'src/store/news/news.api'
 
 import { CustomTable } from 'src/components/custom-table/custom-table'
 import { RowController } from 'src/components/row-controller/row-controller'
@@ -20,26 +21,33 @@ import { TableFiltration } from 'src/modules/table-filtration/table-filtration'
 import { ObjectNewsFiltrationInputs } from 'src/pages/object-element-layout/pages/object-news/components/news-elements/consts'
 import { useAppSelector } from 'src/hooks/store'
 import { getFiltrationValues } from 'src/modules/table-filtration/store/table-filtration.selectors'
+import { Loader } from 'src/components/loader/loader'
 
 import styles from './index.module.scss'
 
 export const NewsElements: FC = () => {
 	const { id } = useParams()
 	const filterValues = useAppSelector(getFiltrationValues)
-	const { data: news = [] } = useGetNewsByObjectIdQuery({
-		id,
+	const { data: newsDataResponse, isLoading } = useGetAllNewsQuery({
+		idObject: id,
 		title: filterValues.title,
-		tags: filterValues.tags,
 		date: filterValues.date,
+		tags: filterValues.tags,
 	})
 
-	const [deleteNewsById] = useDeleteObjectNewsByIdMutation()
-	const [hideNewsById] = useHideObjectNewsByIdMutation()
+	const { refetch: getNewId } = useGetNewIdNewsQuery({ idEvent: '', idObject: id })
+	const [deleteNewsById] = useDeleteNewsByIdMutation()
+	const [hideNewsById] = useHideNewsByIdMutation()
 
 	const navigate = useNavigate()
 
+	const addNews = async () => {
+		const newIdResponse = await getNewId().unwrap()
+		return newIdResponse.id
+	}
+
 	const tableTitles = ['Наименование', 'Дата', 'Теги', 'Ключевая', '']
-	const formatObjectsTableData = (newsData: ObjectNews[]) => {
+	const formatObjectsTableData = (newsData: NewsItem[]) => {
 		return newsData.map((newsEl) => {
 			return {
 				rowId: newsEl.id,
@@ -79,6 +87,17 @@ export const NewsElements: FC = () => {
 		await hideNewsById(newsId)
 	}
 
+	const rowClickHandler = (id: string) => {
+		navigate(`/news/news-list/${id}`)
+	}
+
+	const handleAddNewsClick = async () => {
+		const newId = await addNews()
+		navigate(`/news/news-list/${newId}`)
+	}
+
+	if (isLoading || !newsDataResponse?.news) return <Loader />
+
 	return (
 		<div className={styles.objectNewsContainer}>
 			<GridRow $margin='0 0 15px 0' $padding='0 29px' className={styles.searchRow}>
@@ -86,12 +105,13 @@ export const NewsElements: FC = () => {
 			</GridRow>
 			<CustomTable
 				className={styles.newsTable}
-				rowData={formatObjectsTableData(news)}
+				rowData={formatObjectsTableData(newsDataResponse?.news ?? [])}
+				rowClickHandler={rowClickHandler}
 				colTitles={tableTitles}
 			/>
 			<TableFooter
-				totalElements={news.length}
-				addClickHandler={() => navigate('/object/object-info/new')}
+				totalElements={newsDataResponse?.news.length}
+				addClickHandler={handleAddNewsClick}
 				addText='Добавить новость'
 			/>
 		</div>

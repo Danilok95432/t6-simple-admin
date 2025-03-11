@@ -62,3 +62,8 @@ export type ObjectInfoResponse = {
 	vkName: string
 	vkSoc: string
 }
+
+export type ObjectNewIdResponse = {
+	status: string
+	id: string
+}

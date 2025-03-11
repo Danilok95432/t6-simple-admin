@@ -1,14 +1,19 @@
-import { type PartnerItem } from 'src/types/partners'
+import { type EventPartners } from 'src/types/events'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import cn from 'classnames'
 
-import { useDeleteEventPartnerByIdMutation } from 'src/store/events/events.api'
+import {
+	useDeleteEventPartnerByIdMutation,
+	useGetPartnersByEventIdQuery,
+} from 'src/store/events/events.api'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { TableFiltration } from 'src/modules/table-filtration/table-filtration'
+import { useAppSelector } from 'src/hooks/store'
+import { getFiltrationValues } from 'src/modules/table-filtration/store/table-filtration.selectors'
 
 import { Container } from 'src/UI/Container/Container'
 import { CustomTable } from 'src/components/custom-table/custom-table'
-// import { Loader } from 'src/components/loader/loader'
+import { Loader } from 'src/components/loader/loader'
 import { RowController } from 'src/components/row-controller/row-controller'
 import { TableFooter } from 'src/components/table-footer/table-footer'
 import { GridRow } from 'src/components/grid-row/grid-row'
@@ -19,34 +24,12 @@ import styles from './index.module.scss'
 
 export const PartnerElements = () => {
 	const { id = '' } = useParams()
+	const filterValues = useAppSelector(getFiltrationValues)
 
-	// const { data: partners, isLoading } = useGetPartnersByEventIdQuery({
-	// 	id,
-	// 	search: searchParams.title,
-	// })
-	// mock
-	const partners = [
-		{
-			id: '1',
-			hidden: false,
-			title: 'ООО МЦАИ',
-			events_count: '',
-			partner_vids: [],
-			partner_types: [],
-			sortid: '',
-			itemlink: '',
-		},
-		{
-			id: '2',
-			hidden: false,
-			title: 'ООО МЦАИ',
-			events_count: '',
-			partner_vids: [],
-			partner_types: [],
-			sortid: '',
-			itemlink: '',
-		},
-	]
+	const { data: partnersDataResponse, isLoading } = useGetPartnersByEventIdQuery({
+		idEvent: id,
+		title: filterValues.title,
+	})
 
 	const [deletePartnerById] = useDeleteEventPartnerByIdMutation()
 
@@ -54,7 +37,7 @@ export const PartnerElements = () => {
 
 	const tableTitles = ['Наименование', 'Вид организации', 'Тип партнерства', 'Очередность', '']
 
-	const formatObjectsTableData = (partnersData: PartnerItem[]) => {
+	const formatObjectsTableData = (partnersData: EventPartners[]) => {
 		return partnersData.map((partnersEl) => {
 			return {
 				rowId: partnersEl.id,
@@ -66,16 +49,16 @@ export const PartnerElements = () => {
 						{partnersEl.title}
 					</p>,
 					<p className={cn({ 'hidden-cell': partnersEl.hidden })} key='1'>
-						{partnersEl.partner_vids.join(',')}
+						{partnersEl.partner_vids}
 					</p>,
 					<p className={cn({ 'hidden-cell': partnersEl.hidden })} key='2'>
-						{partnersEl.partner_types.join(',')}
+						{partnersEl.partner_types}
 					</p>,
 					<input
 						className={cn({ 'hidden-cell': partnersEl.hidden }, styles.priorityBox)}
 						key='3'
 						type='text'
-						value={partnersEl.sortid}
+						value={partnersEl.partner_number}
 						onChange={(e) =>
 							console.log(
 								`очередность партнера с id ${partnersEl.id} изменена на значение ${e.target.value}`,
@@ -106,7 +89,7 @@ export const PartnerElements = () => {
 		console.log(id + 'спрятан')
 	}
 
-	// if (isLoading || !partners) return <Loader />
+	if (isLoading || !partnersDataResponse?.partners) return <Loader />
 
 	return (
 		<div className={styles.partnerElementsPage}>
@@ -122,13 +105,13 @@ export const PartnerElements = () => {
 			</GridRow>
 			<CustomTable
 				className={styles.partnersTable}
-				rowData={formatObjectsTableData(partners)}
+				rowData={formatObjectsTableData(partnersDataResponse?.partners)}
 				rowClickHandler={rowClickHandler}
 				colTitles={tableTitles}
 			/>
 			<TableFooter
 				className={styles.tableFooterPartnerWrapper}
-				totalElements={partners.length}
+				totalElements={partnersDataResponse?.partners.length}
 				addClickHandler={() => navigate(`${AdminRoute.AdminEventOnePartner}/new`)}
 				addText='Добавить партнера'
 			/>

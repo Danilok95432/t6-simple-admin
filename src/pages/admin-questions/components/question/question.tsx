@@ -3,7 +3,7 @@ import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
-import { QuestionInputs, QuestionSchema } from './schema'
+import { type QuestionInputs, QuestionSchema } from './schema'
 
 import { Container } from 'src/UI/Container/Container'
 import { SwitchedHiddenSvg } from 'src/UI/icons/switchedHiddenSVG'
@@ -31,7 +31,7 @@ export const Question = () => {
 		<AdminContent $backgroundColor='#ffffff' $padding='30px 0' $height='609px'>
 			<div className={styles.oneQuestionPage}>
 				<Link to={`/${AdminRoute.AdminFrequentQuestions}`} className={adminStyles.adminReturnLink}>
-					Возврат к списку партнеров
+					Возврат к списку вопросов
 				</Link>
 
 				<h3>Вопрос</h3>
@@ -71,7 +71,7 @@ export const Question = () => {
 				</Container>
 
 				<Link to={`/${AdminRoute.AdminFrequentQuestions}`} className={adminStyles.adminReturnLink}>
-					Возврат к списку партнеров
+					Возврат к списку вопросов
 				</Link>
 			</div>
 		</AdminContent>

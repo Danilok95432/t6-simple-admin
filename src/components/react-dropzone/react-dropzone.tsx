@@ -88,7 +88,7 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 				} else {
 					formData.append('itemimage', file)
 					formData.append('imgtype', imgtype)
-					formData.append('id', id)
+					formData.append('id_item', id)
 				}
 
 				const response = await uploadImages(formData).unwrap()

@@ -11,3 +11,8 @@ export type CultureInfoResponse = {
 	photos: ImageItemWithText[]
 	bottomDesc: string
 }
+
+export type CultureNewIdResponse = {
+	status: string
+	id: string
+}

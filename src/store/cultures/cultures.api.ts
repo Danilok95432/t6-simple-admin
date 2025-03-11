@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import { type FieldValues } from 'react-hook-form'
-import { type CultureInfoResponse } from 'src/types/culture'
+import { type CultureNewIdResponse, type CultureInfoResponse } from 'src/types/culture'
 
 import { ReducerPath } from 'src/helpers/consts'
 import { baseQueryWithReauth } from 'src/helpers/base-query'
@@ -19,6 +19,12 @@ export const culturesApi = createApi({
 			}),
 			providesTags: ['CultureInfo'],
 		}),
+		getNewIdCulture: build.query<CultureNewIdResponse, null>({
+			query: () => ({
+				url: `home/culture/getnew`,
+			}),
+			providesTags: ['CultureInfo', 'Culture'],
+		}),
 		saveCultureInfoCommunity: build.mutation<null, FieldValues>({
 			query: (formData) => ({
 				url: `home/culture/save_item`,
@@ -30,4 +36,8 @@ export const culturesApi = createApi({
 	}),
 })
 
-export const { useGetCultureInfoQuery, useSaveCultureInfoCommunityMutation } = culturesApi
+export const {
+	useGetCultureInfoQuery,
+	useSaveCultureInfoCommunityMutation,
+	useGetNewIdCultureQuery,
+} = culturesApi

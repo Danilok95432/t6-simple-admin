@@ -7,6 +7,9 @@ import {
 	useDeleteCultureByIdMutation,
 	useHideCultureByIdMutation,
 } from 'src/store/community/community.api'
+import { useGetNewIdCultureQuery } from 'src/store/cultures/cultures.api'
+import { TableFiltration } from 'src/modules/table-filtration/table-filtration'
+import { CultureElementsFiltrationInputs } from './consts'
 
 import { CustomTable } from 'src/components/custom-table/custom-table'
 import { mainFormatDate } from 'src/helpers/utils'
@@ -16,18 +19,22 @@ import { TableFooter } from 'src/components/table-footer/table-footer'
 import { GridRow } from 'src/components/grid-row/grid-row'
 
 import styles from './index.module.scss'
-import { TableFiltration } from 'src/modules/table-filtration/table-filtration'
-import { CultureElementsFiltrationInputs } from './consts'
 
 type CultureElementsProps = {
 	cultures?: CultureItem[]
 }
 
 export const CultureElements: FC<CultureElementsProps> = ({ cultures = [] }) => {
+	const { refetch: getNewId } = useGetNewIdCultureQuery(null)
 	const [hideCulturesById] = useHideCultureByIdMutation()
 	const [deleteCulturesById] = useDeleteCultureByIdMutation()
 
 	const navigate = useNavigate()
+
+	const addCulture = async () => {
+		const newIdResponse = await getNewId().unwrap()
+		return newIdResponse.id
+	}
 
 	const tableTitles = ['Наименование элемента', 'Размещено', 'Отдельный сайт', '']
 	const formatCulturesTableData = (culturesData: CultureItem[]) => {
@@ -77,6 +84,11 @@ export const CultureElements: FC<CultureElementsProps> = ({ cultures = [] }) => 
 		navigate(`/culture/culture-info/${id}`)
 	}
 
+	const handleAddCultureClick = async () => {
+		const newId = await addCulture()
+		navigate(`/culture/culture-info/${newId}`)
+	}
+
 	if (!cultures) return <Loader />
 
 	return (
@@ -92,7 +104,7 @@ export const CultureElements: FC<CultureElementsProps> = ({ cultures = [] }) => 
 			/>
 			<TableFooter
 				totalElements={cultures.length}
-				addClickHandler={() => navigate('/culture/culture-info/new')}
+				addClickHandler={handleAddCultureClick}
 				addText='Добавить элемент'
 			/>
 		</div>

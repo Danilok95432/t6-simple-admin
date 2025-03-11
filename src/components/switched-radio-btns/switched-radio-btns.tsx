@@ -11,7 +11,7 @@ type SwitchedRadioBtnsProps = {
 	contentRadio2: ReactNode
 	valueRadio1?: boolean
 	valueRadio2?: boolean
-	className: string
+	className?: string
 }
 
 type StyledRadioBtnsProps = {

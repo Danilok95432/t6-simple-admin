@@ -28,7 +28,7 @@ export const Question = () => {
 	}
 
 	return (
-		<AdminContent $backgroundColor='#ffffff' $padding='30px 0 20px' $height='609px'>
+		<AdminContent $backgroundColor='#ffffff' $padding='30px 0' $height='609px'>
 			<div className={styles.oneQuestionPage}>
 				<Link to={`/${AdminRoute.AdminFrequentQuestions}`} className={adminStyles.adminReturnLink}>
 					Возврат к списку партнеров
@@ -36,7 +36,7 @@ export const Question = () => {
 
 				<h3>Вопрос</h3>
 
-				<Container $padding='0 0 150px 0' $paddingMobile='0 0 40px 0'>
+				<Container $padding='0 0 135px 0' $paddingMobile='0 0 40px 0'>
 					<FormProvider {...methods}>
 						<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 							<div className={styles.oneQuestionFormContent}>

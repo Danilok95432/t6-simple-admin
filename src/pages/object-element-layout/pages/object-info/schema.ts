@@ -1,12 +1,12 @@
 import * as yup from 'yup'
-import { type FileWithPreview } from 'src/types/files'
+import { type ImageItemWithText } from 'src/types/photos'
 import { type SelOption } from 'src/types/select'
 
 export type ObjectInfoInputs = {
 	title: string
 	object_types?: SelOption[]
 	object_apply?: SelOption[]
-	photo?: FileWithPreview[]
+	photo?: ImageItemWithText[]
 	mainDesc: string
 	descList: string
 	phone?: string

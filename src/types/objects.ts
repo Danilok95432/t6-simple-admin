@@ -1,4 +1,4 @@
-import type { FileWithPreview } from 'src/types/files'
+import { type ImageItemWithText } from './photos'
 import { type SelOption } from './select'
 
 export type ObjectNews = {
@@ -55,7 +55,7 @@ export type ObjectInfoResponse = {
 	object_apply: SelOption[]
 	object_types: SelOption[]
 	phone: string
-	photo: FileWithPreview[]
+	photo: ImageItemWithText[]
 	tgName: string
 	tgSoc: string
 	title: string

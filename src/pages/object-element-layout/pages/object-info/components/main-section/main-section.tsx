@@ -1,5 +1,6 @@
 import { type FC } from 'react'
 import { type SelOption } from 'src/types/select'
+import { type ImageItemWithText } from 'src/types/photos'
 
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { AdminSection } from 'src/components/admin-section/admin-section'
@@ -11,9 +12,10 @@ import styles from './index.module.scss'
 type MainSectionProps = {
 	objectTypes?: SelOption[]
 	objectApply?: SelOption[]
+	photo?: ImageItemWithText[]
 }
 
-export const MainSection: FC<MainSectionProps> = ({ objectTypes, objectApply }) => {
+export const MainSection: FC<MainSectionProps> = ({ objectTypes, objectApply, photo }) => {
 	return (
 		<AdminSection innerClassName={styles.mainSectionInner} titleText='Основные данные'>
 			<ControlledInput
@@ -42,7 +44,7 @@ export const MainSection: FC<MainSectionProps> = ({ objectTypes, objectApply }) 
 				margin='0 0 20px 0'
 				previewVariant='sm-img'
 				imgtype='objects'
-				fileImages={[]}
+				fileImages={photo}
 			/>
 			<ControlledInput
 				name='mainDesc'

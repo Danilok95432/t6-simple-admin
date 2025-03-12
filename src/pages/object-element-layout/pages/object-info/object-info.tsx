@@ -58,6 +58,7 @@ export const ObjectInfo = () => {
 							<MainSection
 								objectTypes={objInfoData?.object_types}
 								objectApply={objInfoData?.object_apply}
+								photo={objInfoData?.photo}
 							/>
 							<ContactsSection />
 							<AdminControllers outLink={AdminRoute.AdminHome} />

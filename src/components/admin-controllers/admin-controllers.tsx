@@ -36,8 +36,13 @@ export const AdminControllers: FC<AdminControllersProps> = ({
 			case '1':
 				return (
 					<>
-						<AdminButton as='button' type='submit' $height='40px'>
-							Применить и продолжить
+						<AdminButton
+							as='button'
+							type='submit'
+							$height='40px'
+							$variant={isSent ? 'sent' : 'primary'}
+						>
+							{isSent ? 'Изменения сохранены' : 'Применить и продолжить'}
 						</AdminButton>
 						<AdminButton as='link' to={outLink} $variant='light' $height='40px'>
 							Сохранить и выйти
@@ -47,10 +52,15 @@ export const AdminControllers: FC<AdminControllersProps> = ({
 			case '2':
 				return (
 					<>
-						<AdminButton as='link' to={outLink} $height='40px'>
-							Применить и продолжить
+						<AdminButton
+							as='button'
+							type='submit'
+							$height='40px'
+							$variant={isSent ? 'sent' : 'primary'}
+						>
+							{isSent ? 'Изменения сохранены' : 'Применить и продолжить'}
 						</AdminButton>
-						<AdminButton as='button' type='submit' $variant='light' $height='40px'>
+						<AdminButton as='link' to={outLink} $variant='light' $height='40px'>
 							Сохранить и выйти
 						</AdminButton>
 						<AdminButton

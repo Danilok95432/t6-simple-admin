@@ -21,6 +21,7 @@ import { AdminControllers } from 'src/components/admin-controllers/admin-control
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
 import { booleanToNumberString } from 'src/helpers/utils'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const AdminEventContacts: FC = () => {
 	const { id = '0' } = useParams()
@@ -37,6 +38,7 @@ export const AdminEventContacts: FC = () => {
 			hide_pathways: false,
 		},
 	})
+	const { isSent, markAsSent } = useIsSent(methods.control)
 
 	const onSubmit: SubmitHandler<EventContactsInputs> = async (data) => {
 		const eventId = id
@@ -59,7 +61,8 @@ export const AdminEventContacts: FC = () => {
 		eventInfoFormData.append('hide_email', booleanToNumberString(data.hide_email))
 		eventInfoFormData.append('hide_pathways', booleanToNumberString(data.hide_pathways))
 
-		await saveEventContactsInfo(eventInfoFormData)
+		const res = await saveEventContactsInfo(eventInfoFormData)
+		if (res) markAsSent(true)
 	}
 
 	useEffect(() => {
@@ -78,7 +81,7 @@ export const AdminEventContacts: FC = () => {
 				<form onSubmit={methods.handleSubmit(onSubmit)} noValidate autoComplete='off'>
 					<InfoSection />
 					<RoutesSection />
-					<AdminControllers outLink='/' variant='2' />
+					<AdminControllers outLink='/' variant='2' isSent={isSent} />
 				</form>
 			</FormProvider>
 			<Link

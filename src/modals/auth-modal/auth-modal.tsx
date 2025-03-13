@@ -11,6 +11,7 @@ import { transformToFormData } from 'src/helpers/utils'
 import { PassRecoveryModal } from '../pass-recovery-modal/pass-recovery-modal'
 
 import styles from './index.module.scss'
+import { useNavigate } from 'react-router-dom'
 
 export const AuthModal = () => {
 	const { openModal, closeModal, setAuth, setUser } = useActions()
@@ -21,6 +22,8 @@ export const AuthModal = () => {
 		resolver: yupResolver(authSchema),
 	})
 
+	const navigate = useNavigate()
+
 	const onSubmit: SubmitHandler<AuthInputs> = async (data) => {
 		const formData = transformToFormData(data)
 		try {
@@ -30,6 +33,7 @@ export const AuthModal = () => {
 				setAuth(true)
 				setUser(resData.user)
 				closeModal()
+				navigate(`/news/news-list`)
 			}
 		} catch (err) {
 			console.error(err)

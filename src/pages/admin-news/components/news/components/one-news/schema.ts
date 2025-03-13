@@ -19,8 +19,8 @@ export type OneNewsInputs = {
 	short: string
 	full: string
 	photo?: ImageItemWithText[]
-	description: string
-	keywords: string[]
+	description?: string
+	keywords?: string[]
 	main?: boolean
 	hidden?: boolean
 }
@@ -40,11 +40,5 @@ export const oneNewsSchema = yup.object().shape({
 		.transform(splitAndTrimStringToArray),
 	short: yup.string().required('Введите короткое описание'),
 	full: yup.string().required('Введите текст новости'),
-	description: yup.string().required('Введите описание'),
-	keywords: yup
-		.array()
-		.of(yup.string().trim().required('Ключевое слово обязательно'))
-		.min(1, 'Должно быть хотя бы одно ключевое слово')
-		.required('Ключевые слова обязательны')
-		.transform(splitAndTrimStringToArray),
+	description: yup.string().optional(),
 })

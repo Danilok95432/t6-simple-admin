@@ -6,6 +6,9 @@ export type EventItem = {
 	title: string
 	date: [Date, Date]
 	object_title: string
+	event_type_name: string
+	event_part_name: string
+	event_level_name: string
 }
 
 export type EventPartners = {

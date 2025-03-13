@@ -71,7 +71,7 @@ export const OneVideo = () => {
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<div className={styles.oneVideoContent}>
 							<div className={styles.oneVideoContentLeft}>
-								<MainSection />
+								<MainSection photo={videoInfoData?.photo} />
 							</div>
 							<div className={styles.oneVideoContentRight}>
 								<SwitchedRadioBtns

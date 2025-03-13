@@ -14,6 +14,7 @@ type MainSectionProps = {
 }
 
 export const MainSection: FC<MainSectionProps> = ({ photo }) => {
+	console.log(photo)
 	return (
 		<AdminSection isBlock={false}>
 			<ControlledInput

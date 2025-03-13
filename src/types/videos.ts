@@ -1,3 +1,5 @@
+import { type ImageItemWithText } from './photos'
+
 export type VideoItem = {
 	id: string
 	title: string
@@ -23,4 +25,5 @@ export type VideoInfoResponse = {
 	tags: string[]
 	key: boolean
 	date: Date
+	photo: ImageItemWithText[]
 }

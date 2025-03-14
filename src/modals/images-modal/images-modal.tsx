@@ -116,7 +116,7 @@ export const ImageModal: FC<ImageModalProps> = ({
 	return (
 		<div className={styles.authModal}>
 			<div className='modal-header'>
-				<h3>Добавить изображение</h3>
+				<h3>{mode === 'edit' ? 'Редактировать изображение' : 'Добавить изображение'}</h3>
 				<button onClick={() => closeModal()} type='button'>
 					<CloseModalSvg />
 				</button>
@@ -149,7 +149,7 @@ export const ImageModal: FC<ImageModalProps> = ({
 							customUploadBtn={<AddButton>Загрузить изображение</AddButton>}
 						/>
 						<AdminButton as='button' $height='40px' $margin='0' type='submit'>
-							Добавить изображение
+							{mode === 'edit' ? 'Сохранить изменения' : 'Добавить изображение'}
 						</AdminButton>
 					</form>
 				</FormProvider>

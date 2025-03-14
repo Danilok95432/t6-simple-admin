@@ -12,13 +12,14 @@ import { useGetNewIdImageQuery } from 'src/store/uploadImages/uploadImages.api'
 
 type GallerySectionProps = {
 	images?: ImageItemWithText[]
+	idItem?: string
 }
 
-export const GallerySection: FC<GallerySectionProps> = ({ images }) => {
+export const GallerySection: FC<GallerySectionProps> = ({ images, idItem }) => {
 	const [localeImages, setLocaleImages] = useState<ImageItemWithText[]>(images ?? [])
 	const { refetch: getNewId } = useGetNewIdImageQuery({
-		imgtype: 'about_history',
-		idItem: '',
+		imgtype: 'objects_gallery',
+		idItem,
 	})
 
 	const addImage = async () => {
@@ -48,7 +49,7 @@ export const GallerySection: FC<GallerySectionProps> = ({ images }) => {
 		openModal(
 			<ImageModal
 				id={newId}
-				imgtype='about_history'
+				imgtype='objects_gallery'
 				syncAddHandler={syncAddImagesHandler}
 				syncEditHandler={syncEditImagesHandler}
 			/>,
@@ -70,7 +71,7 @@ export const GallerySection: FC<GallerySectionProps> = ({ images }) => {
 			fileImages={localeImages}
 			syncAdd={syncAddImagesHandler}
 			syncEdit={syncEditImagesHandler}
-			imgtype='about_culture_photo'
+			imgtype='objects_gallery'
 			dzAreaClassName={styles.objectGalleryController}
 			multiple
 			customOpenModal={

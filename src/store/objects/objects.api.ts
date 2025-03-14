@@ -5,6 +5,7 @@ import {
 	type ObjectNewsResponse,
 	type ObjectInfoResponse,
 	type ObjectNewIdResponse,
+	type ObjectGalleryInfoResponse,
 } from 'src/types/objects'
 import { type FieldValues } from 'react-hook-form'
 
@@ -15,7 +16,7 @@ import { baseQueryWithReauth } from 'src/helpers/base-query'
 
 export const objectsApi = createApi({
 	reducerPath: ReducerPath.Objects,
-	tagTypes: ['Object', 'ObjectInfo', 'ObjectNews', 'ObjectEvents'],
+	tagTypes: ['Object', 'ObjectInfo', 'ObjectNews', 'ObjectEvents', 'ObjectGallery'],
 	baseQuery: baseQueryWithReauth,
 	endpoints: (build) => ({
 		getAllObjects: build.query<ObjectsResponse, { title: string; type: string; relation: string }>({
@@ -128,6 +129,15 @@ export const objectsApi = createApi({
 			}),
 			providesTags: ['ObjectInfo', 'Object'],
 		}),
+		getGalleryObjectInfo: build.query<ObjectGalleryInfoResponse, string>({
+			query: (id) => ({
+				url: `objects/gallery/edit`,
+				params: {
+					id,
+				},
+			}),
+			providesTags: ['ObjectGallery', 'Object'],
+		}),
 	}),
 })
 
@@ -144,4 +154,5 @@ export const {
 	useDeleteObjectEventsByIdMutation,
 	useHideObjectNewsByIdMutation,
 	useGetNewIdObjectQuery,
+	useGetGalleryObjectInfoQuery,
 } = objectsApi

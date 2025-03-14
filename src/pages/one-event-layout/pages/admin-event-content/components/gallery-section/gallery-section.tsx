@@ -4,10 +4,10 @@ import { type ImageItemWithText } from 'src/types/photos'
 import { AdminSection } from 'src/components/admin-section/admin-section'
 import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-radio-btns'
 import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
-import { ControlledInput } from 'src/components/controlled-input/controlled-input'
-import { AdminButton } from 'src/UI/AdminButton/AdminButton'
-import { Container } from 'src/UI/Container/Container'
-import { FlexRow } from 'src/components/flex-row/flex-row'
+// import { ControlledInput } from 'src/components/controlled-input/controlled-input'
+// import { AdminButton } from 'src/UI/AdminButton/AdminButton'
+// import { Container } from 'src/UI/Container/Container'
+// import { FlexRow } from 'src/components/flex-row/flex-row'
 import { AddImageCulturePlusSVG } from 'src/UI/icons/addImageCulturePlusSVG'
 import { AddButton } from 'src/UI/AddButton/AddButton'
 
@@ -109,6 +109,7 @@ export const GallerySection: FC<GallerySectionProps> = ({ images }) => {
 					</AddButton>
 				}
 			/>
+			{/*
 			<Container
 				className={styles.formInputsGallery}
 				$padding='0px 0 15px 0'
@@ -144,6 +145,7 @@ export const GallerySection: FC<GallerySectionProps> = ({ images }) => {
 			<AdminButton $height='35px' $padding='0 21px' type='button'>
 				Сохранить ссылку
 			</AdminButton>
+			*/}
 		</AdminSection>
 	)
 }

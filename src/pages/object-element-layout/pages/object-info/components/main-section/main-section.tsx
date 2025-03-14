@@ -46,6 +46,16 @@ export const MainSection: FC<MainSectionProps> = ({ objectTypes, objectApply, ph
 				imgtype='objects'
 				fileImages={photo}
 			/>
+			<ReactDropzone
+				label='Пиктограмма на главной странице'
+				name='photo'
+				prompt='JPEG, PNG, 500х500px, не более 2.5 Мб'
+				accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'], 'image/svg': ['.svg'] }}
+				margin='0 0 20px 0'
+				previewVariant='sm-img'
+				imgtype='objects_icons'
+				fileImages={[]}
+			/>
 			<ControlledInput
 				name='mainDesc'
 				label='Краткое описание объекта *'

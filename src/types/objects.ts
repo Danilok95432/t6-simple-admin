@@ -67,3 +67,7 @@ export type ObjectNewIdResponse = {
 	status: string
 	id: string
 }
+
+export type ObjectGalleryInfoResponse = {
+	photos: ImageItemWithText[]
+}

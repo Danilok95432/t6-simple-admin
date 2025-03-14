@@ -12,6 +12,7 @@ import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
 import { FlexRow } from 'src/components/flex-row/flex-row'
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const AdminEventProgram: FC = () => {
 	const methods = useForm<ProgramInputs>({
@@ -31,8 +32,11 @@ export const AdminEventProgram: FC = () => {
 		},
 	})
 
+	const { isSent, markAsSent } = useIsSent(methods.control)
+
 	const onSubmit: SubmitHandler<ProgramInputs> = (data) => {
 		console.log(data)
+		markAsSent(true)
 	}
 	return (
 		<AdminContent className={styles.eventProgramPage}>
@@ -44,7 +48,7 @@ export const AdminEventProgram: FC = () => {
 				<form onSubmit={methods.handleSubmit(onSubmit)} noValidate autoComplete='off'>
 					<ProgramPointsSection />
 					<FlexRow $margin='40px 0 0 0'>
-						<AdminButton as='button' type='submit'>
+						<AdminButton as='button' type='submit' $variant={isSent ? 'sent' : 'primary'}>
 							Сохранить
 						</AdminButton>
 						<AdminButton as='route' to='/events-list' $variant='light'>

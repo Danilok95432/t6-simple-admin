@@ -6,7 +6,7 @@ import {
 
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useGetEventInfoQuery, useSaveEventProfileInfoMutation } from 'src/store/events/events.api'
 import {
 	currentDateString,
@@ -26,12 +26,12 @@ import { FlexRow } from 'src/components/flex-row/flex-row'
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
 import { parse, format } from 'date-fns'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const AdminEventProfile: FC = () => {
 	const { id = '0' } = useParams()
 	const { data: eventInfoData } = useGetEventInfoQuery(id)
 	const [saveEventInfo] = useSaveEventProfileInfoMutation()
-	const navigate = useNavigate()
 
 	const methods = useForm<EventProfileInputs>({
 		mode: 'onBlur',
@@ -41,6 +41,8 @@ export const AdminEventProfile: FC = () => {
 			hidden: false,
 		},
 	})
+
+	const { isSent, markAsSent } = useIsSent(methods.control)
 
 	const onSubmit: SubmitHandler<EventProfileInputs> = async (data) => {
 		const dateFormatFrom = formatDateToYYYYMMDD(data.date_from)
@@ -69,8 +71,8 @@ export const AdminEventProfile: FC = () => {
 		const eventInfoFormData = transformToFormData(serverData)
 		const eventId = id
 		eventInfoFormData.append('id', eventId)
-		await saveEventInfo(eventInfoFormData)
-		navigate(`/${AdminRoute.AdminEventsList}`)
+		const res = await saveEventInfo(eventInfoFormData)
+		if (res) markAsSent(true)
 	}
 
 	useEffect(() => {
@@ -161,7 +163,7 @@ export const AdminEventProfile: FC = () => {
 								<AdminButton as='route' to={`/${AdminRoute.AdminEventsList}`}>
 									Сохранить и выйти
 								</AdminButton>
-								<AdminButton as='button' type='submit' $variant='light'>
+								<AdminButton as='button' type='submit' $variant={isSent ? 'sent' : 'light'}>
 									Применить и продолжить
 								</AdminButton>
 							</FlexRow>

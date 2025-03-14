@@ -11,6 +11,7 @@ import { AdminRoute } from 'src/routes/admin-routes/consts'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const OnePartner = () => {
 	const { id } = useParams()
@@ -19,8 +20,11 @@ export const OnePartner = () => {
 		resolver: yupResolver(onePartnerSchema),
 	})
 
+	const { isSent, markAsSent } = useIsSent(methods.control)
+
 	const onSubmit: SubmitHandler<OnePartnerInputs> = (data) => {
 		console.log(data)
+		markAsSent(true)
 	}
 
 	return (
@@ -41,7 +45,12 @@ export const OnePartner = () => {
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<MainSection />
-						<AdminButton as='button' type='submit' $height='40px'>
+						<AdminButton
+							as='button'
+							type='submit'
+							$height='40px'
+							$variant={isSent ? 'sent' : 'primary'}
+						>
 							Добавить партера
 						</AdminButton>
 					</form>

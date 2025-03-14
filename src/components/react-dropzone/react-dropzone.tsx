@@ -32,7 +32,7 @@ type ReactDropzoneProps = {
 	customOpenModal?: ReactNode
 	uploadBtnText?: string
 	variant?: 'main' | 'text' | 'culture'
-	previewVariant?: 'main' | 'text' | 'sm-img' | 'list' | 'img-list' | 'sm-img-edit'
+	previewVariant?: 'main' | 'text' | 'sm-img' | 'list' | 'img-list' | 'sm-img-edit' | 'sm-vector'
 	imgtype?: string
 	imageIdFieldName?: string
 	fileImages?: ImageItemWithText[]

@@ -17,6 +17,7 @@ import styles from './index.module.scss'
 import { useGetRequestInfoQuery } from 'src/store/requests/requests.api'
 import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const OpenRequest = () => {
 	const { id = '0' } = useParams()
@@ -31,8 +32,11 @@ export const OpenRequest = () => {
 		},
 	})
 
+	const { isSent, markAsSent } = useIsSent(methods.control)
+
 	const onSubmit: SubmitHandler<OpenRequestInputs> = async (data) => {
 		console.log(data)
+		markAsSent(true)
 	}
 
 	useEffect(() => {
@@ -79,7 +83,7 @@ export const OpenRequest = () => {
 							</div>
 						</div>
 						<FlexRow $margin='40px 0 0 0'>
-							<AdminButton as='button' type='submit'>
+							<AdminButton as='button' type='submit' $variant={isSent ? 'sent' : 'primary'}>
 								Одобрить размещение
 							</AdminButton>
 							<AdminButton as='route' to='/news/requests-list' $variant='delay'>

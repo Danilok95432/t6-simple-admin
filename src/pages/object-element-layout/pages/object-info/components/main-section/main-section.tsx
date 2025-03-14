@@ -53,7 +53,7 @@ export const MainSection: FC<MainSectionProps> = ({ objectTypes, objectApply, ph
 				prompt='JPEG, PNG, 500х500px, не более 2.5 Мб'
 				accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'], 'image/svg': ['.svg'] }}
 				margin='0 0 20px 0'
-				previewVariant='sm-img'
+				previewVariant='sm-vector'
 				imgtype='objects_icons'
 				fileImages={icon}
 			/>

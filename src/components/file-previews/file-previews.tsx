@@ -9,7 +9,15 @@ type FilePreviewsProps = {
 	files: ImageItemWithText[]
 	removeBtn?: ReactNode
 	removeHandler?: (idx: number) => void
-	variant?: 'main' | 'text' | 'sm-img' | 'list' | 'img-list' | 'culture-img-list' | 'sm-img-edit'
+	variant?:
+		| 'main'
+		| 'text'
+		| 'sm-img'
+		| 'list'
+		| 'img-list'
+		| 'culture-img-list'
+		| 'sm-img-edit'
+		| 'sm-vector'
 	uploadBtn?: ReactNode
 	imgtype?: string
 	syncAdd?: (file: ImageItemWithText) => void
@@ -37,6 +45,36 @@ export const FilePreviews: FC<FilePreviewsProps> = ({
 				{files.map((img, idx) => (
 					<li key={img.id}>
 						<div className={styles.smImgWrapper}>
+							<img
+								src={img.thumbnail}
+								alt={img.title}
+								onLoad={() => {
+									URL.revokeObjectURL(img.thumbnail)
+								}}
+							/>
+							{removeBtn && (
+								<button
+									className={styles.removeTextBtn}
+									type='button'
+									onClick={() => removeHandler?.(idx)}
+								>
+									{removeBtn}
+								</button>
+							)}
+						</div>
+						<p>{img.title}</p>
+					</li>
+				))}
+			</ul>
+		)
+	}
+
+	if (variant === 'sm-vector') {
+		return (
+			<ul className={styles.smVectorFilesList}>
+				{files.map((img, idx) => (
+					<li key={img.id}>
+						<div className={styles.smVectorWrapper}>
 							<img
 								src={img.thumbnail}
 								alt={img.title}

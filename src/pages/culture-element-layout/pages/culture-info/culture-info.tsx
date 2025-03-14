@@ -30,6 +30,7 @@ import { useActions } from 'src/hooks/actions/actions'
 import { useGetNewIdImageQuery } from 'src/store/uploadImages/uploadImages.api'
 import { ImageModal } from 'src/modals/images-modal/images-modal'
 import { type ImageItemWithText } from 'src/types/photos'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const CultureInfo = () => {
 	const { id = '0' } = useParams()
@@ -90,10 +91,12 @@ export const CultureInfo = () => {
 		},
 	})
 
+	const { isSent, markAsSent } = useIsSent(methods.control)
+
 	const onSubmit: SubmitHandler<CultureInfoInputs> = async (data) => {
-		console.log(data)
 		try {
-			await saveCultureInfo(transformToFormData(data))
+			const res = await saveCultureInfo(transformToFormData(data))
+			if (res) markAsSent(true)
 		} catch (e) {
 			console.error(e)
 		}
@@ -188,7 +191,7 @@ export const CultureInfo = () => {
 							$maxWidth='1140px'
 						/>
 						<FlexRow $margin='40px 0 45px 0' $gap='15px'>
-							<AdminButton as='button' type='submit'>
+							<AdminButton as='button' type='submit' $variant={isSent ? 'sent' : 'primary'}>
 								Сохранить
 							</AdminButton>
 							<AdminButton as='link' to='/' $variant='light'>

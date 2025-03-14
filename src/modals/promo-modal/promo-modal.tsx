@@ -14,6 +14,7 @@ import { SwitchedShowSvg } from 'src/UI/icons/switchedShowSVG'
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 
 import styles from './index.module.scss'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const PromoModal = () => {
 	const { closeModal } = useActions()
@@ -28,8 +29,11 @@ export const PromoModal = () => {
 		},
 	})
 
+	const { isSent, markAsSent } = useIsSent(methods.control)
+
 	const onSubmit: SubmitHandler<PromoInputs> = (data) => {
 		console.log(data)
+		markAsSent(true)
 	}
 
 	return (
@@ -104,7 +108,12 @@ export const PromoModal = () => {
 								/>
 							</div>
 						</div>
-						<AdminButton as='button' $height='40px' type='submit'>
+						<AdminButton
+							as='button'
+							$height='40px'
+							type='submit'
+							$variant={isSent ? 'sent' : 'primary'}
+						>
 							Сохранить изменения
 						</AdminButton>
 					</form>

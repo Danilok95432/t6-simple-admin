@@ -12,6 +12,7 @@ import { MapSection } from 'src/pages/object-element-layout/pages/object-locatio
 import { RoutesSection } from 'src/pages/object-element-layout/pages/object-location/components/routes-section/routes-section'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const ObjectLocation = () => {
 	const methods = useForm<ObjLocationInputs>({
@@ -24,8 +25,11 @@ export const ObjectLocation = () => {
 		},
 	})
 
+	const { isSent, markAsSent } = useIsSent(methods.control)
+
 	const onSubmit: SubmitHandler<ObjLocationInputs> = (data) => {
 		console.log(data)
+		markAsSent(true)
 	}
 
 	return (
@@ -38,7 +42,7 @@ export const ObjectLocation = () => {
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<MapSection />
 						<RoutesSection />
-						<AdminControllers outLink={AdminRoute.AdminHome} />
+						<AdminControllers outLink={AdminRoute.AdminHome} isSent={isSent} />
 					</form>
 				</FormProvider>
 			</AdminContent>

@@ -25,6 +25,7 @@ export const Question = () => {
 	const { isSent, markAsSent } = useIsSent(methods.control)
 	const onSubmit: SubmitHandler<QuestionInputs> = async (data) => {
 		console.log(data)
+		markAsSent(true)
 	}
 
 	return (

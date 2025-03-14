@@ -16,6 +16,7 @@ import { AdminButton } from 'src/UI/AdminButton/AdminButton'
 import { FlexRow } from 'src/components/flex-row/flex-row'
 
 import styles from './index.module.scss'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const OneRequest = () => {
 	const { refetch: getNewId } = useGetNewIdRequestQuery(null)
@@ -29,6 +30,8 @@ export const OneRequest = () => {
 		},
 	})
 
+	const { isSent, markAsSent } = useIsSent(methods.control)
+
 	const onSubmit: SubmitHandler<OneRequestInputs> = async (data) => {
 		console.log(data)
 		const dateFormat = formatDate(data.publicdate)
@@ -37,6 +40,7 @@ export const OneRequest = () => {
 		const newIdResponse = await getNewId().unwrap()
 		requestInfoFormData.append('id', newIdResponse.id)
 		// const res = await saveRequestInfo(requestInfoFormData)
+		markAsSent(true)
 	}
 
 	return (
@@ -72,7 +76,7 @@ export const OneRequest = () => {
 							</div>
 						</div>
 						<FlexRow $margin='40px 0 0 0'>
-							<AdminButton as='button' type='submit'>
+							<AdminButton as='button' type='submit' $variant={isSent ? 'sent' : 'primary'}>
 								Подать заявку
 							</AdminButton>
 							<AdminButton as='route' to='/news/requests-list' $variant='light'>

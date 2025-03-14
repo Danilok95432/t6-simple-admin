@@ -14,6 +14,7 @@ import { useGetObjectInfoQuery, useSaveObjectInfoMutation } from 'src/store/obje
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import { transformToFormData } from 'src/helpers/utils'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const ObjectInfo = () => {
 	const { id = '0' } = useParams()
@@ -31,10 +32,13 @@ export const ObjectInfo = () => {
 		},
 	})
 
+	const { isSent, markAsSent } = useIsSent(methods.control)
+
 	const onSubmit: SubmitHandler<ObjectInfoInputs> = async (data) => {
 		const objectInfoFormData = transformToFormData(data)
 		objectInfoFormData.append('id', id)
-		await saveObjectInfo(objectInfoFormData)
+		const res = await saveObjectInfo(objectInfoFormData)
+		if (res) markAsSent(true)
 	}
 
 	useEffect(() => {
@@ -62,7 +66,7 @@ export const ObjectInfo = () => {
 								icon={objInfoData?.icon}
 							/>
 							<ContactsSection />
-							<AdminControllers outLink={AdminRoute.AdminHome} />
+							<AdminControllers outLink={AdminRoute.AdminHome} isSent={isSent} />
 						</form>
 					</FormProvider>
 				</AdminContent>

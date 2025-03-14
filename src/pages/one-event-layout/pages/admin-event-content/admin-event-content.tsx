@@ -24,6 +24,7 @@ import {
 	useSaveEventContentInfoMutation,
 } from 'src/store/events/events.api'
 import { booleanToNumberString } from 'src/helpers/utils'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const AdminEventContent: FC = () => {
 	const { id = '0' } = useParams()
@@ -39,6 +40,8 @@ export const AdminEventContent: FC = () => {
 			hide_links: false,
 		},
 	})
+
+	const { isSent, markAsSent } = useIsSent(methods.control)
 
 	const onSubmit: SubmitHandler<EventContentInputs> = async (data) => {
 		const eventId = id
@@ -63,7 +66,8 @@ export const AdminEventContent: FC = () => {
 		eventInfoFormData.append('hide_gallery', booleanToNumberString(data.hide_gallery))
 		eventInfoFormData.append('hide_links', booleanToNumberString(data.hide_links))
 
-		await saveEventContentInfo(eventInfoFormData)
+		const res = await saveEventContentInfo(eventInfoFormData)
+		if (res) markAsSent(true)
 	}
 
 	useEffect(() => {
@@ -85,7 +89,7 @@ export const AdminEventContent: FC = () => {
 					<GallerySection />
 					<DocsSection />
 					<LinksSection />
-					<AdminControllers outLink={AdminRoute.AdminHome} variant='2' />
+					<AdminControllers outLink={AdminRoute.AdminHome} variant='2' isSent={isSent} />
 				</form>
 			</FormProvider>
 			<Link to={`/${AdminRoute.AdminEventsList}`} className={adminStyles.adminReturnLink}>

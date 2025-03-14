@@ -12,6 +12,7 @@ import { MainBlocksSection } from 'src/pages/admin-settings/components/main-bloc
 import { PromoTable } from 'src/pages/admin-settings/components/promo-table/promo-table'
 
 import styles from './index.module.scss'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const AdminSettings: FC = () => {
 	const methods = useForm<SettingsInputs>({
@@ -19,8 +20,11 @@ export const AdminSettings: FC = () => {
 		defaultValues: defaultMainBlocksValues,
 	})
 
+	const { isSent, markAsSent } = useIsSent(methods.control)
+
 	const onSubmit: SubmitHandler<SettingsInputs> = (data) => {
 		console.log(data)
+		markAsSent(true)
 	}
 	return (
 		<>
@@ -42,7 +46,7 @@ export const AdminSettings: FC = () => {
 						noValidate
 					>
 						<MainBlocksSection />
-						<AdminControllers outLink={AdminRoute.AdminHome} />
+						<AdminControllers outLink={AdminRoute.AdminHome} isSent={isSent} />
 					</form>
 				</FormProvider>
 			</AdminContent>

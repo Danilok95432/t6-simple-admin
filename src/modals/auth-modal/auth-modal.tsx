@@ -12,6 +12,7 @@ import { PassRecoveryModal } from '../pass-recovery-modal/pass-recovery-modal'
 
 import styles from './index.module.scss'
 import { useNavigate } from 'react-router-dom'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const AuthModal = () => {
 	const { openModal, closeModal, setAuth, setUser } = useActions()
@@ -22,6 +23,8 @@ export const AuthModal = () => {
 		resolver: yupResolver(authSchema),
 	})
 
+	const { isSent, markAsSent } = useIsSent(methods.control)
+
 	const navigate = useNavigate()
 
 	const onSubmit: SubmitHandler<AuthInputs> = async (data) => {
@@ -29,6 +32,7 @@ export const AuthModal = () => {
 		try {
 			const { data: resData } = await loginUser(formData)
 			if (resData && 'token' in resData && 'user' in resData) {
+				markAsSent(true)
 				localStorage.setItem('token', resData.token)
 				setAuth(true)
 				setUser(resData.user)
@@ -84,7 +88,13 @@ export const AuthModal = () => {
 							type='password'
 							margin='0 0 25px 0'
 						/> */}
-						<AdminButton as='button' $height='40px' $margin='0 0 20px 0' type='submit'>
+						<AdminButton
+							as='button'
+							$height='40px'
+							$margin='0 0 20px 0'
+							type='submit'
+							$variant={isSent ? 'sent' : 'primary'}
+						>
 							Войти
 						</AdminButton>
 						<button

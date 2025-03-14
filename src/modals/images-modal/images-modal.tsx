@@ -19,6 +19,7 @@ import { useEffect, type FC, useState } from 'react'
 import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 import { type ImageItemWithText } from 'src/types/photos'
 import { RemoveImageModalSVG } from 'src/UI/icons/RemoveImageModalSVG'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 type ImageModalProps = {
 	id: string
@@ -72,6 +73,8 @@ export const ImageModal: FC<ImageModalProps> = ({
 		resolver: yupResolver(imageSchema),
 	})
 
+	const { isSent, markAsSent } = useIsSent(methods.control)
+
 	const onSubmit: SubmitHandler<ImagesInputs> = async (data) => {
 		const serverData = {
 			title: data.title,
@@ -81,7 +84,8 @@ export const ImageModal: FC<ImageModalProps> = ({
 		imageInfoFormData.append('id', id)
 
 		try {
-			await saveImageInfo(imageInfoFormData)
+			const res = await saveImageInfo(imageInfoFormData)
+			if (res) markAsSent(true)
 			await refetch()
 			if (syncAddHandler && mode === 'add') {
 				syncAddHandler({
@@ -148,7 +152,13 @@ export const ImageModal: FC<ImageModalProps> = ({
 							removeIcon={<RemoveImageModalSVG />}
 							customUploadBtn={<AddButton>Загрузить изображение</AddButton>}
 						/>
-						<AdminButton as='button' $height='40px' $margin='0' type='submit'>
+						<AdminButton
+							as='button'
+							$height='40px'
+							$margin='0'
+							type='submit'
+							$variant={isSent ? 'sent' : 'primary'}
+						>
 							{mode === 'edit' ? 'Сохранить изменения' : 'Добавить изображение'}
 						</AdminButton>
 					</form>

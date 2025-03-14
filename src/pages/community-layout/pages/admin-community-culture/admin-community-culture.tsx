@@ -28,6 +28,7 @@ import { useActions } from 'src/hooks/actions/actions'
 import { useGetNewIdImageQuery } from 'src/store/uploadImages/uploadImages.api'
 import { ImageModal } from 'src/modals/images-modal/images-modal'
 import { type ImageItemWithText } from 'src/types/photos'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const AdminCommunityCulture: FC = () => {
 	const { data: cultureCommunityData } = useGetCultureCommunityQuery(null)
@@ -86,9 +87,12 @@ export const AdminCommunityCulture: FC = () => {
 		},
 	})
 
+	const { isSent, markAsSent } = useIsSent(methods.control)
+
 	const onSubmit: SubmitHandler<CommunityCultureInputs> = async (data) => {
 		try {
-			await saveCultureCommunity(transformToFormData(data))
+			const res = await saveCultureCommunity(transformToFormData(data))
+			if (res) markAsSent(true)
 		} catch (e) {
 			console.error(e)
 		}
@@ -147,7 +151,7 @@ export const AdminCommunityCulture: FC = () => {
 							}
 						/>
 						<FlexRow $margin='25px 0 50px 0' $gap='15px'>
-							<AdminButton as='button' type='submit'>
+							<AdminButton as='button' type='submit' $variant={isSent ? 'sent' : 'primary'}>
 								Сохранить
 							</AdminButton>
 							<AdminButton as='link' to='/' $variant='light'>

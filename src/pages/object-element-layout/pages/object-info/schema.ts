@@ -7,6 +7,7 @@ export type ObjectInfoInputs = {
 	object_types?: SelOption[]
 	object_apply?: SelOption[]
 	photo?: ImageItemWithText[]
+	icon?: ImageItemWithText[]
 	mainDesc: string
 	descList: string
 	phone?: string

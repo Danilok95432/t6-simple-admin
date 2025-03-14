@@ -13,9 +13,10 @@ type MainSectionProps = {
 	objectTypes?: SelOption[]
 	objectApply?: SelOption[]
 	photo?: ImageItemWithText[]
+	icon?: ImageItemWithText[]
 }
 
-export const MainSection: FC<MainSectionProps> = ({ objectTypes, objectApply, photo }) => {
+export const MainSection: FC<MainSectionProps> = ({ objectTypes, objectApply, photo, icon }) => {
 	return (
 		<AdminSection innerClassName={styles.mainSectionInner} titleText='Основные данные'>
 			<ControlledInput
@@ -54,7 +55,7 @@ export const MainSection: FC<MainSectionProps> = ({ objectTypes, objectApply, ph
 				margin='0 0 20px 0'
 				previewVariant='sm-img'
 				imgtype='objects_icons'
-				fileImages={[]}
+				fileImages={icon}
 			/>
 			<ControlledInput
 				name='mainDesc'

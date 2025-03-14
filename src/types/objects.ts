@@ -56,6 +56,7 @@ export type ObjectInfoResponse = {
 	object_types: SelOption[]
 	phone: string
 	photo: ImageItemWithText[]
+	icon: ImageItemWithText[]
 	tgName: string
 	tgSoc: string
 	title: string

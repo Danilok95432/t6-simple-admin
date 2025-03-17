@@ -7,7 +7,6 @@ import { AdminSection } from 'src/components/admin-section/admin-section'
 import { GridRow } from 'src/components/grid-row/grid-row'
 import { AddButton } from 'src/UI/AddButton/AddButton'
 import { FlexRow } from 'src/components/flex-row/flex-row'
-import { TrashIconSvg } from 'src/UI/icons/trashIconSVG'
 
 import styles from './index.module.scss'
 import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-radio-btns'
@@ -18,7 +17,7 @@ export const RoutesSection: FC = () => {
 		formState: { errors },
 	} = useFormContext<ObjLocationInputs>()
 
-	const { fields, append, remove } = useFieldArray({
+	const { fields, append } = useFieldArray({
 		control,
 		name: 'paths',
 	})
@@ -26,13 +25,9 @@ export const RoutesSection: FC = () => {
 	return (
 		<AdminSection
 			titleText={`Маршруты (${fields?.length} из 3)`}
-			sectionName='routesSection'
+			sectionName='hide_paths'
 			additionalNodeForHead={
-				<SwitchedRadioBtns
-					name='isShowRoutesSection'
-					contentRadio1='Показать всем'
-					contentRadio2='Скрыть'
-				/>
+				<SwitchedRadioBtns name='hide_paths' contentRadio1='Показать всем' contentRadio2='Скрыть' />
 			}
 		>
 			<ul>
@@ -63,12 +58,6 @@ export const RoutesSection: FC = () => {
 								isTextarea
 							/>
 						</GridRow>
-
-						{idx !== 0 && (
-							<button type='button' onClick={() => remove(idx)}>
-								<TrashIconSvg />
-							</button>
-						)}
 					</li>
 				))}
 			</ul>

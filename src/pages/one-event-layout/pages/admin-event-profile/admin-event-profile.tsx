@@ -33,6 +33,8 @@ export const AdminEventProfile: FC = () => {
 	const { data: eventInfoData } = useGetEventInfoQuery(id)
 	const [saveEventInfo] = useSaveEventProfileInfoMutation()
 
+	console.log(eventInfoData)
+
 	const methods = useForm<EventProfileInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(eventProfileSchema),

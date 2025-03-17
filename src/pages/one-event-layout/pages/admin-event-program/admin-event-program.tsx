@@ -1,32 +1,37 @@
-import { type FC } from 'react'
+import { useEffect, type FC } from 'react'
 import { type ProgramInputs } from 'src/pages/one-event-layout/pages/admin-event-program/schema'
 
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import { useGetProgramByEventIdQuery } from 'src/store/events/events.api'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { ProgramPointsSection } from 'src/pages/one-event-layout/pages/admin-event-program/components/program-points-section/program-points-section'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
-import styles from './index.module.scss'
 import { FlexRow } from 'src/components/flex-row/flex-row'
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
 import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
+import styles from './index.module.scss'
+
 export const AdminEventProgram: FC = () => {
+	const { id = '0' } = useParams()
+	const { data: programInfoData } = useGetProgramByEventIdQuery(id)
+
 	const methods = useForm<ProgramInputs>({
 		mode: 'onBlur',
 		defaultValues: {
-			isShowPointsSection: true,
-			pointsSection: true,
-			points: [
+			isShowProgramSection: true,
+			programSection: true,
+			program: [
 				{
-					pointTitle: '',
-					pointDate: null,
-					pointTimeStart: null,
-					pointTimeEnd: null,
-					pointLocation: '',
+					title: '',
+					itemdate: '',
+					begin_time: '',
+					end_time: '',
+					place: '',
 				},
 			],
 		},
@@ -38,6 +43,15 @@ export const AdminEventProgram: FC = () => {
 		console.log(data)
 		markAsSent(true)
 	}
+
+	console.log(programInfoData?.program)
+
+	useEffect(() => {
+		if (programInfoData) {
+			methods.reset({ ...programInfoData })
+		}
+	}, [programInfoData])
+
 	return (
 		<AdminContent className={styles.eventProgramPage}>
 			<Link to={`/${AdminRoute.AdminEventsList}`} className={adminStyles.adminReturnLink}>

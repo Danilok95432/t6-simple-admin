@@ -1,13 +1,7 @@
-type ProgramPoint = {
-	pointTitle: string
-	pointDate: Date | null
-	pointTimeStart: Date | null
-	pointTimeEnd: Date | null
-	pointLocation: string
-}
+import { type EventProgram } from 'src/types/events'
 
 export type ProgramInputs = {
-	isShowPointsSection?: boolean
-	pointsSection?: boolean
-	points?: ProgramPoint[]
+	isShowProgramSection?: boolean
+	programSection?: boolean
+	program?: EventProgram[]
 }

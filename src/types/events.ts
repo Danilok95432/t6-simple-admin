@@ -92,3 +92,15 @@ export type EventContent = {
 	links: linksEvent[]
 	hide_links?: boolean
 }
+
+export type EventProgramResponse = {
+	program: EventProgram[]
+}
+
+export type EventProgram = {
+	title: string
+	place: string
+	itemdate: string
+	begin_time: string
+	end_time?: string
+}

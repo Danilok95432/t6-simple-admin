@@ -19,9 +19,10 @@ import { RoutesSection } from 'src/pages/one-event-layout/pages/admin-event-cont
 import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
-import styles from './index.module.scss'
 import { booleanToNumberString } from 'src/helpers/utils'
 import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
+
+import styles from './index.module.scss'
 
 export const AdminEventContacts: FC = () => {
 	const { id = '0' } = useParams()

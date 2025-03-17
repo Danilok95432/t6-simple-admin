@@ -72,3 +72,15 @@ export type ObjectNewIdResponse = {
 export type ObjectGalleryInfoResponse = {
 	photos: ImageItemWithText[]
 }
+
+export type pathObjectMap = {
+	path_name: string
+	path_desc: string
+	path_yandex: string
+}
+
+export type ObjectMapInfoResponse = {
+	map_yandex: string
+	hide_paths: boolean
+	paths: pathObjectMap[]
+}

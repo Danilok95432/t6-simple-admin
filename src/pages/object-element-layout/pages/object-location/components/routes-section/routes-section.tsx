@@ -20,7 +20,7 @@ export const RoutesSection: FC = () => {
 
 	const { fields, append, remove } = useFieldArray({
 		control,
-		name: 'routes',
+		name: 'paths',
 	})
 
 	return (
@@ -42,22 +42,22 @@ export const RoutesSection: FC = () => {
 						<GridRow>
 							<FlexRow $direction='column' $gap='15px'>
 								<ControlledInput
-									name={`routes.${idx}.routeTitle`}
-									dynamicError={errors?.routes?.[idx]?.routeTitle}
+									name={`paths[${idx}].path_name`}
+									dynamicError={errors?.paths?.[idx]?.path_name}
 									placeholder='Название маршрута'
 									width='100%'
 								/>
 								<ControlledInput
-									name={`routes.${idx}.routeDesc`}
-									dynamicError={errors?.routes?.[idx]?.routeDesc}
+									name={`paths[${idx}].path_desc`}
+									dynamicError={errors?.paths?.[idx]?.path_desc}
 									placeholder='Описание маршрута'
 									height='58px'
 									isTextarea
 								/>
 							</FlexRow>
 							<ControlledInput
-								name={`routes.${idx}.routeScript`}
-								dynamicError={errors?.routes?.[idx]?.routeScript}
+								name={`paths[${idx}].path_yandex`}
+								dynamicError={errors?.paths?.[idx]?.path_yandex}
 								placeholder='Текст скрипта Яндекса'
 								height='106px'
 								isTextarea
@@ -79,9 +79,9 @@ export const RoutesSection: FC = () => {
 					onClick={() =>
 						append(
 							{
-								routeTitle: '',
-								routeDesc: '',
-								routeScript: '',
+								path_name: '',
+								path_desc: '',
+								path_yandex: '',
 							},
 							{ shouldFocus: false },
 						)

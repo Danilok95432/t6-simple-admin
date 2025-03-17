@@ -14,14 +14,14 @@ export const MapSection = () => {
 	const { getValues } = useFormContext<ObjLocationInputs>()
 
 	const loadMap = () => {
-		if (getValues('mapScript')) {
-			setMapScript(getValues('mapScript'))
+		if (getValues('map_yandex')) {
+			setMapScript(getValues('map_yandex'))
 		}
 	}
 	return (
 		<AdminSection titleText='Карта'>
 			<ControlledInput
-				name='mapScript'
+				name='map_yandex'
 				label='Текст скрипта Яндекса'
 				margin='0 0 15px 0'
 				disabled={!!mapScript}

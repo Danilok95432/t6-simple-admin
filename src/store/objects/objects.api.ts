@@ -6,6 +6,7 @@ import {
 	type ObjectInfoResponse,
 	type ObjectNewIdResponse,
 	type ObjectGalleryInfoResponse,
+	type ObjectMapInfoResponse,
 } from 'src/types/objects'
 import { type FieldValues } from 'react-hook-form'
 
@@ -16,7 +17,7 @@ import { baseQueryWithReauth } from 'src/helpers/base-query'
 
 export const objectsApi = createApi({
 	reducerPath: ReducerPath.Objects,
-	tagTypes: ['Object', 'ObjectInfo', 'ObjectNews', 'ObjectEvents', 'ObjectGallery'],
+	tagTypes: ['Object', 'ObjectInfo', 'ObjectNews', 'ObjectEvents', 'ObjectGallery', 'ObjectMap'],
 	baseQuery: baseQueryWithReauth,
 	endpoints: (build) => ({
 		getAllObjects: build.query<ObjectsResponse, { title: string; type: string; relation: string }>({
@@ -138,6 +139,22 @@ export const objectsApi = createApi({
 			}),
 			providesTags: ['ObjectGallery', 'Object'],
 		}),
+		getMapObjectInfo: build.query<ObjectMapInfoResponse, string>({
+			query: (id) => ({
+				url: `objects/map/edit`,
+				params: {
+					id,
+				},
+			}),
+			providesTags: ['ObjectMap', 'Object'],
+		}),
+		saveObjectMap: build.mutation<null, FieldValues>({
+			query: (formData) => ({
+				url: `objects/map/save`,
+				method: 'POST',
+				body: formData,
+			}),
+		}),
 	}),
 })
 
@@ -155,4 +172,6 @@ export const {
 	useHideObjectNewsByIdMutation,
 	useGetNewIdObjectQuery,
 	useGetGalleryObjectInfoQuery,
+	useGetMapObjectInfoQuery,
+	useSaveObjectMapMutation,
 } = objectsApi

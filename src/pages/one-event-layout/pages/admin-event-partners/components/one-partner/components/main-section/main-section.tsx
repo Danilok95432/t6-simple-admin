@@ -1,41 +1,37 @@
 import { AdminSection } from 'src/components/admin-section/admin-section'
-import { ControlledCheckbox } from 'src/components/controlled-checkbox/controlled-checkbox'
-import { ControlledInput } from 'src/components/controlled-input/controlled-input'
+import { ControlledSelect } from 'src/components/controlled-select/controlled-select'
+import { type PartnerCheckBoxesInfo } from 'src/types/partners'
+import { type SelOption } from 'src/types/select'
 import { FlexRow } from 'src/components/flex-row/flex-row'
 import { Disclaimer } from './components/disclaimer/disclaimer'
 import { CustomText } from 'src/components/custom-text/custom-text'
+import { type FC } from 'react'
+import { PartnerEventTypesSection } from './components/partnerTypes/partnerTypes'
 
-import styles from './index.module.scss'
+type MainSectionProps = {
+	partnerTypes?: PartnerCheckBoxesInfo[]
+	partnersList?: SelOption[]
+}
 
-export const MainSection = () => {
+export const MainSection: FC<MainSectionProps> = ({ partnerTypes = [], partnersList = [] }) => {
 	return (
 		<AdminSection isBlock={false}>
-			<ControlledInput
-				name='titlePartner'
+			<ControlledSelect
 				label='Название партнера *'
-				placeholder='Начните вводить название'
-				maxWidth='1140px'
-				margin='0 0 40px 0'
+				name='partners_list'
+				margin='0 0 10px 0'
+				selectOptions={
+					partnersList.length > 0 ? partnersList : [{ label: 'Не выбрано', value: '0' }]
+				}
 			/>
+			<CustomText $fontSize='14px' $fontWeight='400' $margin='0 0 40px'>
+				Введите часть названия партнера и выберите из предложенного системой списка
+			</CustomText>
 			<CustomText $fontSize='14px' $fontWeight='600' $margin='0 0 18px'>
 				Виды партнерства (возможен выбор нескольких видов)
 			</CustomText>
 			<FlexRow $margin='0 0 40px' $direction='row' $gap='45px'>
-				<div className={styles.tableCheckBoxes}>
-					<ControlledCheckbox name='generalSponsor' label='Генеральный спонсор' type='checkbox' />
-					<ControlledCheckbox name='partner' label='Партнер событий' type='checkbox' />
-					<ControlledCheckbox name='infoPartner' label='Информационный партнер' type='checkbox' />
-					<ControlledCheckbox name='sponsor' label='Спонсор' type='checkbox' />
-					<ControlledCheckbox name='organizer' label='Организатор событий' type='checkbox' />
-					<ControlledCheckbox name='volonteer' label='Волонтерская организация' type='checkbox' />
-					<ControlledCheckbox name='supplier' label='Поставщик' type='checkbox' />
-					<ControlledCheckbox name='coOrganizer' label='Со-организатор' type='checkbox' />
-					<ControlledCheckbox
-						name='adminPartner'
-						label='Административный партнер'
-						type='checkbox'
-					/>
-				</div>
+				<PartnerEventTypesSection partnerTypes={partnerTypes} />
 				<Disclaimer />
 			</FlexRow>
 		</AdminSection>

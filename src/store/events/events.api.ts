@@ -5,6 +5,7 @@ import {
 	type EventContacts,
 	type EventContent,
 	type EventPartnersResponse,
+	type EventPartnerInfoResponse,
 } from 'src/types/events'
 import { type FieldValues } from 'react-hook-form'
 
@@ -23,6 +24,7 @@ export const eventsApi = createApi({
 		'EventContent',
 		'EventNews',
 		'EventVideo',
+		'EventPartner',
 	],
 	baseQuery: baseQueryWithReauth,
 	endpoints: (build) => ({
@@ -129,17 +131,52 @@ export const eventsApi = createApi({
 				url: `events/partners`,
 				params: {
 					id_event: idEvent,
-					q: title,
+					title,
 				},
 			}),
 			providesTags: ['Events', 'EventPartners'],
 		}),
-		deleteEventPartnerById: build.mutation<null, { eventId: string; partnerId: string }>({
-			query: ({ eventId, partnerId }) => ({
-				url: `/event/${eventId}/partnerDelete/${partnerId}`,
+		deleteEventPartnerById: build.mutation<null, string>({
+			query: (partnerId) => ({
+				url: `events/delete`,
 				method: 'DELETE',
+				body: { id: partnerId },
 			}),
-			invalidatesTags: ['Events', 'EventPartners'],
+			invalidatesTags: ['Events', 'EventPartner'],
+		}),
+		hideEventPartnerById: build.mutation<null, string>({
+			query: (partnerId) => ({
+				url: `events/hide_partner`,
+				method: 'POST',
+				body: { id: partnerId },
+			}),
+			invalidatesTags: ['Events', 'EventPartner'],
+		}),
+		getNewPartnerIdEvent: build.query<EventNewIdResponse, string>({
+			query: (id) => ({
+				url: `events/getnew_partner`,
+				params: {
+					id_event: id,
+				},
+			}),
+			providesTags: ['EventPartner', 'Events'],
+		}),
+		getEventPartnerInfo: build.query<EventPartnerInfoResponse, string>({
+			query: (id) => ({
+				url: `events/edit_partner`,
+				params: {
+					id,
+				},
+			}),
+			providesTags: ['EventPartner', 'Events'],
+		}),
+		saveEventPartnerInfo: build.mutation<string, FieldValues>({
+			query: (FormData) => ({
+				url: `events/save_partner`,
+				method: 'POST',
+				body: FormData,
+			}),
+			invalidatesTags: ['EventPartner', 'Events'],
 		}),
 	}),
 })
@@ -157,4 +194,8 @@ export const {
 	useSaveEventContentInfoMutation,
 	useGetPartnersByEventIdQuery,
 	useDeleteEventPartnerByIdMutation,
+	useHideEventPartnerByIdMutation,
+	useGetNewPartnerIdEventQuery,
+	useGetEventPartnerInfoQuery,
+	useSaveEventPartnerInfoMutation,
 } = eventsApi

@@ -1,22 +1,17 @@
-import React, { type FC, type ReactNode, useEffect, useState, useCallback } from 'react'
+import React, { type FC, type ReactNode, useEffect, useState } from 'react'
 import { type Accept, useDropzone } from 'react-dropzone'
 import { type FileWithPreview } from 'src/types/files'
 
-import { useParams } from 'react-router-dom'
 import cn from 'classnames'
 import { useFormContext } from 'react-hook-form'
-import {
-	useDeleteImageByIdMutation,
-	useUploadImagesMutation,
-} from 'src/store/uploadImages/uploadImages.api'
 
-import { RemoveImageModalSVG } from 'src/UI/icons/RemoveImageModalSVG'
+import { FilePreviewsFiles } from '../file-previews-files/file-previews-files'
+import { RemovePhotoSvg } from 'src/UI/icons/removePhotoSVG'
 import { RemoveTextFileSvg } from 'src/UI/icons/removeTextFileSVG'
 import { ErrorMessage } from '@hookform/error-message'
 import { AttachIconSvg } from 'src/UI/icons/attachIconSVG'
 import { AddButton } from 'src/UI/AddButton/AddButton'
 import { UploadFileSvg } from 'src/UI/icons/uploadFileSVG'
-import { FilePreviewsFiles } from '../file-previews-files/file-previews-files'
 
 import styles from './index.module.scss'
 
@@ -34,10 +29,7 @@ type ReactDropzoneProps = {
 	customUploadBtn?: ReactNode
 	uploadBtnText?: string
 	variant?: 'main' | 'text'
-	previewVariant?: 'main' | 'text' | 'sm-img' | 'list' | 'sm-img-edit'
-	imgtype?: string
-	imageIdFieldName?: string
-	imageEdit?: string
+	previewVariant?: 'main' | 'text' | 'sm-img' | 'list'
 }
 
 export const ReactDropzoneFiles: FC<ReactDropzoneProps> = ({
@@ -55,104 +47,29 @@ export const ReactDropzoneFiles: FC<ReactDropzoneProps> = ({
 	prompt,
 	label,
 	margin,
-	imgtype = 'news',
-	imageIdFieldName,
-	imageEdit = '',
 }) => {
 	const [currentFiles, setCurrentFiles] = useState<FileWithPreview[]>([])
-	const [imageIds, setImageIds] = useState<string[]>([])
-
 	const {
 		register,
 		setValue,
 		formState: { errors },
 	} = useFormContext()
 
-	const [uploadImages] = useUploadImagesMutation()
-	const [deleteImageById] = useDeleteImageByIdMutation()
+	const onDrop = (acceptedFiles: File[]) => {
+		const newFiles = [...currentFiles, ...acceptedFiles].slice(0, maxFiles).map((file: File) => {
+			return Object.assign(file, {
+				preview: URL.createObjectURL(file),
+			})
+		})
+		setCurrentFiles(newFiles)
+		setValue(name, newFiles)
+	}
 
-	const { id = '' } = useParams()
-
-	const uploadFile = useCallback(
-		async (file: File) => {
-			try {
-				const formData = new FormData()
-				formData.append('itemimage', file)
-				formData.append('imgtype', imgtype)
-				formData.append('id_item', id)
-
-				const response = await uploadImages(formData).unwrap()
-
-				if (response.status === 'ok') {
-					const imageId = response.id_catimage
-					return imageId
-				} else {
-					console.error('Upload failed:', response)
-					return null
-				}
-			} catch (error) {
-				console.error('Upload failed:', error)
-				return null
-			}
-		},
-		[uploadImages, imgtype],
-	)
-
-	const onDrop = useCallback(
-		async (acceptedFiles: File[]) => {
-			const newFiles: FileWithPreview[] = []
-			const uploadedImageIds: string[] = []
-
-			for (const file of acceptedFiles) {
-				try {
-					const imageId = await uploadFile(file)
-
-					if (imageId) {
-						uploadedImageIds.push(imageId)
-						const newFile = Object.assign(file, {
-							preview: URL.createObjectURL(file),
-						})
-						newFiles.push(newFile)
-					}
-				} catch (error) {
-					console.error('File upload failed:', error)
-				}
-			}
-
-			setCurrentFiles((prevFiles) => [...prevFiles, ...newFiles].slice(0, maxFiles))
-			setImageIds((prevIds) => [...prevIds, ...uploadedImageIds].slice(0, maxFiles))
-			setValue(name, newFiles)
-		},
-		[uploadFile, setValue, name, maxFiles],
-	)
-
-	const removeFile = useCallback(
-		async (index: number) => {
-			const imageIdToRemove = imageIds[index]
-
-			try {
-				if (imageIdToRemove) {
-					await deleteImageById(imageIdToRemove).unwrap()
-				}
-				const newFiles = currentFiles.toSpliced(index, 1)
-				const newImageIds = imageIds.toSpliced(index, 1)
-
-				setCurrentFiles(newFiles)
-				setImageIds(newImageIds)
-				setValue(name, newFiles)
-
-				if (imageIdFieldName) {
-					setValue(
-						imageIdFieldName,
-						imageIds.filter((id, i) => i !== index),
-					)
-				}
-			} catch (error) {
-				console.error('Delete failed:', error)
-			}
-		},
-		[currentFiles, imageIds, deleteImageById, setValue, name, imageIdFieldName],
-	)
+	const removeFile = (index: number) => {
+		const newFiles = currentFiles.toSpliced(index, 1)
+		setCurrentFiles(newFiles)
+		setValue(name, newFiles)
+	}
 
 	const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
 		onDrop,
@@ -165,7 +82,7 @@ export const ReactDropzoneFiles: FC<ReactDropzoneProps> = ({
 		return () => {
 			currentFiles?.forEach((file) => URL.revokeObjectURL(file.preview))
 		}
-	}, [currentFiles])
+	}, [])
 
 	if (variant === 'text') {
 		return (
@@ -198,11 +115,10 @@ export const ReactDropzoneFiles: FC<ReactDropzoneProps> = ({
 			<FilePreviewsFiles
 				variant={previewVariant ?? 'main'}
 				files={currentFiles}
-				imageEdit={imageEdit}
-				removeBtn={removeIcon ?? <RemoveImageModalSVG />}
+				removeBtn={removeIcon ?? <RemovePhotoSvg />}
 				removeHandler={removeFile}
 			/>
-			{currentFiles.length < maxFiles && imageEdit === '' && (
+			{currentFiles.length < maxFiles && (
 				<div
 					className={cn(dzAreaClassName, {
 						[styles.activeArea]: isDragActive,

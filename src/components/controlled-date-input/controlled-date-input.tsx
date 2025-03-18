@@ -48,6 +48,8 @@ export const ControlledDateInput: FC<ControlledDateInputProps> = ({
 		control,
 	})
 
+	console.log(errors.program)
+
 	return (
 		<div className={cn(styles.dateInputWrapper, className)} style={{ margin }}>
 			<label className={cn({ [styles._noValid]: errors[name] })}>

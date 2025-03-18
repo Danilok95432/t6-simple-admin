@@ -152,6 +152,14 @@ export const eventsApi = createApi({
 			}),
 			providesTags: ['Events', 'EventProgram'],
 		}),
+		saveProgramInfo: build.mutation<string, FieldValues>({
+			query: (FormData) => ({
+				url: `events/save_program`,
+				method: 'POST',
+				body: FormData,
+			}),
+			invalidatesTags: ['EventProgram'],
+		}),
 	}),
 })
 
@@ -169,4 +177,5 @@ export const {
 	useGetPartnersByEventIdQuery,
 	useDeleteEventPartnerByIdMutation,
 	useGetProgramByEventIdQuery,
+	useSaveProgramInfoMutation,
 } = eventsApi

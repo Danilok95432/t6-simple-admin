@@ -59,8 +59,7 @@ export const ProgramPointsSection = () => {
 								<CustomText $fontWeight='600'>Дата</CustomText>
 								<ControlledDateInput
 									className={adminStyles.adminDateInput}
-									// name={`program.${idx}.itemdate`}
-									name=''
+									name={`program.${idx}.itemdate`}
 									dateFormat='dd.MM.yyyy'
 									placeholder='дд.мм.гггг'
 									margin='0'
@@ -70,8 +69,7 @@ export const ProgramPointsSection = () => {
 								<CustomText $fontWeight='600'>Начало</CustomText>
 								<ControlledDateInput
 									className={adminStyles.adminTimeInput}
-									// name={`program.${idx}.begin_time`}
-									name=''
+									name={`program.${idx}.begin_time`}
 									placeholder='чч.мм'
 									dateFormat='HH:mm'
 									showTimeSelectOnly
@@ -82,8 +80,7 @@ export const ProgramPointsSection = () => {
 								<CustomText $fontWeight='600'>Окончание</CustomText>
 								<ControlledDateInput
 									className={adminStyles.adminTimeInput}
-									// name={`program.${idx}.end_time`}
-									name=''
+									name={`program.${idx}.end_time`}
 									placeholder='чч.мм'
 									dateFormat='HH:mm'
 									showTimeSelectOnly
@@ -103,8 +100,8 @@ export const ProgramPointsSection = () => {
 					append(
 						{
 							title: '',
-							itemdate: '',
-							begin_time: '',
+							itemdate: new Date(),
+							begin_time: new Date(),
 							end_time: '',
 							place: '',
 						},

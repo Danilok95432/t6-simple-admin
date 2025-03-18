@@ -100,7 +100,7 @@ export type EventProgramResponse = {
 export type EventProgram = {
 	title: string
 	place: string
-	itemdate: string
-	begin_time: string
-	end_time?: string
+	itemdate: Date | string
+	begin_time: Date | string
+	end_time?: Date | string
 }

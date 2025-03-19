@@ -1,4 +1,5 @@
 import { type linksEvent, type placementsEvent } from 'src/types/events'
+import { type FileItem } from 'src/types/files'
 import * as yup from 'yup'
 
 export type EventContentInputs = {
@@ -8,6 +9,7 @@ export type EventContentInputs = {
 	hide_gallery?: boolean
 	links?: linksEvent[]
 	hide_links?: boolean
+	documents?: FileItem[]
 }
 
 export const eventContentSchema = yup.object().shape({

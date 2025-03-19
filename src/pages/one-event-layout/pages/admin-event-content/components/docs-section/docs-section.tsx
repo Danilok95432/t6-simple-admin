@@ -26,7 +26,7 @@ export const DocsSection: FC<DocsSectionProps> = ({ files = [] }) => {
 			<ReactDropzoneFiles
 				previewVariant='list'
 				removeIcon={<RemoveFileSvg />}
-				name='docs'
+				name='documents'
 				accept={{
 					'application/pdf': ['.pdf'],
 					'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],

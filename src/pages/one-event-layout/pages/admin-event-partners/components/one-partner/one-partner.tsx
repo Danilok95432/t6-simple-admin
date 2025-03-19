@@ -1,4 +1,4 @@
-import { oneEventPartnerSchema, type OneEventPartnerInputs } from './schema'
+import { onePartnerSchema, type OnePartnerInputs } from './schema'
 
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -24,14 +24,14 @@ export const OnePartner = () => {
 	const { data: partnerEventInfoData } = useGetEventPartnerInfoQuery(partnerId)
 	const [savePartnerInfo] = useSaveEventPartnerInfoMutation()
 
-	const methods = useForm<OneEventPartnerInputs>({
+	const methods = useForm<OnePartnerInputs>({
 		mode: 'onBlur',
-		resolver: yupResolver(oneEventPartnerSchema),
+		resolver: yupResolver(onePartnerSchema),
 	})
 
 	const { isSent, markAsSent } = useIsSent(methods.control)
 
-	const onSubmit: SubmitHandler<OneEventPartnerInputs> = async (data) => {
+	const onSubmit: SubmitHandler<OnePartnerInputs> = async (data) => {
 		const serverData = {
 			id_partner: data.partners_list,
 		}

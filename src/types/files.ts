@@ -7,13 +7,13 @@ export interface FileWithPreview extends FileWithPath {
 export type FileItem = {
 	id: string
 	url: string
-	originalname?: string
+	name?: string
 }
 
 export type FileInfoResponse = {
 	id_catfile: string
 	url: string
-	originalname?: string
+	name?: string
 }
 
 export type FileNewIdResponse = {
@@ -24,6 +24,6 @@ export type FileNewIdResponse = {
 export type FileUploadRespone = {
 	id_catfile: string
 	url: string
-	originalname?: string
+	name?: string
 	status: string
 }

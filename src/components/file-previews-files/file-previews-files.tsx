@@ -9,16 +9,14 @@ type FilePreviewsProps = {
 	removeBtn?: ReactNode
 	removeHandler?: (idx: number) => void
 	variant?: 'main' | 'text' | 'sm-img' | 'list' | 'sm-img-edit'
-	imageEdit?: string
 }
 export const FilePreviewsFiles: FC<FilePreviewsProps> = ({
 	files,
 	removeBtn,
 	removeHandler,
 	variant = 'main',
-	imageEdit = '',
 }) => {
-	if (!files.length && imageEdit === '') return null
+	if (!files.length) return null
 
 	if (variant === 'text') {
 		return (
@@ -26,9 +24,9 @@ export const FilePreviewsFiles: FC<FilePreviewsProps> = ({
 				{files.map((file, idx) => (
 					<li key={file.id}>
 						<a href={file.url} download>
-							{file.originalname}
+							{file.name}
 						</a>
-						<p>{defineFileFormat(file.originalname ?? '')}-файл</p>
+						<p>{defineFileFormat(file.name ?? '')}-файл</p>
 
 						{removeBtn && (
 							<button
@@ -62,7 +60,7 @@ export const FilePreviewsFiles: FC<FilePreviewsProps> = ({
 						<div className={styles.textFile}>
 							<span></span>
 							<a href={file.url} download>
-								{file.originalname}
+								{file.name}
 							</a>
 						</div>
 					</li>
@@ -74,7 +72,7 @@ export const FilePreviewsFiles: FC<FilePreviewsProps> = ({
 	return (
 		<div className={styles.mainFile}>
 			<a href={files[0].url} download>
-				{files[0].originalname}
+				{files[0].name}
 			</a>
 			<button className={styles.mainRemoveBtn} type='button' onClick={() => removeHandler?.(0)}>
 				{removeBtn}

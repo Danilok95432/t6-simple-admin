@@ -1,5 +1,5 @@
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import { Container } from 'src/UI/Container/Container'
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
@@ -27,6 +27,7 @@ export const OnePartner = () => {
 	})
 
 	const { isSent, markAsSent } = useIsSent(methods.control)
+	const navigate = useNavigate()
 
 	const onSubmit: SubmitHandler<EventPartnerInputs> = async (data) => {
 		const serverData = {
@@ -42,7 +43,10 @@ export const OnePartner = () => {
 			if (type.checked) serverFormData.append(`partner_types[${index}]`, type.value)
 		})
 		const res = await savePartnerInfo(serverFormData)
-		if (res) markAsSent(true)
+		if (res) {
+			markAsSent(true)
+			navigate(`/${AdminRoute.AdminEvent}/${AdminRoute.AdminEventPartners}/${id}`)
+		}
 	}
 
 	useEffect(() => {

@@ -6,6 +6,7 @@ import {
 	type EventContent,
 	type EventProgramResponse,
 	type EventPartnerInfoResponse,
+	type EventPartnersResponse,
 } from 'src/types/events'
 import { type FieldValues } from 'react-hook-form'
 

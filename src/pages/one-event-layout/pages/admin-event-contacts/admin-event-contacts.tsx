@@ -82,7 +82,11 @@ export const AdminEventContacts: FC = () => {
 				<form onSubmit={methods.handleSubmit(onSubmit)} noValidate autoComplete='off'>
 					<InfoSection />
 					<RoutesSection />
-					<AdminControllers outLink='/' variant='2' isSent={isSent} />
+					<AdminControllers
+						variant={'4'}
+						outLink={`/${AdminRoute.AdminEventsList}`}
+						isSent={isSent}
+					/>
 				</form>
 			</FormProvider>
 			<Link

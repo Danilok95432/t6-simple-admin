@@ -60,14 +60,13 @@ export const AdminEventProgram: FC = () => {
 			}
 		})
 
-		// const programInfoData = transformToFormData(serverData)
-		// const programId = id
-		// programInfoData.append('id', programId)
-		// const res = await saveProgramInfo(programInfoData)
+		const programInfoData = serverData && transformToFormData(serverData)
+		const programId = id
+		programInfoData?.append('id', programId)
 
-		console.log(serverData)
+		const res = programInfoData && (await saveProgramInfo(programInfoData))
 
-		// if (res) markAsSent(true)
+		if (res) markAsSent(true)
 	}
 
 	useEffect(() => {

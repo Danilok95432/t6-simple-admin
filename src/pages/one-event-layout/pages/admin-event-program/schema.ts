@@ -10,9 +10,30 @@ export type ProgramInputs = {
 export const programSchema = yup.object({
 	title: yup.string().required('Введите название программы'),
 	place: yup.string().required('Введите локацию'),
-	itemdate: yup.mixed<Date | string>().required('Введите дату'),
-	begin_time: yup.mixed<Date | string>().required('Время начала обязательно'),
-	end_time: yup.mixed<Date | string>(),
+	itemdate: yup
+		.mixed<Date | string>()
+		.transform((value, originalValue) => {
+			if (typeof originalValue === 'string') {
+				return new Date(originalValue)
+			}
+			return value
+		})
+		.required('Введите дату'),
+	begin_time: yup
+		.mixed<Date | string>()
+		.transform((value, originalValue) => {
+			if (typeof originalValue === 'string') {
+				return new Date(originalValue)
+			}
+			return value
+		})
+		.required('Время начала обязательно'),
+	end_time: yup.mixed<Date | string>().transform((value, originalValue) => {
+		if (typeof originalValue === 'string') {
+			return new Date(originalValue)
+		}
+		return value
+	}),
 })
 
 export const programInputsSchema = yup.object({

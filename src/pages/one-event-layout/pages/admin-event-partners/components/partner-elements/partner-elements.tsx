@@ -66,7 +66,7 @@ export const PartnerElements = () => {
 						className={cn({ 'hidden-cell': partnersEl.hidden }, styles.priorityBox)}
 						key='3'
 						type='text'
-						value={partnersEl.partner_number}
+						value={partnersEl.partner_number ?? ''}
 						onChange={(e) =>
 							console.log(
 								`очередность партнера с id ${partnersEl.id} изменена на значение ${e.target.value}`,

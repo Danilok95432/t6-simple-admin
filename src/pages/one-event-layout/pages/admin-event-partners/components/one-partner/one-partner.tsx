@@ -1,4 +1,4 @@
-import { type OneEventPartnerInputs, oneEventPartnerSchema } from './schema'
+import { oneEventPartnerSchema, type OneEventPartnerInputs } from './schema'
 
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'

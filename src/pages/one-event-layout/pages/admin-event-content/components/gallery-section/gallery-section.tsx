@@ -18,13 +18,14 @@ import { useGetNewIdImageQuery } from 'src/store/uploadImages/uploadImages.api'
 
 type GallerySectionProps = {
 	images?: ImageItemWithText[]
+	idItem?: string
 }
 
-export const GallerySection: FC<GallerySectionProps> = ({ images }) => {
+export const GallerySection: FC<GallerySectionProps> = ({ images, idItem }) => {
 	const [localeImages, setLocaleImages] = useState<ImageItemWithText[]>(images ?? [])
 	const { refetch: getNewId } = useGetNewIdImageQuery({
 		imgtype: 'events_photo',
-		idItem: '',
+		idItem,
 	})
 
 	const addImage = async () => {

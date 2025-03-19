@@ -4,7 +4,9 @@ import cn from 'classnames'
 
 import {
 	useDeleteEventPartnerByIdMutation,
+	useGetNewPartnerIdEventQuery,
 	useGetPartnersByEventIdQuery,
+	useHideEventPartnerByIdMutation,
 } from 'src/store/events/events.api'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { TableFiltration } from 'src/modules/table-filtration/table-filtration'
@@ -30,10 +32,16 @@ export const PartnerElements = () => {
 		idEvent: id,
 		title: filterValues.title,
 	})
-
+	const { refetch: getNewId } = useGetNewPartnerIdEventQuery(id)
 	const [deletePartnerById] = useDeleteEventPartnerByIdMutation()
+	const [hidePartnerById] = useHideEventPartnerByIdMutation()
 
 	const navigate = useNavigate()
+
+	const addPartner = async () => {
+		const newIdResponse = await getNewId().unwrap()
+		return newIdResponse.id
+	}
 
 	const tableTitles = ['Наименование', 'Вид организации', 'Тип партнерства', 'Очередность', '']
 
@@ -78,15 +86,21 @@ export const PartnerElements = () => {
 		})
 	}
 
-	const rowDeleteHandler = async (partnerId: string) => {
-		await deletePartnerById({ eventId: id ?? '', partnerId })
+	const rowDeleteHandler = async (id: string) => {
+		await deletePartnerById(id)
 	}
+
+	const rowHideHandler = async (id: string) => {
+		await hidePartnerById(id)
+	}
+
 	const rowClickHandler = (id: string) => {
 		navigate(`${AdminRoute.AdminEventOnePartner}/${id}`)
 	}
 
-	const rowHideHandler = async (id: string) => {
-		console.log(id + 'спрятан')
+	const handleAddPartnerClick = async () => {
+		const newId = await addPartner()
+		navigate(`${AdminRoute.AdminEventOnePartner}/${newId}`)
 	}
 
 	if (isLoading || !partnersDataResponse?.partners) return <Loader />
@@ -112,7 +126,7 @@ export const PartnerElements = () => {
 			<TableFooter
 				className={styles.tableFooterPartnerWrapper}
 				totalElements={partnersDataResponse?.partners.length}
-				addClickHandler={() => navigate(`${AdminRoute.AdminEventOnePartner}/new`)}
+				addClickHandler={handleAddPartnerClick}
 				addText='Добавить партнера'
 			/>
 			<Container $padding='35px 0 54px 30px' $paddingMobile='35px 0 54px 30px' $position='unset'>

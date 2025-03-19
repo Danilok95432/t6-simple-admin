@@ -1,3 +1,5 @@
+import { type PartnerCheckBoxesInfo } from './partners'
+import { type ImageItemWithText } from './photos'
 import { type SelOption } from './select'
 
 export type EventItem = {
@@ -91,6 +93,13 @@ export type EventContent = {
 	hide_gallery?: boolean
 	links: linksEvent[]
 	hide_links?: boolean
+	photo?: ImageItemWithText[]
+	photos?: ImageItemWithText[]
+}
+
+export type EventPartnerInfoResponse = {
+	partners_list: SelOption[]
+	partner_types: PartnerCheckBoxesInfo[]
 }
 
 export type EventProgramResponse = {

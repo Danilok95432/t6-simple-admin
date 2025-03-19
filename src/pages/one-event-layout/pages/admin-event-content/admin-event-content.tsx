@@ -84,12 +84,16 @@ export const AdminEventContent: FC = () => {
 			<h3>Контент</h3>
 			<FormProvider {...methods}>
 				<form onSubmit={methods.handleSubmit(onSubmit)} noValidate autoComplete='off'>
-					<PreviewSection />
+					<PreviewSection logo={contentInfoData?.photo} />
 					<PlacementSection />
-					<GallerySection />
+					<GallerySection images={contentInfoData?.photos} idItem={id} />
 					<DocsSection />
 					<LinksSection />
-					<AdminControllers outLink={AdminRoute.AdminHome} variant='2' isSent={isSent} />
+					<AdminControllers
+						variant={'4'}
+						outLink={`/${AdminRoute.AdminEventsList}`}
+						isSent={isSent}
+					/>
 				</form>
 			</FormProvider>
 			<Link to={`/${AdminRoute.AdminEventsList}`} className={adminStyles.adminReturnLink}>

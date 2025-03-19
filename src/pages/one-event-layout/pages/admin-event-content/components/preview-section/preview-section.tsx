@@ -17,7 +17,7 @@ export const PreviewSection: FC<TitleSectionProps> = ({ logo }) => {
 				accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
 				margin='0 0 20px 0'
 				previewVariant='sm-img'
-				imgtype='about_general'
+				imgtype='events'
 				fileImages={logo}
 			/>
 		</AdminSection>

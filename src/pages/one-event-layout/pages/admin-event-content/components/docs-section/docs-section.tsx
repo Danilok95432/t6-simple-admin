@@ -1,9 +1,9 @@
 import { type FC } from 'react'
 import { AdminSection } from 'src/components/admin-section/admin-section'
 import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-radio-btns'
-import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 import { AddButton } from 'src/UI/AddButton/AddButton'
 import { RemoveFileSvg } from 'src/UI/icons/removeFileSVG'
+import { ReactDropzoneFiles } from 'src/components/react-dropzone-files/react-dropzone-files'
 
 export const DocsSection: FC = () => {
 	return (
@@ -18,7 +18,7 @@ export const DocsSection: FC = () => {
 				/>
 			}
 		>
-			<ReactDropzone
+			<ReactDropzoneFiles
 				previewVariant='list'
 				removeIcon={<RemoveFileSvg />}
 				name='docs'

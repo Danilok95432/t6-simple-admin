@@ -1,14 +1,10 @@
 import { type PartnerCheckBoxesInfo } from 'src/types/partners'
+import { type SelOption } from 'src/types/select'
 import * as yup from 'yup'
 
-export type OnePartnerInputs = {
-	title: string
-	itemlink: string
-	partner_vids?: PartnerCheckBoxesInfo[]
+export type OneEventPartnerInputs = {
 	partner_types?: PartnerCheckBoxesInfo[]
+	partners_list?: SelOption[]
 }
 
-export const onePartnerSchema = yup.object().shape({
-	title: yup.string().required('Введите название'),
-	itemlink: yup.string().url('Неверный формат ссылки').required('Введите ссылку'),
-})
+export const oneEventPartnerSchema = yup.object()

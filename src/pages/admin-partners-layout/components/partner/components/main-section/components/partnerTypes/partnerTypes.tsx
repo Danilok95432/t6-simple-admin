@@ -1,6 +1,6 @@
 import { type FC } from 'react'
+import { type OnePartnerInputs } from '../../../../schema'
 import { type PartnerCheckBoxesInfo } from 'src/types/partners'
-import { type OnePartnerInputs } from 'src/pages/one-event-layout/pages/admin-event-partners/components/one-partner/schema'
 
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import { ControlledCheckbox } from 'src/components/controlled-checkbox/controlled-checkbox'

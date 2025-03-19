@@ -1,4 +1,4 @@
-import { type OnePartnerInputs, onePartnerSchema } from './schema'
+import { type OneEventPartnerInputs, oneEventPartnerSchema } from './schema'
 
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -12,20 +12,45 @@ import { AdminRoute } from 'src/routes/admin-routes/consts'
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
 import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
+import {
+	useGetEventPartnerInfoQuery,
+	useSaveEventPartnerInfoMutation,
+} from 'src/store/events/events.api'
+import { useEffect } from 'react'
+import { transformToFormData } from 'src/helpers/utils'
 
 export const OnePartner = () => {
-	const { id } = useParams()
-	const methods = useForm<OnePartnerInputs>({
+	const { id = '', partnerId = '' } = useParams()
+	const { data: partnerEventInfoData } = useGetEventPartnerInfoQuery(partnerId)
+	const [savePartnerInfo] = useSaveEventPartnerInfoMutation()
+
+	const methods = useForm<OneEventPartnerInputs>({
 		mode: 'onBlur',
-		resolver: yupResolver(onePartnerSchema),
+		resolver: yupResolver(oneEventPartnerSchema),
 	})
 
 	const { isSent, markAsSent } = useIsSent(methods.control)
 
-	const onSubmit: SubmitHandler<OnePartnerInputs> = (data) => {
+	const onSubmit: SubmitHandler<OneEventPartnerInputs> = async (data) => {
 		console.log(data)
-		markAsSent(true)
+		const serverData = {
+			id_partner: data.partners_list,
+		}
+		const serverFormData = transformToFormData(serverData)
+		serverFormData.append('id', partnerId)
+
+		data.partner_types?.forEach((type, index) => {
+			if (type.checked) serverFormData.append(`partner_types[${index}]`, type.value)
+		})
+		const res = await savePartnerInfo(serverFormData)
+		if (res) markAsSent(true)
 	}
+
+	useEffect(() => {
+		if (partnerEventInfoData) {
+			methods.reset({ ...partnerEventInfoData })
+		}
+	}, [partnerEventInfoData])
 
 	return (
 		<div className={styles.onePartnerPage}>
@@ -44,7 +69,10 @@ export const OnePartner = () => {
 			>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
-						<MainSection />
+						<MainSection
+							partnerTypes={partnerEventInfoData?.partner_types}
+							partnersList={partnerEventInfoData?.partners_list}
+						/>
 						<AdminButton
 							as='button'
 							type='submit'

@@ -1,7 +1,4 @@
-import {
-	type OnePartnerInputs,
-	onePartnerSchema,
-} from 'src/pages/one-event-layout/pages/admin-event-partners/components/one-partner/schema'
+import { type OnePartnerInputs, onePartnerSchema } from './schema'
 import { Link, useParams } from 'react-router-dom'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'

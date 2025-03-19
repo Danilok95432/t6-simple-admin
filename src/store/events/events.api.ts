@@ -4,7 +4,7 @@ import {
 	type EventResponse,
 	type EventContacts,
 	type EventContent,
-	type EventPartnersResponse,
+	type EventProgramResponse,
 	type EventPartnerInfoResponse,
 } from 'src/types/events'
 import { type FieldValues } from 'react-hook-form'
@@ -24,6 +24,7 @@ export const eventsApi = createApi({
 		'EventContent',
 		'EventNews',
 		'EventVideo',
+		'EventProgram',
 		'EventPartner',
 	],
 	baseQuery: baseQueryWithReauth,
@@ -178,6 +179,23 @@ export const eventsApi = createApi({
 			}),
 			invalidatesTags: ['EventPartner', 'Events'],
 		}),
+		getProgramByEventId: build.query<EventProgramResponse, string>({
+			query: (id) => ({
+				url: `events/edit_program`,
+				params: {
+					id,
+				},
+			}),
+			providesTags: ['Events', 'EventProgram'],
+		}),
+		saveProgramInfo: build.mutation<string, FieldValues>({
+			query: (FormData) => ({
+				url: `events/save_program`,
+				method: 'POST',
+				body: FormData,
+			}),
+			invalidatesTags: ['EventProgram'],
+		}),
 	}),
 })
 
@@ -194,6 +212,8 @@ export const {
 	useSaveEventContentInfoMutation,
 	useGetPartnersByEventIdQuery,
 	useDeleteEventPartnerByIdMutation,
+	useGetProgramByEventIdQuery,
+	useSaveProgramInfoMutation,
 	useHideEventPartnerByIdMutation,
 	useGetNewPartnerIdEventQuery,
 	useGetEventPartnerInfoQuery,

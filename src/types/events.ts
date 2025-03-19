@@ -101,3 +101,15 @@ export type EventPartnerInfoResponse = {
 	partners_list: SelOption[]
 	partner_types: PartnerCheckBoxesInfo[]
 }
+
+export type EventProgramResponse = {
+	program: EventProgram[]
+}
+
+export type EventProgram = {
+	title: string
+	place: string
+	itemdate: Date | string
+	begin_time: Date | string
+	end_time?: Date | string
+}

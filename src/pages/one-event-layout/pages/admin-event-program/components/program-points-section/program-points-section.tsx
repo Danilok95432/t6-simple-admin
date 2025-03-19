@@ -19,8 +19,9 @@ export const ProgramPointsSection = () => {
 
 	const { fields, append, remove } = useFieldArray({
 		control,
-		name: 'points',
+		name: 'program',
 	})
+
 	return (
 		<AdminSection
 			titleText='Пункты программы'
@@ -46,7 +47,7 @@ export const ProgramPointsSection = () => {
 							$alignItems='center'
 							$gap='0'
 						>
-							<ControlledInput name={`points.${idx}.pointTitle`} />
+							<ControlledInput name={`program.${idx}.title`} />
 							{idx !== 0 && (
 								<button type='button' onClick={() => remove(idx)}>
 									<TrashIconSvg />
@@ -58,7 +59,7 @@ export const ProgramPointsSection = () => {
 								<CustomText $fontWeight='600'>Дата</CustomText>
 								<ControlledDateInput
 									className={adminStyles.adminDateInput}
-									name={`points.${idx}.pointDate`}
+									name={`program.${idx}.itemdate`}
 									dateFormat='dd.MM.yyyy'
 									placeholder='дд.мм.гггг'
 									margin='0'
@@ -68,7 +69,7 @@ export const ProgramPointsSection = () => {
 								<CustomText $fontWeight='600'>Начало</CustomText>
 								<ControlledDateInput
 									className={adminStyles.adminTimeInput}
-									name={`points.${idx}.pointTimeStart`}
+									name={`program.${idx}.begin_time`}
 									placeholder='чч.мм'
 									dateFormat='HH:mm'
 									showTimeSelectOnly
@@ -79,7 +80,7 @@ export const ProgramPointsSection = () => {
 								<CustomText $fontWeight='600'>Окончание</CustomText>
 								<ControlledDateInput
 									className={adminStyles.adminTimeInput}
-									name={`points.${idx}.pointTimeEnd`}
+									name={`program.${idx}.end_time`}
 									placeholder='чч.мм'
 									dateFormat='HH:mm'
 									showTimeSelectOnly
@@ -87,7 +88,7 @@ export const ProgramPointsSection = () => {
 								/>
 							</FlexRow>
 
-							<ControlledInput name={`points.${idx}.pointLocation`} placeholder='Локация' />
+							<ControlledInput name={`program.${idx}.place`} placeholder='Локация' />
 						</GridRow>
 					</div>
 				))}
@@ -98,11 +99,11 @@ export const ProgramPointsSection = () => {
 				onClick={() =>
 					append(
 						{
-							pointTitle: '',
-							pointDate: null,
-							pointTimeStart: null,
-							pointTimeEnd: null,
-							pointLocation: '',
+							title: '',
+							itemdate: new Date(),
+							begin_time: new Date(),
+							end_time: '',
+							place: '',
 						},
 						{ shouldFocus: false },
 					)

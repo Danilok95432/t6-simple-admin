@@ -8,6 +8,7 @@ import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Link, useParams } from 'react-router-dom'
 import { useGetEventInfoQuery, useSaveEventProfileInfoMutation } from 'src/store/events/events.api'
+import { parse, format } from 'date-fns'
 import {
 	currentDateString,
 	formatDateToYYYYMMDD,
@@ -15,6 +16,7 @@ import {
 	transformToFormData,
 } from 'src/helpers/utils'
 
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { TitleSection } from 'src/pages/one-event-layout/pages/admin-event-profile/components/title-section/title-section'
@@ -25,8 +27,6 @@ import { FlexRow } from 'src/components/flex-row/flex-row'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
-import { parse, format } from 'date-fns'
-import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const AdminEventProfile: FC = () => {
 	const { id = '0' } = useParams()
@@ -107,6 +107,7 @@ export const AdminEventProfile: FC = () => {
 					'yyyy-MM-dd HH:mm:ss',
 					new Date(),
 				)
+
 				initialTimeEventEnd = initialTimeEventEndValue
 			}
 
@@ -121,6 +122,7 @@ export const AdminEventProfile: FC = () => {
 				time_from: initialTimeEventStart ?? undefined,
 				time_to: initialTimeEventEnd ?? undefined,
 			}
+
 			methods.reset({ ...transformedData })
 		}
 	}, [eventInfoData])

@@ -10,6 +10,7 @@ export type EventContentInputs = {
 	links?: linksEvent[]
 	hide_links?: boolean
 	documents?: FileItem[]
+	hide_documents?: boolean
 }
 
 export const eventContentSchema = yup.object().shape({

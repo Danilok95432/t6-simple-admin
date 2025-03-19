@@ -38,6 +38,7 @@ export const AdminEventContent: FC = () => {
 			hide_placements: false,
 			hide_gallery: false,
 			hide_links: false,
+			hide_documents: false,
 		},
 	})
 

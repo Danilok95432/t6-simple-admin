@@ -14,10 +14,10 @@ export const DocsSection: FC<DocsSectionProps> = ({ files = [] }) => {
 	return (
 		<AdminSection
 			titleText='Документы события'
-			sectionName='docsSection'
+			sectionName='hide_documents'
 			additionalNodeForHead={
 				<SwitchedRadioBtns
-					name='isShowDocsSection'
+					name='hide_documents'
 					contentRadio1='Показать всем'
 					contentRadio2='Скрыть'
 				/>

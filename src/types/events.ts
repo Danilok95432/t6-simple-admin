@@ -92,6 +92,7 @@ export type EventContent = {
 	linksBlock_title: string
 	hide_placements?: boolean
 	hide_gallery?: boolean
+	hide_documents?: boolean
 	links: linksEvent[]
 	hide_links?: boolean
 	photo?: ImageItemWithText[]

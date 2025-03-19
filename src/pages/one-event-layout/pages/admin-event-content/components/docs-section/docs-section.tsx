@@ -4,8 +4,13 @@ import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-r
 import { AddButton } from 'src/UI/AddButton/AddButton'
 import { RemoveFileSvg } from 'src/UI/icons/removeFileSVG'
 import { ReactDropzoneFiles } from 'src/components/react-dropzone-files/react-dropzone-files'
+import { type FileItem } from 'src/types/files'
 
-export const DocsSection: FC = () => {
+type DocsSectionProps = {
+	files?: FileItem[]
+}
+
+export const DocsSection: FC<DocsSectionProps> = ({ files = [] }) => {
 	return (
 		<AdminSection
 			titleText='Документы события'
@@ -27,6 +32,8 @@ export const DocsSection: FC = () => {
 					'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
 				}}
 				maxFiles={7}
+				files={files}
+				fileType='event'
 				multiple
 				customUploadBtn={<AddButton>Добавить документ</AddButton>}
 			/>

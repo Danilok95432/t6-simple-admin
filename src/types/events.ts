@@ -1,3 +1,4 @@
+import { type FileItem } from './files'
 import { type PartnerCheckBoxesInfo } from './partners'
 import { type ImageItemWithText } from './photos'
 import { type SelOption } from './select'
@@ -95,6 +96,7 @@ export type EventContent = {
 	hide_links?: boolean
 	photo?: ImageItemWithText[]
 	photos?: ImageItemWithText[]
+	documents?: FileItem[]
 }
 
 export type EventPartnerInfoResponse = {

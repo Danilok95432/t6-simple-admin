@@ -1,6 +1,6 @@
-import React, { type FC, type ReactNode, useEffect, useState } from 'react'
+import React, { type FC, type ReactNode, useCallback, useEffect, useState } from 'react'
 import { type Accept, useDropzone } from 'react-dropzone'
-import { type FileWithPreview } from 'src/types/files'
+import { type FileItem } from 'src/types/files'
 
 import cn from 'classnames'
 import { useFormContext } from 'react-hook-form'
@@ -14,6 +14,11 @@ import { AddButton } from 'src/UI/AddButton/AddButton'
 import { UploadFileSvg } from 'src/UI/icons/uploadFileSVG'
 
 import styles from './index.module.scss'
+import {
+	useDeleteFileByIdMutation,
+	useUploadFilesMutation,
+} from 'src/store/uploadFiles/uploadFiles.api'
+import { useParams } from 'react-router-dom'
 
 type ReactDropzoneProps = {
 	name: string
@@ -30,6 +35,8 @@ type ReactDropzoneProps = {
 	uploadBtnText?: string
 	variant?: 'main' | 'text'
 	previewVariant?: 'main' | 'text' | 'sm-img' | 'list'
+	files?: FileItem[]
+	fileType?: string
 }
 
 export const ReactDropzoneFiles: FC<ReactDropzoneProps> = ({
@@ -47,29 +54,94 @@ export const ReactDropzoneFiles: FC<ReactDropzoneProps> = ({
 	prompt,
 	label,
 	margin,
+	files = [],
+	fileType = 'event',
 }) => {
-	const [currentFiles, setCurrentFiles] = useState<FileWithPreview[]>([])
+	const [currentFiles, setCurrentFiles] = useState<FileItem[]>(files ?? [])
+	const [fileIds, setFileIds] = useState<string[]>([])
+
 	const {
 		register,
 		setValue,
 		formState: { errors },
 	} = useFormContext()
 
-	const onDrop = (acceptedFiles: File[]) => {
-		const newFiles = [...currentFiles, ...acceptedFiles].slice(0, maxFiles).map((file: File) => {
-			return Object.assign(file, {
-				preview: URL.createObjectURL(file),
-			})
-		})
-		setCurrentFiles(newFiles)
-		setValue(name, newFiles)
-	}
+	const [uploadFiles] = useUploadFilesMutation()
+	const [deleteFileById] = useDeleteFileByIdMutation()
 
-	const removeFile = (index: number) => {
-		const newFiles = currentFiles.toSpliced(index, 1)
-		setCurrentFiles(newFiles)
-		setValue(name, newFiles)
-	}
+	const { id = '' } = useParams()
+
+	const uploadFile = useCallback(
+		async (file: File) => {
+			try {
+				const formData = new FormData()
+				formData.append('itemfile', file)
+				formData.append('filetype', fileType)
+				formData.append('id_item', id)
+
+				const response = await uploadFiles(formData).unwrap()
+				if (response.status === 'ok') {
+					const fileId = response.id_catfile
+					return fileId
+				} else {
+					console.error('Upload failed:', response)
+					return null
+				}
+			} catch (error) {
+				console.error('Upload failed:', error)
+				return null
+			}
+		},
+		[uploadFiles, fileType],
+	)
+
+	const onDrop = useCallback(
+		async (acceptedFiles: File[]) => {
+			const newFiles: FileItem[] = []
+			const uploadedFileIds: string[] = []
+
+			for (const file of acceptedFiles) {
+				try {
+					const fileId = await uploadFile(file)
+					if (fileId) {
+						uploadedFileIds.push(fileId)
+						const newFile = Object.assign(file, {
+							id: fileId,
+							url: URL.createObjectURL(file),
+						})
+						newFiles.push(newFile)
+					}
+				} catch (error) {
+					console.error('File upload failed:', error)
+				}
+			}
+
+			setCurrentFiles((prevFiles) => [...prevFiles, ...newFiles].slice(0, maxFiles))
+			setFileIds((prevIds) => [...prevIds, ...uploadedFileIds].slice(0, maxFiles))
+			setValue(name, newFiles)
+		},
+		[uploadFile, setValue, name, maxFiles],
+	)
+
+	const removeFile = useCallback(
+		async (index: number) => {
+			const fileIdToRemove = fileIds[index]
+			try {
+				if (fileIdToRemove) {
+					await deleteFileById(fileIdToRemove).unwrap()
+				}
+				const newFiles = currentFiles.toSpliced(index, 1)
+				const newImageIds = fileIds.toSpliced(index, 1)
+
+				setCurrentFiles(newFiles)
+				setFileIds(newImageIds)
+				setValue(name, newFiles)
+			} catch (error) {
+				console.error('Delete failed:', error)
+			}
+		},
+		[currentFiles, fileIds, deleteFileById, setValue, name],
+	)
 
 	const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
 		onDrop,
@@ -79,10 +151,20 @@ export const ReactDropzoneFiles: FC<ReactDropzoneProps> = ({
 	})
 
 	useEffect(() => {
-		return () => {
-			currentFiles?.forEach((file) => URL.revokeObjectURL(file.preview))
+		if (files && files.length > 0) {
+			setCurrentFiles(files)
+			const initialFilesIds = files.map((img) => img.id)
+			setFileIds(initialFilesIds)
 		}
-	}, [])
+	}, [files])
+
+	useEffect(() => {
+		return () => {
+			currentFiles.forEach((file) => {
+				if (file.url) URL.revokeObjectURL(file.url)
+			})
+		}
+	}, [currentFiles])
 
 	if (variant === 'text') {
 		return (

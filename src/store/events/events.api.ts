@@ -140,7 +140,7 @@ export const eventsApi = createApi({
 		}),
 		deleteEventPartnerById: build.mutation<null, string>({
 			query: (partnerId) => ({
-				url: `events/delete`,
+				url: `events/delete_partner`,
 				method: 'DELETE',
 				body: { id: partnerId },
 			}),

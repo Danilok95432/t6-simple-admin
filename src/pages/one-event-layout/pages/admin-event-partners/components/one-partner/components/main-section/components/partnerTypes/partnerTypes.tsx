@@ -1,18 +1,18 @@
 import { type FC } from 'react'
 import { type PartnerCheckBoxesInfo } from 'src/types/partners'
-import { type OnePartnerInputs } from 'src/pages/one-event-layout/pages/admin-event-partners/components/one-partner/schema'
 
 import { useFieldArray, useFormContext } from 'react-hook-form'
 import { ControlledCheckbox } from 'src/components/controlled-checkbox/controlled-checkbox'
 
 import styles from './index.module.scss'
+import { type EventPartnerInputs } from '../../../../schema'
 
 type PartnerEventTypesSectionProps = {
 	partnerTypes: PartnerCheckBoxesInfo[]
 }
 
 export const PartnerEventTypesSection: FC<PartnerEventTypesSectionProps> = ({ partnerTypes }) => {
-	const { control } = useFormContext<OnePartnerInputs>()
+	const { control } = useFormContext<EventPartnerInputs>()
 
 	const { fields } = useFieldArray({
 		control,

@@ -18,6 +18,7 @@ import { siteSettingsApi } from 'src/store/site-settings/site-settings.api'
 import { communityApi } from 'src/store/community/community.api'
 import { partnersApi } from './partners/partners.api'
 import { uploadImagesApi } from './uploadImages/uploadImages.api'
+import { uploadFilesApi } from './uploadFiles/uploadFiles.api'
 
 export const store = configureStore({
 	reducer: {
@@ -35,6 +36,7 @@ export const store = configureStore({
 		[communityApi.reducerPath]: communityApi.reducer,
 		[partnersApi.reducerPath]: partnersApi.reducer,
 		[uploadImagesApi.reducerPath]: uploadImagesApi.reducer,
+		[uploadFilesApi.reducerPath]: uploadFilesApi.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({ serializableCheck: false }).concat(
@@ -49,6 +51,7 @@ export const store = configureStore({
 			communityApi.middleware,
 			partnersApi.middleware,
 			uploadImagesApi.middleware,
+			uploadFilesApi.middleware,
 			rtkQueryErrorLogger,
 		),
 })

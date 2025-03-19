@@ -1,7 +1,4 @@
-import { onePartnerSchema, type OnePartnerInputs } from './schema'
-
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { Link, useParams } from 'react-router-dom'
 
 import { Container } from 'src/UI/Container/Container'
@@ -18,22 +15,25 @@ import {
 } from 'src/store/events/events.api'
 import { useEffect } from 'react'
 import { transformToFormData } from 'src/helpers/utils'
+import { type EventPartnerInputs } from './schema'
 
 export const OnePartner = () => {
 	const { id = '', partnerId = '' } = useParams()
 	const { data: partnerEventInfoData } = useGetEventPartnerInfoQuery(partnerId)
 	const [savePartnerInfo] = useSaveEventPartnerInfoMutation()
 
-	const methods = useForm<OnePartnerInputs>({
+	const methods = useForm<EventPartnerInputs>({
 		mode: 'onBlur',
-		resolver: yupResolver(onePartnerSchema),
 	})
 
 	const { isSent, markAsSent } = useIsSent(methods.control)
 
-	const onSubmit: SubmitHandler<OnePartnerInputs> = async (data) => {
+	const onSubmit: SubmitHandler<EventPartnerInputs> = async (data) => {
 		const serverData = {
-			id_partner: data.partners_list,
+			id_partner:
+				typeof data.partners_list === 'string'
+					? data.partners_list
+					: partnerEventInfoData?.partners_list[0].value,
 		}
 		const serverFormData = transformToFormData(serverData)
 		serverFormData.append('id', partnerId)
@@ -78,7 +78,7 @@ export const OnePartner = () => {
 							$height='40px'
 							$variant={isSent ? 'sent' : 'primary'}
 						>
-							Добавить партера
+							Добавить партнера
 						</AdminButton>
 					</form>
 				</FormProvider>

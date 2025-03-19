@@ -87,7 +87,7 @@ export const AdminEventContent: FC = () => {
 					<PreviewSection logo={contentInfoData?.photo} />
 					<PlacementSection />
 					<GallerySection images={contentInfoData?.photos} idItem={id} />
-					<DocsSection />
+					<DocsSection files={contentInfoData?.documents} />
 					<LinksSection />
 					<AdminControllers
 						variant={'4'}

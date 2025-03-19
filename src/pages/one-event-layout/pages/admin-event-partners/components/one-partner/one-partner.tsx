@@ -32,7 +32,6 @@ export const OnePartner = () => {
 	const { isSent, markAsSent } = useIsSent(methods.control)
 
 	const onSubmit: SubmitHandler<OneEventPartnerInputs> = async (data) => {
-		console.log(data)
 		const serverData = {
 			id_partner: data.partners_list,
 		}

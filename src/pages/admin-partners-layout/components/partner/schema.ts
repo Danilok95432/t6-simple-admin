@@ -1,4 +1,5 @@
 import { type PartnerCheckBoxesInfo } from 'src/types/partners'
+import { type ImageItemWithText } from 'src/types/photos'
 import * as yup from 'yup'
 
 export type OnePartnerInputs = {
@@ -6,6 +7,7 @@ export type OnePartnerInputs = {
 	itemlink: string
 	partner_vids?: PartnerCheckBoxesInfo[]
 	partner_types?: PartnerCheckBoxesInfo[]
+	photo?: ImageItemWithText[]
 }
 
 export const onePartnerSchema = yup.object().shape({

@@ -1,3 +1,5 @@
+import { type ImageItemWithText } from './photos'
+
 export type PartnerCheckBoxesInfo = {
 	label: string
 	value: string
@@ -32,4 +34,5 @@ export type PartnerInfoResponse = {
 	events_count: string
 	partner_vids: PartnerCheckBoxesInfo[]
 	partner_types: PartnerCheckBoxesInfo[]
+	photo?: ImageItemWithText[]
 }

@@ -61,6 +61,7 @@ export const Partner = () => {
 						<MainSection
 							partnerVids={partnerInfoData?.partner_vids}
 							partnerTypes={partnerInfoData?.partner_types}
+							photo={partnerInfoData?.photo}
 						/>
 						<AdminControllers
 							variant='4'

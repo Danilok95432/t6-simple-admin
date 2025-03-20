@@ -1,9 +1,16 @@
 import { type FC } from 'react'
+import { type FaqItem } from 'src/types/faq'
 
 import { useNavigate } from 'react-router-dom'
 import cn from 'classnames'
-import { QuestionItem } from 'src/types/questions'
+import {
+	useDeleteQuestionByIdMutation,
+	useGetAllFaqQuery,
+	useGetNewIdFaqQuery,
+	useHideQuestionByIdMutation,
+} from 'src/store/faq/faq.api'
 
+import { Loader } from 'src/components/loader/loader'
 import { CustomTable } from 'src/components/custom-table/custom-table'
 import { RowController } from 'src/components/row-controller/row-controller'
 import { TableFooter } from 'src/components/table-footer/table-footer'
@@ -12,45 +19,45 @@ import { AdminContent } from 'src/components/admin-content/admin-content'
 import styles from './index.module.scss'
 
 export const QuestionsElements: FC = () => {
+	const { data: faqInfoData, isLoading } = useGetAllFaqQuery(null)
+	const { refetch: getNewId } = useGetNewIdFaqQuery(null)
+	const [deleteQuestionById] = useDeleteQuestionByIdMutation()
+	const [hideQuestionById] = useHideQuestionByIdMutation()
+
 	const navigate = useNavigate()
+
+	const addQuestion = async () => {
+		const newIdResponse = await getNewId().unwrap()
+		return newIdResponse.id
+	}
+
 	const tableTitles = ['Название вопроса', '']
 
-	const mockData = [
-		{ id: '1', title: 'Требуется ли регистрация для детей?' },
-		{ id: '2', title: 'Как понять, что я прошел регистрацию на сайте?' },
-		{
-			id: '3',
-			title: 'Как проехать на парковку, если я не собираюсь оставаться в лагере с ночевкой?',
-		},
-	]
-
-	const addQuestion = async () => {}
-
-	const formatQuestionsTableData = (questionsData: QuestionItem[]) => {
+	const formatQuestionsTableData = (questionsData: FaqItem[]) => {
 		return questionsData.map((questionEl) => {
 			return {
 				rowId: questionEl.id,
 				cells: [
-					<p className={cn({ 'hidden-cell-icon': questionEl.isHidden })} key='0'>
+					<p className={cn({ 'hidden-cell-icon': questionEl.hidden })} key='0'>
 						{questionEl.title}
 					</p>,
 					<RowController
 						id={questionEl.id}
 						hideHandler={rowHideHandler}
 						removeHandler={rowDeleteHandler}
-						textOfHidden='Скрыть событие'
+						textOfHidden='Скрыть вопрос'
 						key='4'
 					/>,
 				],
 			}
 		})
 	}
-	const rowDeleteHandler = async (id: string) => {
-		console.log(id)
-	}
 
+	const rowDeleteHandler = async (id: string) => {
+		await deleteQuestionById(id)
+	}
 	const rowHideHandler = async (id: string) => {
-		console.log(id)
+		await hideQuestionById(id)
 	}
 
 	const rowClickHandler = (id: string) => {
@@ -58,9 +65,11 @@ export const QuestionsElements: FC = () => {
 	}
 
 	const handleAddQuestionClick = async () => {
-		// const newId = await addQuestion()
-		// navigate(`/frequent-questions/question/${newId}`)
+		const newId = await addQuestion()
+		navigate(`/frequent-questions/question/${newId}`)
 	}
+
+	if (isLoading || !faqInfoData?.faq) return <Loader />
 
 	return (
 		<AdminContent
@@ -77,12 +86,12 @@ export const QuestionsElements: FC = () => {
 
 				<CustomTable
 					className={styles.questionTable}
-					rowData={formatQuestionsTableData(mockData)}
+					rowData={formatQuestionsTableData(faqInfoData?.faq)}
 					colTitles={tableTitles}
 					rowClickHandler={rowClickHandler}
 				/>
 				<TableFooter
-					totalElements={mockData?.length}
+					totalElements={faqInfoData?.faq?.length}
 					addClickHandler={handleAddQuestionClick}
 					addText='Добавить вопрос'
 					className={styles.questionTableFooter}

@@ -1,9 +1,11 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 import { type QuestionInputs, QuestionSchema } from './schema'
+import { useGetQuestionInfoQuery, useSaveQuestionInfoMutation } from 'src/store/faq/faq.api'
+import { useEffect } from 'react'
 
 import { Container } from 'src/UI/Container/Container'
 import { SwitchedHiddenSvg } from 'src/UI/icons/switchedHiddenSVG'
@@ -15,18 +17,39 @@ import { AdminContent } from 'src/components/admin-content/admin-content'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
+import { transformToFormData } from 'src/helpers/utils'
 
 export const Question = () => {
+	const { id = '' } = useParams()
+	const { data: questionInfoData } = useGetQuestionInfoQuery(id)
+	const [saveQuestionInfo] = useSaveQuestionInfoMutation()
+
+	const navigate = useNavigate()
+
 	const methods = useForm<QuestionInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(QuestionSchema),
+		defaultValues: {
+			hidden: false,
+		},
 	})
 
 	const { isSent, markAsSent } = useIsSent(methods.control)
 	const onSubmit: SubmitHandler<QuestionInputs> = async (data) => {
-		console.log(data)
-		markAsSent(true)
+		const serverData = transformToFormData(data)
+		serverData.append('id', id)
+		const res = await saveQuestionInfo(serverData)
+		if (res) {
+			markAsSent(true)
+			navigate(`/${AdminRoute.AdminFrequentQuestions}`)
+		}
 	}
+
+	useEffect(() => {
+		if (questionInfoData) {
+			methods.reset({ ...questionInfoData })
+		}
+	}, [questionInfoData])
 
 	return (
 		<AdminContent $backgroundColor='#ffffff' $padding='30px 0' $height='609px'>

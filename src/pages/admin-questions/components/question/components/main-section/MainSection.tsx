@@ -7,14 +7,14 @@ export const MainSection = () => {
 	return (
 		<AdminSection isBlock={false} className={styles.oneQuestionInputsSection}>
 			<ControlledInput
-				name='question'
+				name='title'
 				label='Введите вопрос *'
 				placeholder='Введите вопрос'
 				maxWidth='1140px'
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput
-				name='answer'
+				name='content'
 				label='Введите ответ *'
 				placeholder='Введите ответ'
 				maxWidth='1140px'

@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import { useState, type FC } from 'react'
 
 import {
 	type CommunityDocumentsInputs,
@@ -18,6 +18,8 @@ import { RulesSection } from 'src/pages/community-layout/pages/admin-community-d
 import { LawsSection } from 'src/pages/community-layout/pages/admin-community-documents/components/laws-section/laws-section'
 
 export const AdminCommunityDocuments: FC = () => {
+	const [, setAction] = useState<'apply' | 'save'>('apply')
+
 	const methods = useForm<CommunityDocumentsInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(communityDocumentsSchema),
@@ -55,7 +57,7 @@ export const AdminCommunityDocuments: FC = () => {
 						<MainDocSection />
 						<RulesSection />
 						<LawsSection />
-						<AdminControllers variant='3' isSent={isSent} />
+						<AdminControllers variant='3' isSent={isSent} actionHandler={setAction} />
 					</form>
 				</FormProvider>
 			</AdminContent>

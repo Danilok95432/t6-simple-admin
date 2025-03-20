@@ -35,7 +35,6 @@ export const ObjectLocation = () => {
 	const { isSent, markAsSent } = useIsSent(methods.control)
 
 	const onSubmit: SubmitHandler<ObjLocationInputs> = async (data) => {
-		console.log(data)
 		const objectId = id
 		const objectMapFormData = new FormData()
 
@@ -49,10 +48,8 @@ export const ObjectLocation = () => {
 		objectMapFormData.append('map_yandex', data.map_yandex)
 		objectMapFormData.append('hide_paths', booleanToNumberString(data.hide_paths))
 
-		const formDataObject = Object.fromEntries(objectMapFormData.entries())
-		console.log(formDataObject)
-		// const res = await saveObjectMap(objectMapFormData)
-		// if (res) markAsSent(true)
+		const res = await saveObjectMap(objectMapFormData)
+		if (res) markAsSent(true)
 	}
 
 	useEffect(() => {

@@ -56,12 +56,11 @@ export const AdminEventProgram: FC = () => {
 			)
 			objectProgramFormData.append(
 				`end_time[${index}]`,
-				item.end_time === '' ? '' : formatTimeToHHMM(item.end_time as Date),
+				item.end_time === '' || item.end_time === null
+					? ''
+					: formatTimeToHHMM(item.end_time as Date),
 			)
 		})
-
-		const formDataObject = Object.fromEntries(objectProgramFormData.entries())
-		console.log(formDataObject)
 
 		const res = await saveProgramInfo(objectProgramFormData)
 

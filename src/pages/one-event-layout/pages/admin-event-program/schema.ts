@@ -28,7 +28,6 @@ export const programSchema = yup.object({
 			return value
 		})
 		.required('Время начала обязательно'),
-	end_time: yup.mixed<Date | string>(),
 })
 
 export const programInputsSchema = yup.object({

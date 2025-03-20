@@ -130,6 +130,13 @@ export const CultureInfo = () => {
 							margin='0 0 20px 0'
 						/>
 						<ControlledInput
+							name='desc'
+							label='Краткое описание'
+							maxWidth='1140px'
+							margin='0 0 20px 0'
+							isTextarea
+						/>
+						<ControlledInput
 							name='website'
 							label='Адрес интернет-сайта *'
 							maxWidth='1140px'

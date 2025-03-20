@@ -1,4 +1,4 @@
-import { useEffect, type FC } from 'react'
+import { useEffect, useState, type FC } from 'react'
 
 import { Helmet } from 'react-helmet-async'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
@@ -24,6 +24,7 @@ import { ArticleSection } from './components/article-section/article-section'
 export const AdminCommunityHistory: FC = () => {
 	const { data: aboutHistoryData } = useGetHistoryCommunityQuery(null)
 	const [saveHistoryCommunity] = useSaveHistoryCommunityMutation()
+	const [, setAction] = useState<'apply' | 'save'>('apply')
 
 	const methods = useForm<ArticleInputs>({
 		mode: 'onBlur',
@@ -65,13 +66,13 @@ export const AdminCommunityHistory: FC = () => {
 			<Helmet>
 				<title>История</title>
 			</Helmet>
-			<AdminContent title='История' link='#'>
+			<AdminContent title='История' link='https://атманов-угол.рф/about/about-history'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<TitleSection />
 						<GallerySection images={aboutHistoryData?.photos} />
 						<ArticleSection />
-						<AdminControllers variant='3' isSent={isSent} />
+						<AdminControllers variant='3' isSent={isSent} actionHandler={setAction} />
 					</form>
 				</FormProvider>
 			</AdminContent>

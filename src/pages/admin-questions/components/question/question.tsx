@@ -5,7 +5,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 import { type QuestionInputs, QuestionSchema } from './schema'
 import { useGetQuestionInfoQuery, useSaveQuestionInfoMutation } from 'src/store/faq/faq.api'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { booleanToNumberString } from 'src/helpers/utils'
 
 import { Container } from 'src/UI/Container/Container'
 import { SwitchedHiddenSvg } from 'src/UI/icons/switchedHiddenSVG'
@@ -17,13 +18,13 @@ import { AdminContent } from 'src/components/admin-content/admin-content'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
-import { transformToFormData } from 'src/helpers/utils'
 
 export const Question = () => {
 	const { id = '' } = useParams()
 	const { data: questionInfoData } = useGetQuestionInfoQuery(id)
 	const [saveQuestionInfo] = useSaveQuestionInfoMutation()
 
+	const [action, setAction] = useState<'apply' | 'save'>('apply')
 	const navigate = useNavigate()
 
 	const methods = useForm<QuestionInputs>({
@@ -36,12 +37,18 @@ export const Question = () => {
 
 	const { isSent, markAsSent } = useIsSent(methods.control)
 	const onSubmit: SubmitHandler<QuestionInputs> = async (data) => {
-		const serverData = transformToFormData(data)
-		serverData.append('id', id)
-		const res = await saveQuestionInfo(serverData)
+		const questionInfoFormData = new FormData()
+
+		questionInfoFormData.append('id', id)
+		questionInfoFormData.append('title', data.title)
+		questionInfoFormData.append('content', data.content)
+		questionInfoFormData.append('hidden', booleanToNumberString(data.hidden))
+		const res = await saveQuestionInfo(questionInfoFormData)
 		if (res) {
 			markAsSent(true)
-			navigate(`/${AdminRoute.AdminFrequentQuestions}`)
+			if (action === 'save') {
+				navigate(`/${AdminRoute.AdminFrequentQuestions}`)
+			}
 		}
 	}
 
@@ -89,6 +96,7 @@ export const Question = () => {
 								variant='4'
 								outLink={`/${AdminRoute.AdminFrequentQuestions}`}
 								isSent={isSent}
+								actionHandler={setAction}
 							/>
 						</form>
 					</FormProvider>

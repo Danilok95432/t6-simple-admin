@@ -1,10 +1,10 @@
 import { type OnePartnerInputs, onePartnerSchema } from './schema'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useGetPartnerInfoQuery, useSavePartnerInfoMutation } from 'src/store/partners/partners.api'
 import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Container } from 'src/UI/Container/Container'
 import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
@@ -18,6 +18,8 @@ export const Partner = () => {
 	const { id = '' } = useParams()
 	const { data: partnerInfoData } = useGetPartnerInfoQuery(id)
 	const [savePartnerInfo] = useSavePartnerInfoMutation()
+	const [action, setAction] = useState<'apply' | 'save'>('apply')
+	const navigate = useNavigate()
 
 	const methods = useForm<OnePartnerInputs>({
 		mode: 'onBlur',
@@ -40,7 +42,12 @@ export const Partner = () => {
 			if (type.checked) partnerInfoFormData.append(`partner_types[${index}]`, type.value)
 		})
 		const res = await savePartnerInfo(partnerInfoFormData)
-		if (res) markAsSent(true)
+		if (res) {
+			markAsSent(true)
+			if (action === 'save') {
+				navigate(`/${AdminRoute.AdminPartners}`)
+			}
+		}
 	}
 
 	useEffect(() => {
@@ -67,6 +74,7 @@ export const Partner = () => {
 							variant='4'
 							outLink={`/${AdminRoute.AdminPartners}`}
 							isSent={isSent}
+							actionHandler={setAction}
 						/>
 					</form>
 				</FormProvider>

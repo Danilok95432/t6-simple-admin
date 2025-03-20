@@ -1,4 +1,4 @@
-import { useEffect, type FC } from 'react'
+import { useEffect, useState, type FC } from 'react'
 import {
 	type EventProfileInputs,
 	eventProfileSchema,
@@ -6,7 +6,7 @@ import {
 
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useGetEventInfoQuery, useSaveEventProfileInfoMutation } from 'src/store/events/events.api'
 import { parse, format } from 'date-fns'
 import {
@@ -43,6 +43,8 @@ export const AdminEventProfile: FC = () => {
 	})
 
 	const { isSent, markAsSent } = useIsSent(methods.control)
+	const [action, setAction] = useState<'apply' | 'save'>('apply')
+	const navigate = useNavigate()
 
 	const onSubmit: SubmitHandler<EventProfileInputs> = async (data) => {
 		const dateFormatFrom = formatDateToYYYYMMDD(data.date_from)
@@ -72,7 +74,12 @@ export const AdminEventProfile: FC = () => {
 		const eventId = id
 		eventInfoFormData.append('id', eventId)
 		const res = await saveEventInfo(eventInfoFormData)
-		if (res) markAsSent(true)
+		if (res) {
+			markAsSent(true)
+			if (action === 'save') {
+				navigate(`/${AdminRoute.AdminEventsList}`)
+			}
+		}
 	}
 
 	useEffect(() => {
@@ -162,10 +169,15 @@ export const AdminEventProfile: FC = () => {
 					) : (
 						<FlexRow $margin='0 0 40px 0' $maxWidth='1140px' $justifyContent='space-between'>
 							<FlexRow>
-								<AdminButton as='route' to={`/${AdminRoute.AdminEventsList}`}>
+								<AdminButton as='button' type='submit' onClick={() => setAction('save')}>
 									Сохранить и выйти
 								</AdminButton>
-								<AdminButton as='button' type='submit' $variant={isSent ? 'sent' : 'light'}>
+								<AdminButton
+									as='button'
+									type='submit'
+									$variant={isSent ? 'sent' : 'light'}
+									onClick={() => setAction('apply')}
+								>
 									Применить и продолжить
 								</AdminButton>
 							</FlexRow>

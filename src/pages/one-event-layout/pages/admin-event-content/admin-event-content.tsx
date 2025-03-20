@@ -1,8 +1,8 @@
-import { useEffect, type FC } from 'react'
+import { useEffect, useState, type FC } from 'react'
 
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import {
 	type EventContentInputs,
@@ -43,6 +43,8 @@ export const AdminEventContent: FC = () => {
 	})
 
 	const { isSent, markAsSent } = useIsSent(methods.control)
+	const [action, setAction] = useState<'apply' | 'save'>('apply')
+	const navigate = useNavigate()
 
 	const onSubmit: SubmitHandler<EventContentInputs> = async (data) => {
 		const eventId = id
@@ -68,7 +70,12 @@ export const AdminEventContent: FC = () => {
 		eventInfoFormData.append('hide_links', booleanToNumberString(data.hide_links))
 
 		const res = await saveEventContentInfo(eventInfoFormData)
-		if (res) markAsSent(true)
+		if (res) {
+			markAsSent(true)
+			if (action === 'save') {
+				navigate(`/${AdminRoute.AdminEventsList}`)
+			}
+		}
 	}
 
 	useEffect(() => {
@@ -91,9 +98,10 @@ export const AdminEventContent: FC = () => {
 					<DocsSection files={contentInfoData?.documents} />
 					<LinksSection />
 					<AdminControllers
-						variant={'4'}
+						variant={'2'}
 						outLink={`/${AdminRoute.AdminEventsList}`}
 						isSent={isSent}
+						actionHandler={setAction}
 					/>
 				</form>
 			</FormProvider>

@@ -1,4 +1,4 @@
-import { type FC } from 'react'
+import { useState, type FC } from 'react'
 import { defaultMainBlocksValues, type SettingsInputs } from 'src/pages/admin-settings/schema'
 
 import { Helmet } from 'react-helmet-async'
@@ -13,6 +13,7 @@ import { PromoTable } from 'src/pages/admin-settings/components/promo-table/prom
 
 import styles from './index.module.scss'
 import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
+import { useNavigate } from 'react-router-dom'
 
 export const AdminSettings: FC = () => {
 	const methods = useForm<SettingsInputs>({
@@ -21,10 +22,15 @@ export const AdminSettings: FC = () => {
 	})
 
 	const { isSent, markAsSent } = useIsSent(methods.control)
+	const [action, setAction] = useState<'apply' | 'save'>('apply')
+	const navigate = useNavigate()
 
 	const onSubmit: SubmitHandler<SettingsInputs> = (data) => {
 		console.log(data)
 		markAsSent(true)
+		if (action === 'save') {
+			navigate(`/${AdminRoute.AdminHome}`)
+		}
 	}
 	return (
 		<>
@@ -46,7 +52,11 @@ export const AdminSettings: FC = () => {
 						noValidate
 					>
 						<MainBlocksSection />
-						<AdminControllers outLink={AdminRoute.AdminHome} isSent={isSent} />
+						<AdminControllers
+							outLink={AdminRoute.AdminHome}
+							isSent={isSent}
+							actionHandler={setAction}
+						/>
 					</form>
 				</FormProvider>
 			</AdminContent>

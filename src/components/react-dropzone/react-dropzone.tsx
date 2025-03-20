@@ -147,7 +147,6 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 
 				setCurrentFiles(newFiles)
 				setImageIds(newImageIds)
-				setValue(name, newFiles)
 
 				if (imageIdFieldName) {
 					setValue(

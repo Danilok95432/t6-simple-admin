@@ -1,7 +1,7 @@
 import { type OneNewsInputs, oneNewsSchema } from './schema'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { useGetNewsInfoQuery, useSaveNewsInfoMutation } from 'src/store/news/news.api'
@@ -26,6 +26,8 @@ export const OneNews = () => {
 
 	const { data: newsInfoData } = useGetNewsInfoQuery(id)
 	const [saveNewsInfo] = useSaveNewsInfoMutation()
+	const [action, setAction] = useState<'apply' | 'save'>('apply')
+	const navigate = useNavigate()
 
 	const methods = useForm<OneNewsInputs>({
 		mode: 'onBlur',
@@ -58,7 +60,12 @@ export const OneNews = () => {
 		const newsId = id
 		newsInfoFormData.append('id', newsId)
 		const res = await saveNewsInfo(newsInfoFormData)
-		if (res) markAsSent(true)
+		if (res) {
+			markAsSent(true)
+			if (action === 'save') {
+				navigate(`/${AdminRoute.AdminNews}/${AdminRoute.AdminNewsList}`)
+			}
+		}
 	}
 
 	useEffect(() => {
@@ -122,6 +129,7 @@ export const OneNews = () => {
 							variant='4'
 							outLink={`/${AdminRoute.AdminNews}/${AdminRoute.AdminNewsList}`}
 							isSent={isSent}
+							actionHandler={setAction}
 						/>
 					</form>
 				</FormProvider>

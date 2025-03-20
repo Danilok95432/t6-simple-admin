@@ -1,8 +1,8 @@
 import { type OneVideoInputs, oneVideoSchema } from './schema'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useParams } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 import { useGetVideoInfoQuery, useSaveVideoInfoMutation } from 'src/store/videos/videos.api'
 import { booleanToNumberString, formatDate, transformToFormData } from 'src/helpers/utils'
@@ -24,6 +24,9 @@ export const OneVideo = () => {
 	const { id = '0' } = useParams()
 	const { data: videoInfoData } = useGetVideoInfoQuery(id)
 	const [saveVideoInfo] = useSaveVideoInfoMutation()
+
+	const [action, setAction] = useState<'apply' | 'save'>('apply')
+	const navigate = useNavigate()
 
 	const methods = useForm<OneVideoInputs>({
 		mode: 'onBlur',
@@ -54,7 +57,12 @@ export const OneVideo = () => {
 		const videoId = id
 		videoInfoFormData.append('id', videoId)
 		const res = await saveVideoInfo(videoInfoFormData)
-		if (res) markAsSent(true)
+		if (res) {
+			markAsSent(true)
+			if (action === 'save') {
+				navigate(`/${AdminRoute.AdminNews}/${AdminRoute.AdminVideosList}`)
+			}
+		}
 	}
 
 	useEffect(() => {
@@ -114,6 +122,7 @@ export const OneVideo = () => {
 							variant='4'
 							outLink={`/${AdminRoute.AdminNews}/${AdminRoute.AdminVideosList}`}
 							isSent={isSent}
+							actionHandler={setAction}
 						/>
 					</form>
 				</FormProvider>

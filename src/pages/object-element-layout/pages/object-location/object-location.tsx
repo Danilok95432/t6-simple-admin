@@ -4,8 +4,8 @@ import {
 } from 'src/pages/object-element-layout/pages/object-location/schema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Helmet } from 'react-helmet-async'
-import { useParams } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
@@ -33,6 +33,8 @@ export const ObjectLocation = () => {
 	})
 
 	const { isSent, markAsSent } = useIsSent(methods.control)
+	const [action, setAction] = useState<'apply' | 'save'>('apply')
+	const navigate = useNavigate()
 
 	const onSubmit: SubmitHandler<ObjLocationInputs> = async (data) => {
 		const objectId = id
@@ -49,7 +51,12 @@ export const ObjectLocation = () => {
 		objectMapFormData.append('hide_paths', booleanToNumberString(data.hide_paths))
 
 		const res = await saveObjectMap(objectMapFormData)
-		if (res) markAsSent(true)
+		if (res) {
+			markAsSent(true)
+			if (action === 'save') {
+				navigate(`/${AdminRoute.AdminObjects}`)
+			}
+		}
 	}
 
 	useEffect(() => {
@@ -72,6 +79,7 @@ export const ObjectLocation = () => {
 							variant={'4'}
 							outLink={`/${AdminRoute.AdminObjects}`}
 							isSent={isSent}
+							actionHandler={setAction}
 						/>
 					</form>
 				</FormProvider>

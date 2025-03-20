@@ -1,4 +1,4 @@
-import { useEffect, type FC } from 'react'
+import { useEffect, useState, type FC } from 'react'
 
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { Helmet } from 'react-helmet-async'
@@ -37,15 +37,21 @@ export const AdminCommunityLocation: FC = () => {
 	})
 
 	const { isSent, markAsSent } = useIsSent(methods.control)
+	const [, setAction] = useState<'apply' | 'save'>('apply')
 
 	const onSubmit: SubmitHandler<LocationInputs> = async (data) => {
 		const renameData = {
 			mapCoords: data.mapCoords,
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			mailAddress: data.mailAddress!,
-			['phone.contact']: data.phoneOwner!,
-			['phone.formatNumber']: data.phoneNumber!,
-			['email.contact']: data.emailOwner!,
-			['email.email']: data.emailAddress!,
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			'phone.contact': data.phoneOwner!,
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			'phone.formatNumber': data.phoneNumber!,
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			'email.contact': data.emailOwner!,
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			'email.email': data.emailAddress!,
 		}
 
 		try {
@@ -77,14 +83,14 @@ export const AdminCommunityLocation: FC = () => {
 			<Helmet>
 				<title>Карта и маршруты</title>
 			</Helmet>
-			<AdminContent title='Карта и маршруты' link='#'>
+			<AdminContent title='Карта и маршруты' link='https://атманов-угол.рф/about/about-contacts'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<MapSection />
 						<MailSection />
 						<PhoneSection />
 						<EmailsSection />
-						<AdminControllers variant='3' isSent={isSent} />
+						<AdminControllers variant='3' isSent={isSent} actionHandler={setAction} />
 					</form>
 				</FormProvider>
 			</AdminContent>

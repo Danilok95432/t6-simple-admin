@@ -1,9 +1,9 @@
 import { objectInfoSchema, type ObjectInfoInputs } from './schema'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
@@ -33,12 +33,19 @@ export const ObjectInfo = () => {
 	})
 
 	const { isSent, markAsSent } = useIsSent(methods.control)
+	const [action, setAction] = useState<'apply' | 'save'>('apply')
+	const navigate = useNavigate()
 
 	const onSubmit: SubmitHandler<ObjectInfoInputs> = async (data) => {
 		const objectInfoFormData = transformToFormData(data)
 		objectInfoFormData.append('id', id)
 		const res = await saveObjectInfo(objectInfoFormData)
-		if (res) markAsSent(true)
+		if (res) {
+			markAsSent(true)
+			if (action === 'save') {
+				navigate(`/${AdminRoute.AdminObjects}`)
+			}
+		}
 	}
 
 	useEffect(() => {
@@ -66,7 +73,11 @@ export const ObjectInfo = () => {
 								icon={objInfoData?.icon}
 							/>
 							<ContactsSection />
-							<AdminControllers outLink={AdminRoute.AdminHome} isSent={isSent} />
+							<AdminControllers
+								outLink={AdminRoute.AdminHome}
+								isSent={isSent}
+								actionHandler={setAction}
+							/>
 						</form>
 					</FormProvider>
 				</AdminContent>

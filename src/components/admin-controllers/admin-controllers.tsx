@@ -8,6 +8,7 @@ type AdminControllersProps = {
 	outLink?: string
 	variant?: '1' | '2' | '3' | '4'
 	isSent?: boolean
+	actionHandler: (action: 'apply' | 'save') => void
 }
 
 type AdminStyledBtns = {
@@ -29,6 +30,7 @@ export const AdminControllers: FC<AdminControllersProps> = ({
 	outLink,
 	variant = '1',
 	isSent = false,
+	actionHandler,
 	...props
 }) => {
 	const renderButtonsVariant = (variant: AdminControllersProps['variant']) => {
@@ -41,10 +43,17 @@ export const AdminControllers: FC<AdminControllersProps> = ({
 							type='submit'
 							$height='40px'
 							$variant={isSent ? 'sent' : 'primary'}
+							onClick={() => actionHandler('apply')}
 						>
 							{isSent ? 'Изменения сохранены' : 'Применить и продолжить'}
 						</AdminButton>
-						<AdminButton as='link' to={outLink} $variant='light' $height='40px'>
+						<AdminButton
+							as='button'
+							type='submit'
+							$variant='light'
+							$height='40px'
+							onClick={() => actionHandler('save')}
+						>
 							Сохранить и выйти
 						</AdminButton>
 					</>
@@ -57,10 +66,17 @@ export const AdminControllers: FC<AdminControllersProps> = ({
 							type='submit'
 							$height='40px'
 							$variant={isSent ? 'sent' : 'primary'}
+							onClick={() => actionHandler('apply')}
 						>
 							{isSent ? 'Изменения сохранены' : 'Применить и продолжить'}
 						</AdminButton>
-						<AdminButton as='link' to={outLink} $variant='light' $height='40px'>
+						<AdminButton
+							as='button'
+							type='submit'
+							$variant='light'
+							$height='40px'
+							onClick={() => actionHandler('save')}
+						>
 							Сохранить и выйти
 						</AdminButton>
 						<AdminButton
@@ -81,6 +97,7 @@ export const AdminControllers: FC<AdminControllersProps> = ({
 						type='submit'
 						$variant={isSent ? 'sent' : 'primary'}
 						$height='40px'
+						onClick={() => actionHandler('apply')}
 					>
 						{isSent ? 'Изменения сохранены' : 'Применить и продолжить'}
 					</AdminButton>
@@ -93,10 +110,17 @@ export const AdminControllers: FC<AdminControllersProps> = ({
 							type='submit'
 							$variant={isSent ? 'sent' : 'primary'}
 							$height='40px'
+							onClick={() => actionHandler('apply')}
 						>
 							{isSent ? 'Изменения сохранены' : 'Применить и продолжить'}
 						</AdminButton>
-						<AdminButton as='route' to={outLink} $variant='light' $height='40px'>
+						<AdminButton
+							as='button'
+							type='submit'
+							$variant='light'
+							$height='40px'
+							onClick={() => actionHandler('save')}
+						>
 							Сохранить и выйти
 						</AdminButton>
 					</>

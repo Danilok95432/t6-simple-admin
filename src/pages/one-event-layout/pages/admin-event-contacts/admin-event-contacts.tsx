@@ -1,4 +1,4 @@
-import { useEffect, type FC } from 'react'
+import { useEffect, useState, type FC } from 'react'
 import {
 	type EventContactsInputs,
 	eventContactsSchema,
@@ -6,7 +6,7 @@ import {
 
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import {
 	useGetContactsByEventIdQuery,
 	useSaveEventContactInfoMutation,
@@ -40,6 +40,8 @@ export const AdminEventContacts: FC = () => {
 		},
 	})
 	const { isSent, markAsSent } = useIsSent(methods.control)
+	const [action, setAction] = useState<'apply' | 'save'>('apply')
+	const navigate = useNavigate()
 
 	const onSubmit: SubmitHandler<EventContactsInputs> = async (data) => {
 		const eventId = id
@@ -63,7 +65,12 @@ export const AdminEventContacts: FC = () => {
 		eventInfoFormData.append('hide_pathways', booleanToNumberString(data.hide_pathways))
 
 		const res = await saveEventContactsInfo(eventInfoFormData)
-		if (res) markAsSent(true)
+		if (res) {
+			markAsSent(true)
+			if (action === 'save') {
+				navigate(`/${AdminRoute.AdminEventsList}`)
+			}
+		}
 	}
 
 	useEffect(() => {
@@ -83,9 +90,10 @@ export const AdminEventContacts: FC = () => {
 					<InfoSection />
 					<RoutesSection />
 					<AdminControllers
-						variant={'4'}
+						variant={'2'}
 						outLink={`/${AdminRoute.AdminEventsList}`}
 						isSent={isSent}
+						actionHandler={setAction}
 					/>
 				</form>
 			</FormProvider>

@@ -1,4 +1,4 @@
-import { type FC, useEffect } from 'react'
+import { type FC, useEffect, useState } from 'react'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import {
 	type CommunityInputs,
@@ -23,6 +23,7 @@ import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 export const AdminCommunityAbout: FC = () => {
 	const { data: aboutCommunityData } = useGetAboutCommunityQuery(null)
 	const [saveAboutCommunity] = useSaveAboutCommunityMutation()
+	const [, setAction] = useState<'apply' | 'save'>('apply')
 
 	const methods = useForm<CommunityInputs>({
 		mode: 'onBlur',
@@ -55,13 +56,13 @@ export const AdminCommunityAbout: FC = () => {
 			<Helmet>
 				<title>Атманов угол</title>
 			</Helmet>
-			<AdminContent title='Атманов угол' link='#'>
+			<AdminContent title='Атманов угол' link='https://атманов-угол.рф/about'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<TitleSection logo={aboutCommunityData?.logo} />
 						<GallerySection images={aboutCommunityData?.photoGallery} />
 						<ArticleSection />
-						<AdminControllers variant='3' isSent={isSent} />
+						<AdminControllers variant='3' isSent={isSent} actionHandler={setAction} />
 					</form>
 				</FormProvider>
 			</AdminContent>

@@ -12,7 +12,7 @@ import {
 	useGetProgramByEventIdQuery,
 	useSaveProgramInfoMutation,
 } from 'src/store/events/events.api'
-import { currentDateString, formatDateToYYYYMMDD } from 'src/helpers/utils'
+import { currentDateString, formatDateToYYYYMMDD, formatTimeToHHMM } from 'src/helpers/utils'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
@@ -50,9 +50,18 @@ export const AdminEventProgram: FC = () => {
 			objectProgramFormData.append(`title[${index}]`, item.title)
 			objectProgramFormData.append(`place[${index}]`, item.place)
 			objectProgramFormData.append(`itemdate[${index}]`, formatDateToYYYYMMDD(item.itemdate))
-			objectProgramFormData.append(`begin_time[${index}]`, formatDateToYYYYMMDD(item.begin_time))
-			objectProgramFormData.append(`end_time[${index}]`, formatDateToYYYYMMDD(item.end_time))
+			objectProgramFormData.append(
+				`begin_time[${index}]`,
+				formatTimeToHHMM(item.begin_time as Date),
+			)
+			objectProgramFormData.append(
+				`end_time[${index}]`,
+				item.end_time === '' ? '' : formatTimeToHHMM(item.end_time as Date),
+			)
 		})
+
+		const formDataObject = Object.fromEntries(objectProgramFormData.entries())
+		console.log(formDataObject)
 
 		const res = await saveProgramInfo(objectProgramFormData)
 

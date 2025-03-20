@@ -47,6 +47,7 @@ export const ObjectLocation = () => {
 		})
 		objectMapFormData.append('map_yandex', data.map_yandex)
 		objectMapFormData.append('hide_paths', booleanToNumberString(data.hide_paths))
+
 		const res = await saveObjectMap(objectMapFormData)
 		if (res) markAsSent(true)
 	}

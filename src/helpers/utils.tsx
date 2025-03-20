@@ -109,6 +109,8 @@ export const formatTimeToHHMM = (date: Date | null | undefined): string => {
 
 // функция форматирования даты для отправки на сервер в формате YYYY-MM-DD
 export const formatDateToYYYYMMDD = (date: Date | string | null | undefined): string => {
+	if (date === '') return ''
+
 	if (!date) {
 		return 'Invalid Date'
 	}

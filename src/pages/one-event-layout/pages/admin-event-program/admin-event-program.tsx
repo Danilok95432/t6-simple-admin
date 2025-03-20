@@ -12,12 +12,7 @@ import {
 	useGetProgramByEventIdQuery,
 	useSaveProgramInfoMutation,
 } from 'src/store/events/events.api'
-import {
-	currentDateString,
-	formatDateToYYYYMMDD,
-	formatTimeToHHMM,
-	transformToFormData,
-} from 'src/helpers/utils'
+import { currentDateString, formatDateToYYYYMMDD } from 'src/helpers/utils'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
@@ -47,24 +42,19 @@ export const AdminEventProgram: FC = () => {
 	const { isSent, markAsSent } = useIsSent(methods.control)
 
 	const onSubmit: SubmitHandler<ProgramInputs> = async (data) => {
-		const serverData = data.program?.map((el) => {
-			const dateFormat = formatDateToYYYYMMDD(el.itemdate as Date)
-			const timeFormatBegin = formatTimeToHHMM(el.begin_time as Date)
-			const timeFormatEnd = formatTimeToHHMM(el.end_time as Date)
+		const objectProgramFormData = new FormData()
 
-			return {
-				...el,
-				itemdate: dateFormat === 'Invalid Date' ? '' : dateFormat,
-				begin_time: timeFormatBegin === 'Invalid Date' ? '' : timeFormatBegin,
-				end_time: timeFormatEnd === 'Invalid Date' ? '' : timeFormatEnd,
-			}
+		objectProgramFormData.append('id', id)
+
+		data.program?.forEach((item, index) => {
+			objectProgramFormData.append(`title[${index}]`, item.title)
+			objectProgramFormData.append(`place[${index}]`, item.place)
+			objectProgramFormData.append(`itemdate[${index}]`, formatDateToYYYYMMDD(item.itemdate))
+			objectProgramFormData.append(`begin_time[${index}]`, formatDateToYYYYMMDD(item.begin_time))
+			objectProgramFormData.append(`end_time[${index}]`, formatDateToYYYYMMDD(item.end_time))
 		})
 
-		const programInfoData = serverData && transformToFormData(serverData)
-		const programId = id
-		programInfoData?.append('id', programId)
-
-		const res = programInfoData && (await saveProgramInfo(programInfoData))
+		const res = await saveProgramInfo(objectProgramFormData)
 
 		if (res) markAsSent(true)
 	}

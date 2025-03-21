@@ -71,7 +71,7 @@ export const isEmptyHtml = (value: string) => {
 // функция форматирования даты с локализацией
 export const mainFormatDate = (
 	date: Date | undefined,
-	dateFormat = 'dd-MM-yyyy',
+	dateFormat = 'yyyy-MM-dd',
 ): string | null => {
 	if (!date) return null
 	return format(date, dateFormat, { locale: ru })

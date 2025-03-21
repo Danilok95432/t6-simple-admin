@@ -3,10 +3,12 @@ import { Outlet, useParams } from 'react-router-dom'
 import { TabNavigation } from 'src/components/tab-navigation/tab-navigation'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
+import { useGetEventInfoQuery } from 'src/store/events/events.api'
 import type { TabNavigationItem } from 'src/types/navigation'
 
 export const OneEventLayout = () => {
-	const { id } = useParams()
+	const { id = '' } = useParams()
+	const { data: eventInfoData } = useGetEventInfoQuery(id)
 	const eventTabs: TabNavigationItem[] = [
 		{
 			title: 'Профиль события',
@@ -44,7 +46,7 @@ export const OneEventLayout = () => {
 	return (
 		<>
 			<div className={adminStyles.adminTitleTab}>
-				<h1>{id === 'new' ? 'Новое событие' : 'Атмановские Кулачки 2024'}</h1>
+				<h1>{eventInfoData?.title !== '' ? eventInfoData?.title : 'Новое событие'}</h1>
 				<TabNavigation navItems={eventTabs} />
 			</div>
 			<Outlet />

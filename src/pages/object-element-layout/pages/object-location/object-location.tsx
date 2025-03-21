@@ -70,7 +70,7 @@ export const ObjectLocation = () => {
 			<Helmet>
 				<title>Карта и маршруты</title>
 			</Helmet>
-			<AdminContent link='#' title='Карта и маршруты'>
+			<AdminContent link={`https://атманов-угол.рф/objects-list/${id}`} title='Карта и маршруты'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<MapSection />

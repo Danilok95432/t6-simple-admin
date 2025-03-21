@@ -34,8 +34,8 @@ export const MainSection: FC<MainSectionProps> = ({ galleryOptions, photo }) => 
 			<ControlledDateInput
 				className={adminStyles.adminDateInput}
 				name='itemdate'
-				dateFormat='dd.MM.yyyy'
-				placeholder='дд.мм.гггг'
+				dateFormat='yyyy-MM-dd'
+				placeholder='гггг-мм-дд'
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput

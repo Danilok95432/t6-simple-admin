@@ -19,8 +19,8 @@ export const DateSection = () => {
 					className={cn(adminStyles.adminDateInput, styles.dateInput)}
 					classNameDatePicker={styles.datePicker}
 					name='publicdate'
-					dateFormat='dd.MM.yyyy'
-					placeholder='дд.мм.гггг'
+					dateFormat='yyyy-MM-dd'
+					placeholder='гггг-мм-дд'
 					margin='0'
 				/>
 			</FlexRow>

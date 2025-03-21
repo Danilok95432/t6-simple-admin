@@ -3,9 +3,9 @@ import * as yup from 'yup'
 
 export type EventProfileInputs = {
 	title: string
-	objects_list?: SelOption[]
-	event_types_list?: SelOption[]
-	event_levels_list?: SelOption[]
+	objects_list: string | SelOption[]
+	event_types_list: string | SelOption[]
+	event_levels_list: string | SelOption[]
 	tags?: string
 	date_from: string
 	time_from: Date
@@ -31,4 +31,73 @@ export const eventProfileSchema = yup.object().shape({
 	fullinfo: yup.string().required('Введите подробное описание'),
 	conditions: yup.string().required('Укажите условия'),
 	raspisanie: yup.string().required('Укажите расписание'),
+	objects_list: yup
+		.mixed<string | SelOption[]>()
+		.test('is-object-selected', 'Выберите хотя бы один объект', (value) => {
+			if (typeof value === 'string') {
+				return true
+			} else if (Array.isArray(value) && value.length > 0) {
+				const firstElement = value[0]
+				if (
+					typeof firstElement === 'object' &&
+					firstElement !== null &&
+					'label' in firstElement &&
+					'value' in firstElement &&
+					firstElement.label === 'Объект не выбран'
+				) {
+					return false
+				} else {
+					return true
+				}
+			} else {
+				return false
+			}
+		})
+		.required('Выберите хотя бы один объект'),
+	event_types_list: yup
+		.mixed<string | SelOption[]>()
+		.test('is-type-selected', 'Выберите хотя бы один тип', (value) => {
+			if (typeof value === 'string') {
+				return true
+			} else if (Array.isArray(value) && value.length > 0) {
+				const firstElement = value[0]
+				if (
+					typeof firstElement === 'object' &&
+					firstElement !== null &&
+					'label' in firstElement &&
+					'value' in firstElement &&
+					firstElement.label === 'Тип не выбран'
+				) {
+					return false
+				} else {
+					return true
+				}
+			} else {
+				return false
+			}
+		})
+		.required('Выберите хотя бы один тип'),
+	event_levels_list: yup
+		.mixed<string | SelOption[]>()
+		.test('is-level-selected', 'Выберите хотя бы один уровень', (value) => {
+			if (typeof value === 'string') {
+				return true
+			} else if (Array.isArray(value) && value.length > 0) {
+				const firstElement = value[0]
+				if (
+					typeof firstElement === 'object' &&
+					firstElement !== null &&
+					'label' in firstElement &&
+					'value' in firstElement &&
+					firstElement.label === 'Уровень не выбран'
+				) {
+					return false
+				} else {
+					return true
+				}
+			} else {
+				return false
+			}
+		})
+		.required('Выберите хотя бы один уровень'),
 })

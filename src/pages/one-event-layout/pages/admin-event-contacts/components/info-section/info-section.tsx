@@ -12,7 +12,7 @@ export const InfoSection = () => {
 			<ControlledInput
 				name='website'
 				label='Интернет-сайт'
-				placeholder='www.example.com'
+				placeholder='https://example.com'
 				margin='0 0 20px 0'
 			/>
 			<CustomText $margin='0 0 5px 0' $fontWeight='600'>

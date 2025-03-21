@@ -16,8 +16,8 @@ export const DateSection = () => {
 				<ControlledDateInput
 					className={adminStyles.adminDateInput}
 					name='publicdate'
-					dateFormat='dd.MM.yyyy'
-					placeholder='дд.мм.гггг'
+					dateFormat='yyyy-MM-dd'
+					placeholder='гггг-мм-дд'
 					margin='0'
 				/>
 				<ControlledCheckbox

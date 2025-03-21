@@ -34,7 +34,7 @@ export const objectsApi = createApi({
 
 		deleteObjectById: build.mutation<null, string>({
 			query: (objectId) => ({
-				url: `objects/list/delete`,
+				url: `objects/delete`,
 				method: 'DELETE',
 				body: { id: objectId },
 			}),
@@ -42,7 +42,7 @@ export const objectsApi = createApi({
 		}),
 		hideObjectById: build.mutation<null, string>({
 			query: (objectId) => ({
-				url: `objects/list/hide`,
+				url: `objects/hide`,
 				method: 'POST',
 				body: { id: objectId },
 			}),

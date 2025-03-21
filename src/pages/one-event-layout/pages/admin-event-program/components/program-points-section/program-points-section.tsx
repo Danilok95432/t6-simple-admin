@@ -60,8 +60,8 @@ export const ProgramPointsSection = () => {
 								<ControlledDateInput
 									className={adminStyles.adminDateInput}
 									name={`program.${idx}.itemdate`}
-									dateFormat='dd.MM.yyyy'
-									placeholder='дд.мм.гггг'
+									dateFormat='yyyy-MM-dd'
+									placeholder='гггг-мм-дд'
 									margin='0'
 								/>
 							</FlexRow>

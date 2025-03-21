@@ -36,6 +36,8 @@ export const OneNews = () => {
 			main: false,
 			hidden: false,
 			news_gallerys: [],
+			description: '',
+			keywords: [],
 		},
 	})
 	const { isSent, markAsSent } = useIsSent(methods.control)

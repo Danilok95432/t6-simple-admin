@@ -17,8 +17,8 @@ export const DateSection = () => {
 				<ControlledDateInput
 					className={adminStyles.adminDateInput}
 					name='date_from'
-					dateFormat='dd.MM.yyyy'
-					placeholder='дд.мм.гггг'
+					dateFormat='yyyy-MM-dd'
+					placeholder='гггг-мм-дд'
 				/>
 				<ControlledDateInput
 					className={adminStyles.adminTimeInput}
@@ -36,8 +36,8 @@ export const DateSection = () => {
 				<ControlledDateInput
 					className={adminStyles.adminDateInput}
 					name='date_to'
-					dateFormat='dd.MM.yyyy'
-					placeholder='дд.мм.гггг'
+					dateFormat='yyyy-MM-dd'
+					placeholder='гггг-мм-дд'
 					margin='0'
 				/>
 				<ControlledDateInput

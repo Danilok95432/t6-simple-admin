@@ -63,7 +63,11 @@ export const ObjectInfo = () => {
 				<Link to={`/${AdminRoute.AdminObjects}`} className={adminStyles.adminReturnLink}>
 					Возврат к списку объектов
 				</Link>
-				<AdminContent title='Об объекте' link='#' $padding='0 0 50px 0'>
+				<AdminContent
+					title='Об объекте'
+					link={`https://атманов-угол.рф/objects-list/${id}`}
+					$padding='0 0 50px 0'
+				>
 					<FormProvider {...methods}>
 						<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 							<MainSection

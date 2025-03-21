@@ -40,5 +40,4 @@ export const oneNewsSchema = yup.object().shape({
 		.transform(splitAndTrimStringToArray),
 	short: yup.string().required('Введите короткое описание'),
 	full: yup.string().required('Введите текст новости'),
-	description: yup.string().optional(),
 })

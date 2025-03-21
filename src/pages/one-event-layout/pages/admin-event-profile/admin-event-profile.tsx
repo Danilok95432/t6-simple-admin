@@ -64,11 +64,28 @@ export const AdminEventProfile: FC = () => {
 			fullinfo: data.fullinfo,
 			conditions: data.conditions,
 			raspisanie: data.raspisanie,
-			id_object: data.objects_list,
-			id_event_type: data.event_types_list,
-			id_event_level: data.event_levels_list,
-			id_age_limit: data.age_list,
-			id_location: data.locations_list,
+			id_object:
+				typeof data.objects_list === 'string' ? data.objects_list : data?.objects_list[0].value,
+			id_event_type:
+				typeof data.event_types_list === 'string'
+					? data.event_types_list
+					: data?.event_types_list[0].value,
+			id_event_level:
+				typeof data.event_levels_list === 'string'
+					? data.event_levels_list
+					: data?.event_levels_list[0].value,
+			id_age_limit:
+				typeof data.age_list === 'string'
+					? data.age_list
+					: data.age_list
+						? data.age_list[0].value
+						: '0',
+			id_location:
+				typeof data.locations_list === 'string'
+					? data.locations_list
+					: data.locations_list
+						? data.locations_list[0].value
+						: '0',
 		}
 		const eventInfoFormData = transformToFormData(serverData)
 		const eventId = id

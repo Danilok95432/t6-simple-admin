@@ -4,7 +4,6 @@ import { ControlledInput } from 'src/components/controlled-input/controlled-inpu
 import { ControlledSelect } from 'src/components/controlled-select/controlled-select'
 import { GridRow } from 'src/components/grid-row/grid-row'
 
-import styles from './index.module.scss'
 import { type FC } from 'react'
 import { type SelOption } from 'src/types/select'
 
@@ -24,7 +23,7 @@ export const DescSection: FC<DescSectionProps> = ({ ageList, locationsList }) =>
 			/>
 			<ControlledInput
 				name='fullinfo'
-				label='Подробное описание *'
+				label='Информация *'
 				placeholder='Подробное описание события'
 				isTextarea
 				margin='0 0 20px 0'
@@ -57,9 +56,9 @@ export const DescSection: FC<DescSectionProps> = ({ ageList, locationsList }) =>
 				margin='0 0 25px 0'
 				selectOptions={locationsList ?? [{ label: 'Не выбрано', value: '0' }]}
 			/>
-			<p className={styles.placeRequest}>
+			{/* <p className={styles.placeRequest}>
 				Если площадки нет в списке, Вы можете <a href='#'>запросить добавление новой площадки</a>
-			</p>
+			</p> */}
 		</AdminSection>
 	)
 }

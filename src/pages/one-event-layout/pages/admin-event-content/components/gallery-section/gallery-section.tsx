@@ -69,7 +69,7 @@ export const GallerySection: FC<GallerySectionProps> = ({ images, idItem }) => {
 	return (
 		<AdminSection
 			titleText='Галерея'
-			sectionName='hide_gallery'
+			sectionName='gallery'
 			additionalNodeForHead={
 				<SwitchedRadioBtns
 					name='hide_gallery'

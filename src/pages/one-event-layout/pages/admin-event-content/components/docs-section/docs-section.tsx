@@ -14,7 +14,7 @@ export const DocsSection: FC<DocsSectionProps> = ({ files = [] }) => {
 	return (
 		<AdminSection
 			titleText='Документы события'
-			sectionName='hide_documents'
+			sectionName='documents'
 			additionalNodeForHead={
 				<SwitchedRadioBtns
 					name='hide_documents'

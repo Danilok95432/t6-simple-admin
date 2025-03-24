@@ -22,7 +22,7 @@ export const RoutesSection: FC = () => {
 	return (
 		<AdminSection
 			titleText={`Маршруты (${fields?.length} из 3)`}
-			sectionName='hide_pathways'
+			sectionName='pathways'
 			additionalNodeForHead={
 				<SwitchedRadioBtns
 					name='hide_pathways'

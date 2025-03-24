@@ -22,7 +22,7 @@ export const PlacementSection: FC = () => {
 	return (
 		<AdminSection
 			titleText={`Размещение (${fields?.length} из 3)`}
-			sectionName='hide_placements'
+			sectionName='placements'
 			additionalNodeForHead={
 				<SwitchedRadioBtns
 					name='hide_placements'

@@ -22,7 +22,7 @@ export const LinksSection: FC = () => {
 	return (
 		<AdminSection
 			titleText='Важные ссылки события'
-			sectionName='hide_links'
+			sectionName='links'
 			additionalNodeForHead={
 				<SwitchedRadioBtns name='hide_links' contentRadio1='Показать всем' contentRadio2='Скрыть' />
 			}

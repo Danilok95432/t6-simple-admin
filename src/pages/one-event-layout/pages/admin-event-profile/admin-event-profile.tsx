@@ -74,6 +74,8 @@ export const AdminEventProfile: FC = () => {
 				typeof data.event_levels_list === 'string'
 					? data.event_levels_list
 					: data?.event_levels_list[0].value,
+			id_brand:
+				typeof data.brands_list === 'string' ? data.brands_list : data?.brands_list[0].value,
 			id_age_limit:
 				typeof data.age_list === 'string'
 					? data.age_list
@@ -168,6 +170,7 @@ export const AdminEventProfile: FC = () => {
 						objectsList={eventInfoData?.objects_list}
 						eventTypesList={eventInfoData?.event_types_list}
 						eventLevelsList={eventInfoData?.event_levels_list}
+						brandsList={eventInfoData?.brands_list}
 					/>
 					<DateSection />
 					<DescSection

@@ -37,7 +37,34 @@ export const ObjectInfo = () => {
 	const navigate = useNavigate()
 
 	const onSubmit: SubmitHandler<ObjectInfoInputs> = async (data) => {
-		const objectInfoFormData = transformToFormData(data)
+		const serverData = {
+			title: data.title,
+			photo: data.photo,
+			icon: data.icon,
+			mainDesc: data.mainDesc,
+			descList: data.descList,
+			phone: data.phone,
+			email: data.email,
+			address: data.address,
+			tgName: data.tgName,
+			tgSoc: data.tgSoc,
+			vkName: data.vkName,
+			vkSoc: data.vkSoc,
+			coords: data.coords,
+			object_types:
+				typeof data.object_types === 'string'
+					? data.object_types
+					: data.object_types
+						? data.object_types[0].value
+						: '0',
+			object_apply:
+				typeof data.object_apply === 'string'
+					? data.object_apply
+					: data.object_apply
+						? data.object_apply[0].value
+						: '0',
+		}
+		const objectInfoFormData = transformToFormData(serverData)
 		objectInfoFormData.append('id', id)
 		const res = await saveObjectInfo(objectInfoFormData)
 		if (res) {

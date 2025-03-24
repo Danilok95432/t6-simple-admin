@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react'
+import { type FC, useState, useEffect } from 'react'
 import { type LocationInputs } from 'src/pages/community-layout/pages/admin-community-location/schema'
 
 import { useFormContext } from 'react-hook-form'
@@ -12,20 +12,39 @@ import { ControlledMaskedInput } from 'src/components/controlled-masked-input/co
 import styles from './index.module.scss'
 
 export const MapSection: FC = () => {
-	const [mapCoordinates, setMapCoordinates] = useState<[number, number] | null>(null)
-	const { getValues, setValue } = useFormContext<LocationInputs>()
-	const prevMapCoordinates = useGetLocationCommunityQuery(null)
-		.data?.mapCoords.split(',')
-		.map((el) => +el)
+	const { setValue, watch } = useFormContext<LocationInputs>()
 
-	const loadMap = () => {
-		const coordValues = getValues('mapCoords')
+	const { data } = useGetLocationCommunityQuery(null)
+	const prevMapCoordinates: [number, number] | null = data?.mapCoords
+		? (data.mapCoords.split(',').map(Number) as [number, number])
+		: null
 
-		if (coordValues) {
-			const coordArr = coordValues.split(',')
+	const initialCoords = prevMapCoordinates?.join(', ') ?? ''
 
-			if (coordArr.length !== 2) return
-			setMapCoordinates([+coordArr[0], +coordArr[1]])
+	const inputValue = watch('mapCoords', initialCoords)
+
+	const [mapCoordinates, setMapCoordinates] = useState<[number, number] | null>(prevMapCoordinates)
+
+	useEffect(() => {
+		if (prevMapCoordinates) {
+			setMapCoordinates(prevMapCoordinates)
+			setValue('mapCoords', initialCoords)
+		}
+	}, [data])
+
+	const handleSave = () => {
+		if (initialCoords !== inputValue) {
+			const coordArr = inputValue.split(',').map((el) => +el.trim())
+			if (coordArr.length === 2 && !isNaN(coordArr[0]) && !isNaN(coordArr[1])) {
+				setMapCoordinates([coordArr[0], coordArr[1]])
+			}
+		}
+	}
+
+	const handleReset = () => {
+		if (prevMapCoordinates) {
+			setMapCoordinates(prevMapCoordinates)
+			setValue('mapCoords', initialCoords)
 		}
 	}
 
@@ -37,22 +56,19 @@ export const MapSection: FC = () => {
 				name='mapCoords'
 				$margin='0 0 15px 0'
 				placeholder='Координаты'
-				disabled={!mapCoordinates?.length}
 			/>
 			<div className={styles.mapControllers}>
-				<AdminButton $padding='0 20px' $height='35px' type='button' onClick={loadMap}>
+				<AdminButton
+					$padding='0 20px'
+					$height='35px'
+					type='button'
+					onClick={handleSave}
+					$variant={initialCoords === inputValue ? 'sent' : 'primary'}
+				>
 					Сохранить
 				</AdminButton>
-				{!!mapCoordinates && (
-					<AdminButton
-						$padding='0 20px'
-						$height='35px'
-						type='button'
-						onClick={() => {
-							setMapCoordinates([prevMapCoordinates![0], prevMapCoordinates![1]])
-							setValue('mapCoords', prevMapCoordinates?.join(', ')!)
-						}}
-					>
+				{initialCoords !== inputValue && (
+					<AdminButton $padding='0 20px' $height='35px' type='button' onClick={handleReset}>
 						Отменить
 					</AdminButton>
 				)}

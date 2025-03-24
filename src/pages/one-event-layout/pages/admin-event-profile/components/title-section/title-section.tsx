@@ -12,12 +12,14 @@ type TitleSectionProps = {
 	objectsList?: SelOption[]
 	eventTypesList?: SelOption[]
 	eventLevelsList?: SelOption[]
+	brandsList?: SelOption[]
 }
 
 export const TitleSection: FC<TitleSectionProps> = ({
 	objectsList,
 	eventTypesList,
 	eventLevelsList,
+	brandsList,
 }) => {
 	return (
 		<AdminSection isBlock={false}>
@@ -46,6 +48,12 @@ export const TitleSection: FC<TitleSectionProps> = ({
 					selectOptions={eventLevelsList ?? [{ label: 'Не выбрано', value: '0' }]}
 				/>
 			</GridRow>
+			<ControlledSelect
+				name='brands_list'
+				label='Бренд *'
+				selectOptions={brandsList ?? [{ label: 'Не выбрано', value: '0' }]}
+				margin='0 0 20px 0'
+			/>
 
 			<ControlledInput
 				name='tags'

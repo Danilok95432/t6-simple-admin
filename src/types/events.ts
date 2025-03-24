@@ -42,6 +42,7 @@ export type EventInfoResponse = {
 	objects_list?: SelOption[]
 	event_types_list: SelOption[]
 	event_levels_list: SelOption[]
+	brands_list: SelOption[]
 	tags?: string
 	date_from: string
 	time_from: string

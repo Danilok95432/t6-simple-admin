@@ -51,7 +51,7 @@ export const ObjectInfo = () => {
 			vkName: data.vkName,
 			vkSoc: data.vkSoc,
 			coords: data.coords,
-			object_types:
+			object_type:
 				typeof data.object_types === 'string'
 					? data.object_types
 					: data.object_types

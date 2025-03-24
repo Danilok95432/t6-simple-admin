@@ -55,6 +55,7 @@ export const objectsApi = createApi({
 				method: 'POST',
 				body: formData,
 			}),
+			invalidatesTags: ['Object', 'ObjectInfo'],
 		}),
 
 		getObjectInfo: build.query<ObjectInfoResponse, string>({

@@ -185,20 +185,20 @@ export const splitAndTrimStringToArray = (value: string | undefined): string[] =
 export const rtkQueryErrorLogger: Middleware = () => (next) => (action) => {
 	if (isRejectedWithValue(action)) {
 		const errorData = action.payload as ResponseError
-		const errorMessage = errorData.data.errortext
-		toast.error(errorMessage, {
-			position: 'top-right',
-			autoClose: 5000,
-			hideProgressBar: false,
-			closeOnClick: true,
-			pauseOnHover: true,
-			draggable: true,
-		})
-
-		if (errorData.status === 401) {
-			toast.warn('Необходимо авторизоваться', {
+		if (errorData.status === 401 || errorData.status === 400) {
+			toast.error('Требуется авторизация', {
 				position: 'top-right',
 				autoClose: 5000,
+			})
+		} else {
+			const errorMessage = errorData.data.errortext
+			toast.error(errorMessage, {
+				position: 'top-right',
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
 			})
 		}
 	}

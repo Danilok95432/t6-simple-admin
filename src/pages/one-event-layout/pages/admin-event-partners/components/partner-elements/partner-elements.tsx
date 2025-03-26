@@ -31,6 +31,8 @@ export const PartnerElements = () => {
 	const { data: partnersDataResponse, isLoading } = useGetPartnersByEventIdQuery({
 		idEvent: id,
 		title: filterValues.title,
+		partnerVids: filterValues.partner_vids,
+		partnerTypes: filterValues.partner_types,
 	})
 	const { refetch: getNewId } = useGetNewPartnerIdEventQuery(id)
 	const [deletePartnerById] = useDeleteEventPartnerByIdMutation()

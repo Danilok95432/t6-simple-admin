@@ -23,7 +23,7 @@ import {
 	useGetContentByEventIdQuery,
 	useSaveEventContentInfoMutation,
 } from 'src/store/events/events.api'
-import { booleanToNumberString } from 'src/helpers/utils'
+import { booleanToNumberString, currentDateString, formatDateToYYYYMMDD } from 'src/helpers/utils'
 import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const AdminEventContent: FC = () => {
@@ -62,12 +62,14 @@ export const AdminEventContent: FC = () => {
 			eventInfoFormData.append(`links_title[${index}]`, link.title)
 			eventInfoFormData.append(`links_link[${index}]`, link.link)
 			eventInfoFormData.append(`links_desc[${index}]`, link.desc)
+			eventInfoFormData.append(`links_date[${index}]`, formatDateToYYYYMMDD(link.date))
 		})
 
 		eventInfoFormData.append('linksBlock_title', data.linksBlock_title)
 		eventInfoFormData.append('hide_placements', booleanToNumberString(data.hide_placements))
 		eventInfoFormData.append('hide_gallery', booleanToNumberString(data.hide_gallery))
 		eventInfoFormData.append('hide_links', booleanToNumberString(data.hide_links))
+		eventInfoFormData.append('hide_documents', booleanToNumberString(data.hide_documents))
 
 		const res = await saveEventContentInfo(eventInfoFormData)
 		if (res) {
@@ -80,9 +82,18 @@ export const AdminEventContent: FC = () => {
 
 	useEffect(() => {
 		if (contentInfoData) {
-			methods.reset({ ...contentInfoData })
+			const modifiedContentInfoData = { ...contentInfoData }
+			if (modifiedContentInfoData.links) {
+				modifiedContentInfoData.links = modifiedContentInfoData.links.map((link) => {
+					if (link.date === '0000-00-00') {
+						return { ...link, date: currentDateString() }
+					}
+					return link
+				})
+			}
+			methods.reset(modifiedContentInfoData)
 		}
-	}, [contentInfoData])
+	}, [contentInfoData, methods.reset])
 
 	return (
 		<AdminContent className={styles.eventContentPage}>

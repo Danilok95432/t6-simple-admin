@@ -74,6 +74,7 @@ export type linksEvent = {
 	title: string
 	link: string
 	desc: string
+	date: string
 }
 
 export type EventContacts = {
@@ -112,7 +113,7 @@ export type EventProgramResponse = {
 
 export type EventProgram = {
 	title: string
-	place: string
+	place?: string
 	itemdate: Date | string
 	begin_time: Date | string
 	end_time?: Date | string

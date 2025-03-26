@@ -8,8 +8,10 @@ import { GridRow } from 'src/components/grid-row/grid-row'
 import { AddButton } from 'src/UI/AddButton/AddButton'
 import { SwitchedRadioBtns } from 'src/components/switched-radio-btns/switched-radio-btns'
 import { CustomText } from 'src/components/custom-text/custom-text'
+import { ControlledDateInput } from 'src/components/controlled-date-input/controlled-date-input'
 
 import styles from './index.module.scss'
+import adminStyles from 'src/routes/admin-layout/index.module.scss'
 
 export const LinksSection: FC = () => {
 	const { control } = useFormContext<EventContentInputs>()
@@ -45,6 +47,13 @@ export const LinksSection: FC = () => {
 							/>
 							<ControlledInput name={`links[${idx}].desc`} placeholder='Текст подписи' />
 							<ControlledInput name={`links[${idx}].link`} placeholder='Адрес URL' />
+							<ControlledDateInput
+								className={adminStyles.adminDateInput}
+								name={`links[${idx}].date`}
+								dateFormat='yyyy-MM-dd'
+								placeholder='гггг-мм-дд'
+								margin='0'
+							/>
 						</GridRow>
 					</li>
 				))}
@@ -59,6 +68,7 @@ export const LinksSection: FC = () => {
 								title: '',
 								link: '',
 								desc: '',
+								date: '',
 							},
 							{ shouldFocus: false },
 						)

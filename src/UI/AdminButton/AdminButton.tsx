@@ -17,7 +17,7 @@ type ButtonComponentProps = {
 	$fontSize?: string
 	$height?: string
 	$radius?: string
-	$variant?: 'primary' | 'light' | 'cancel' | 'sent' | 'delay'
+	$variant?: 'primary' | 'light' | 'cancel' | 'sent' | 'delay' | 'disabled'
 }
 
 type SharedStylesTypes = Omit<ButtonComponentProps, 'as' | 'children'>
@@ -28,11 +28,12 @@ const sharedStyles = css<SharedStylesTypes>`
 	height: ${({ $height }) => $height ?? '45px'};
 	font-size: ${({ $fontSize }) => $fontSize ?? '14px'};
 	border-radius: ${({ $radius }) => $radius ?? '3px'};
-	pointer-events: ${({ $variant }) => ($variant === 'sent' ? 'none' : 'initial')};
+	pointer-events: ${({ $variant }) =>
+		$variant === 'sent' || $variant === 'disabled' ? 'none' : 'initial'};
 
 	background: ${({ $variant }) => {
 		if ($variant === 'primary') return '#184F71'
-		if ($variant === 'sent') return '#018EA3'
+		if ($variant === 'sent' || $variant === 'disabled') return '#018EA3'
 		return '#ffffff'
 	}};
 	color: ${({ $variant }) => {

@@ -48,7 +48,7 @@ export const AdminEventProgram: FC = () => {
 
 		data.program?.forEach((item, index) => {
 			objectProgramFormData.append(`title[${index}]`, item.title)
-			objectProgramFormData.append(`place[${index}]`, item.place)
+			objectProgramFormData.append(`place[${index}]`, item.place ?? '')
 			objectProgramFormData.append(`itemdate[${index}]`, formatDateToYYYYMMDD(item.itemdate))
 			objectProgramFormData.append(
 				`begin_time[${index}]`,

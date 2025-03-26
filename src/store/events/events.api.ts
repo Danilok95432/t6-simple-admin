@@ -127,13 +127,15 @@ export const eventsApi = createApi({
 		}),
 		getPartnersByEventId: build.query<
 			EventPartnersResponse,
-			{ idEvent: string | undefined; title?: string }
+			{ idEvent: string | undefined; title?: string; partnerVids?: string; partnerTypes?: string }
 		>({
-			query: ({ idEvent, title }) => ({
+			query: ({ idEvent, title, partnerVids = '', partnerTypes = '' }) => ({
 				url: `events/partners`,
 				params: {
 					id_event: idEvent,
 					title,
+					partner_vids: partnerVids,
+					partner_types: partnerTypes,
 				},
 			}),
 			providesTags: ['Events', 'EventPartners'],

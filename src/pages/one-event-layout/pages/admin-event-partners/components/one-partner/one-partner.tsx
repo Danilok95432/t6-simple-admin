@@ -15,7 +15,8 @@ import {
 } from 'src/store/events/events.api'
 import { useEffect } from 'react'
 import { transformToFormData } from 'src/helpers/utils'
-import { type EventPartnerInputs } from './schema'
+import { eventPartnerSchema, type EventPartnerInputs } from './schema'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 export const OnePartner = () => {
 	const { id = '', partnerId = '' } = useParams()
@@ -24,9 +25,10 @@ export const OnePartner = () => {
 
 	const methods = useForm<EventPartnerInputs>({
 		mode: 'onBlur',
+		resolver: yupResolver(eventPartnerSchema),
 	})
 
-	const { isSent, markAsSent } = useIsSent(methods.control)
+	const { markAsSent } = useIsSent(methods.control)
 	const navigate = useNavigate()
 
 	const onSubmit: SubmitHandler<EventPartnerInputs> = async (data) => {
@@ -80,7 +82,13 @@ export const OnePartner = () => {
 							as='button'
 							type='submit'
 							$height='40px'
-							$variant={isSent ? 'sent' : 'primary'}
+							$variant={
+								partnerEventInfoData?.partners_list
+									? partnerEventInfoData?.partners_list.length > 1
+										? 'primary'
+										: 'disabled'
+									: 'disabled'
+							}
 						>
 							Добавить партнера
 						</AdminButton>

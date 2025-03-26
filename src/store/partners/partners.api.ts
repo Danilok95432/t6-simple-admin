@@ -20,6 +20,11 @@ export const partnersApi = createApi({
 		>({
 			query: ({ title = '', partnerVids = '', partnerTypes = '' }) => ({
 				url: 'partners/list',
+				params: {
+					title,
+					partner_vids: partnerVids,
+					partner_types: partnerTypes,
+				},
 			}),
 			providesTags: ['Partners'],
 		}),

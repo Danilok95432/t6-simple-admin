@@ -9,7 +9,7 @@ export type ProgramInputs = {
 
 export const programSchema = yup.object({
 	title: yup.string().required('Введите название программы'),
-	place: yup.string().required('Введите локацию'),
+	place: yup.string().optional(),
 	itemdate: yup
 		.mixed<Date | string>()
 		.transform((value, originalValue) => {

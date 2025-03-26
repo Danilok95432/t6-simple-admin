@@ -27,8 +27,8 @@ export const PartnersElements: FC = () => {
 
 	const { data: partnersInfoData, isLoading } = useGetAllPartnersQuery({
 		title: filterValues.title,
-		partnerVids: filterValues.partnerVids,
-		partnerTypes: filterValues.partnerTypes,
+		partnerVids: filterValues.partner_vids,
+		partnerTypes: filterValues.partner_types,
 	})
 	const { refetch: getNewId } = useGetNewIdPartnerQuery(null)
 	const [deletePartnerById] = useDeletePartnerByIdMutation()

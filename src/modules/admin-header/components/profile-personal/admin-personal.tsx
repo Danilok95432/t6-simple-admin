@@ -1,10 +1,6 @@
 import { type FC } from 'react'
 
-import cn from 'classnames'
-import { NotificationSvg } from 'src/UI/icons/notificationSVG'
-import { Link, useNavigate } from 'react-router-dom'
-import { AdminRoute } from 'src/routes/admin-routes/consts'
-import { AdminPersonalSvg } from 'src/UI/icons/adminPersonalSVG'
+import { useNavigate } from 'react-router-dom'
 import { LoginIconSvg } from 'src/UI/icons/loginIconSVG'
 import { useActions } from 'src/hooks/actions/actions'
 import { AuthModal } from 'src/modals/auth-modal/auth-modal'
@@ -47,7 +43,7 @@ export const AdminPersonal: FC = () => {
 
 	return (
 		<div className={styles.adminPersonal}>
-			<Link
+			{/* <Link
 				className={cn(styles.notificationLink, { [styles._unread]: true })}
 				to={AdminRoute.AdminNotifications}
 			>
@@ -56,6 +52,7 @@ export const AdminPersonal: FC = () => {
 			<Link to={AdminRoute.AdminPersonal}>
 				<AdminPersonalSvg />
 			</Link>
+			*/}
 			<span className={styles.userName}>{currentUser?.username}</span>
 			<AdminButton $variant='light' $height='35px' onClick={handleLogoutUser} type='button'>
 				Выйти

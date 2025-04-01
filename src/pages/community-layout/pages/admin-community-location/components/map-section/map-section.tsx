@@ -61,7 +61,8 @@ export const MapSection: FC = () => {
 				<AdminButton
 					$padding='0 20px'
 					$height='35px'
-					type='button'
+					as='button'
+					type='submit'
 					onClick={handleSave}
 					$variant={initialCoords === inputValue ? 'sent' : 'primary'}
 				>

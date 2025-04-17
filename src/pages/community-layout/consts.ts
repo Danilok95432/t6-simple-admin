@@ -2,7 +2,7 @@ import { type TabNavigationItem } from 'src/types/navigation'
 
 export const communityTabs: TabNavigationItem[] = [
 	{
-		title: 'Атманов угол',
+		title: 'Атманов Угол',
 		link: '/atmans',
 		exact: true,
 	},
@@ -17,6 +17,14 @@ export const communityTabs: TabNavigationItem[] = [
 	{
 		title: 'Материальная культура',
 		link: 'atm-culture',
+	},
+	{
+		title: 'Традиции Атманова Угла',
+		link: 'atm-traditions',
+	},
+	{
+		title: 'Игры Атманова Угла',
+		link: 'atm-games',
 	},
 	/* {
 		title: 'Документы',

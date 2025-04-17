@@ -1,9 +1,28 @@
 .placeRequest {
-  font-size: 14px;
-  a {
-    font-weight: 600;
-    font-size: 14px;
-    color: #002C47;
-    text-decoration: underline;
-  }
+	font-size: 14px;
+	a {
+		font-weight: 600;
+		font-size: 14px;
+		color: #002c47;
+		text-decoration: underline;
+	}
+}
+
+.inputWrapper {
+	display: flex;
+	align-items: center;
+	column-gap: 10px;
+	width: 100%;
+}
+
+.tooltip_short {
+	margin-top: 8px;
+}
+
+.tooltip_textAria {
+	margin-top: -67px;
+}
+
+.tooltip_age {
+	margin-top: 30px;
 }

@@ -4,17 +4,18 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect, useState } from 'react'
+import { transformToFormData } from 'src/helpers/utils'
+import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { AdminRoute } from 'src/routes/admin-routes/consts'
 import { AdminControllers } from 'src/components/admin-controllers/admin-controllers'
 import { MainSection } from './components/main-section/main-section'
 import { ContactsSection } from './components/contacts-section/contacts-section'
+import { OrganizerSection } from './components/organizer-section/organizer-section'
 import { useGetObjectInfoQuery, useSaveObjectInfoMutation } from 'src/store/objects/objects.api'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
-import { transformToFormData } from 'src/helpers/utils'
-import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 
 export const ObjectInfo = () => {
 	const { id = '0' } = useParams()
@@ -97,13 +98,9 @@ export const ObjectInfo = () => {
 				>
 					<FormProvider {...methods}>
 						<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
-							<MainSection
-								objectTypes={objInfoData?.object_types}
-								objectApply={objInfoData?.object_apply}
-								photo={objInfoData?.photo}
-								icon={objInfoData?.icon}
-							/>
+							<MainSection photo={objInfoData?.photo} />
 							<ContactsSection />
+							<OrganizerSection />
 							<AdminControllers
 								outLink={AdminRoute.AdminHome}
 								isSent={isSent}

@@ -54,15 +54,15 @@ export const AdminCommunityAbout: FC = () => {
 	return (
 		<>
 			<Helmet>
-				<title>Атманов угол</title>
+				<title>Атманов Угол</title>
 			</Helmet>
-			<AdminContent title='Атманов угол' link='https://атманов-угол.рф/about'>
+			<AdminContent title='Атманов Угол' link='https://атманов-угол.рф/about'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<TitleSection logo={aboutCommunityData?.logo} />
 						<GallerySection images={aboutCommunityData?.photoGallery} />
 						<ArticleSection />
-						<AdminControllers variant='3' isSent={isSent} actionHandler={setAction} />
+						<AdminControllers isSent={isSent} actionHandler={setAction} />
 					</form>
 				</FormProvider>
 			</AdminContent>

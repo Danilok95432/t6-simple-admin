@@ -5,20 +5,21 @@ import { AdminSection } from 'src/components/admin-section/admin-section'
 
 export const TitleSection: FC = () => {
 	return (
-		<AdminSection titleText='Название статьи и текст верхней части'>
-			<ControlledInput
-				name='articleName'
-				label='Название статьи*'
-				placeholder='Название статьи'
-				margin='0 0 20px 0'
-				width='100%'
-			/>
+		<AdminSection>
 			<ControlledInput
 				name='topDescs'
-				label='Текст верхней части статьи*'
-				margin='0'
-				height='218px'
+				label='Текст-анонс*'
+				margin='0 0 20px 0'
+				height='201px'
 				isTextarea
+			/>
+
+			<ControlledInput
+				name='articleName'
+				label='Подпись под анонсом*'
+				placeholder='Текст'
+				margin='0 0 20px 0'
+				width='100%'
 			/>
 		</AdminSection>
 	)

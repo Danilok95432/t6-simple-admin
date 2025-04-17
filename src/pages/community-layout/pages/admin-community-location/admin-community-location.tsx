@@ -21,6 +21,7 @@ import { MailSection } from 'src/pages/community-layout/pages/admin-community-lo
 import { PhoneSection } from 'src/pages/community-layout/pages/admin-community-location/components/phones-section/phone-section'
 import { EmailsSection } from 'src/pages/community-layout/pages/admin-community-location/components/emails-section/emails-section'
 import { MapSection } from 'src/pages/community-layout/pages/admin-community-location/components/map-section/map-section'
+import { GallerySection } from './components/gallery-section/gallery-section'
 
 export const AdminCommunityLocation: FC = () => {
 	const { data: aboutLocationData } = useGetLocationCommunityQuery(null)
@@ -87,10 +88,11 @@ export const AdminCommunityLocation: FC = () => {
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<MapSection />
+						<GallerySection />
 						<MailSection />
 						<PhoneSection />
 						<EmailsSection />
-						<AdminControllers variant='3' isSent={isSent} actionHandler={setAction} />
+						<AdminControllers isSent={isSent} actionHandler={setAction} />
 					</form>
 				</FormProvider>
 			</AdminContent>

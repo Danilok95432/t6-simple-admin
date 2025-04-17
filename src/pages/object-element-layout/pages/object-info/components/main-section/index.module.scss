@@ -1,6 +1,11 @@
 .mainSectionInner {
-  max-width: 78%;
-  @media (max-width: 1024px) {
-    max-width: 100%;
-  }
+	max-width: 79.4%;
+	@media (max-width: 1024px) {
+		max-width: 100%;
+	}
+}
+.inputWrapper {
+	display: flex;
+	align-items: center;
+	column-gap: 10px;
 }

@@ -9,6 +9,7 @@ type StyledGridRowProps = {
 	$mdTemplate?: string
 	$mdGap?: string
 	$maxWidth?: string
+	$width?: string
 	$padding?: string
 	$borderBottom?: string
 	children: ReactNode
@@ -22,6 +23,7 @@ const StyledGridRow = styled.div<StyledGridRowProps>`
 	display: grid;
 	gap: ${({ $gap }) => $gap ?? '10px'};
 	max-width: ${({ $maxWidth }) => $maxWidth ?? '100%'};
+	width: ${({ $width }) => $width ?? '100%'};
 	align-items: ${({ $alignItems }) => $alignItems ?? 'start'};
 	grid-template: ${({ $template, className }) =>
 		className ? '' : ($template ?? 'auto / 1fr 1fr')};

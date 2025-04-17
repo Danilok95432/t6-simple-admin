@@ -9,13 +9,16 @@ import { RemovePhotoSvg } from 'src/UI/icons/removePhotoSVG'
 import { ErrorMessage } from '@hookform/error-message'
 import { AttachIconSvg } from 'src/UI/icons/attachIconSVG'
 
-import styles from './index.module.scss'
 import {
 	useDeleteImageByIdMutation,
 	useUploadImagesMutation,
 } from 'src/store/uploadImages/uploadImages.api'
 import { useParams } from 'react-router-dom'
 import { type ImageItemWithText } from 'src/types/photos'
+import { Tooltip } from '../tooltip/Tooltip'
+import { InfoIconSvg } from 'src/UI/icons/infoIcon'
+
+import styles from './index.module.scss'
 
 type ReactDropzoneProps = {
 	name: string
@@ -39,6 +42,7 @@ type ReactDropzoneProps = {
 	imgEditId?: string
 	syncAdd?: (file: ImageItemWithText) => void
 	syncEdit?: (file: ImageItemWithText) => void
+	text?: string
 }
 
 export const ReactDropzone: FC<ReactDropzoneProps> = ({
@@ -63,6 +67,7 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 	imgEditId = '',
 	syncAdd,
 	syncEdit,
+	text,
 }) => {
 	const [currentFiles, setCurrentFiles] = useState<ImageItemWithText[]>(fileImages || [])
 	const [imageIds, setImageIds] = useState<string[]>([])
@@ -209,6 +214,7 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 		return (
 			<div className={cn(styles.textFileUpload, className)} style={{ margin: margin ?? '' }}>
 				{label && <label>{label}</label>}
+
 				<input {...register(name)} {...getInputProps()} />
 				<FilePreviews
 					variant={'culture-img-list'}
@@ -231,7 +237,15 @@ export const ReactDropzone: FC<ReactDropzoneProps> = ({
 
 	return (
 		<div className={cn(styles.reactDropzone, className)} style={{ margin: margin ?? '' }}>
-			{label && <label>{label}</label>}
+			<div className={styles.labelWrapper}>
+				{label && <label>{label}</label>}
+				{text && (
+					<Tooltip text={text} position='right' className={styles.tooltip}>
+						<InfoIconSvg />
+					</Tooltip>
+				)}
+			</div>
+
 			<FilePreviews
 				variant={previewVariant ?? 'main'}
 				files={currentFiles}

@@ -72,7 +72,7 @@ export const AdminCommunityHistory: FC = () => {
 						<TitleSection />
 						<GallerySection images={aboutHistoryData?.photos} />
 						<ArticleSection />
-						<AdminControllers variant='3' isSent={isSent} actionHandler={setAction} />
+						<AdminControllers isSent={isSent} actionHandler={setAction} />
 					</form>
 				</FormProvider>
 			</AdminContent>

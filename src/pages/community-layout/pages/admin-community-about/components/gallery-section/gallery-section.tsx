@@ -57,7 +57,7 @@ export const GallerySection: FC<GallerySectionProps> = ({ images }) => {
 	}, [images])
 
 	return (
-		<AdminSection titleText='Фотогалерея' sectionName='gallerySection'>
+		<AdminSection titleText='Галерея' sectionName='gallerySection'>
 			<ReactDropzone
 				previewVariant='img-list'
 				name='photoGallery'

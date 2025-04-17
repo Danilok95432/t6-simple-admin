@@ -14,7 +14,6 @@ type MainSectionProps = {
 }
 
 export const MainSection: FC<MainSectionProps> = ({ photo }) => {
-	console.log(photo)
 	return (
 		<AdminSection isBlock={false}>
 			<ControlledInput
@@ -42,20 +41,20 @@ export const MainSection: FC<MainSectionProps> = ({ photo }) => {
 			/>
 			<ControlledInput
 				name='short'
-				label='Краткое описание (хранится в базе)'
+				label='Описание записи'
 				isTextarea
 				height='78px'
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput
 				name='vkvideo'
-				label='Ссылка на видео ВК'
+				label='Ссылка на видео'
 				placeholder='Введите текст ссылки на запись'
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput
 				name='vkexport'
-				label='Текст кода для вставки (экспорт из ВК)'
+				label='Текст кода для вставки (экспорт)'
 				isTextarea
 				height='78px'
 				margin='0 0 20px 0'
@@ -69,6 +68,7 @@ export const MainSection: FC<MainSectionProps> = ({ photo }) => {
 				previewVariant='sm-img'
 				imgtype='videos'
 				fileImages={photo}
+				text='Если Вас не устраивает изображение, автоматически подставляемое видеохостингом, Вы можете загрузить свой вариант.'
 			/>
 		</AdminSection>
 	)

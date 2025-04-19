@@ -50,7 +50,7 @@ export const MainSection: FC<MainSectionProps> = ({ photo }) => {
 					isTextarea
 				/>
 
-				<Tooltip text='Подсказка' position='top'>
+				<Tooltip text='Подсказка' position='top' wrapperClassName={styles.mainDescrTooltip}>
 					<InfoIconSvg />
 				</Tooltip>
 			</div>
@@ -65,7 +65,7 @@ export const MainSection: FC<MainSectionProps> = ({ photo }) => {
 					isTextarea
 				/>
 
-				<Tooltip text='Подсказка' position='top'>
+				<Tooltip text='Подсказка' position='top' wrapperClassName={styles.descListTooltip}>
 					<InfoIconSvg />
 				</Tooltip>
 			</div>

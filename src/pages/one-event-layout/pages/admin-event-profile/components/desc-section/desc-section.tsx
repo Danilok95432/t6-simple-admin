@@ -87,9 +87,9 @@ export const DescSection: FC<DescSectionProps> = ({ ageList, locationsList }) =>
 				</Tooltip>
 			</div>
 
-			{/* <p className={styles.placeRequest}>
+			<p className={styles.placeRequest}>
 				Если площадки нет в списке, Вы можете <a href='#'>запросить добавление новой площадки</a>
-			</p> */}
+			</p>
 		</AdminSection>
 	)
 }

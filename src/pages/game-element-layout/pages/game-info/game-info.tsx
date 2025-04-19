@@ -40,7 +40,7 @@ export const GameInfo = () => {
 							margin='0 0 20px 0'
 						/>
 						<ReactDropzone
-							label='Фотография'
+							label='Фотография *'
 							name='logo'
 							prompt='PNG, JPG, JPEG. 1000 х1000px, не более 3 Мб'
 							accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}

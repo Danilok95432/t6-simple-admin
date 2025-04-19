@@ -48,7 +48,12 @@ export const TitleSection: FC<TitleSectionProps> = ({
 					margin='0 0 20px 0'
 				/>
 
-				<Tooltip text='Подсказка' position='top' wrapperClassName={styles.tooltip}>
+				<Tooltip
+					text='Укажите, от чьего лица проводится событие.
+Можно выбрать только из доступных Вам организаторов.'
+					position='left'
+					wrapperClassName={styles.tooltip}
+				>
 					<InfoIconSvg />
 				</Tooltip>
 			</div>

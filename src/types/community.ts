@@ -36,6 +36,9 @@ export type CultureItem = {
 	hidden: boolean
 }
 
+export type TraditionItem = CultureItem
+export type GameItem = CultureItem
+
 type PhoneLocationCommunity = {
 	contact: string
 	formatNumber: string

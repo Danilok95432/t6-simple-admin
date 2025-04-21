@@ -10,6 +10,7 @@ import { AdminMap } from 'src/components/admin-map/admin-map'
 import { ControlledMaskedInput } from 'src/components/controlled-masked-input/controlled-masked-input'
 
 import styles from './index.module.scss'
+import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 
 export const MapSection: FC = () => {
 	const { setValue, watch } = useFormContext<LocationInputs>()
@@ -74,6 +75,14 @@ export const MapSection: FC = () => {
 					</AdminButton>
 				)}
 			</div>
+			<ControlledInput
+				name='topDescs'
+				label='Текст-анонс*'
+				margin='0 0 20px 0'
+				height='201px'
+				isTextarea
+			/>
+
 			<div className={styles.loadedMap}>
 				<AdminMap points={mapCoordinates} zoom={17} />
 			</div>

@@ -12,6 +12,7 @@ export const ContactsSection: FC = () => {
 		<AdminSection
 			innerClassName={styles.objectContactsInner}
 			titleText='Контакты, социальные сети, карта'
+			titleStyleClass={styles.objectContactsTitle}
 		>
 			<GridRow $margin='20px 0' $gap='10px'>
 				<ControlledMaskedInput

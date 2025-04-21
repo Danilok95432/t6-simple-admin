@@ -9,7 +9,7 @@ export const CommunityLayout = () => {
 	return (
 		<>
 			<div className={adminStyles.adminTitleTab}>
-				<h1>Атманов угол</h1>
+				<h1>Атманов Угол</h1>
 				<TabNavigation navItems={communityTabs} />
 			</div>
 			<Outlet />

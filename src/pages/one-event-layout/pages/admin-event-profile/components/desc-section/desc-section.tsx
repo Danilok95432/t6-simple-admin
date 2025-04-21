@@ -7,6 +7,10 @@ import { GridRow } from 'src/components/grid-row/grid-row'
 import { type FC } from 'react'
 import { type SelOption } from 'src/types/select'
 
+import styles from './index.module.scss'
+import { Tooltip } from 'src/components/tooltip/Tooltip'
+import { InfoIconSvg } from 'src/UI/icons/infoIcon'
+
 type DescSectionProps = {
 	ageList?: SelOption[]
 	locationsList?: SelOption[]
@@ -15,50 +19,77 @@ type DescSectionProps = {
 export const DescSection: FC<DescSectionProps> = ({ ageList, locationsList }) => {
 	return (
 		<AdminSection isBlock={false}>
-			<ControlledInput
-				name='description'
-				label='Краткое описание *'
-				placeholder='Краткое описание события'
-				margin='0 0 20px 0'
-			/>
-			<ControlledInput
-				name='fullinfo'
-				label='Информация *'
-				placeholder='Подробное описание события'
-				isTextarea
-				margin='0 0 20px 0'
-			/>
-			<ControlledInput
-				name='conditions'
-				label='Условия участия *'
-				placeholder='Условия участия в событии'
-				isTextarea
-				margin='0 0 20px 0'
-			/>
-			<ControlledInput
-				name='raspisanie'
-				label='Расписание события *'
-				placeholder='Расписание события нумерованным текстом'
-				isTextarea
-				height='180px'
-				margin='0 0 20px 0'
-			/>
-			<GridRow $template='auto/ 0.5fr' $mdTemplate='1fr / 1fr' $margin='0 0 20px 0'>
-				<ControlledSelect
-					label='Возрастной рейтинг *'
-					name='age_list'
-					selectOptions={ageList ?? [{ label: 'Не выбрано', value: '0' }]}
+			<div className={styles.inputWrapper}>
+				<ControlledInput
+					name='description'
+					label='Краткое описание *'
+					placeholder='Краткое описание события'
+					margin='0 0 20px 0'
 				/>
+
+				<Tooltip text='Подсказка' position='top' wrapperClassName={styles.tooltip_short}>
+					<InfoIconSvg />
+				</Tooltip>
+			</div>
+
+			<div className={styles.inputWrapper}>
+				<ControlledInput
+					name='fullinfo'
+					label='Подробное описание *'
+					placeholder='Подробное описание события'
+					isTextarea
+					margin='0 0 20px 0'
+				/>
+
+				<Tooltip text='Подсказка' position='top' wrapperClassName={styles.tooltip_textAria}>
+					<InfoIconSvg />
+				</Tooltip>
+			</div>
+
+			<div className={styles.inputWrapper}>
+				<ControlledInput
+					name='conditions'
+					label='Условия участия *'
+					placeholder='Условия участия в событии'
+					isTextarea
+					margin='0 0 20px 0'
+				/>
+
+				<Tooltip text='Подсказка' position='top' wrapperClassName={styles.tooltip_textAria}>
+					<InfoIconSvg />
+				</Tooltip>
+			</div>
+
+			<GridRow $template='auto/ 0.5fr' $mdTemplate='1fr / 1fr' $margin='0 0 20px 0'>
+				<div className={styles.inputWrapper}>
+					<ControlledSelect
+						label='Возрастной рейтинг *'
+						name='age_list'
+						selectOptions={ageList ?? [{ label: 'Не выбрано', value: '0' }]}
+					/>
+
+					<Tooltip text='Подсказка' position='top' wrapperClassName={styles.tooltip_age}>
+						<InfoIconSvg />
+					</Tooltip>
+				</div>
 			</GridRow>
-			<ControlledSelect
-				label='Площадка *'
-				name='locations_list'
-				margin='0 0 25px 0'
-				selectOptions={locationsList ?? [{ label: 'Не выбрано', value: '0' }]}
-			/>
-			{/* <p className={styles.placeRequest}>
+
+			<div className={styles.inputWrapper}>
+				<ControlledSelect
+					label='Площадка *'
+					name='locations_list'
+					margin='0 0 25px 0'
+					selectOptions={locationsList ?? [{ label: 'Не выбрано', value: '0' }]}
+				/>
+
+				<Tooltip text='Подсказка' position='top' wrapperClassName={styles.tooltip}>
+					<InfoIconSvg />
+				</Tooltip>
+			</div>
+
+			<p className={styles.placeRequest}>
 				Если площадки нет в списке, Вы можете <a href='#'>запросить добавление новой площадки</a>
-			</p> */}
+			</p>
 		</AdminSection>
 	)
 }

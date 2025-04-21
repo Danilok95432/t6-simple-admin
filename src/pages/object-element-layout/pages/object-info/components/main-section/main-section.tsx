@@ -1,42 +1,34 @@
 import { type FC } from 'react'
-import { type SelOption } from 'src/types/select'
 import { type ImageItemWithText } from 'src/types/photos'
 
 import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 import { AdminSection } from 'src/components/admin-section/admin-section'
-import { ControlledSelect } from 'src/components/controlled-select/controlled-select'
 import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 
 import styles from './index.module.scss'
+import { Tooltip } from 'src/components/tooltip/Tooltip'
+import { InfoIconSvg } from 'src/UI/icons/infoIcon'
 
 type MainSectionProps = {
-	objectTypes?: SelOption[]
-	objectApply?: SelOption[]
 	photo?: ImageItemWithText[]
-	icon?: ImageItemWithText[]
 }
 
-export const MainSection: FC<MainSectionProps> = ({ objectTypes, objectApply, photo, icon }) => {
+export const MainSection: FC<MainSectionProps> = ({ photo }) => {
 	return (
 		<AdminSection innerClassName={styles.mainSectionInner} titleText='Основные данные'>
-			<ControlledInput
-				name='title'
-				label='Название объекта *'
-				placeholder='например, Мастерская керамики...'
-				margin='0 0 20px 0'
-			/>
-			<ControlledSelect
-				selectOptions={objectTypes ?? [{ label: 'Не выбрано', value: '0' }]}
-				name='object_types'
-				label='Тип объекта *'
-				margin='0 0 20px 0'
-			/>
-			<ControlledSelect
-				selectOptions={objectApply ?? [{ label: 'Не выбрано', value: '0' }]}
-				name='object_apply'
-				label='Принадлежность объекта *'
-				margin='0 0 20px 0'
-			/>
+			<div className={styles.inputWrapper}>
+				<ControlledInput
+					name='title'
+					label='Название объекта *'
+					placeholder='например, Мастерская керамики...'
+					margin='0 0 20px 0'
+				/>
+
+				<Tooltip text='Подсказка' position='top'>
+					<InfoIconSvg />
+				</Tooltip>
+			</div>
+
 			<ReactDropzone
 				label='Основное изображение'
 				name='photo'
@@ -47,32 +39,36 @@ export const MainSection: FC<MainSectionProps> = ({ objectTypes, objectApply, ph
 				imgtype='objects'
 				fileImages={photo}
 			/>
-			<ReactDropzone
-				label='Пиктограмма на главной странице'
-				name='photo'
-				prompt='JPEG, PNG, 500х500px, не более 2.5 Мб'
-				accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'], 'image/svg': ['.svg'] }}
-				margin='0 0 20px 0'
-				previewVariant='sm-vector'
-				imgtype='objects_icons'
-				fileImages={icon}
-			/>
-			<ControlledInput
-				name='mainDesc'
-				label='Краткое описание объекта *'
-				placeholder='Поле ввода текста описания'
-				margin='0 0 20px 0'
-				height='105px'
-				isTextarea
-			/>
-			<ControlledInput
-				name='descList'
-				label='Полное описание объекта *'
-				placeholder='Поле ввода текста статьи'
-				margin='0 0 10px 0'
-				height='250px'
-				isTextarea
-			/>
+
+			<div className={styles.inputWrapper}>
+				<ControlledInput
+					name='mainDesc'
+					label='Краткое описание объекта *'
+					placeholder='Поле ввода текста описания'
+					margin='0 0 20px 0'
+					height='105px'
+					isTextarea
+				/>
+
+				<Tooltip text='Подсказка' position='top' wrapperClassName={styles.mainDescrTooltip}>
+					<InfoIconSvg />
+				</Tooltip>
+			</div>
+
+			<div className={styles.inputWrapper}>
+				<ControlledInput
+					name='descList'
+					label='Полное описание объекта *'
+					placeholder='Поле ввода текста статьи'
+					margin='0 0 10px 0'
+					height='250px'
+					isTextarea
+				/>
+
+				<Tooltip text='Подсказка' position='top' wrapperClassName={styles.descListTooltip}>
+					<InfoIconSvg />
+				</Tooltip>
+			</div>
 		</AdminSection>
 	)
 }

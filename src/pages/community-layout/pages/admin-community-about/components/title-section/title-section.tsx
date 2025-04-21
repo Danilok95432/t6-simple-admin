@@ -11,7 +11,7 @@ type TitleSectionProps = {
 
 export const TitleSection: FC<TitleSectionProps> = ({ logo }) => {
 	return (
-		<AdminSection titleText='Заглавный текст'>
+		<AdminSection>
 			<ReactDropzone
 				label='Фотография'
 				name='logo'

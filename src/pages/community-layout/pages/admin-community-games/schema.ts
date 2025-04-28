@@ -2,12 +2,12 @@ import { type CultureItem } from 'src/types/community'
 import { type ImageItemWithText } from 'src/types/photos'
 import * as yup from 'yup'
 
-export type CommunityCultureInputs = {
+export type CommunityGameInputs = {
 	topDesc: string
 	photos?: ImageItemWithText[]
-	traditions?: CultureItem[]
+	games?: CultureItem[]
 }
 
-export const communityCultureSchema = yup.object().shape({
+export const communityGameSchema = yup.object().shape({
 	topDesc: yup.string().required('Введите текст'),
 })

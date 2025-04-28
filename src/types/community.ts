@@ -25,7 +25,13 @@ export type LocationCommunityResponse = {
 export type CultureCommunityResponse = {
 	topDesc: string
 	photos: ImageItemWithText[]
-	cultures: CultureItem[]
+	traditions: CultureItem[]
+}
+
+export type GameCommunityResponse = {
+	topDesc: string
+	photos: ImageItemWithText[]
+	games: GameItem[]
 }
 
 export type CultureItem = {

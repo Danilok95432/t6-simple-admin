@@ -41,7 +41,7 @@ export const CultureInfo = () => {
 	const [saveCultureInfo] = useSaveCultureInfoCommunityMutation()
 
 	const { refetch: getNewId } = useGetNewIdImageQuery({
-		imgtype: 'cultures_photo',
+		imgtype: 'traditions_photo',
 		idItem: id,
 	})
 	const addImage = async () => {
@@ -130,13 +130,6 @@ export const CultureInfo = () => {
 							margin='0 0 20px 0'
 						/>
 						<ControlledInput
-							name='desc'
-							label='Краткое описание'
-							maxWidth='1140px'
-							margin='0 0 20px 0'
-							isTextarea
-						/>
-						<ControlledInput
 							name='website'
 							label='Адрес интернет-сайта *'
 							maxWidth='1140px'
@@ -149,7 +142,7 @@ export const CultureInfo = () => {
 							accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
 							margin='0 0 20px 0'
 							previewVariant='sm-img'
-							imgtype='cultures'
+							imgtype='traditions'
 							fileImages={cultureInfoData?.logo}
 						/>
 						<QuillEditor
@@ -169,7 +162,7 @@ export const CultureInfo = () => {
 							fileImages={localeImages}
 							syncAdd={syncAddImagesHandler}
 							syncEdit={syncEditImagesHandler}
-							imgtype='cultures_photo'
+							imgtype='traditions_photo'
 							dzAreaClassName={styles.cultureGalleryController}
 							multiple
 							customOpenModal={

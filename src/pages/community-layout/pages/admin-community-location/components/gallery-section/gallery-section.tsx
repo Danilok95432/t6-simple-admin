@@ -15,7 +15,7 @@ type GallerySectionProps = {
 export const GallerySection: FC<GallerySectionProps> = ({ images }) => {
 	const [localeImages, setLocaleImages] = useState<ImageItemWithText[]>(images ?? [])
 	const { refetch: getNewId } = useGetNewIdImageQuery({
-		imgtype: 'about_history',
+		imgtype: 'about_map_photo',
 		idItem: '',
 	})
 	const addImage = async () => {
@@ -42,10 +42,11 @@ export const GallerySection: FC<GallerySectionProps> = ({ images }) => {
 
 	const handleOpenModal = async () => {
 		const newId = await addImage()
+
 		openModal(
 			<ImageModal
 				id={newId}
-				imgtype='about_history'
+				imgtype='about_map_photo'
 				syncAddHandler={syncAddImagesHandler}
 				syncEditHandler={syncEditImagesHandler}
 			/>,
@@ -61,7 +62,7 @@ export const GallerySection: FC<GallerySectionProps> = ({ images }) => {
 			<ReactDropzone
 				previewVariant='img-list'
 				name='photos'
-				imgtype='about_history'
+				imgtype='about_map_photo'
 				accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
 				maxFiles={7}
 				fileImages={localeImages}

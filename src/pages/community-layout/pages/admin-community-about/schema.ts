@@ -4,7 +4,7 @@ import { type ImageItemWithText } from 'src/types/photos'
 export type CommunityInputs = {
 	logo?: ImageItemWithText[]
 	mainDescs: string
-	caption: string
+	caption?: string
 	gallerySection?: boolean
 	photoGallery?: ImageItemWithText[]
 	articleSection?: boolean
@@ -13,7 +13,7 @@ export type CommunityInputs = {
 
 export const communitySchema = yup.object().shape({
 	mainDescs: yup.string().required('Введите текст'),
-	caption: yup.string().required('Введите подпись'),
+	caption: yup.string(),
 	gallerySection: yup.boolean(),
 	articleSection: yup.boolean(),
 	descs: yup.string().when('articleSection', ([articleSection]) => {

@@ -6,7 +6,7 @@ import { type FieldValues } from 'react-hook-form'
 import {
 	type ImageNewIdResponse,
 	type ImageInfoResponse,
-	type ImageUploadRespone,
+	type ImageUploadResponse,
 } from 'src/types/photos'
 
 export const uploadImagesApi = createApi({
@@ -41,7 +41,7 @@ export const uploadImagesApi = createApi({
 			}),
 			providesTags: ['ImageInfo', 'ImageUpload'],
 		}),
-		uploadImages: build.mutation<ImageUploadRespone, FieldValues>({
+		uploadImages: build.mutation<ImageUploadResponse, FieldValues>({
 			query: (formData) => ({
 				url: `images/upload`,
 				method: 'POST',

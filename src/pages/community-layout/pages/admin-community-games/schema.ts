@@ -1,10 +1,10 @@
 import * as yup from 'yup'
 
-export type TraditionsInputs = {
+export type GamesInputs = {
 	topDescs?: string
 }
 
-export const traditionsSchema = yup.object().shape({
+export const gamesSchema = yup.object().shape({
 	topDescs: yup.string().test('trim', 'Это поле обязательно', function (value) {
 		if (!value) {
 			return this.createError({ message: 'Это поле обязательно' })

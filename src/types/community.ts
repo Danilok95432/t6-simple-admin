@@ -20,6 +20,7 @@ export type LocationCommunityResponse = {
 	mailAddress: string
 	phone: PhoneLocationCommunity
 	email: EmailLocationCommunity
+	photos: ImageItemWithText[]
 }
 
 export type CultureCommunityResponse = {

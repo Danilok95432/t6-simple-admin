@@ -1,9 +1,9 @@
 import { type ImageItemWithText } from 'src/types/photos'
 import * as yup from 'yup'
 
-export type CultureInfoInputs = {
+export type GameInfoInputs = {
 	hidden?: boolean
-	website: string
+	// website: string
 	title: string
 	// desc: string
 	createdate?: Date
@@ -12,8 +12,8 @@ export type CultureInfoInputs = {
 	bottomDesc?: string
 }
 
-export const cultureInfoSchema = yup.object().shape({
+export const gameInfoSchema = yup.object().shape({
 	title: yup.string().required('Введите наименование'),
-	website: yup.string().required('Введите адрес сайта'),
-	// desc: yup.string().required('Введите описание традиции'),
+	// website: yup.string().required('Введите адрес сайта'),
+	// desc: yup.string().required('Введите описание игры'),
 })

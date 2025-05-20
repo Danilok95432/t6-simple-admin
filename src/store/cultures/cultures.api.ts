@@ -12,7 +12,7 @@ export const culturesApi = createApi({
 	endpoints: (build) => ({
 		getCultureInfo: build.query<CultureInfoResponse, string>({
 			query: (id) => ({
-				url: `home/culture/edit_item`,
+				url: `home/tradition/edit_item`,
 				params: {
 					id,
 				},
@@ -21,13 +21,13 @@ export const culturesApi = createApi({
 		}),
 		getNewIdCulture: build.query<CultureNewIdResponse, null>({
 			query: () => ({
-				url: `home/culture/getnew`,
+				url: `home/tradition/getnew`,
 			}),
 			providesTags: ['CultureInfo', 'Culture'],
 		}),
 		saveCultureInfoCommunity: build.mutation<null, FieldValues>({
 			query: (formData) => ({
-				url: `home/culture/save_item`,
+				url: `home/tradition/save_item`,
 				method: 'POST',
 				body: formData,
 			}),

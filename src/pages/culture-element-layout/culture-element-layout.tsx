@@ -19,7 +19,7 @@ export const CultureElementLayout = () => {
 	return (
 		<>
 			<div className={adminStyles.adminTitleTab}>
-				<h1>Элемент материальной культуры</h1>
+				<h1>Одна традиция</h1>
 				<TabNavigation navItems={cultureTabs} />
 			</div>
 			<Outlet />

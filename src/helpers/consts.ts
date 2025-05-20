@@ -4,6 +4,7 @@ export enum ReducerPath {
 	News = 'news/api',
 	Events = 'events/api',
 	Culture = 'culture/api',
+	Games = 'games/api',
 	SiteSettings = 'site-settings/api',
 	Videos = 'videos/api',
 	Requests = 'requests/api',

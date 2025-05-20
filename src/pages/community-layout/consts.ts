@@ -15,12 +15,8 @@ export const communityTabs: TabNavigationItem[] = [
 		link: 'atm-location',
 	},
 	{
-		title: 'Материальная культура',
+		title: 'Традиции Атманова угла',
 		link: 'atm-culture',
-	},
-	{
-		title: 'Традиции Атманова Угла',
-		link: 'atm-traditions',
 	},
 	{
 		title: 'Игры Атманова Угла',

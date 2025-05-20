@@ -5,7 +5,7 @@ import * as yup from 'yup'
 export type CommunityCultureInputs = {
 	topDesc: string
 	photos?: ImageItemWithText[]
-	cultures?: CultureItem[]
+	traditions?: CultureItem[]
 }
 
 export const communityCultureSchema = yup.object().shape({

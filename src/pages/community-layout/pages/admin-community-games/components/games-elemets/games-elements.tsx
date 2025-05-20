@@ -1,42 +1,44 @@
-import { type FC } from 'react'
+import { type GameItem } from 'src/types/community'
 import { useNavigate } from 'react-router-dom'
+import { type FC } from 'react'
 import cn from 'classnames'
 
-import { GameElementsFiltrationInputs } from './consts'
-import { mainFormatDate } from 'src/helpers/utils'
-import { type GameItem } from 'src/types/community'
-
-import { RowController } from 'src/components/row-controller/row-controller'
-import { CustomTable } from 'src/components/custom-table/custom-table'
-import { GridRow } from 'src/components/grid-row/grid-row'
-import { TableFooter } from 'src/components/table-footer/table-footer'
+import {
+	useDeleteGameByIdMutation,
+	useHideGameByIdMutation,
+} from 'src/store/community/community.api'
+import { useGetNewIdGameQuery } from 'src/store/games/games.api'
 import { TableFiltration } from 'src/modules/table-filtration/table-filtration'
+import { GameElementsFiltrationInputs } from './consts'
+
+import { CustomTable } from 'src/components/custom-table/custom-table'
+import { mainFormatDate } from 'src/helpers/utils'
+import { Loader } from 'src/components/loader/loader'
+import { RowController } from 'src/components/row-controller/row-controller'
+import { TableFooter } from 'src/components/table-footer/table-footer'
+import { GridRow } from 'src/components/grid-row/grid-row'
 
 import styles from './index.module.scss'
 
-export const GamesElements: FC = () => {
+type GamesElementsProps = {
+	games?: GameItem[]
+}
+
+export const GamesElements: FC<GamesElementsProps> = ({ games = [] }) => {
+	const { refetch: getNewId } = useGetNewIdGameQuery(null)
+	const [hideGameById] = useHideGameByIdMutation()
+	const [deleteGameById] = useDeleteGameByIdMutation()
+
 	const navigate = useNavigate()
 
-	const gamesData = [
-		{
-			id: '1',
-			title: 'Русский этноспорт',
-			createdate: new Date(),
-			website: 'ethnosport.ru',
-			hidden: false,
-		},
-		{
-			id: '2',
-			title: 'Башкирский этноспорт',
-			createdate: new Date(),
-			website: 'bigmanitoodwelling.com',
-			hidden: false,
-		},
-	]
+	const addGame = async () => {
+		const newIdResponse = await getNewId().unwrap()
+		return newIdResponse.id
+	}
 
-	const tableTitles = ['Наименование элемента', 'Размещено', 'Отдельный сайт', '']
-	const formatGamesTableData = (gamesData: GameItem[]) => {
-		return gamesData.map((gameEl) => {
+	const tableTitles = ['Наименование элемента', 'Размещено', '']
+	const formatGameTableData = (gameData: GameItem[]) => {
+		return gameData.map((gameEl) => {
 			return {
 				rowId: gameEl.id,
 				cells: [
@@ -46,19 +48,6 @@ export const GamesElements: FC = () => {
 					<p className={cn({ 'hidden-cell': gameEl.hidden })} key='1'>
 						{mainFormatDate(gameEl.createdate)}
 					</p>,
-					gameEl.website ? (
-						<a
-							className={cn({ 'hidden-cell': gameEl.hidden }, styles.gameTableLink)}
-							href={gameEl.website}
-							key='4'
-						>
-							{gameEl.website}
-						</a>
-					) : (
-						<p key='4' className={cn({ 'hidden-cell': gameEl.hidden })}>
-							нет сайта
-						</p>
-					),
 					<RowController
 						id={gameEl.id}
 						hideHandler={rowHideHandler}
@@ -72,20 +61,22 @@ export const GamesElements: FC = () => {
 	}
 
 	const rowDeleteHandler = async (id: string) => {
-		console.log(id)
+		await deleteGameById(id)
 	}
 	const rowHideHandler = async (id: string) => {
-		console.log(id)
+		await hideGameById(id)
 	}
 
 	const rowClickHandler = (id: string) => {
 		navigate(`/game/game-info/${id}`)
 	}
 
-	const handleAddCultureClick = async () => {
-		// const newId = await addTradition()
-		// navigate(`/game/game-info/${newId}`)
+	const handleAddGameClick = async () => {
+		const newId = await addGame()
+		navigate(`/game/game-info/${newId}`)
 	}
+
+	if (!games) return <Loader />
 
 	return (
 		<div>
@@ -93,14 +84,14 @@ export const GamesElements: FC = () => {
 				<TableFiltration filterInputs={GameElementsFiltrationInputs} />
 			</GridRow>
 			<CustomTable
-				className={styles.gamesTable}
-				rowData={formatGamesTableData(gamesData)}
+				className={styles.gameTable}
+				rowData={formatGameTableData(games)}
 				colTitles={tableTitles}
 				rowClickHandler={rowClickHandler}
 			/>
 			<TableFooter
-				// totalElements={cultures.length}
-				addClickHandler={handleAddCultureClick}
+				totalElements={games.length}
+				addClickHandler={handleAddGameClick}
 				addText='Добавить элемент'
 			/>
 		</div>

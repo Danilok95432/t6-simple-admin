@@ -38,7 +38,7 @@ export const AdminCommunityCulture: FC = () => {
 	const [saveCultureCommunity] = useSaveCultureCommunityMutation()
 
 	const { refetch: getNewId } = useGetNewIdImageQuery({
-		imgtype: 'about_culture_photo',
+		imgtype: 'about_tradition_photo',
 		idItem: '',
 	})
 	const addImage = async () => {
@@ -68,7 +68,7 @@ export const AdminCommunityCulture: FC = () => {
 		openModal(
 			<ImageModal
 				id={newId}
-				imgtype='about_culture_photo'
+				imgtype='about_tradition_photo'
 				syncAddHandler={syncAddImagesHandler}
 				syncEditHandler={syncEditImagesHandler}
 			/>,
@@ -107,16 +107,12 @@ export const AdminCommunityCulture: FC = () => {
 	return (
 		<>
 			<Helmet>
-				<title>Материальная культура</title>
+				<title>Традиции Атманова угла</title>
 			</Helmet>
-			<AdminContent title='Материальная культура' $backgroundColor='#ffffff'>
+			<AdminContent title='Традиции Атманова угла' $backgroundColor='#ffffff'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
-						<QuillEditor
-							$heightEditor='310px'
-							name='topDesc'
-							label='Текст о материальной культуре'
-						/>
+						<QuillEditor $heightEditor='310px' name='topDesc' label='Текст-анонс' />
 						<ReactDropzone
 							margin='30px 0 0 0'
 							label={`Галерея изображений (${cultureCommunityData?.photos?.length} из 8)`}
@@ -128,7 +124,7 @@ export const AdminCommunityCulture: FC = () => {
 							fileImages={localeImages}
 							syncAdd={syncAddImagesHandler}
 							syncEdit={syncEditImagesHandler}
-							imgtype='about_culture_photo'
+							imgtype='about_tradition_photo'
 							dzAreaClassName={styles.cultureGalleryController}
 							multiple
 							customOpenModal={
@@ -160,7 +156,7 @@ export const AdminCommunityCulture: FC = () => {
 						</FlexRow>
 					</form>
 				</FormProvider>
-				<CultureElements cultures={cultureCommunityData?.cultures} />
+				<CultureElements cultures={cultureCommunityData?.traditions} />
 			</AdminContent>
 		</>
 	)

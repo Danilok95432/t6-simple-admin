@@ -5,6 +5,7 @@ import {
 	type AboutCommunityResponse,
 	type LocationCommunityResponse,
 	type CultureCommunityResponse,
+	type GameCommunityResponse,
 } from 'src/types/community'
 
 import { ReducerPath } from 'src/helpers/consts'
@@ -12,7 +13,13 @@ import { baseQueryWithReauth } from 'src/helpers/base-query'
 
 export const communityApi = createApi({
 	reducerPath: ReducerPath.Community,
-	tagTypes: ['CommunityAbout', 'CommunityHistory', 'CommunityLocation', 'CommunityCulture'],
+	tagTypes: [
+		'CommunityAbout',
+		'CommunityHistory',
+		'CommunityLocation',
+		'CommunityCulture',
+		'CommunityGame',
+	],
 	baseQuery: baseQueryWithReauth,
 	endpoints: (build) => ({
 		getAboutCommunity: build.query<AboutCommunityResponse, null>({
@@ -59,13 +66,13 @@ export const communityApi = createApi({
 		}),
 		getCultureCommunity: build.query<CultureCommunityResponse, null>({
 			query: () => ({
-				url: `home/culture/edit`,
+				url: `home/tradition/edit`,
 			}),
 			providesTags: ['CommunityCulture'],
 		}),
 		deleteCultureById: build.mutation<null, string>({
 			query: (cultureId) => ({
-				url: `home/culture/delete_item`,
+				url: `home/tradition/delete_item`,
 				method: 'DELETE',
 				body: { id: cultureId },
 			}),
@@ -73,7 +80,7 @@ export const communityApi = createApi({
 		}),
 		hideCultureById: build.mutation<null, string>({
 			query: (cultureId) => ({
-				url: `home/culture/hide_item`,
+				url: `home/tradition/hide_item`,
 				method: 'POST',
 				body: { id: cultureId },
 			}),
@@ -81,11 +88,41 @@ export const communityApi = createApi({
 		}),
 		saveCultureCommunity: build.mutation<null, FieldValues>({
 			query: (formData) => ({
-				url: `home/culture/save`,
+				url: `home/tradition/save`,
 				method: 'POST',
 				body: formData,
 			}),
 			invalidatesTags: ['CommunityCulture'],
+		}),
+		getGameCommunity: build.query<GameCommunityResponse, null>({
+			query: () => ({
+				url: `home/game/edit`,
+			}),
+			providesTags: ['CommunityGame'],
+		}),
+		deleteGameById: build.mutation<null, string>({
+			query: (gameId) => ({
+				url: `home/game/delete_item`,
+				method: 'DELETE',
+				body: { id: gameId },
+			}),
+			invalidatesTags: ['CommunityGame'],
+		}),
+		hideGameById: build.mutation<null, string>({
+			query: (gameId) => ({
+				url: `home/game/hide_item`,
+				method: 'POST',
+				body: { id: gameId },
+			}),
+			invalidatesTags: ['CommunityGame'],
+		}),
+		saveGameCommunity: build.mutation<null, FieldValues>({
+			query: (formData) => ({
+				url: `home/game/save`,
+				method: 'POST',
+				body: formData,
+			}),
+			invalidatesTags: ['CommunityGame'],
 		}),
 	}),
 })
@@ -101,4 +138,8 @@ export const {
 	useHideCultureByIdMutation,
 	useDeleteCultureByIdMutation,
 	useSaveCultureCommunityMutation,
+	useGetGameCommunityQuery,
+	useDeleteGameByIdMutation,
+	useHideGameByIdMutation,
+	useSaveGameCommunityMutation,
 } = communityApi

@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState, type FC } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { type GamesInputs, gamesSchema } from './schema
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { GamesElements } from './components/games-elemets/games-elements'
@@ -26,6 +28,17 @@ import { QuillEditor } from 'src/components/quill-editor/quill-editor'
 import styles from './index.module.scss'
 
 export const AdminCommunityGames: FC = () => {
+
+	const methods = useForm<GamesInputs>({
+		mode: 'onBlur',
+		resolver: yupResolver(gamesSchema),
+		defaultValues: {},
+	})
+
+	const onSubmit: SubmitHandler<GamesInputs> = async (data) => {
+		console.log(data)
+	}
+
 	const { data: gameCommunityData } = useGetGameCommunityQuery(null)
 	const [localeImages, setLocaleImages] = useState<ImageItemWithText[]>(
 		gameCommunityData?.photos ?? [],
@@ -99,6 +112,7 @@ export const AdminCommunityGames: FC = () => {
 		}
 	}, [gameCommunityData])
 
+
 	return (
 		<>
 			<Helmet>
@@ -108,6 +122,9 @@ export const AdminCommunityGames: FC = () => {
 			<AdminContent title='Игры Атманова Угла' $backgroundColor='#ffffff'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
+
+						<TitleSection />
+						<GallerySection />
 						<QuillEditor $heightEditor='310px' name='topDesc' label='Текст-анонс' />
 						<ReactDropzone
 							margin='30px 0 0 0'

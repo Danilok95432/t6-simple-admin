@@ -26,7 +26,7 @@ export type ImageNewIdResponse = {
 	status: string
 }
 
-export type ImageUploadRespone = {
+export type ImageUploadResponse = {
 	status: string
 	id_catimage: string
 	images: ImageItem[]

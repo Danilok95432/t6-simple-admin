@@ -36,6 +36,7 @@ export const AdminCommunityAbout: FC = () => {
 	const { isSent, markAsSent } = useIsSent(methods.control)
 
 	const onSubmit: SubmitHandler<CommunityInputs> = async (data) => {
+		console.log(data)
 		try {
 			const res = await saveAboutCommunity(transformToFormData(data))
 			if (res) markAsSent(true)

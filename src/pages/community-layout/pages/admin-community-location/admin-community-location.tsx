@@ -27,6 +27,8 @@ export const AdminCommunityLocation: FC = () => {
 	const { data: aboutLocationData } = useGetLocationCommunityQuery(null)
 	const [saveLocationCommunity] = useSaveLocationCommunityMutation()
 
+	console.log(aboutLocationData)
+
 	const methods = useForm<LocationInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(locationSchema),
@@ -34,6 +36,7 @@ export const AdminCommunityLocation: FC = () => {
 			mailSection: true,
 			phoneSection: true,
 			emailsSection: true,
+			photos: [],
 		},
 	})
 
@@ -88,7 +91,7 @@ export const AdminCommunityLocation: FC = () => {
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<MapSection />
-						<GallerySection />
+						<GallerySection images={aboutLocationData?.photos} />
 						<MailSection />
 						<PhoneSection />
 						<EmailsSection />

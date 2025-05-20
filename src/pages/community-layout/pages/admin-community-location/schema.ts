@@ -1,4 +1,5 @@
 import * as yup from 'yup'
+import { type ImageItemWithText } from 'src/types/photos'
 
 export type LocationInputs = {
 	mapCoords: string
@@ -10,6 +11,7 @@ export type LocationInputs = {
 	emailsSection?: boolean
 	emailOwner?: string
 	emailAddress?: string
+	photos?: ImageItemWithText[]
 }
 
 export const locationSchema = yup.object().shape({

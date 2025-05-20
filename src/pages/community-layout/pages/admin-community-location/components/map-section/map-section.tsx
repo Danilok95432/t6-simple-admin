@@ -8,9 +8,9 @@ import { AdminSection } from 'src/components/admin-section/admin-section'
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
 import { AdminMap } from 'src/components/admin-map/admin-map'
 import { ControlledMaskedInput } from 'src/components/controlled-masked-input/controlled-masked-input'
+import { QuillEditor } from 'src/components/quill-editor/quill-editor'
 
 import styles from './index.module.scss'
-import { ControlledInput } from 'src/components/controlled-input/controlled-input'
 
 export const MapSection: FC = () => {
 	const { setValue, watch } = useFormContext<LocationInputs>()
@@ -75,13 +75,8 @@ export const MapSection: FC = () => {
 					</AdminButton>
 				)}
 			</div>
-			<ControlledInput
-				name='topDescs'
-				label='Текст-анонс*'
-				margin='0 0 20px 0'
-				height='201px'
-				isTextarea
-			/>
+
+			<QuillEditor name='topDescs' label='Текст-анонс*' $heightEditor='200px' />
 
 			<div className={styles.loadedMap}>
 				<AdminMap points={mapCoordinates} zoom={17} />

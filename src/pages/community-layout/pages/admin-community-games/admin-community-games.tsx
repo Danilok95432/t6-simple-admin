@@ -2,13 +2,12 @@ import { useCallback, useEffect, useState, type FC } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { type GamesInputs, gamesSchema } from './schema
+import { type CommunityGameInputs, gamesSchema } from './schema'
 
 import { AdminContent } from 'src/components/admin-content/admin-content'
 import { GamesElements } from './components/games-elemets/games-elements'
 import { useIsSent } from 'src/hooks/sent-mark/sent-mark'
 import { transformToFormData } from 'src/helpers/utils'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { ImageModal } from 'src/modals/images-modal/images-modal'
 import { useActions } from 'src/hooks/actions/actions'
 import { useGetNewIdImageQuery } from 'src/store/uploadImages/uploadImages.api'
@@ -17,7 +16,6 @@ import {
 	useSaveGameCommunityMutation,
 } from 'src/store/community/community.api'
 import { type ImageItemWithText } from 'src/types/photos'
-import { type CommunityGameInputs, communityGameSchema } from './schema'
 import { FlexRow } from 'src/components/flex-row/flex-row'
 import { AdminButton } from 'src/UI/AdminButton/AdminButton'
 import { AddButton } from 'src/UI/AddButton/AddButton'
@@ -26,19 +24,10 @@ import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 import { QuillEditor } from 'src/components/quill-editor/quill-editor'
 
 import styles from './index.module.scss'
+import { TitleSection } from './components/title-section/title-section'
+import { GallerySection } from './components/gallery-section/gallery-section'
 
 export const AdminCommunityGames: FC = () => {
-
-	const methods = useForm<GamesInputs>({
-		mode: 'onBlur',
-		resolver: yupResolver(gamesSchema),
-		defaultValues: {},
-	})
-
-	const onSubmit: SubmitHandler<GamesInputs> = async (data) => {
-		console.log(data)
-	}
-
 	const { data: gameCommunityData } = useGetGameCommunityQuery(null)
 	const [localeImages, setLocaleImages] = useState<ImageItemWithText[]>(
 		gameCommunityData?.photos ?? [],
@@ -89,7 +78,7 @@ export const AdminCommunityGames: FC = () => {
 
 	const methods = useForm<CommunityGameInputs>({
 		mode: 'onBlur',
-		resolver: yupResolver(communityGameSchema),
+		resolver: yupResolver(gamesSchema),
 		defaultValues: {
 			photos: [],
 		},
@@ -112,7 +101,6 @@ export const AdminCommunityGames: FC = () => {
 		}
 	}, [gameCommunityData])
 
-
 	return (
 		<>
 			<Helmet>
@@ -122,7 +110,6 @@ export const AdminCommunityGames: FC = () => {
 			<AdminContent title='Игры Атманова Угла' $backgroundColor='#ffffff'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
-
 						<TitleSection />
 						<GallerySection />
 						<QuillEditor $heightEditor='310px' name='topDesc' label='Текст-анонс' />

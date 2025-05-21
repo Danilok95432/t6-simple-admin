@@ -27,8 +27,6 @@ export const AdminCommunityLocation: FC = () => {
 	const { data: aboutLocationData } = useGetLocationCommunityQuery(null)
 	const [saveLocationCommunity] = useSaveLocationCommunityMutation()
 
-	console.log(aboutLocationData)
-
 	const methods = useForm<LocationInputs>({
 		mode: 'onBlur',
 		resolver: yupResolver(locationSchema),
@@ -46,16 +44,11 @@ export const AdminCommunityLocation: FC = () => {
 	const onSubmit: SubmitHandler<LocationInputs> = async (data) => {
 		const renameData = {
 			mapCoords: data.mapCoords,
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			mailAddress: data.mailAddress!,
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			'phone.contact': data.phoneOwner!,
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			'phone.formatNumber': data.phoneNumber!,
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			'email.contact': data.emailOwner!,
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			'email.email': data.emailAddress!,
+			mailAddress: data.mailAddress ?? '',
+			'phone.contact': data.phoneOwner ?? '',
+			'phone.formatNumber': data.phoneNumber ?? '',
+			'email.contact': data.emailOwner ?? '',
+			'email.email': data.emailAddress ?? '',
 		}
 
 		try {

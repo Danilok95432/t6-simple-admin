@@ -4,6 +4,7 @@ export type AboutCommunityResponse = {
 	mainDescs: string
 	descs: string
 	caption: string
+	caption_show: boolean
 	logo: ImageItemWithText[]
 	photoGallery: ImageItemWithText[]
 }

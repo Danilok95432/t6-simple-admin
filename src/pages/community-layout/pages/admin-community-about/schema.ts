@@ -5,6 +5,7 @@ export type CommunityInputs = {
 	logo?: ImageItemWithText[]
 	mainDescs: string
 	caption?: string
+	caption_show?: boolean
 	gallerySection?: boolean
 	photoGallery?: ImageItemWithText[]
 	articleSection?: boolean

@@ -24,8 +24,6 @@ import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 import { QuillEditor } from 'src/components/quill-editor/quill-editor'
 
 import styles from './index.module.scss'
-import { TitleSection } from './components/title-section/title-section'
-import { GallerySection } from './components/gallery-section/gallery-section'
 
 export const AdminCommunityGames: FC = () => {
 	const { data: gameCommunityData } = useGetGameCommunityQuery(null)
@@ -110,9 +108,8 @@ export const AdminCommunityGames: FC = () => {
 			<AdminContent title='Игры Атманова Угла' $backgroundColor='#ffffff'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
-						<TitleSection />
-						<GallerySection />
 						<QuillEditor $heightEditor='310px' name='topDesc' label='Текст-анонс' />
+
 						<ReactDropzone
 							margin='30px 0 0 0'
 							label={`Галерея изображений (${gameCommunityData?.photos?.length} из 8)`}

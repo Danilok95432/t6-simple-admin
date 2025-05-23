@@ -8,6 +8,7 @@ export enum AdminRoute {
 	AdminRequestList = 'requests-list',
 	AdminAtmans = 'atmans',
 	AdminAtmansHistory = 'atm-history',
+	AdminAtmansNature = 'atm-nature',
 	AdminAtmansLocation = 'atm-location',
 	AdminAtmansCulture = 'atm-culture',
 	AdminAtmansTraditions = 'atm-traditions',

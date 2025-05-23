@@ -65,6 +65,7 @@ import { TraditionHistory } from 'src/pages/tradition-element-layout/pages/tradi
 import { GameHistory } from 'src/pages/game-element-layout/pages/game-history/game-history'
 import { GameInfo } from 'src/pages/game-element-layout/pages/game-info/game-info'
 import { GameElementLayout } from 'src/pages/game-element-layout/game-element-layout'
+import { AdminCommunityNature } from 'src/pages/community-layout/pages/admin-community-nature/admin-community-nature'
 
 export const AdminRoutes: FC = () => {
 	return (
@@ -88,6 +89,7 @@ export const AdminRoutes: FC = () => {
 				<Route path={AdminRoute.AdminAtmans} element={<CommunityLayout />}>
 					<Route index element={<AdminCommunityAbout />} />
 					<Route path={AdminRoute.AdminAtmansHistory} element={<AdminCommunityHistory />} />
+					<Route path={AdminRoute.AdminAtmansNature} element={<AdminCommunityNature />} />
 					<Route path={AdminRoute.AdminAtmansLocation} element={<AdminCommunityLocation />} />
 					<Route path={AdminRoute.AdminAtmansCulture} element={<AdminCommunityCulture />} />
 					<Route path={AdminRoute.AdminAtmansTraditions} element={<AdminCommunityTraditions />} />

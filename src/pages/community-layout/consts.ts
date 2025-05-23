@@ -11,6 +11,10 @@ export const communityTabs: TabNavigationItem[] = [
 		link: 'atm-history',
 	},
 	{
+		title: 'Природа',
+		link: 'atm-nature',
+	},
+	{
 		title: 'Карта и маршруты',
 		link: 'atm-location',
 	},

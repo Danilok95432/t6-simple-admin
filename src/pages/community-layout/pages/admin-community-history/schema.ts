@@ -17,7 +17,13 @@ export const articleSchema = yup.object().shape({
 	bottomDescsSection: yup.boolean(),
 	bottomDescs: yup.string().when('bottomDescsSection', ([bottomDescsSection]) => {
 		return bottomDescsSection
-			? yup.string().required('Введите текст статьи')
+			? yup
+					.string()
+					.required('Это поле обязательно')
+					.test('is-empty', 'Введите текст статьи', (value) => {
+						const cleanValue = value?.replace(/<[^>]*>?/gm, '').trim()
+						return !!cleanValue && cleanValue !== ''
+					})
 			: yup.string().notRequired()
 	}),
 })

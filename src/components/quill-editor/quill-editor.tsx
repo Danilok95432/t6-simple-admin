@@ -135,6 +135,7 @@ export const QuillEditor: FC<QuillEditorProps & StyledEditorWrapperProps> = ({
 
 	const vkScriptLoaded = useRef(false)
 	const previousValue = useRef<string>('')
+	const editorRef = useRef<ReactQuill>(null)
 
 	useEffect(() => {
 		if (!vkScriptLoaded.current) {
@@ -212,13 +213,17 @@ export const QuillEditor: FC<QuillEditorProps & StyledEditorWrapperProps> = ({
 						}
 					}
 
+					const initialValue = field.value ? `${field.value}<p><br></p>` : '<p><br></p>'
+
 					return (
 						<ReactQuill
 							{...field}
 							{...rest}
+							ref={editorRef}
 							modules={modules}
 							formats={formats}
 							onChange={handleChange}
+							value={initialValue}
 						/>
 					)
 				}}

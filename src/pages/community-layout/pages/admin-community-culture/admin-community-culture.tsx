@@ -109,10 +109,11 @@ export const AdminCommunityCulture: FC = () => {
 			<Helmet>
 				<title>Традиции Атманова угла</title>
 			</Helmet>
+
 			<AdminContent title='Традиции Атманова угла' $backgroundColor='#ffffff'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
-						<QuillEditor $heightEditor='310px' name='topDesc' label='Текст-анонс' />
+						<QuillEditor $heightEditor='310px' name='topDesc' label='Текст-анонс*' />
 						<ReactDropzone
 							margin='30px 0 0 0'
 							label={`Галерея изображений (${cultureCommunityData?.photos?.length} из 8)`}

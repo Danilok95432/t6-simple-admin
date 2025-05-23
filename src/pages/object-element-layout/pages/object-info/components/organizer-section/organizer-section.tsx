@@ -15,22 +15,22 @@ export const OrganizerSection: FC = () => {
 			titleStyleClass={styles.objectOrganizerTitle}
 		>
 			<ControlledInput
-				name='name'
+				name='org_name'
 				label='Название организации'
 				placeholder='ООО “Название компании”'
 			/>
 
 			<GridRow $margin='20px 0' $gap='10px'>
-				<ControlledInput name='ogrn' label='ОГРН' />
+				<ControlledInput name='org_ogrn' label='ОГРН' />
 
-				<ControlledInput name='inn' label='ИНН' />
+				<ControlledInput name='org_inn' label='ИНН' />
 			</GridRow>
 
-			<ControlledInput name='address' label='Адрес' />
+			<ControlledInput name='org_address' label='Адрес' />
 
 			<GridRow $margin='20px 0' $gap='10px'>
 				<ControlledMaskedInput
-					name='phone'
+					name='org_phone'
 					label='Номер телефона'
 					mask='{+7} (000) 000-00-00'
 					placeholder='+7 (999) 000-77-44'

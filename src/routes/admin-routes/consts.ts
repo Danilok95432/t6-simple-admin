@@ -30,6 +30,7 @@ export enum AdminRoute {
 	AdminObjHistory = 'object-history',
 	AdminObjEvents = 'object-events',
 	AdminObjGallery = 'object-gallery',
+	AdminObjVideos = 'object-videos',
 	AdminObjLocation = 'object-location',
 	AdminEvent = 'event',
 	AdminEventProfile = 'event-profile',

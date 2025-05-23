@@ -66,6 +66,7 @@ import { GameHistory } from 'src/pages/game-element-layout/pages/game-history/ga
 import { GameInfo } from 'src/pages/game-element-layout/pages/game-info/game-info'
 import { GameElementLayout } from 'src/pages/game-element-layout/game-element-layout'
 import { AdminCommunityNature } from 'src/pages/community-layout/pages/admin-community-nature/admin-community-nature'
+import { ObjectVideos } from 'src/pages/object-element-layout/pages/object-videos/object-videos'
 
 export const AdminRoutes: FC = () => {
 	return (
@@ -114,6 +115,7 @@ export const AdminRoutes: FC = () => {
 					<Route path={`${AdminRoute.AdminObjHistory}/:id`} element={<ObjectHistory />} />
 					<Route path={`${AdminRoute.AdminObjEvents}/:id`} element={<ObjectEvents />} />
 					<Route path={`${AdminRoute.AdminObjGallery}/:id`} element={<ObjectGallery />} />
+					<Route path={`${AdminRoute.AdminObjVideos}/:id`} element={<ObjectVideos />} />
 					<Route path={`${AdminRoute.AdminObjLocation}/:id`} element={<ObjectLocation />} />
 				</Route>
 				<Route path={AdminRoute.AdminObjects} element={<AdminObjects />} />

@@ -64,6 +64,11 @@ export const ObjectInfo = () => {
 					: data.object_apply
 						? data.object_apply[0].value
 						: '0',
+			org_name: data.org_name,
+			org_ogrn: data.org_ogrn,
+			org_inn: data.org_inn,
+			org_address: data.org_address,
+			org_phone: data.org_phone,
 		}
 		const objectInfoFormData = transformToFormData(serverData)
 		objectInfoFormData.append('id', id)

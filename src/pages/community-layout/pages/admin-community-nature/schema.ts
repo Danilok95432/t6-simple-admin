@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 import { type ImageItemWithText } from 'src/types/photos'
 
-export type ArticleInputs = {
+export type NatureInputs = {
 	articleName: string
 	topDescs: string
 	gallerySection?: boolean
@@ -10,7 +10,7 @@ export type ArticleInputs = {
 	bottomDescs?: string
 }
 
-export const articleSchema = yup.object().shape({
+export const natureSchema = yup.object().shape({
 	articleName: yup.string().required('Введите название статьи'),
 	topDescs: yup.string().required('Введите текст статьи'),
 	gallerySection: yup.boolean(),

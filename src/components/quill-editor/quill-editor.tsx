@@ -46,6 +46,14 @@ const StyledEditorWrapper = styled.div<StyledEditorWrapperProps>`
 		max-width: ${({ $maxWidth }) => $maxWidth ?? 'auto'};
 	}
 
+	.ql-snow .ql-tooltip[data-mode='video']::before {
+		content: 'Вставьте код вставки плеера';
+	}
+
+	.ql-snow .ql-tooltip.ql-editing a.ql-action::after {
+		content: 'Сохранить';
+	}
+
 	.warningMessage {
 		color: #f00000;
 		font-size: 14px;
@@ -135,6 +143,7 @@ export const QuillEditor: FC<QuillEditorProps & StyledEditorWrapperProps> = ({
 
 	const vkScriptLoaded = useRef(false)
 	const previousValue = useRef<string>('')
+	const editorRef = useRef<ReactQuill>(null)
 
 	useEffect(() => {
 		if (!vkScriptLoaded.current) {
@@ -163,6 +172,24 @@ export const QuillEditor: FC<QuillEditorProps & StyledEditorWrapperProps> = ({
 			})
 		}
 	}, [control._formValues[name]])
+
+	useEffect(() => {
+		if (editorRef.current) {
+			const editor = editorRef.current.getEditor()
+			editor.root.setAttribute('data-placeholder', 'Введите текст...')
+
+			const intervalId = setInterval(() => {
+				const videoTooltip = document.querySelector('.ql-tooltip[data-mode="video"] input')
+				if (videoTooltip) {
+					videoTooltip.setAttribute('placeholder', 'Код плеера...')
+				}
+			}, 100)
+
+			return () => {
+				clearInterval(intervalId)
+			}
+		}
+	}, [])
 
 	return (
 		<StyledEditorWrapper $heightEditor={$heightEditor} $maxWidth={$maxWidth}>
@@ -212,13 +239,17 @@ export const QuillEditor: FC<QuillEditorProps & StyledEditorWrapperProps> = ({
 						}
 					}
 
+					const initialValue = field.value ? `${field.value}<p><br></p>` : '<p><br></p>'
+
 					return (
 						<ReactQuill
 							{...field}
 							{...rest}
+							ref={editorRef}
 							modules={modules}
 							formats={formats}
 							onChange={handleChange}
+							value={initialValue}
 						/>
 					)
 				}}

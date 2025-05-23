@@ -9,5 +9,11 @@ export type CommunityCultureInputs = {
 }
 
 export const communityCultureSchema = yup.object().shape({
-	topDesc: yup.string().required('Введите текст'),
+	topDesc: yup
+		.string()
+		.required('Это поле обязательно')
+		.test('is-empty', 'Введите текст', (value) => {
+			const cleanValue = value?.replace(/<[^>]*>?/gm, '').trim()
+			return !!cleanValue && cleanValue !== ''
+		}),
 })

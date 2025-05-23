@@ -108,7 +108,7 @@ export const AdminCommunityGames: FC = () => {
 			<AdminContent title='Игры Атманова Угла' $backgroundColor='#ffffff'>
 				<FormProvider {...methods}>
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
-						<QuillEditor $heightEditor='310px' name='topDesc' label='Текст-анонс' />
+						<QuillEditor $heightEditor='310px' name='topDesc' label='Текст-анонс*' />
 
 						<ReactDropzone
 							margin='30px 0 0 0'

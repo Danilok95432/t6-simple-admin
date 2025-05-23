@@ -16,6 +16,17 @@ export type LocationInputs = {
 
 export const locationSchema = yup.object().shape({
 	mapCoords: yup.string().required('Введите координаты'),
+	topDescr: yup.string().when('mapSection', ([mapSection]) => {
+		return mapSection
+			? yup
+					.string()
+					.required('Это поле обязательно')
+					.test('is-empty', 'Введите текст', (value) => {
+						const cleanValue = value?.replace(/<[^>]*>?/gm, '').trim()
+						return !!cleanValue && cleanValue !== ''
+					})
+			: yup.string().notRequired()
+	}),
 	mailSection: yup.boolean(),
 	mailAddress: yup.string().when('mailSection', ([mailSection]) => {
 		return mailSection ? yup.string().required('Введите адрес') : yup.string().notRequired()

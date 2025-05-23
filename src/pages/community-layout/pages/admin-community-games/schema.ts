@@ -12,11 +12,8 @@ export const gamesSchema = yup.object().shape({
 	topDesc: yup
 		.string()
 		.required('Это поле обязательно')
-		.test('trim', 'Это поле обязательно', function (value) {
-			if (!value) {
-				return this.createError({ message: 'Это поле обязательно' })
-			}
-			const strippedValue = value.replace(/<[^>]*>/g, '').trim()
-			return strippedValue.length > 0
+		.test('is-empty', 'Введите текст', (value) => {
+			const cleanValue = value?.replace(/<[^>]*>?/gm, '').trim()
+			return !!cleanValue && cleanValue !== ''
 		}),
 })

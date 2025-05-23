@@ -19,7 +19,13 @@ export const communitySchema = yup.object().shape({
 	articleSection: yup.boolean(),
 	descs: yup.string().when('articleSection', ([articleSection]) => {
 		return articleSection
-			? yup.string().required('Введите текст статьи')
+			? yup
+					.string()
+					.required('Это поле обязательно')
+					.test('is-empty', 'Введите текст', (value) => {
+						const cleanValue = value?.replace(/<[^>]*>?/gm, '').trim()
+						return !!cleanValue && cleanValue !== ''
+					})
 			: yup.string().notRequired()
 	}),
 })

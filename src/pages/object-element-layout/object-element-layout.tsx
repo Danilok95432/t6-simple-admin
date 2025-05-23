@@ -30,6 +30,10 @@ export const ObjectElementLayout = () => {
 			link: `/${AdminRoute.AdminObject}/${AdminRoute.AdminObjGallery}/${id}`,
 		},
 		{
+			title: 'Видеолента',
+			link: `/${AdminRoute.AdminObject}/${AdminRoute.AdminObjVideos}/${id}`,
+		},
+		{
 			title: 'Карта и маршруты',
 			link: `/${AdminRoute.AdminObject}/${AdminRoute.AdminObjLocation}/${id}`,
 		},

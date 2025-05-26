@@ -136,7 +136,7 @@ export const CultureInfo = () => {
 							margin='0 0 20px 0'
 						/>
 						<ReactDropzone
-							label='Логотип элемента *'
+							label='Фотография *'
 							name='logo'
 							prompt='PNG, JPG, JPEG. 1000 х1000px, не более 3 Мб'
 							accept={{ 'image/png': ['.png'], 'image/jpeg': ['.jpeg'] }}
@@ -147,7 +147,7 @@ export const CultureInfo = () => {
 						/>
 						<QuillEditor
 							name='topDesc'
-							label='Первый текстовый блок'
+							label='Текст-анонс'
 							$maxWidth='1140px'
 							$heightEditor='105px'
 						/>
@@ -186,7 +186,7 @@ export const CultureInfo = () => {
 						/>
 						<QuillEditor
 							name='bottomDesc'
-							label='Второй текстовый блок'
+							label='Текст статьи'
 							$heightEditor='105px'
 							$maxWidth='1140px'
 						/>

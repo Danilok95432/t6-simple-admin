@@ -18,6 +18,11 @@ export type ObjectInfoInputs = {
 	vkName?: string
 	vkSoc?: string
 	coords: string
+	org_name?: string
+	org_ogrn?: string
+	org_inn?: string
+	org_address?: string
+	org_phone?: string
 }
 
 export const objectInfoSchema = yup.object().shape({

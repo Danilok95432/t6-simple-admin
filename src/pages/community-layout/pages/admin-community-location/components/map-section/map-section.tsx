@@ -50,7 +50,7 @@ export const MapSection: FC = () => {
 	}
 
 	return (
-		<AdminSection titleText='Карта'>
+		<AdminSection titleText='Карта' sectionName='mapSection'>
 			<ControlledMaskedInput
 				label='Координаты (широта, долгота в градусах, минутах и секундах)*'
 				mask={/^[^a-zA-Zа-яА-Я]*$/}

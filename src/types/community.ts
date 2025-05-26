@@ -16,6 +16,8 @@ export type HistoryCommunityResponse = {
 	bottomDescs: string
 }
 
+export type NatureCommunityResponse = HistoryCommunityResponse
+
 export type LocationCommunityResponse = {
 	mapCoords: string
 	mailAddress: string

@@ -6,6 +6,7 @@ import {
 	type LocationCommunityResponse,
 	type CultureCommunityResponse,
 	type GameCommunityResponse,
+	type NatureCommunityResponse,
 } from 'src/types/community'
 
 import { ReducerPath } from 'src/helpers/consts'
@@ -16,6 +17,7 @@ export const communityApi = createApi({
 	tagTypes: [
 		'CommunityAbout',
 		'CommunityHistory',
+		'CommunityNature',
 		'CommunityLocation',
 		'CommunityCulture',
 		'CommunityGame',
@@ -49,6 +51,20 @@ export const communityApi = createApi({
 				body: formData,
 			}),
 			invalidatesTags: ['CommunityHistory'],
+		}),
+		getNatureCommunity: build.query<NatureCommunityResponse, null>({
+			query: () => ({
+				url: `home/nature/edit`,
+			}),
+			providesTags: ['CommunityNature'],
+		}),
+		saveNatureCommunity: build.mutation<null, FieldValues>({
+			query: (formData) => ({
+				url: `home/nature/save`,
+				method: 'POST',
+				body: formData,
+			}),
+			invalidatesTags: ['CommunityNature'],
 		}),
 		getLocationCommunity: build.query<LocationCommunityResponse, null>({
 			query: () => ({
@@ -132,6 +148,8 @@ export const {
 	useSaveAboutCommunityMutation,
 	useGetHistoryCommunityQuery,
 	useSaveHistoryCommunityMutation,
+	useGetNatureCommunityQuery,
+	useSaveNatureCommunityMutation,
 	useGetLocationCommunityQuery,
 	useSaveLocationCommunityMutation,
 	useGetCultureCommunityQuery,

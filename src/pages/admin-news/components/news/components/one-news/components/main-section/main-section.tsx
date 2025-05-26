@@ -11,13 +11,17 @@ import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
+import { GallerySection } from './components/gallery-section/gallery-section'
+import { useParams } from 'react-router-dom'
 
 type MainSectionProps = {
 	galleryOptions?: SelOption[]
 	photo?: ImageItemWithText[]
+	photos?: ImageItemWithText[]
 }
 
-export const MainSection: FC<MainSectionProps> = ({ galleryOptions, photo }) => {
+export const MainSection: FC<MainSectionProps> = ({ galleryOptions, photo, photos }) => {
+	const { id = '0' } = useParams()
 	return (
 		<AdminSection className={styles.mainSection} isBlock={false}>
 			<ControlledInput
@@ -70,6 +74,7 @@ export const MainSection: FC<MainSectionProps> = ({ galleryOptions, photo }) => 
 				imgtype='news'
 				fileImages={photo}
 			/>
+			<GallerySection images={photos} idItem={id} />
 		</AdminSection>
 	)
 }

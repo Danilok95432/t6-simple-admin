@@ -133,12 +133,14 @@ export const ImageModal: FC<ImageModalProps> = ({
 							label='Название изображения *'
 							placeholder='Добавьте название'
 							margin='0 0 20px 0'
+							disabled={!(imageArr?.length > 0)}
 						/>
 						<ControlledInput
 							name='author'
 							label='Автор изображения'
 							placeholder='Добавьте имя автора'
 							margin='0 0 20px 0'
+							disabled={!(imageArr?.length > 0)}
 						/>
 						<ReactDropzone
 							name='thumbnail'

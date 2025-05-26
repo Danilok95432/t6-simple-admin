@@ -87,6 +87,7 @@ export const OneNews = () => {
 								<MainSection
 									galleryOptions={newsInfoData?.news_gallerys}
 									photo={newsInfoData?.photo}
+									photos={newsInfoData?.photos}
 								/>
 								<SeoSection />
 							</div>

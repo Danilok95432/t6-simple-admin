@@ -28,4 +28,5 @@ export type NewsInfoResponse = {
 	date: Date
 	news_gallerys?: SelOption[]
 	photo?: ImageItemWithText[]
+	photos: ImageItemWithText[]
 }

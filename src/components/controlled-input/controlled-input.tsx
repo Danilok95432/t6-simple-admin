@@ -18,6 +18,7 @@ type ControlledInputProps = {
 	height?: string
 	type?: string
 	isReadOnly?: boolean
+	disabled?: boolean
 } & React.InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement>
 
 export const ControlledInput: FC<ControlledInputProps> = ({
@@ -32,6 +33,7 @@ export const ControlledInput: FC<ControlledInputProps> = ({
 	height,
 	type,
 	isReadOnly,
+	disabled,
 	...props
 }) => {
 	const {
@@ -114,6 +116,7 @@ export const ControlledInput: FC<ControlledInputProps> = ({
 					className={cn(styles.controlledInput, {
 						[styles.noValid]: errors[name],
 					})}
+					disabled={disabled}
 				/>
 			</label>
 

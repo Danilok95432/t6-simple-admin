@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { type FC } from 'react'
 import cn from 'classnames'
 
-import { mainFormatDate } from 'src/helpers/utils'
+import { formatDateToYYYYMMDD, mainFormatDate } from 'src/helpers/utils'
 import { useDeleteObjectEventsByIdMutation } from 'src/store/objects/objects.api'
 import { useTableSearch } from 'src/hooks/table-search/table-search'
 
@@ -50,10 +50,12 @@ export const EventElements: FC = () => {
 						{eventsEl.event_part_name}
 					</p>,
 					<p className={cn({ 'hidden-cell': eventsEl.hidden })} key='3'>
-						{mainFormatDate(eventsEl.date[0])}
+						{typeof eventsEl.date === 'string'
+							? formatDateToYYYYMMDD(eventsEl.date)
+							: mainFormatDate(eventsEl.date[0])}
 					</p>,
 					<p className={cn({ 'hidden-cell': eventsEl.hidden })} key='4'>
-						{mainFormatDate(eventsEl.date[1])}
+						{typeof eventsEl.date === 'string' ? null : mainFormatDate(eventsEl.date[1])}
 					</p>,
 					<RowController
 						id={eventsEl.id}

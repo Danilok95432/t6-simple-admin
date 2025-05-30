@@ -5,8 +5,8 @@ export type EventProfileInputs = {
 	title: string
 	objects_list: string | SelOption[]
 	event_types_list: string | SelOption[]
-	event_levels_list: string | SelOption[]
-	brands_list: string | SelOption[]
+	// event_levels_list: string | SelOption[]
+	// brands_list: string | SelOption[]
 	tags?: string
 	date_from: string
 	time_from: Date
@@ -15,7 +15,6 @@ export type EventProfileInputs = {
 	description: string
 	fullinfo: string
 	conditions: string
-	raspisanie: string
 	age_list?: SelOption[]
 	locations_list?: SelOption[]
 	main?: boolean
@@ -31,7 +30,6 @@ export const eventProfileSchema = yup.object().shape({
 	description: yup.string().required('Введите краткое описание'),
 	fullinfo: yup.string().required('Введите подробное описание'),
 	conditions: yup.string().required('Укажите условия'),
-	raspisanie: yup.string().required('Укажите расписание'),
 	objects_list: yup
 		.mixed<string | SelOption[]>()
 		.test('is-object-selected', 'Выберите хотя бы один объект', (value) => {
@@ -78,7 +76,7 @@ export const eventProfileSchema = yup.object().shape({
 			}
 		})
 		.required('Выберите хотя бы один тип'),
-	event_levels_list: yup
+	/* event_levels_list: yup
 		.mixed<string | SelOption[]>()
 		.test('is-level-selected', 'Выберите хотя бы один уровень', (value) => {
 			if (typeof value === 'string') {
@@ -101,7 +99,8 @@ export const eventProfileSchema = yup.object().shape({
 			}
 		})
 		.required('Выберите хотя бы один уровень'),
-	brands_list: yup
+		*/
+	/* brands_list: yup
 		.mixed<string | SelOption[]>()
 		.test('is-level-selected', 'Выберите хотя бы один бренд', (value) => {
 			if (typeof value === 'string') {
@@ -123,5 +122,5 @@ export const eventProfileSchema = yup.object().shape({
 				return false
 			}
 		})
-		.required('Выберите хотя бы один бренд'),
+		.required('Выберите хотя бы один бренд'), */
 })

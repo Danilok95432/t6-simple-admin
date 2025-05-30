@@ -7,7 +7,7 @@ export type EventItem = {
 	id: string
 	hidden: boolean
 	title: string
-	date: [Date, Date]
+	date: [Date, Date] | string
 	object_title: string
 	event_type_name: string
 	event_part_name: string

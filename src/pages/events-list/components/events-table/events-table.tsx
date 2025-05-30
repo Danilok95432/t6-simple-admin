@@ -15,7 +15,7 @@ import {
 	useGetNewIdEventQuery,
 	useHideEventByIdMutation,
 } from 'src/store/events/events.api'
-import { mainFormatDate } from 'src/helpers/utils'
+import { formatDateToYYYYMMDD, mainFormatDate } from 'src/helpers/utils'
 
 import { useAppSelector } from 'src/hooks/store'
 import { getFiltrationValues } from 'src/modules/table-filtration/store/table-filtration.selectors'
@@ -54,10 +54,12 @@ export const EventsTable: FC = () => {
 						{eventEl.title}
 					</p>,
 					<p className={cn({ 'hidden-cell': eventEl.hidden })} key='1'>
-						{mainFormatDate(eventEl.date[0])}
+						{typeof eventEl.date === 'string'
+							? formatDateToYYYYMMDD(eventEl.date)
+							: mainFormatDate(eventEl.date[0])}
 					</p>,
 					<p className={cn({ 'hidden-cell': eventEl.hidden })} key='2'>
-						{mainFormatDate(eventEl.date[1])}
+						{typeof eventEl.date === 'string' ? null : mainFormatDate(eventEl.date[1])}
 					</p>,
 					<p className={cn({ 'hidden-cell': eventEl.hidden })} key='3'>
 						{eventEl.object_title}

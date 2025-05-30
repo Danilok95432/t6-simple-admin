@@ -63,19 +63,20 @@ export const AdminEventProfile: FC = () => {
 			description: data.description,
 			fullinfo: data.fullinfo,
 			conditions: data.conditions,
-			raspisanie: data.raspisanie,
 			id_object:
 				typeof data.objects_list === 'string' ? data.objects_list : data?.objects_list[0].value,
 			id_event_type:
 				typeof data.event_types_list === 'string'
 					? data.event_types_list
 					: data?.event_types_list[0].value,
-			id_event_level:
+			/* id_event_level:
 				typeof data.event_levels_list === 'string'
 					? data.event_levels_list
 					: data?.event_levels_list[0].value,
-			id_brand:
+					*/
+			/* id_brand:
 				typeof data.brands_list === 'string' ? data.brands_list : data?.brands_list[0].value,
+			*/
 			id_age_limit:
 				typeof data.age_list === 'string'
 					? data.age_list

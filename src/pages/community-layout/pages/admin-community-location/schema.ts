@@ -3,6 +3,7 @@ import { type ImageItemWithText } from 'src/types/photos'
 
 export type LocationInputs = {
 	mapCoords: string
+	topDescs: string
 	mailSection?: boolean
 	mailAddress?: string
 	phoneSection?: boolean
@@ -16,7 +17,9 @@ export type LocationInputs = {
 
 export const locationSchema = yup.object().shape({
 	mapCoords: yup.string().required('Введите координаты'),
-	topDescr: yup.string().when('mapSection', ([mapSection]) => {
+	topDescs: yup.string().required('Введите текст анонса'),
+	/*
+	topDescs: yup.string().when('mapSection', ([mapSection]) => {
 		return mapSection
 			? yup
 					.string()
@@ -27,10 +30,8 @@ export const locationSchema = yup.object().shape({
 					})
 			: yup.string().notRequired()
 	}),
+	*/
 	mailSection: yup.boolean(),
-	mailAddress: yup.string().when('mailSection', ([mailSection]) => {
-		return mailSection ? yup.string().required('Введите адрес') : yup.string().notRequired()
-	}),
 	phoneSection: yup.boolean(),
 	emailsSection: yup.boolean(),
 })

@@ -31,9 +31,9 @@ export const AdminCommunityLocation: FC = () => {
 		mode: 'onBlur',
 		resolver: yupResolver(locationSchema),
 		defaultValues: {
-			mailSection: true,
-			phoneSection: true,
-			emailsSection: true,
+			mailSection: false,
+			phoneSection: false,
+			emailsSection: false,
 			photos: [],
 		},
 	})
@@ -42,6 +42,7 @@ export const AdminCommunityLocation: FC = () => {
 	const [, setAction] = useState<'apply' | 'save'>('apply')
 
 	const onSubmit: SubmitHandler<LocationInputs> = async (data) => {
+		console.log(data)
 		const renameData = {
 			mapCoords: data.mapCoords,
 			mailAddress: data.mailAddress ?? '',

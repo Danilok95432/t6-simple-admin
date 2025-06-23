@@ -8,12 +8,17 @@ import { CustomText } from 'src/components/custom-text/custom-text'
 import { ReactDropzone } from 'src/components/react-dropzone/react-dropzone'
 
 import adminStyles from 'src/routes/admin-layout/index.module.scss'
+import { ControlledSelect } from 'src/components/controlled-select/controlled-select'
+import { ControlledMultipleSelect } from 'src/components/controlled-multiple-select/controlled-multiple-select'
+import { type MultiSelOption, type SelOption } from 'src/types/select'
 
 type MainSectionProps = {
 	photo?: ImageItemWithText[]
+	chainedEvent?: SelOption[]
+	chainedObjects?: MultiSelOption[]
 }
 
-export const MainSection: FC<MainSectionProps> = ({ photo }) => {
+export const MainSection: FC<MainSectionProps> = ({ photo, chainedObjects, chainedEvent }) => {
 	return (
 		<AdminSection isBlock={false}>
 			<ControlledInput
@@ -33,10 +38,19 @@ export const MainSection: FC<MainSectionProps> = ({ photo }) => {
 				placeholder='гггг-мм-дд'
 				margin='0 0 20px 0'
 			/>
-			<ControlledInput
-				name='tags'
-				label='Введите теги через запятую. Не более 5 тегов на 1 видео'
-				placeholder='Тег1, тег 2'
+			<ControlledSelect
+				name='events'
+				label='Связанное событие'
+				selectOptions={chainedEvent ?? [{ label: 'Выберите событие', value: '0' }]}
+				margin='0 0 20px 0'
+			/>
+			<ControlledMultipleSelect
+				name='objlist'
+				label='Связанные объекты'
+				selectOptions={
+					chainedObjects ?? [{ label: 'Выберите объект', value: '0', selected: false }]
+				}
+				placeholder='Выберите объекты'
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput

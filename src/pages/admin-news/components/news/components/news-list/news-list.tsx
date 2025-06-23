@@ -43,7 +43,7 @@ export const NewsList = () => {
 		return newIdResponse.id
 	}
 
-	const tableTitles = ['Наименование', 'Дата', 'Теги', 'Ключевая', '']
+	const tableTitles = ['Наименование', 'Дата', 'Ключевая', '']
 	const formatObjectsTableData = (newsData: NewsItem[]) => {
 		return newsData.map((newsEl) => {
 			return {
@@ -55,11 +55,8 @@ export const NewsList = () => {
 					<p className={cn({ 'hidden-cell': newsEl.hidden })} key='1'>
 						{mainFormatDate(newsEl.date)}
 					</p>,
-					<p className={cn({ 'hidden-cell': newsEl.hidden })} key='2'>
-						{newsEl.tags}
-					</p>,
 					<MainCheckBox
-						key='3'
+						key='2'
 						checked={newsEl.main}
 						disabled={true}
 						svgNode={<CheckMarkSvg />}
@@ -70,7 +67,7 @@ export const NewsList = () => {
 						hideHandler={rowHideHandler}
 						removeHandler={rowDeleteHandler}
 						textOfHidden='Спрятать новость'
-						key='4'
+						key='3'
 					/>,
 				],
 			}

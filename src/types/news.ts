@@ -1,5 +1,5 @@
 import { type ImageItemWithText } from './photos'
-import { type SelOption } from './select'
+import { type MultiSelOption, type SelOption } from './select'
 
 export type NewsItem = {
 	id: string
@@ -29,4 +29,6 @@ export type NewsInfoResponse = {
 	news_gallerys?: SelOption[]
 	photo?: ImageItemWithText[]
 	photos: ImageItemWithText[]
+	events: SelOption[]
+	objlist: MultiSelOption[]
 }

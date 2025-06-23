@@ -36,6 +36,7 @@ export const OneNews = () => {
 			main: false,
 			hidden: false,
 			news_gallerys: [],
+			relatedNews: '',
 			description: '',
 			keywords: [],
 		},
@@ -43,11 +44,17 @@ export const OneNews = () => {
 	const { isSent, markAsSent } = useIsSent(methods.control)
 	const onSubmit: SubmitHandler<OneNewsInputs> = async (data) => {
 		const dateFormat = formatDate(data.itemdate)
+		let selectedObj = ''
+		if (typeof data.objlist !== 'string' && data.objlist) {
+			selectedObj = data.objlist
+				.filter((opt) => opt.selected)
+				.map((opt) => opt.value)
+				.join(',')
+		}
 		if (dateFormat) data.itemdate = dateFormat
 		const serverData = {
 			title: data.title,
 			itemdate: data.itemdate,
-			tags: data.tags,
 			news_gallerys: data.news_gallerys,
 			id_gallery: data.news_gallerys,
 			short: data.short,
@@ -55,8 +62,12 @@ export const OneNews = () => {
 			photo: data.photo,
 			description: data.description,
 			keywords: data.keywords,
+			relatedNews: data.relatedNews,
 			main: booleanToNumberString(data.main),
 			hidden: booleanToNumberString(data.hidden),
+			id_event:
+				typeof data.events === 'string' ? data.events : data.events ? data.events[0].value : '0',
+			objlist: typeof data.objlist === 'string' ? data.objlist : data.objlist ? selectedObj : '0',
 		}
 		const newsInfoFormData = transformToFormData(serverData)
 		const newsId = id
@@ -88,6 +99,8 @@ export const OneNews = () => {
 									galleryOptions={newsInfoData?.news_gallerys}
 									photo={newsInfoData?.photo}
 									photos={newsInfoData?.photos}
+									chainedEvent={newsInfoData?.events}
+									chainedObjects={newsInfoData?.objlist}
 								/>
 								<SeoSection />
 							</div>

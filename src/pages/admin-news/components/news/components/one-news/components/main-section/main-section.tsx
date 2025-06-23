@@ -1,4 +1,4 @@
-import { type SelOption } from 'src/types/select'
+import { type MultiSelOption, type SelOption } from 'src/types/select'
 import { type FC } from 'react'
 import { type ImageItemWithText } from 'src/types/photos'
 
@@ -13,14 +13,24 @@ import adminStyles from 'src/routes/admin-layout/index.module.scss'
 import styles from './index.module.scss'
 import { GallerySection } from './components/gallery-section/gallery-section'
 import { useParams } from 'react-router-dom'
+import { ControlledSelect } from 'src/components/controlled-select/controlled-select'
+import { ControlledMultipleSelect } from 'src/components/controlled-multiple-select/controlled-multiple-select'
 
 type MainSectionProps = {
 	galleryOptions?: SelOption[]
 	photo?: ImageItemWithText[]
 	photos?: ImageItemWithText[]
+	chainedEvent?: SelOption[]
+	chainedObjects?: MultiSelOption[]
 }
 
-export const MainSection: FC<MainSectionProps> = ({ galleryOptions, photo, photos }) => {
+export const MainSection: FC<MainSectionProps> = ({
+	galleryOptions,
+	photo,
+	photos,
+	chainedObjects,
+	chainedEvent,
+}) => {
 	const { id = '0' } = useParams()
 	return (
 		<AdminSection className={styles.mainSection} isBlock={false}>
@@ -35,7 +45,7 @@ export const MainSection: FC<MainSectionProps> = ({ galleryOptions, photo, photo
 				<ControlledDateInput
 					className={adminStyles.adminDateInput}
 					label='Дата публикации'
-					name='date_from'
+					name='itemdate'
 					dateFormat='yyyy-MM-dd'
 					placeholder='гггг-мм-дд'
 				/>
@@ -49,10 +59,19 @@ export const MainSection: FC<MainSectionProps> = ({ galleryOptions, photo, photo
 					showTimeSelect
 				/>
 			</GridRow>
-			<ControlledInput
-				name='tags'
-				label='Введите теги через запятую. Не более 5 тегов на 1 новость'
-				placeholder='Тег1, тег 2'
+			<ControlledSelect
+				name='events'
+				label='Связанное событие'
+				selectOptions={chainedEvent ?? [{ label: 'Выберите событие', value: '0' }]}
+				margin='0 0 20px 0'
+			/>
+			<ControlledMultipleSelect
+				name='objlist'
+				label='Связанные объекты'
+				selectOptions={
+					chainedObjects ?? [{ label: 'Выберите объект', value: '0', selected: false }]
+				}
+				placeholder='Выберите объекты'
 				margin='0 0 20px 0'
 			/>
 			<ControlledInput name='relatedNews' label='Связанная новость' margin='0 0 20px 0' />

@@ -41,17 +41,26 @@ export const OneVideo = () => {
 	const { isSent, markAsSent } = useIsSent(methods.control)
 	const onSubmit: SubmitHandler<OneVideoInputs> = async (data) => {
 		const dateFormat = formatDate(data.itemdate)
+		let selectedObj = ''
+		if (typeof data.objlist !== 'string' && data.objlist) {
+			selectedObj = data.objlist
+				.filter((opt) => opt.selected)
+				.map((opt) => opt.value)
+				.join(',')
+		}
 		if (dateFormat) data.itemdate = dateFormat
 		const serverData = {
 			title: data.title,
 			itemdate: data.itemdate,
-			tags: data.tags,
 			short: data.short,
 			vkvideo: data.vkvideo,
 			vkexport: data.vkexport,
 			photo: data.photo,
 			key: booleanToNumberString(data.key),
 			hidden: booleanToNumberString(data.hidden),
+			id_event:
+				typeof data.events === 'string' ? data.events : data.events ? data.events[0].value : '0',
+			objlist: typeof data.objlist === 'string' ? data.objlist : data.objlist ? selectedObj : '0',
 		}
 		const videoInfoFormData = transformToFormData(serverData)
 		const videoId = id
@@ -79,7 +88,11 @@ export const OneVideo = () => {
 					<form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
 						<div className={styles.oneVideoContent}>
 							<div className={styles.oneVideoContentLeft}>
-								<MainSection photo={videoInfoData?.photo} />
+								<MainSection
+									photo={videoInfoData?.photo}
+									chainedEvent={videoInfoData?.events}
+									chainedObjects={videoInfoData?.objlist}
+								/>
 							</div>
 							<div className={styles.oneVideoContentRight}>
 								<SwitchedRadioBtns

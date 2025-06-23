@@ -1,4 +1,5 @@
 import { type ImageItemWithText } from './photos'
+import { type MultiSelOption, type SelOption } from './select'
 
 export type VideoItem = {
 	id: string
@@ -26,4 +27,6 @@ export type VideoInfoResponse = {
 	key: boolean
 	date: Date
 	photo: ImageItemWithText[]
+	events: SelOption[]
+	objlist: MultiSelOption[]
 }

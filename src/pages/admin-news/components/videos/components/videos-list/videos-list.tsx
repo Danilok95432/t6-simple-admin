@@ -57,11 +57,8 @@ export const VideosList = () => {
 					<p className={cn({ 'hidden-cell': videosEl.hidden })} key='1'>
 						{mainFormatDate(videosEl.date)}
 					</p>,
-					<p className={cn({ 'hidden-cell': videosEl.hidden })} key='2'>
-						{videosEl.tags}
-					</p>,
 					<MainCheckBox
-						key='3'
+						key='2'
 						checked={videosEl.key}
 						disabled={true}
 						svgNode={<CheckMarkSvg />}
@@ -72,7 +69,7 @@ export const VideosList = () => {
 						hideHandler={rowHideHandler}
 						removeHandler={rowDeleteHandler}
 						textOfHidden='Спрятать видео'
-						key='4'
+						key='3'
 					/>,
 				],
 			}

@@ -155,12 +155,12 @@ export const SwitchedRadioBtns: FC<SwitchedRadioBtnsProps & StyledRadioBtnsProps
 			{label && <p>{label}</p>}
 			<div className='innerBtns'>
 				<label>
-					<input type='radio' {...register(name)} onChange={() => handleChange(false)} />
-					<span className={cn({ _active: !watch(name) })}>{contentRadio1}</span>
+					<input type='radio' {...register(name)} onChange={() => handleChange(true)} />
+					<span className={cn({ _active: watch(name) })}>{contentRadio1}</span>
 				</label>
 				<label>
-					<input type='radio' {...register(name)} onChange={() => handleChange(true)} />
-					<span className={cn({ _active: watch(name) })}>{contentRadio2}</span>
+					<input type='radio' {...register(name)} onChange={() => handleChange(false)} />
+					<span className={cn({ _active: !watch(name) })}>{contentRadio2}</span>
 				</label>
 			</div>
 		</StyledSwitchedRadioBtns>

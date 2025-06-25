@@ -4,7 +4,7 @@ import * as yup from 'yup'
 
 export type EventContentInputs = {
 	placements?: placementsEvent[]
-	linksBlock_title: string
+	linksBlock_title?: string
 	hide_placements?: boolean
 	hide_gallery?: boolean
 	links?: linksEvent[]
@@ -13,6 +13,4 @@ export type EventContentInputs = {
 	hide_documents?: boolean
 }
 
-export const eventContentSchema = yup.object().shape({
-	linksBlock_title: yup.string().required('Введите название ссылок'),
-})
+export const eventContentSchema = yup.object().shape({})

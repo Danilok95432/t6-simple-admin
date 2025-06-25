@@ -65,7 +65,7 @@ export const AdminEventContent: FC = () => {
 			eventInfoFormData.append(`links_date[${index}]`, formatDateToYYYYMMDD(link.date))
 		})
 
-		eventInfoFormData.append('linksBlock_title', data.linksBlock_title)
+		eventInfoFormData.append('linksBlock_title', data.linksBlock_title ?? '')
 		eventInfoFormData.append('hide_placements', booleanToNumberString(data.hide_placements))
 		eventInfoFormData.append('hide_gallery', booleanToNumberString(data.hide_gallery))
 		eventInfoFormData.append('hide_links', booleanToNumberString(data.hide_links))

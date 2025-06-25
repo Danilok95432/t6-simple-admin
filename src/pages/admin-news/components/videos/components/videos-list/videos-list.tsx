@@ -42,7 +42,7 @@ export const VideosList = () => {
 		return newIdResponse.id
 	}
 
-	const tableTitles = ['Наименование', 'Дата', 'Теги', 'Ключевая', '']
+	const tableTitles = ['Наименование', 'Дата', 'Ключевая', '']
 	const formatObjectsTableData = (videosData: VideoItem[]) => {
 		return videosData.map((videosEl) => {
 			return {
